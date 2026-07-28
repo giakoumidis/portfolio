@@ -1,0 +1,616 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design tokens
+   ============================================================ */
+@theme {
+  /* Night city base — cool blacks with a violet undertone */
+  --color-bg: #05040f;
+  --color-bg-raised: #0c0820;
+  --color-panel: rgb(12 8 32 / 0.68);
+  --color-grid-dim: #1c1640;
+  --color-grid: #2e2860;
+
+  /* Neon primaries — cyberpunk / outrun */
+  --color-cyan: #00f0ff;
+  --color-magenta: #ff2bd6;
+  --color-violet: #8b5cff;
+  --color-amber: #ffb347;
+  --color-green: #39ff8c;
+
+  /* Extended neon set — sunset, laser, hot pink, alert, plasma */
+  --color-orange: #ff6a00;
+  --color-yellow: #f0ff3d;
+  --color-pink: #ff4d9e;
+  --color-red: #ff1744;
+  --color-blue: #3d8bff;
+
+  --color-text: #e8ecf8;
+  --color-text-dim: #8a93b5;
+
+  /* Ubuntu's default bash prompt: bright green user@host, blue working dir. */
+  --color-term-green: #8ae234;
+  --color-term-blue: #729fcf;
+
+  --font-display: var(--font-chakra), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  ::selection {
+    background-color: var(--color-cyan);
+    color: var(--color-bg);
+  }
+
+  /* Clears the fixed mobile status bar when jumping to an anchor. */
+  section[id] {
+    scroll-margin-top: 4rem;
+  }
+
+  @media (min-width: 1024px) {
+    section[id] {
+      scroll-margin-top: 0;
+    }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: 3px;
+  }
+
+  /* The page sits above the fixed CRT overlay's stacking context. */
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* ============================================================
+   Neon glow utilities — layered shadows, never a single one
+   ============================================================ */
+@utility glow-cyan {
+  color: var(--color-cyan);
+  text-shadow:
+    0 0 4px rgb(0 240 255 / 0.9),
+    0 0 12px rgb(0 240 255 / 0.4),
+    0 0 32px rgb(0 240 255 / 0.2);
+}
+
+@utility glow-magenta {
+  color: var(--color-magenta);
+  text-shadow:
+    0 0 4px rgb(255 43 214 / 0.9),
+    0 0 12px rgb(255 43 214 / 0.4),
+    0 0 32px rgb(255 43 214 / 0.2);
+}
+
+@utility glow-violet {
+  color: var(--color-violet);
+  text-shadow:
+    0 0 4px rgb(139 92 255 / 0.9),
+    0 0 12px rgb(139 92 255 / 0.4),
+    0 0 32px rgb(139 92 255 / 0.2);
+}
+
+@utility glow-amber {
+  color: var(--color-amber);
+  text-shadow:
+    0 0 4px rgb(255 179 71 / 0.9),
+    0 0 12px rgb(255 179 71 / 0.4),
+    0 0 32px rgb(255 179 71 / 0.2);
+}
+
+@utility glow-orange {
+  color: var(--color-orange);
+  text-shadow:
+    0 0 4px rgb(255 106 0 / 0.9),
+    0 0 12px rgb(255 106 0 / 0.45),
+    0 0 32px rgb(255 106 0 / 0.25);
+}
+
+@utility glow-yellow {
+  color: var(--color-yellow);
+  text-shadow:
+    0 0 4px rgb(240 255 61 / 0.9),
+    0 0 12px rgb(240 255 61 / 0.4),
+    0 0 32px rgb(240 255 61 / 0.2);
+}
+
+@utility glow-pink {
+  color: var(--color-pink);
+  text-shadow:
+    0 0 4px rgb(255 77 158 / 0.9),
+    0 0 12px rgb(255 77 158 / 0.4),
+    0 0 32px rgb(255 77 158 / 0.2);
+}
+
+@utility glow-red {
+  color: var(--color-red);
+  text-shadow:
+    0 0 4px rgb(255 23 68 / 0.9),
+    0 0 12px rgb(255 23 68 / 0.4),
+    0 0 32px rgb(255 23 68 / 0.2);
+}
+
+@utility glow-blue {
+  color: var(--color-blue);
+  text-shadow:
+    0 0 4px rgb(61 139 255 / 0.9),
+    0 0 12px rgb(61 139 255 / 0.4),
+    0 0 32px rgb(61 139 255 / 0.2);
+}
+
+@utility glow-green {
+  color: var(--color-green);
+  text-shadow:
+    0 0 4px rgb(57 255 140 / 0.9),
+    0 0 12px rgb(57 255 140 / 0.4),
+    0 0 32px rgb(57 255 140 / 0.2);
+}
+
+@utility panel-glow-cyan {
+  border-color: rgb(0 240 255 / 0.6);
+  box-shadow:
+    0 0 8px rgb(0 240 255 / 0.25),
+    0 0 24px rgb(0 240 255 / 0.12),
+    inset 0 0 12px rgb(0 240 255 / 0.08);
+}
+
+@utility panel-glow-magenta {
+  border-color: rgb(255 43 214 / 0.6);
+  box-shadow:
+    0 0 8px rgb(255 43 214 / 0.25),
+    0 0 24px rgb(255 43 214 / 0.12),
+    inset 0 0 12px rgb(255 43 214 / 0.08);
+}
+
+@utility panel-glow-violet {
+  border-color: rgb(139 92 255 / 0.6);
+  box-shadow:
+    0 0 8px rgb(139 92 255 / 0.25),
+    0 0 24px rgb(139 92 255 / 0.12),
+    inset 0 0 12px rgb(139 92 255 / 0.08);
+}
+
+@utility panel-glow-amber {
+  border-color: rgb(255 179 71 / 0.6);
+  box-shadow:
+    0 0 8px rgb(255 179 71 / 0.25),
+    0 0 24px rgb(255 179 71 / 0.12),
+    inset 0 0 12px rgb(255 179 71 / 0.08);
+}
+
+@utility panel-glow-orange {
+  border-color: rgb(255 106 0 / 0.6);
+  box-shadow:
+    0 0 8px rgb(255 106 0 / 0.3),
+    0 0 24px rgb(255 106 0 / 0.14),
+    inset 0 0 12px rgb(255 106 0 / 0.08);
+}
+
+@utility panel-glow-yellow {
+  border-color: rgb(240 255 61 / 0.6);
+  box-shadow:
+    0 0 8px rgb(240 255 61 / 0.25),
+    0 0 24px rgb(240 255 61 / 0.12),
+    inset 0 0 12px rgb(240 255 61 / 0.08);
+}
+
+@utility panel-glow-pink {
+  border-color: rgb(255 77 158 / 0.6);
+  box-shadow:
+    0 0 8px rgb(255 77 158 / 0.25),
+    0 0 24px rgb(255 77 158 / 0.12),
+    inset 0 0 12px rgb(255 77 158 / 0.08);
+}
+
+@utility panel-glow-red {
+  border-color: rgb(255 23 68 / 0.6);
+  box-shadow:
+    0 0 8px rgb(255 23 68 / 0.25),
+    0 0 24px rgb(255 23 68 / 0.12),
+    inset 0 0 12px rgb(255 23 68 / 0.08);
+}
+
+@utility panel-glow-blue {
+  border-color: rgb(61 139 255 / 0.6);
+  box-shadow:
+    0 0 8px rgb(61 139 255 / 0.25),
+    0 0 24px rgb(61 139 255 / 0.12),
+    inset 0 0 12px rgb(61 139 255 / 0.08);
+}
+
+@utility panel-glow-green {
+  border-color: rgb(57 255 140 / 0.6);
+  box-shadow:
+    0 0 8px rgb(57 255 140 / 0.25),
+    0 0 24px rgb(57 255 140 / 0.12),
+    inset 0 0 12px rgb(57 255 140 / 0.08);
+}
+
+/* Mono telemetry / label style used for every kicker and tag */
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* Shared section rhythm */
+@utility section-shell {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  padding-block: 6rem;
+
+  @media (min-width: 1024px) {
+    padding-block: 8rem;
+    /* Keeps content clear of the fixed left-side chapter rail (index + tick + label). */
+    padding-left: 11rem;
+  }
+}
+
+/* ============================================================
+   Robo-photo — retro duotone treatment for real project photos.
+   The colour image is always in the DOM; the filter + tint fake a
+   cyan/magenta duotone that lifts on hover to reveal the original.
+   ============================================================ */
+.robo-photo-img {
+  filter: grayscale(0.9) contrast(1.08) brightness(0.78) sepia(0.32)
+    hue-rotate(175deg) saturate(2.2);
+  transition: filter 0.5s var(--ease-reveal);
+  /* Soften casual save / drag of the thumbnails themselves. */
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.robo-photo:hover .robo-photo-img,
+.robo-photo:focus-within .robo-photo-img {
+  filter: none;
+}
+
+.robo-photo-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* Transparent hit target so the <img> never receives right-click / drag. */
+  background: transparent;
+}
+
+.robo-photo-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    160deg,
+    rgb(0 240 255 / 0.16),
+    rgb(139 92 255 / 0.1) 38%,
+    transparent 52%,
+    rgb(255 106 0 / 0.14) 78%,
+    rgb(255 43 214 / 0.2)
+  );
+  mix-blend-mode: screen;
+  transition: opacity 0.5s var(--ease-reveal);
+}
+
+.robo-photo:hover .robo-photo-tint,
+.robo-photo:focus-within .robo-photo-tint {
+  opacity: 0;
+}
+
+.robo-photo-scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgb(0 0 0 / 0.18) 0px,
+    rgb(0 0 0 / 0.18) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* ============================================================
+   Photo lightbox — protected full-viewport viewer
+   ============================================================ */
+.photo-lightbox {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.photo-lightbox-image {
+  background-color: var(--color-bg, #05070b);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.photo-lightbox-shield {
+  z-index: 5;
+  /* Blocks context-menu / drag targeting of the painted pixels. */
+  background: transparent;
+  cursor: default;
+  -webkit-user-drag: none;
+}
+
+.photo-lightbox-watermark {
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image: repeating-linear-gradient(
+    -32deg,
+    transparent 0,
+    transparent 46px,
+    rgb(0 240 255 / 0.55) 46px,
+    rgb(0 240 255 / 0.55) 47px,
+    transparent 47px,
+    transparent 92px
+  );
+}
+
+.photo-lightbox-watermark::after {
+  content: "VIEW ONLY · NIKOLAOS GIAKOUMIDIS · NOT FOR DISTRIBUTION";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 140%;
+  transform: translate(-50%, -50%) rotate(-28deg);
+  text-align: center;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: clamp(0.7rem, 1.6vw, 1rem);
+  letter-spacing: 0.18em;
+  color: rgb(0 240 255 / 0.55);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   Node graph — packets travelling along the ROS-style edges
+   ============================================================ */
+@keyframes node-pulse-travel {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+.node-pulse {
+  offset-rotate: 0deg;
+  animation: node-pulse-travel var(--pulse-duration, 6s) linear infinite;
+  animation-delay: var(--pulse-delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node-pulse {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Keyframes — all gated on prefers-reduced-motion
+   ============================================================ */
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes glitch-a {
+  0% {
+    clip-path: inset(12% 0 82% 0);
+    transform: translate(-2px, -1px);
+  }
+  20% {
+    clip-path: inset(64% 0 22% 0);
+    transform: translate(2px, 1px);
+  }
+  40% {
+    clip-path: inset(38% 0 47% 0);
+    transform: translate(-2px, 1px);
+  }
+  60% {
+    clip-path: inset(80% 0 6% 0);
+    transform: translate(1px, -1px);
+  }
+  80% {
+    clip-path: inset(26% 0 66% 0);
+    transform: translate(-1px, 0);
+  }
+  100% {
+    clip-path: inset(0 0 100% 0);
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes glitch-b {
+  0% {
+    clip-path: inset(72% 0 18% 0);
+    transform: translate(2px, 1px);
+  }
+  20% {
+    clip-path: inset(16% 0 74% 0);
+    transform: translate(-2px, -1px);
+  }
+  40% {
+    clip-path: inset(54% 0 32% 0);
+    transform: translate(2px, -1px);
+  }
+  60% {
+    clip-path: inset(30% 0 58% 0);
+    transform: translate(-1px, 1px);
+  }
+  80% {
+    clip-path: inset(88% 0 4% 0);
+    transform: translate(1px, 0);
+  }
+  100% {
+    clip-path: inset(0 0 100% 0);
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+.animate-blink {
+  animation: blink 1.05s steps(1, end) infinite;
+}
+
+.animate-bob {
+  animation: bob 2s var(--ease-reveal) infinite;
+}
+
+/* Glitch/RGB-split heading: two coloured copies sliced on top of the text */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch[data-glitch="on"]::before,
+.glitch[data-glitch="on"]::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.glitch[data-glitch="on"]::before {
+  color: var(--color-cyan);
+  animation: glitch-a 1.2s steps(2, end) 1 both;
+}
+
+.glitch[data-glitch="on"]::after {
+  color: var(--color-magenta);
+  animation: glitch-b 1.2s steps(2, end) 1 both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-blink,
+  .animate-bob,
+  .glitch[data-glitch="on"]::before,
+  .glitch[data-glitch="on"]::after {
+    animation: none;
+  }
+
+  .glitch[data-glitch="on"]::before,
+  .glitch[data-glitch="on"]::after {
+    display: none;
+  }
+}
+
+/* Fixed soundtrack volume control */
+.audio-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.25rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-grid) 80%, transparent);
+}
+
+.audio-slider::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.25rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-grid) 80%, transparent);
+}
+
+.audio-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-top: -0.225rem;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--color-cyan);
+  box-shadow: 0 0 8px rgb(0 240 255 / 0.55);
+  cursor: pointer;
+}
+
+.audio-slider::-moz-range-track {
+  height: 0.25rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-grid) 80%, transparent);
+}
+
+.audio-slider::-moz-range-thumb {
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--color-cyan);
+  box-shadow: 0 0 8px rgb(0 240 255 / 0.55);
+  cursor: pointer;
+}

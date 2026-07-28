@@ -1,0 +1,2 @@
+Unitree G1 (23 DOF) model derived from https://github.com/unitreerobotics/unitree_ros (BSD-3-Clause, Unitree Robotics).
+Visual meshes decimated for web; collision/inertial stripped; materials replaced at runtime.

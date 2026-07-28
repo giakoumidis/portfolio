@@ -1,0 +1,4 @@
+DJI Matrice 100 visual meshes and URDF derived from
+https://github.com/dji-m100-ros/dji_m100_description (MIT License),
+originally from https://github.com/caochao39/hku_m100_description.
+Rotor macros from Rotors Simulator (Apache-2.0). Visual-only for web.

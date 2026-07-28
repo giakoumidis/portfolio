@@ -1,0 +1,3 @@
+KUKA LBR iiwa 14 R820 visual meshes and URDF derived from
+https://github.com/kroshu/kuka_robot_descriptions (Apache-2.0).
+Visual meshes only; collision/inertial stripped for web.

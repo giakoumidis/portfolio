@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!-- Visual-only KUKA LBR iiwa 14 R820, derived from kuka_robot_descriptions
+     (Apache-2.0, kroshu). Meshes from visual/; collision/inertial stripped for web.
+     Runtime materials in RobotStage may still override these. -->
+<robot name="lbr_iiwa14_r820">
+  <material name="body">
+    <color rgba="1 0.701961 0.278431 1"/>
+  </material>
+  <material name="accent">
+    <color rgba="0 0.941176 1 1"/>
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="meshes/base_link.stl"/></geometry>
+      <material name="body"/>
+    </visual>
+  </link>
+
+  <link name="link_1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="meshes/link_1.stl"/></geometry>
+      <material name="accent"/>
+    </visual>
+  </link>
+  <joint name="joint_1" type="revolute">
+    <parent link="base_link"/>
+    <child link="link_1"/>
+    <origin xyz="0 0 0.1575" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.96706" upper="2.96706" effort="0" velocity="1.48353"/>
+  </joint>
+
+  <link name="link_2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="meshes/link_2.stl"/></geometry>
+      <material name="body"/>
+    </visual>
+  </link>
+  <joint name="joint_2" type="revolute">
+    <parent link="link_1"/>
+    <child link="link_2"/>
+    <origin xyz="0 0 0.2025" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.0944" upper="2.0944" effort="0" velocity="1.48353"/>
+  </joint>
+
+  <link name="link_3">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="meshes/link_3.stl"/></geometry>
+      <material name="accent"/>
+    </visual>
+  </link>
+  <joint name="joint_3" type="revolute">
+    <parent link="link_2"/>
+    <child link="link_3"/>
+    <origin xyz="0 0 0.2045" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.96706" upper="2.96706" effort="0" velocity="1.74533"/>
+  </joint>
+
+  <link name="link_4">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="meshes/link_4.stl"/></geometry>
+      <material name="body"/>
+    </visual>
+  </link>
+  <joint name="joint_4" type="revolute">
+    <parent link="link_3"/>
+    <child link="link_4"/>
+    <origin xyz="0 0 0.2155" rpy="0 0 0"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="-2.0944" upper="2.0944" effort="0" velocity="1.309"/>
+  </joint>
+
+  <link name="link_5">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="meshes/link_5.stl"/></geometry>
+      <material name="accent"/>
+    </visual>
+  </link>
+  <joint name="joint_5" type="revolute">
+    <parent link="link_4"/>
+    <child link="link_5"/>
+    <origin xyz="0 0 0.1845" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.96706" upper="2.96706" effort="0" velocity="2.26893"/>
+  </joint>
+
+  <link name="link_6">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="meshes/link_6.stl"/></geometry>
+      <material name="body"/>
+    </visual>
+  </link>
+  <joint name="joint_6" type="revolute">
+    <parent link="link_5"/>
+    <child link="link_6"/>
+    <origin xyz="0 0 0.2155" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.0944" upper="2.0944" effort="0" velocity="2.35619"/>
+  </joint>
+
+  <link name="link_7">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="meshes/link_7.stl"/></geometry>
+      <material name="accent"/>
+    </visual>
+  </link>
+  <joint name="joint_7" type="revolute">
+    <parent link="link_6"/>
+    <child link="link_7"/>
+    <origin xyz="0 0 0.081" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.05433" upper="3.05433" effort="0" velocity="2.35619"/>
+  </joint>
+</robot>

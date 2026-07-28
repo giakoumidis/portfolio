@@ -1,0 +1,2 @@
+Husky A200 model derived from https://github.com/husky/husky (BSD-3-Clause, Clearpath Robotics).
+Visual meshes decimated for web; materials replaced at runtime.

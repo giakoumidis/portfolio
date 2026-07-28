@@ -1,0 +1,4 @@
+Spot simple visual meshes and URDF derived from
+https://github.com/rai-opensource/spot_description
+(MIT License, RAI Institute).
+Retinted for this portfolio; collision/inertial stripped for web.

@@ -1,0 +1,12 @@
+Hero LiDAR point cloud (hero-pointcloud.json)
+
+Sources: Neara Pole1, Pole3, Pole6, Pole8 .las files
+https://github.com/Neara-Software/ground_segmentation_exercise
+
+Outdoor iPad LiDAR captures. Elevated returns are clustered into object kinds:
+  - pole (orange)
+  - tree (pink)
+  - structure (magenta)
+  - ground (cyan)
+
+Downsampled and normalised for the outrun grid projection.
