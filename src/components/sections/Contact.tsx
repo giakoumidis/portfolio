@@ -47,7 +47,7 @@ function WindowControls() {
   );
 }
 
-function CopyEmailButton({ email }: { email: string }) {
+function CopyEmailButton({ email, targetId }: { email: string; targetId: string }) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
@@ -58,7 +58,7 @@ function CopyEmailButton({ email }: { email: string }) {
     } catch {
       // Fallback for older browsers / denied clipboard permission.
       const range = document.createRange();
-      const node = document.getElementById("contact-email");
+      const node = document.getElementById(targetId);
       if (!node) return;
       range.selectNodeContents(node);
       const selection = window.getSelection();
@@ -76,6 +76,27 @@ function CopyEmailButton({ email }: { email: string }) {
     >
       {copied ? "copied" : "copy"}
     </button>
+  );
+}
+
+function ContactEmailRow({
+  email,
+  id,
+}: {
+  email: string;
+  id: string;
+}) {
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      <a
+        id={id}
+        href={`mailto:${email}`}
+        className="select-all text-cyan transition-colors duration-200 hover:underline hover:underline-offset-4"
+      >
+        {email}
+      </a>
+      <CopyEmailButton email={email} targetId={id} />
+    </div>
   );
 }
 
@@ -165,15 +186,22 @@ export default function Contact() {
 
               {line >= 4 && (
                 <>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <a
+                  <div className="space-y-2">
+                    <ContactEmailRow
                       id="contact-email"
-                      href={`mailto:${profile.email}`}
-                      className="select-all text-cyan transition-colors duration-200 hover:underline hover:underline-offset-4"
+                      email={profile.email}
+                    />
+                    <ContactEmailRow
+                      id="contact-nyu-email"
+                      email={profile.nyuEmail}
+                    />
+                    <a
+                      href={`tel:${profile.phone}`}
+                      className="inline-flex select-all text-cyan transition-colors duration-200 hover:underline hover:underline-offset-4"
+                      aria-label={`Call ${profile.phoneDisplay}`}
                     >
-                      {profile.email}
+                      {profile.phoneDisplay}
                     </a>
-                    <CopyEmailButton email={profile.email} />
                   </div>
 
                   <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2">

@@ -5,6 +5,9 @@ export const profile = {
   tagline: "ROBOTICS · AI · AUTONOMOUS SYSTEMS",
   location: "Abu Dhabi, UAE",
   email: "giakoumidis@hotmail.com",
+  nyuEmail: "giakoumidis@nyu.edu",
+  phone: "+971501065039",
+  phoneDisplay: "+971 50 106 5039",
   summary:
     "Robotics, AI, and automation engineer with 15+ years of hands-on experience building advanced research infrastructure, developing autonomous systems, and delivering technology for real-world use across the UAE. Deep technical expertise in embodied and physical AI, multimodal perception, lab automation, and complex robotic systems, combined with a practical understanding of the operational, administrative, and stakeholder requirements needed to turn advanced technology into deployable projects. Currently focused on scalable multi-agent robotic systems for inspection and real-world deployment, combining technical depth with research translation, external engagement, and implementation across government, industry, and research environments.",
   positioning:

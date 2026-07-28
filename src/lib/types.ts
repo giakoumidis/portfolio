@@ -33,6 +33,12 @@ export type Profile = {
   tagline: string;
   location: string;
   email: string;
+  /** Institutional / NYU address shown alongside the personal email. */
+  nyuEmail: string;
+  /** E.164 phone number used for `tel:` links (e.g. +971501065039). */
+  phone: string;
+  /** Human-readable phone for display (spaces allowed). */
+  phoneDisplay: string;
   summary: string;
   positioning: string;
   currentRole: CurrentRole;
