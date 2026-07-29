@@ -332,17 +332,18 @@ export const projects: Project[] = [
       "Kinematic retargeting",
       "Human-robot interaction",
     ],
+    video: {
+      provider: "youtube",
+      id: "4N16kaWdQTM",
+      title:
+        "Real-time teleoperation of an industrial robotic arm through human arm movement imitation",
+    },
     images: [
       {
         src: "/images/projects/teleop-mocap.jpg",
         alt: "Operator in a motion-capture marker suit holding a T-pose for calibration in the IRML lab",
         caption: "MARKER SUIT — OPERATOR CALIBRATION",
         orientation: "portrait",
-      },
-      {
-        src: "/images/projects/teleop-arm.jpg",
-        alt: "Top-down view of the industrial robotic arm on its test field, surrounded by reach targets",
-        caption: "ARM TEST FIELD — REACH TARGETS",
       },
     ],
     paper: {
