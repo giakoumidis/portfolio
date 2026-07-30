@@ -3,6 +3,7 @@ import Link from "next/link";
 import SystemRecord from "@/components/work/SystemRecord";
 import TaxonomyChip from "@/components/work/TaxonomyChip";
 import InstagramMedia from "@/components/ui/InstagramMedia";
+import LocalVideoEvidenceLink from "@/components/ui/LocalVideoEvidenceLink";
 import LocalVideoPlayer from "@/components/ui/LocalVideoPlayer";
 import NeonButton from "@/components/ui/NeonButton";
 import RoboPhoto from "@/components/ui/RoboPhoto";
@@ -198,14 +199,18 @@ export default function CaseFileLayout({ caseFile }: CaseFileLayoutProps) {
                     {item.type.replace(/-/g, " ")}
                   </p>
                   {url ? (
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-2 block font-body text-sm font-medium text-text transition-colors hover:text-cyan hover:underline hover:underline-offset-4"
-                    >
-                      {title}
-                    </a>
+                    item.type === "video" && url.startsWith("/") ? (
+                      <LocalVideoEvidenceLink src={url} title={title} />
+                    ) : (
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 block font-body text-sm font-medium text-text transition-colors hover:text-cyan hover:underline hover:underline-offset-4"
+                      >
+                        {title}
+                      </a>
+                    )
                   ) : (
                     <p className="mt-2 font-body text-sm text-text">{title}</p>
                   )}

@@ -6,6 +6,7 @@ import LocalVideoPlayer from "@/components/ui/LocalVideoPlayer";
 import NeonButton from "@/components/ui/NeonButton";
 import Reveal from "@/components/ui/Reveal";
 import RoboPhoto from "@/components/ui/RoboPhoto";
+import WatchLocalDemoButton from "@/components/ui/WatchLocalDemoButton";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
 import type { Project } from "@/lib/types";
 
@@ -261,9 +262,12 @@ export default function ProjectCards({
                         </NeonButton>
                       )}
                       {project.video?.provider === "local" && (
-                        <NeonButton href={project.video.src} external>
-                          Watch demo →
-                        </NeonButton>
+                        <WatchLocalDemoButton
+                          src={project.video.src}
+                          title={project.video.title}
+                          poster={project.video.poster}
+                          type={project.video.type}
+                        />
                       )}
                       {project.paper && (
                         <NeonButton

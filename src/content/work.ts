@@ -55,6 +55,95 @@ export const workRecords: ProjectRecord[] = [
   },
   {
     type: "project",
+    slug: "etihad-rail-desert-environment-monitoring",
+    title: "Digital Twin-Based Desert Environment Monitoring for Rail Tracks",
+    org: "NYU Abu Dhabi · SMART Lab with Etihad Rail",
+    period: { startYear: 2024, label: "2024" },
+    summary:
+      "Proposed and field-piloted a train-mounted sensing concept for Etihad Rail: LiDAR, cameras, and supporting sensors capture the rail corridor so the surrounding geo-environment can be reconstructed in 3D. The aim is early detection of desert-environment hazards that threaten operations — sand movement, water accumulation, and vegetation encroachment — giving maintenance teams a proactive view of track-side risk across UAE conditions.",
+    contributionSummary:
+      "Supported the Etihad Rail proposal and train-side sensing pilot — coordinating the industry engagement and the field installation of the rearward LiDAR and camera payload used to capture corridor evidence for the desert-environment monitoring concept.",
+    highlights: [
+      "Addresses Middle Eastern rail hazards that cab visibility alone cannot cover: sand dune shifts, flood-related water pooling, and vegetation growth along the alignment.",
+      "Pilot sensor suite mounts LiDAR and cameras on selected trains to collect corridor data and regenerate a dynamic 3D view of the track-side geo-environment for visual monitoring and change detection.",
+      "Machine-learning analysis of environmental change patterns is intended to surface actionable alerts for operators and maintenance teams, supporting safer, more reliable service with fewer weather- and terrain-driven delays.",
+      "Scale path: expand onboard sensing across the fleet into a centralized platform that aggregates train and environmental feeds for network-wide risk awareness and maintenance planning.",
+    ],
+    credits: [
+      {
+        name: "Etihad Rail",
+        role: "Industry partner",
+      },
+      {
+        name: "Borja García de Soto",
+        role: "Principal Investigator",
+        org: "NYU Abu Dhabi · SMART Lab",
+      },
+      {
+        name: "SMART Lab",
+        role: "Research partner",
+        org: "NYU Abu Dhabi",
+      },
+    ],
+    facets: {
+      domains: [
+        "perception-sensing",
+        "sim2real-digital-twins",
+        "industry-engagement",
+      ],
+      contributions: ["supported", "field-testing", "commercialized"],
+      applications: ["rail-transport"],
+      methods: ["sensor-fusion", "slam", "deep-learning"],
+      outcomes: [
+        "industry-collaboration",
+        "deployed-prototype",
+        "public-demonstration",
+      ],
+    },
+    relations: [
+      {
+        type: "continuation-of",
+        target: {
+          type: "project",
+          slug: "etihad-rail-nyuad-collaboration",
+        },
+        label: "Field sensing pilot within the Etihad Rail × NYUAD collaboration",
+      },
+    ],
+    evidence: [
+      {
+        type: "photograph",
+        title: "Train-mounted LiDAR and camera payload on an Etihad Rail locomotive",
+      },
+      {
+        type: "video",
+        title: "Field walkaround of the train-mounted desert-environment sensing payload",
+        url: "/videos/projects/etihad-rail-rear-facing-camera/etihad-rail-rear-facing-camera.mp4",
+      },
+    ],
+    video: {
+      provider: "local",
+      src: "/videos/projects/etihad-rail-rear-facing-camera/etihad-rail-rear-facing-camera.mp4",
+      title: "Field walkaround of the train-mounted desert-environment sensing payload",
+      poster: "/images/projects/etihad-rail-rear-camera-poster.jpg",
+    },
+    images: [
+      {
+        src: "/images/projects/etihad-rail-rear-camera-team.jpg",
+        alt: "Three engineers in PPE on the rear platform of an Etihad Rail locomotive with a LiDAR and camera sensing payload mounted on the handrail",
+        caption: "FIELD CREW — TRAIN SENSOR INSTALL",
+        orientation: "portrait",
+      },
+      {
+        src: "/images/projects/etihad-rail-rear-camera-mount.jpg",
+        alt: "Close-up of LiDAR and camera sensors bracketed to the train rear handrail, with an Etihad Rail service vehicle beside the tracks",
+        caption: "LIDAR · CAMERA — REAR HANDRAIL MOUNT",
+      },
+    ],
+    status: "published",
+  },
+  {
+    type: "project",
     slug: "multiagent-construction-exploration",
     title: "Multi-Agent Exploration for Construction Data Collection",
     org: "NYU Abu Dhabi · SMART Lab",
@@ -672,7 +761,17 @@ export const workRecords: ProjectRecord[] = [
           slug: "hri-2011-android-telepresence",
         },
       },
+      {
+        type: "video",
+        title: "IbnSina emotions",
+        url: "https://www.youtube.com/watch?v=N_44f5REabo",
+      },
     ],
+    video: {
+      provider: "youtube",
+      id: "N_44f5REabo",
+      title: "IbnSina emotions",
+    },
     images: [
       {
         src: "/images/projects/android-head.jpg",
