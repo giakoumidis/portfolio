@@ -15,16 +15,12 @@ import Search from "@/components/sections/Search";
 import Signal from "@/components/sections/Signal";
 import TechArsenal from "@/components/sections/TechArsenal";
 import Timeline from "@/components/sections/Timeline";
-import BackgroundMusic from "@/components/ui/BackgroundMusic";
-import ScrollCue from "@/components/ui/ScrollCue";
 
 export default function Home() {
   return (
     <>
       <HudRail />
       <CommandPalette />
-      <BackgroundMusic />
-      <ScrollCue />
       <main>
         <Hero />
         <About />

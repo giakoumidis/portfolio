@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Chakra_Petch, Inter, JetBrains_Mono } from "next/font/google";
+import BackgroundMusic from "@/components/ui/BackgroundMusic";
 import Scanlines from "@/components/ui/Scanlines";
+import ScrollCue from "@/components/ui/ScrollCue";
 import { profile } from "@/content/profile";
 import { siteDescription, siteTitle, siteUrl } from "@/lib/site";
 import "./globals.css";
@@ -121,6 +123,8 @@ export default function RootLayout({
           Skip to content
         </a>
         <Scanlines />
+        <BackgroundMusic />
+        <ScrollCue />
         {children}
       </body>
     </html>
