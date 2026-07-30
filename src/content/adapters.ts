@@ -88,7 +88,7 @@ export function infrastructureToLegacy(
     highlights: record.highlights ?? [],
     tags: record.contributions.map(taxonomyLabel).slice(0, 5),
     video: record.video,
-    images: record.images,
+    images: record.imagesOnIndex === false ? undefined : record.images,
     link: record.link,
     relatedPapers: allRelated.length > 0 ? allRelated : undefined,
     relatedPapersLabel: record.relatedPapersLabel,

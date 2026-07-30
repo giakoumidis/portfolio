@@ -218,6 +218,7 @@ export const infrastructureRecords: InfrastructureRecord[] = [
         caption: "MICROPLATE LABELER — CAB A2+ & STACKER",
       },
     ],
+    imagesOnIndex: false,
     status: "published",
   },
 ];

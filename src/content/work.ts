@@ -8,16 +8,21 @@ export const workRecords: ProjectRecord[] = [
     org: "NYU Abu Dhabi · CAIR with Etihad Rail",
     period: { startYear: 2024, label: "2024" },
     summary:
-      "Industry engagement with Etihad Rail to explore integrating artificial intelligence and robotics into rail operations — including depot trials where Spot collects multimodal inspection data around locomotives for downstream analysis and predictive maintenance — translating NYUAD research capabilities into collaborative experiments aimed at efficiency, sustainability, and next-generation rail transport standards.",
+      "Industry engagement with Etihad Rail to explore integrating artificial intelligence and robotics into rail operations — including depot inspection trials where I operated Boston Dynamics Spot to collect multimodal data around locomotives for downstream analysis and predictive maintenance — translating NYUAD research capabilities into collaborative experiments aimed at efficiency, sustainability, and next-generation rail transport standards.",
     contributionSummary:
-      "Led industry-facing translation of CAIR autonomous-systems research into a strategic collaboration with Etihad Rail — stakeholder engagement, lab and depot site visits where Spot gathered multimodal locomotive data for analysis and predictive maintenance, and public demonstration of partnership intent.",
+      "Led industry-facing translation of CAIR autonomous-systems research into a strategic collaboration with Etihad Rail — stakeholder engagement, lab visits, and depot inspection with Spot, which I operated to gather multimodal locomotive data for analysis and predictive maintenance, plus public demonstration of partnership intent.",
     highlights: [
       "Featured in Etihad Rail's public announcement of the collaboration with New York University Abu Dhabi on AI and robotics for rail operations.",
-      "In the depot, Spot collects multimodal sensor data around locomotives — feeding further analysis aimed at predictive maintenance rather than one-off visual checks alone.",
+      "At the Etihad Rail depot I used Spot for locomotive inspection — collecting multimodal sensor data that feeds further analysis aimed at predictive maintenance rather than one-off visual checks alone.",
       "Aligns with CAIR's commercialization track: stakeholder engagement, lab and site visits, and industry-facing translation of autonomous systems research.",
       "Part of a broader external engagement model spanning infrastructure partners across the UAE transport and logistics ecosystem.",
     ],
     credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Commercial Lead",
+        org: "NYU Abu Dhabi · CAIR",
+      },
       {
         name: "Etihad Rail",
         role: "Industry partner",
@@ -100,6 +105,11 @@ export const workRecords: ProjectRecord[] = [
       "Scale path: expand onboard sensing across the fleet into a centralized platform that aggregates train and environmental feeds for network-wide risk awareness and maintenance planning.",
     ],
     credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Industry engagement · field sensing",
+        org: "NYU Abu Dhabi",
+      },
       {
         name: "Etihad Rail",
         role: "Industry partner",
@@ -189,6 +199,11 @@ export const workRecords: ProjectRecord[] = [
     ],
     credits: [
       {
+        name: "Nikolaos Giakoumidis",
+        role: "Co-author",
+        org: "NYU Abu Dhabi · SMART Lab",
+      },
+      {
         name: "Samuel A. Prieto",
         role: "Lead author",
         org: "NYU Abu Dhabi · SMART Lab",
@@ -243,6 +258,11 @@ export const workRecords: ProjectRecord[] = [
       "Published in IEEE Access; the most-cited work in my publication record (170+ citations).",
     ],
     credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Co-author",
+        org: "NYU Abu Dhabi",
+      },
       {
         name: "Mohamad Eid",
         role: "Lead author · Principal Investigator",
@@ -315,6 +335,11 @@ export const workRecords: ProjectRecord[] = [
       "Configured and handed over Newmark motion-control software to follow-on operators, and supported filming plus assembly animation used toward manuscript supplementary material.",
     ],
     credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Instrumentation design & integration",
+        org: "NYU Abu Dhabi",
+      },
       {
         name: "Panče Naumov",
         role: "Principal Investigator",
@@ -421,6 +446,11 @@ export const workRecords: ProjectRecord[] = [
     ],
     credits: [
       {
+        name: "Nikolaos Giakoumidis",
+        role: "Electronics design · hardware validation",
+        org: "NYU Abu Dhabi",
+      },
+      {
         name: "Ozgur Sinanoglu",
         role: "Principal Investigator",
         org: "NYU Abu Dhabi · Hardware Security Group",
@@ -477,6 +507,11 @@ export const workRecords: ProjectRecord[] = [
       "Featured by NYU Abu Dhabi as part of its industry collaboration with Abu Dhabi Airports on maintaining safety standards at Abu Dhabi International Airport.",
     ],
     credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "System integration",
+        org: "NYU Abu Dhabi · CAIR",
+      },
       {
         name: "Abu Dhabi Airports (ADAC)",
         role: "Industry partner",
@@ -535,6 +570,11 @@ export const workRecords: ProjectRecord[] = [
       "Flagship RGB-T detection and tracking demo integrated and flight-tested inside NYUAD's netted Kinesis arena with pan-tilt-zoom camera coverage — evidence spans six peer-reviewed outputs plus the live arena video.",
     ],
     credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "System integration · Co-author",
+        org: "NYU Abu Dhabi · CAIR",
+      },
       {
         name: "Anthony Tzes",
         role: "Principal Investigator",
@@ -667,6 +707,11 @@ export const workRecords: ProjectRecord[] = [
     ],
     credits: [
       {
+        name: "Nikolaos Giakoumidis",
+        role: "System integration · field sensing",
+        org: "NYU Abu Dhabi",
+      },
+      {
         name: "Imperial College London · Innovation Design Engineering (IDE)",
         role: "Research partner",
       },
@@ -724,6 +769,11 @@ export const workRecords: ProjectRecord[] = [
       "First-author paper at the 10th International Conference on Frontiers of Information Technology; still cited in later aerial terrain mapping work for ground robot navigation.",
     ],
     credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Lead author",
+        org: "Interactive Robots and Media Lab (IRML)",
+      },
       {
         name: "Nikolaos Mavridis",
         role: "Principal Investigator",
@@ -791,6 +841,11 @@ export const workRecords: ProjectRecord[] = [
       "Presented at IRIS 2010; the follow-up evaluation framework appeared in the International Journal of Social Robotics (2012).",
     ],
     credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Co-author",
+        org: "Interactive Robots and Media Lab (IRML)",
+      },
       {
         name: "Nikolaos Mavridis",
         role: "Principal Investigator · Lead author",
@@ -869,6 +924,11 @@ export const workRecords: ProjectRecord[] = [
     ],
     credits: [
       {
+        name: "Nikolaos Giakoumidis",
+        role: "Co-author",
+        org: "Interactive Robots and Media Lab (IRML)",
+      },
+      {
         name: "Nikolaos Mavridis",
         role: "Principal Investigator · Lead author",
         org: "Interactive Robots and Media Lab (IRML)",
@@ -936,6 +996,11 @@ export const workRecords: ProjectRecord[] = [
       "Demo reel documents path planning of the quadcopter UAV with GPS using LabVIEW.",
     ],
     credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Sole author · Thesis",
+        org: "ΤΕΙ Piraeus · Department of Automation",
+      },
       {
         name: "Konstantinos Alafodimos",
         role: "Thesis supervisor",

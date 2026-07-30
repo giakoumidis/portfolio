@@ -30,35 +30,6 @@ export default function Awards() {
               <div id={award.id}>
               <HudCard accent="amber" className="h-full p-0">
                 <div className="flex h-full flex-col">
-                  {award.video?.provider === "youtube" && (
-                    <YouTubeEmbed
-                      videoId={award.video.id}
-                      title={award.video.title}
-                      className="border-0 border-b border-grid-dim"
-                    />
-                  )}
-
-                  {award.video?.provider === "local" && (
-                    <LocalVideoPlayer
-                      src={award.video.src}
-                      title={award.video.title}
-                      poster={award.video.poster}
-                      className="border-0 border-b border-grid-dim"
-                    />
-                  )}
-
-                  {award.image && (
-                    <RoboPhoto
-                      src={award.image.src}
-                      alt={award.image.alt}
-                      caption={award.image.caption}
-                      tag="AWD.01"
-                      aspect="min-h-48"
-                      sizes="(min-width: 1024px) 25vw, 100vw"
-                      className="border-0 border-b border-grid-dim"
-                    />
-                  )}
-
                   <div className="flex flex-1 flex-col p-6">
                     <p className="label-mono glow-amber">▲ {award.placement}</p>
 
@@ -115,6 +86,35 @@ export default function Awards() {
                       {award.year}
                     </p>
                   </div>
+
+                  {award.video?.provider === "youtube" && (
+                    <YouTubeEmbed
+                      videoId={award.video.id}
+                      title={award.video.title}
+                      className="border-0 border-t border-grid-dim"
+                    />
+                  )}
+
+                  {award.video?.provider === "local" && (
+                    <LocalVideoPlayer
+                      src={award.video.src}
+                      title={award.video.title}
+                      poster={award.video.poster}
+                      className="border-0 border-t border-grid-dim"
+                    />
+                  )}
+
+                  {award.image && (
+                    <RoboPhoto
+                      src={award.image.src}
+                      alt={award.image.alt}
+                      caption={award.image.caption}
+                      tag="AWD.01"
+                      aspect="min-h-48"
+                      sizes="(min-width: 1024px) 25vw, 100vw"
+                      className="border-0 border-t border-grid-dim"
+                    />
+                  )}
                 </div>
               </HudCard>
               </div>

@@ -250,6 +250,12 @@ export type Post = {
   url: string;
 };
 
+/** Linked case file or lab hub for a gallery photograph. */
+export type FieldPhotoProject = {
+  title: string;
+  href: string;
+};
+
 /** A photograph in the Field Log gallery — real shots from labs and deployments. */
 export type FieldPhoto = {
   /** Path under `/public`, e.g. "/images/field/dwc-desert-rig.jpg". */
@@ -257,8 +263,15 @@ export type FieldPhoto = {
   alt: string;
   /** Short telemetry-style caption; keep under ~45 characters. */
   caption: string;
+  /**
+   * Human-readable description shown under the caption.
+   * Defaults to `alt` when omitted.
+   */
+  description?: string;
   /** Where / when the shot was taken, e.g. "DUBAI · 2021". */
-  location: string;
+  location?: string;
+  /** Case file or lab hub this photo belongs to, when available. */
+  project?: FieldPhotoProject;
   /** Drives the crop in the gallery grid; defaults to landscape. */
   orientation?: "landscape" | "portrait";
 };
@@ -380,8 +393,7 @@ export type RecordStatus = "published" | "draft" | "needs-review";
 
 /**
  * Person or organization credited on a project case file.
- * Keep names full and roles precise — this separates collective credit
- * from the personal `contributionSummary`.
+ * Keep names full and roles precise.
  */
 export type ProjectCredit = {
   name: string;
@@ -404,7 +416,7 @@ export type ProjectRecord = {
   contributionSummary: string;
   /** Architecture / delivery bullets shown on the case file. */
   highlights?: string[];
-  /** People and organizations credited alongside the personal contribution. */
+  /** People and organizations credited on the case file, including the subject. */
   credits: NonEmptyArray<ProjectCredit>;
   facets: ProjectFacets;
   relations?: EntityRelation[];
@@ -441,6 +453,12 @@ export type InfrastructureRecord = {
   evidence?: EvidenceRef[];
   video?: ProjectVideo;
   images?: ProjectImage[];
+  /**
+   * When false, photos are omitted from homepage ProjectCards (keeps the
+   * media facade light) and still render on the lab hub page.
+   * Defaults to true.
+   */
+  imagesOnIndex?: boolean;
   link?: ProjectLink;
   relatedPapersLabel?: string;
   status?: RecordStatus;

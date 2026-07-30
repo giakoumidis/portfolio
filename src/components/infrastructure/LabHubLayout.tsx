@@ -23,6 +23,14 @@ export default function LabHubLayout({ hub }: LabHubLayoutProps) {
   } = hub;
   const video = record.video;
   const images = record.images;
+  const photoGallery =
+    images && images.length > 1
+      ? images.map((item) => ({
+          src: item.src,
+          alt: item.alt,
+          caption: item.caption,
+        }))
+      : undefined;
 
   return (
     <article className="section-shell py-16 lg:py-24">
@@ -75,7 +83,7 @@ export default function LabHubLayout({ hub }: LabHubLayoutProps) {
               type={video.type}
             />
           )}
-          {images?.map((image) => (
+          {images?.map((image, i) => (
             <RoboPhoto
               key={image.src}
               src={image.src}
@@ -85,6 +93,8 @@ export default function LabHubLayout({ hub }: LabHubLayoutProps) {
                 image.orientation === "portrait" ? "min-h-96" : "min-h-64"
               }
               sizes="(min-width: 1024px) 50vw, 100vw"
+              gallery={photoGallery}
+              galleryIndex={i}
             />
           ))}
         </div>

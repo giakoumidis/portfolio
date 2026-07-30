@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { useCallback, useState } from "react";
 
-import PhotoLightbox from "@/components/ui/PhotoLightbox";
+import PhotoLightbox, {
+  type LightboxPhoto,
+} from "@/components/ui/PhotoLightbox";
 
 type RoboPhotoProps = {
   src: string;
@@ -11,11 +13,25 @@ type RoboPhotoProps = {
   /** Mono kicker at the start of the caption, e.g. "FIG.01". */
   tag?: string;
   caption?: string;
+  /** Longer readable description under the telemetry caption. */
+  description?: string;
+  /** Optional case-file / external link shown under the caption. */
+  link?: {
+    href: string;
+    label: string;
+  };
   /** Aspect class applied to the image frame, e.g. "aspect-[4/5]". */
   aspect?: string;
   sizes?: string;
   preload?: boolean;
   className?: string;
+  /**
+   * Sibling photos opened from the same grid. Enables next/prev in the
+   * lightbox via arrow keys, swipe, and on-screen controls.
+   */
+  gallery?: LightboxPhoto[];
+  /** Index of this photo within `gallery`. */
+  galleryIndex?: number;
 };
 
 /**
@@ -29,14 +45,19 @@ export default function RoboPhoto({
   alt,
   tag,
   caption,
+  description,
+  link,
   aspect = "aspect-[3/2]",
   sizes = "(min-width: 1024px) 40vw, 100vw",
   preload,
   className = "",
+  gallery,
+  galleryIndex,
 }: RoboPhotoProps) {
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
   const tick = "absolute h-2.5 w-2.5 border-cyan opacity-70 z-10";
+  const hasCaption = Boolean(tag || caption || description || link);
 
   return (
     <>
@@ -85,10 +106,31 @@ export default function RoboPhoto({
           </span>
         </button>
 
-        {caption && (
-          <figcaption className="label-mono border-t border-grid-dim bg-bg/60 px-3 py-2 text-text-dim">
-            {tag && <span className="mr-2 text-cyan">{tag}</span>}
-            {caption}
+        {hasCaption && (
+          <figcaption className="border-t border-grid-dim bg-bg/60 px-3 py-2">
+            {(tag || caption) && (
+              <p className="label-mono text-text-dim">
+                {tag && <span className="mr-2 text-cyan">{tag}</span>}
+                {caption}
+              </p>
+            )}
+            {description && (
+              <p className="mt-1.5 text-sm leading-snug text-text-dim">
+                {description}
+              </p>
+            )}
+            {link && (
+              /*
+                Native anchor (not next/link): leaving the WebGL homepage via
+                client navigation races Three.js / media cleanup.
+              */
+              <a
+                href={link.href}
+                className="label-mono mt-2 inline-block text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+              >
+                {link.label} →
+              </a>
+            )}
           </figcaption>
         )}
       </figure>
@@ -99,6 +141,10 @@ export default function RoboPhoto({
           alt={alt}
           tag={tag}
           caption={caption}
+          description={description}
+          link={link}
+          gallery={gallery}
+          galleryIndex={galleryIndex}
           onClose={close}
         />
       )}

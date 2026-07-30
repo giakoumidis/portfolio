@@ -61,6 +61,16 @@ export default function ProjectCards({
         const recordHref = recordBasePath
           ? `${recordBasePath}/${project.id}`
           : undefined;
+        const images = project.images;
+        const photoGallery =
+          images && images.length > 1
+            ? images.map((item, gi) => ({
+                src: item.src,
+                alt: item.alt,
+                caption: item.caption,
+                tag: `FIG.0${gi + 1}`,
+              }))
+            : undefined;
 
         return (
           <Reveal
@@ -72,7 +82,7 @@ export default function ProjectCards({
             <div id={project.id}>
               <HudCard accent={accent} className="overflow-hidden p-0">
               <div className="grid lg:grid-cols-[1.05fr_1fr]">
-                {(project.video || project.images) && (
+                {(project.video || images) && (
                   <div className="flex flex-col border-b border-grid-dim lg:border-r lg:border-b-0">
                     {project.video?.provider === "youtube" && (
                       <YouTubeEmbed
@@ -99,13 +109,13 @@ export default function ProjectCards({
                       />
                     )}
 
-                    {project.images && (
+                    {images && images.length > 0 && (
                       <div
                         className={`flex flex-1 flex-col ${
                           project.video ? "border-t border-grid-dim" : ""
                         }`}
                       >
-                        {project.images.map((image, n) => (
+                        {images.map((image, n) => (
                           <RoboPhoto
                             key={image.src}
                             src={image.src}
@@ -121,6 +131,8 @@ export default function ProjectCards({
                             className={`flex-1 ${
                               n > 0 ? "border-t border-grid-dim" : ""
                             }`}
+                            gallery={photoGallery}
+                            galleryIndex={n}
                           />
                         ))}
                       </div>
