@@ -134,6 +134,7 @@ function buildIndex(): SearchEntry[] {
         lab.summary,
         lab.domainId,
         lab.domainLabel,
+        ...(lab.domainIds ?? []),
         lab.org,
         lab.period,
         ...lab.tags,

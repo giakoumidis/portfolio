@@ -47,6 +47,19 @@ export const taxonomyTerms: TaxonomyTerm[] = [
     aliases: ["Lab automation", "Instrumentation"],
   },
   {
+    slug: "genomics",
+    label: "Genomics",
+    facet: "domain",
+    description:
+      "Chemical and functional genomics, high-throughput biological screening, and related assay workflows.",
+    aliases: [
+      "Chemical genomics",
+      "Functional genomics",
+      "CGSB",
+      "High-throughput screening",
+    ],
+  },
+  {
     slug: "aerial-ground-underwater-robotics",
     label: "Aerial · Ground · Underwater Robotics",
     facet: "domain",

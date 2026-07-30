@@ -63,19 +63,25 @@ export default function LabHubLayout({ hub }: LabHubLayoutProps) {
         </p>
       </header>
 
-      {(video || images) && (
-        <div className="mt-10 grid gap-4 lg:grid-cols-2">
-          {video?.provider === "youtube" && (
+      {video && (
+        <div
+          className={
+            video.provider === "instagram"
+              ? "mt-10 w-full max-w-sm"
+              : "mt-10 w-full"
+          }
+        >
+          {video.provider === "youtube" && (
             <YouTubeEmbed videoId={video.id} title={video.title} />
           )}
-          {video?.provider === "instagram" && (
+          {video.provider === "instagram" && (
             <InstagramMedia
               url={video.url}
               title={video.title}
               poster={video.poster}
             />
           )}
-          {video?.provider === "local" && (
+          {video.provider === "local" && (
             <LocalVideoPlayer
               src={video.src}
               title={video.title}
@@ -83,20 +89,6 @@ export default function LabHubLayout({ hub }: LabHubLayoutProps) {
               type={video.type}
             />
           )}
-          {images?.map((image, i) => (
-            <RoboPhoto
-              key={image.src}
-              src={image.src}
-              alt={image.alt}
-              caption={image.caption}
-              aspect={
-                image.orientation === "portrait" ? "min-h-96" : "min-h-64"
-              }
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              gallery={photoGallery}
-              galleryIndex={i}
-            />
-          ))}
         </div>
       )}
 
@@ -146,6 +138,36 @@ export default function LabHubLayout({ hub }: LabHubLayoutProps) {
               >
                 <span aria-hidden className="mt-2 h-1 w-1 shrink-0 bg-cyan" />
                 <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {record.credits && record.credits.length > 0 && (
+        <section className="mt-12" aria-labelledby="lab-credits-heading">
+          <h2 id="lab-credits-heading" className="label-mono text-text-dim">
+            Institutional Collaboration & Project Team
+          </h2>
+          <ul className="mt-4 max-w-3xl divide-y divide-grid-dim border border-grid-dim">
+            {record.credits.map((credit) => (
+              <li
+                key={`${credit.name}-${credit.role ?? ""}`}
+                className="grid gap-1 px-4 py-3 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-6"
+              >
+                <div>
+                  <p className="font-body text-sm text-text">{credit.name}</p>
+                  {credit.org && (
+                    <p className="mt-0.5 font-body text-sm text-text-dim">
+                      {credit.org}
+                    </p>
+                  )}
+                </div>
+                {credit.role && (
+                  <p className="label-mono text-cyan sm:text-right">
+                    {credit.role}
+                  </p>
+                )}
               </li>
             ))}
           </ul>
@@ -243,6 +265,34 @@ export default function LabHubLayout({ hub }: LabHubLayoutProps) {
               );
             })}
           </ul>
+        </section>
+      )}
+
+      {images && images.length > 0 && (
+        <section className="mt-12" aria-labelledby="lab-photos-heading">
+          <h2 id="lab-photos-heading" className="label-mono text-text-dim">
+            Photos
+          </h2>
+          <div
+            className={`mt-4 grid gap-4 ${
+              images.length > 1 ? "lg:grid-cols-2" : ""
+            }`}
+          >
+            {images.map((image, i) => (
+              <RoboPhoto
+                key={image.src}
+                src={image.src}
+                alt={image.alt}
+                caption={image.caption}
+                aspect={
+                  image.orientation === "portrait" ? "min-h-96" : "min-h-64"
+                }
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                gallery={photoGallery}
+                galleryIndex={i}
+              />
+            ))}
+          </div>
         </section>
       )}
 

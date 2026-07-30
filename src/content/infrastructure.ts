@@ -150,18 +150,55 @@ export const infrastructureRecords: InfrastructureRecord[] = [
     type: "infrastructure",
     slug: "nyuad-hts-platform",
     title: "High-Throughput Screening Platform",
-    org: "NYU Abu Dhabi · Center for Genomics and Systems Biology",
+    org: "NYU Abu Dhabi · CGSB × Core Technology Platforms",
     period: { startYear: 2013, endYear: 2025, label: "2013–2025" },
     summary:
-      "Automated laboratory platform for high-throughput biological screening at NYUAD CGSB — integrating robotic liquid handling, scientific instrumentation, and LabVIEW-driven workflows so researchers can run large-scale assays with consistent, reproducible throughput.",
+      "Automated high-throughput screening platform developed through a partnership between the Center for Genomics and Systems Biology’s Chemical and Functional Genomics Lab and NYU Abu Dhabi Core Technology Platforms — integrating robotic liquid handling, incubation, imaging, plate handling, and data acquisition so researchers can run large-scale assays across chemical genomics, functional genomics, bioactive discovery, toxicity, cell biology, and whole-organism screening.",
     contributionSummary:
-      "Supported setup, expansion, and day-to-day operation of the HTS platform across electronics, automation, and Core Technology Platforms roles — equipment strategy, custom instrumentation, and workflow design.",
+      "Owned the automation and systems-engineering layer for the HTS platform within Core Technology Platforms — Thermo Fisher Momentum workflow programming, FANUC robot configuration, instrument synchronization, fault recovery, vendor coordination, and long-term lifecycle stewardship so scientific workflows stayed reliable in shared use.",
     highlights: [
-      "Supported end-to-end setup, expansion, and day-to-day operation of the NYUAD High-Throughput Screening (HTS) Platform across electronics, automation, and Core Technology Platforms roles.",
-      "Worked across equipment strategy, custom instrumentation, workflow design, and repair-versus-replacement decisions for screening hardware used by faculty, researchers, and students.",
-      "Tied into broader lab automation efforts spanning robotics, photonics, electronics, and advanced manufacturing laboratories at NYUAD.",
+      "Built as a joint research system: the Chemical and Functional Genomics Lab defined biological screening objectives and assay workflows, while CTP delivered the robotics, automation, instrumentation, and lifecycle-engineering layer that made those workflows dependable shared infrastructure.",
+      "Scientific applications spanned mammalian cells and whole organisms (microbes, worms, zebrafish) — small-molecule and drug-library screening, RNAi and CRISPR functional genomics, high-content cellular imaging, phenotypic profiling, anthelmintic and antimicrobial discovery, toxicity analysis, and natural-product screening.",
+      "Day-to-day collaboration with Dr. Hala Fahs connected laboratory experimental requirements to automated processes — coordinating platform operation, CellInsight high-content imaging support, fault diagnosis, repairs and preventive maintenance, spare parts, and Thermo Fisher engineer engagement for upgrades, calibration, and recommissioning.",
+      "Engineering scope covered robotic-system integration, Momentum workflow programming, FANUC configuration, instrument synchronization, new-equipment integration, troubleshooting, user training, and lifecycle management — keeping the platform available for ongoing research rather than treating it as a static instrument stack.",
     ],
-    domains: ["lab-automation-instrumentation"],
+    credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Automation & systems engineering",
+        org: "NYU Abu Dhabi · Core Technology Platforms",
+      },
+      {
+        name: "Kristin Gunsalus",
+        role: "Scientific leadership",
+        org: "NYU Abu Dhabi · Chemical and Functional Genomics Lab",
+      },
+      {
+        name: "Fabio Piano",
+        role: "Scientific co-leadership",
+        org: "NYU Abu Dhabi · Chemical and Functional Genomics Lab",
+      },
+      {
+        name: "Hala Fahs",
+        role: "Principal scientific & operational collaborator",
+        org: "NYU Abu Dhabi · Chemical Genomics program",
+      },
+      {
+        name: "Chemical and Functional Genomics Lab",
+        role: "Scientific ownership & research direction",
+        org: "Center for Genomics and Systems Biology",
+      },
+      {
+        name: "Core Technology Platforms",
+        role: "Engineering & infrastructure organization",
+        org: "NYU Abu Dhabi",
+      },
+      {
+        name: "Thermo Fisher Scientific",
+        role: "Primary technology partner",
+      },
+    ],
+    domains: ["lab-automation-instrumentation", "genomics"],
     contributions: ["operated", "supported", "system-integration"],
     inventory: ["hts-robot", "labview"],
     evidence: [

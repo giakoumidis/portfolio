@@ -143,6 +143,8 @@ export type Project = {
   title: string;
   domainId: string;
   domainLabel: string;
+  /** All domain slugs when a record spans more than the primary `domainId`. */
+  domainIds?: string[];
   org: string;
   period?: string;
   summary: string;
@@ -444,6 +446,8 @@ export type InfrastructureRecord = {
   summary: string;
   contributionSummary: string;
   highlights?: string[];
+  /** People and organizations behind the facility — scientific owners, engineering partners, vendors. */
+  credits?: ProjectCredit[];
   /** Domains this facility primarily serves. */
   domains: NonEmptyArray<TaxonomySlug>;
   contributions: NonEmptyArray<TaxonomySlug>;

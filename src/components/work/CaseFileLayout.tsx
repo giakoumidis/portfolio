@@ -28,8 +28,6 @@ export default function CaseFileLayout({ caseFile }: CaseFileLayoutProps) {
     if (item.url === primaryLocalSrc) return [];
     return [{ src: item.url, title: item.title }];
   });
-  const hasFeaturedVideo =
-    Boolean(video) || additionalLocalVideos.length > 0;
   const photoGallery =
     images && images.length > 1
       ? images.map((item) => ({
@@ -107,29 +105,6 @@ export default function CaseFileLayout({ caseFile }: CaseFileLayoutProps) {
               key={clip.src}
               src={clip.src}
               title={clip.title}
-            />
-          ))}
-        </div>
-      )}
-
-      {images && images.length > 0 && (
-        <div
-          className={`grid gap-4 ${
-            images.length > 1 ? "lg:grid-cols-2" : ""
-          } ${hasFeaturedVideo ? "mt-4" : "mt-10"}`}
-        >
-          {images.map((image, i) => (
-            <RoboPhoto
-              key={image.src}
-              src={image.src}
-              alt={image.alt}
-              caption={image.caption}
-              aspect={
-                image.orientation === "portrait" ? "min-h-96" : "min-h-64"
-              }
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              gallery={photoGallery}
-              galleryIndex={i}
             />
           ))}
         </div>
@@ -285,6 +260,35 @@ export default function CaseFileLayout({ caseFile }: CaseFileLayoutProps) {
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {/* 10. Photos */}
+      {images && images.length > 0 && (
+        <section className="mt-12" aria-labelledby="photos-heading">
+          <h2 id="photos-heading" className="label-mono text-text-dim">
+            Photos
+          </h2>
+          <div
+            className={`mt-4 grid gap-4 ${
+              images.length > 1 ? "lg:grid-cols-2" : ""
+            }`}
+          >
+            {images.map((image, i) => (
+              <RoboPhoto
+                key={image.src}
+                src={image.src}
+                alt={image.alt}
+                caption={image.caption}
+                aspect={
+                  image.orientation === "portrait" ? "min-h-96" : "min-h-64"
+                }
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                gallery={photoGallery}
+                galleryIndex={i}
+              />
+            ))}
+          </div>
         </section>
       )}
 

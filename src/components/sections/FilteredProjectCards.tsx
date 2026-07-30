@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import ProjectCards from "@/components/sections/ProjectCards";
 import Reveal from "@/components/ui/Reveal";
+import { taxonomyLabel } from "@/content/taxonomy";
 import type { Project } from "@/lib/types";
 
 const ALL = "all";
@@ -22,11 +23,20 @@ type FilteredProjectCardsProps = {
   recordBasePath?: "/work" | "/infrastructure";
 };
 
+function itemDomainIds(item: Project): string[] {
+  return item.domainIds?.length ? item.domainIds : [item.domainId];
+}
+
 function domainOptions(items: Project[]) {
   const map = new Map<string, string>();
   for (const item of items) {
-    if (!map.has(item.domainId)) {
-      map.set(item.domainId, item.domainLabel);
+    for (const id of itemDomainIds(item)) {
+      if (!map.has(id)) {
+        map.set(
+          id,
+          id === item.domainId ? item.domainLabel : taxonomyLabel(id),
+        );
+      }
     }
   }
   return [...map.entries()].map(([id, label]) => ({ id, label }));
@@ -52,7 +62,7 @@ export default function FilteredProjectCards({
     () =>
       active === ALL
         ? items
-        : items.filter((item) => item.domainId === active),
+        : items.filter((item) => itemDomainIds(item).includes(active)),
     [active, items],
   );
 
