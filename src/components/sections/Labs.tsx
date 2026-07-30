@@ -16,10 +16,15 @@ export default function Labs() {
           kicker="Built & Operated"
         />
 
-        <Suspense fallback={<ProjectCards items={labs} />}>
+        <Suspense
+          fallback={
+            <ProjectCards items={labs} recordBasePath="/infrastructure" />
+          }
+        >
           <FilteredProjectCards
             items={labs}
             ariaLabel="Filter labs by domain"
+            recordBasePath="/infrastructure"
           />
         </Suspense>
       </div>

@@ -71,10 +71,34 @@ function buildIndex(): SearchEntry[] {
       title: section.label,
       blurb: `Jump to ${section.label}`,
       category: "section",
-      href: `#${section.id}`,
+      href: `/#${section.id}`,
       haystack: joinHaystack(section.label, section.id, section.index),
     });
   }
+
+  entries.push({
+    id: "section:work-index",
+    title: "Work Index",
+    blurb: "Faceted project and engagement index",
+    category: "section",
+    href: "/work",
+    haystack: joinHaystack("work index", "projects", "case files", "filters"),
+  });
+
+  entries.push({
+    id: "section:infrastructure-index",
+    title: "Infrastructure",
+    blurb: "Laboratory and facility hubs",
+    category: "section",
+    href: "/infrastructure",
+    haystack: joinHaystack(
+      "infrastructure",
+      "labs",
+      "kinesis",
+      "photonics",
+      "hts",
+    ),
+  });
 
   for (const project of projects) {
     entries.push({
@@ -84,7 +108,7 @@ function buildIndex(): SearchEntry[] {
         .filter(Boolean)
         .join(" · "),
       category: "project",
-      href: `#${project.id}`,
+      href: `/work/${project.id}`,
       haystack: joinHaystack(
         project.title,
         project.summary,
@@ -104,7 +128,7 @@ function buildIndex(): SearchEntry[] {
       title: lab.title,
       blurb: [lab.domainLabel, lab.org, lab.period].filter(Boolean).join(" · "),
       category: "lab",
-      href: `#${lab.id}`,
+      href: `/infrastructure/${lab.id}`,
       haystack: joinHaystack(
         lab.title,
         lab.summary,
@@ -124,7 +148,7 @@ function buildIndex(): SearchEntry[] {
       title: capability.title,
       blurb: capability.blurb,
       category: "domain",
-      href: `#${capability.id}`,
+      href: `/work?domain=${capability.id}`,
       haystack: joinHaystack(
         capability.title,
         capability.blurb,

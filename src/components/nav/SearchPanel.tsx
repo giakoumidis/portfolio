@@ -35,21 +35,38 @@ function isExternal(href: string): boolean {
   return href.startsWith("http://") || href.startsWith("https://");
 }
 
+function isInternalPath(href: string): boolean {
+  return href.startsWith("/") && !href.startsWith("/#");
+}
+
 export function activateSearchEntry(entry: SearchEntry) {
   if (isExternal(entry.href)) {
     window.open(entry.href, "_blank", "noopener,noreferrer");
     return;
   }
 
-  const id = entry.href.replace(/^#/, "");
-  const target = document.getElementById(id);
-  if (target) {
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-    history.pushState(null, "", entry.href);
+  if (isInternalPath(entry.href)) {
+    window.location.assign(entry.href);
     return;
   }
 
-  window.location.hash = entry.href;
+  const hash = entry.href.includes("#")
+    ? entry.href.slice(entry.href.indexOf("#") + 1)
+    : entry.href.replace(/^#/, "");
+  const target = document.getElementById(hash);
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.pushState(null, "", `#${hash}`);
+    return;
+  }
+
+  // Homepage section deep-link from another route.
+  if (entry.href.startsWith("/#") || entry.href.startsWith("#")) {
+    window.location.assign(`/#${hash}`);
+    return;
+  }
+
+  window.location.hash = hash;
 }
 
 type SearchPanelProps = {

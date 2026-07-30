@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import HudCard, { type Accent } from "@/components/ui/HudCard";
 import InstagramMedia from "@/components/ui/InstagramMedia";
 import LocalVideoPlayer from "@/components/ui/LocalVideoPlayer";
@@ -6,6 +8,15 @@ import Reveal from "@/components/ui/Reveal";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
 import type { Project } from "@/lib/types";
+
+type ProjectCardsProps = {
+  items: Project[];
+  /**
+   * When set, card titles link into the knowledge-system case file or
+   * infrastructure hub (e.g. `/work` or `/infrastructure`).
+   */
+  recordBasePath?: "/work" | "/infrastructure";
+};
 
 const ACCENT_CYCLE = [
   "cyan",
@@ -40,15 +51,17 @@ const ACCENT_DOT: Record<Accent, string> = {
   green: "bg-green",
 };
 
-type ProjectCardsProps = {
-  items: Project[];
-};
-
-export default function ProjectCards({ items }: ProjectCardsProps) {
+export default function ProjectCards({
+  items,
+  recordBasePath,
+}: ProjectCardsProps) {
   return (
     <ul className="flex flex-col gap-10">
       {items.map((project, i) => {
         const accent = ACCENT_CYCLE[i % ACCENT_CYCLE.length];
+        const recordHref = recordBasePath
+          ? `${recordBasePath}/${project.id}`
+          : undefined;
 
         return (
           <Reveal
@@ -127,7 +140,16 @@ export default function ProjectCards({ items }: ProjectCardsProps) {
                   </p>
 
                   <h3 className="mt-4 text-xl text-text sm:text-2xl">
-                    {project.title}
+                    {recordHref ? (
+                      <Link
+                        href={recordHref}
+                        className="transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                      >
+                        {project.title}
+                      </Link>
+                    ) : (
+                      project.title
+                    )}
                   </h3>
 
                   <p className="mt-2 font-body text-sm text-text-dim">

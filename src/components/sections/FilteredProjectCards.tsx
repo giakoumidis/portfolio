@@ -19,6 +19,7 @@ type FilteredProjectCardsProps = {
   items: Project[];
   /** Accessible name for the chip group. */
   ariaLabel: string;
+  recordBasePath?: "/work" | "/infrastructure";
 };
 
 function domainOptions(items: Project[]) {
@@ -34,6 +35,7 @@ function domainOptions(items: Project[]) {
 export default function FilteredProjectCards({
   items,
   ariaLabel,
+  recordBasePath,
 }: FilteredProjectCardsProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -113,7 +115,7 @@ export default function FilteredProjectCards({
           </button>
         </p>
       ) : (
-        <ProjectCards items={filtered} />
+        <ProjectCards items={filtered} recordBasePath={recordBasePath} />
       )}
     </div>
   );

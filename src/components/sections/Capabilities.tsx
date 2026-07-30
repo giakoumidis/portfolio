@@ -2,8 +2,7 @@ import HudCard, { type Accent } from "@/components/ui/HudCard";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { capabilities } from "@/content/capabilities";
-import { labs } from "@/content/labs";
-import { projects } from "@/content/projects";
+import { getAllWork } from "@/lib/query";
 
 const ACCENT_CYCLE = [
   "cyan",
@@ -27,10 +26,10 @@ const ACCENT_TEXT: Record<Accent, string> = {
 };
 
 function workHref(domainId: string): string | null {
-  const hasProjects = projects.some((item) => item.domainId === domainId);
-  const hasLabs = labs.some((item) => item.domainId === domainId);
-  if (hasProjects) return `/?domain=${domainId}#projects`;
-  if (hasLabs) return `/?domain=${domainId}#labs`;
+  const hasWork = getAllWork().some((item) =>
+    item.facets.domains.includes(domainId),
+  );
+  if (hasWork) return `/work?domain=${domainId}`;
   return null;
 }
 

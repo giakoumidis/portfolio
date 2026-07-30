@@ -273,3 +273,179 @@ export type Exhibition = {
   /** Optional talk or booth reel shown above the exhibition copy. */
   video?: YouTubeVideo;
 };
+
+/* ============================================================
+   Knowledge-graph types (Milestone B)
+   Facets classify · Relations connect · Evidence substantiates
+   ============================================================ */
+
+export type NonEmptyArray<T> = [T, ...T[]];
+
+/** Controlled classification facets — not environments (those are entities). */
+export type Facet =
+  | "domain"
+  | "application"
+  | "platform"
+  | "method"
+  | "contribution"
+  | "outcome";
+
+export type TaxonomySlug = string;
+
+export type TaxonomyTerm = {
+  slug: TaxonomySlug;
+  label: string;
+  facet: Facet;
+  description?: string;
+  aliases?: string[];
+};
+
+export type ContentType =
+  | "project"
+  | "infrastructure"
+  | "research-output"
+  | "field-record"
+  | "engagement"
+  | "recognition";
+
+export type EntityRef = {
+  type: ContentType;
+  slug: string;
+};
+
+export type TaxonomyRef = {
+  facet: Facet;
+  slug: TaxonomySlug;
+};
+
+/** Directed relation types stored once on the source; inverses are derived. */
+export type RelationType =
+  | "tested-in"
+  | "developed-in"
+  | "enabled-by"
+  | "fabricated-through"
+  | "deployed-at"
+  | "demonstrated-at"
+  | "published-as"
+  | "documented-in"
+  | "recognized-by"
+  | "used-platform"
+  | "continuation-of"
+  | "commercializes";
+
+export type EntityRelation = {
+  type: RelationType;
+  target: EntityRef;
+  label?: string;
+};
+
+export type EvidenceType =
+  | "publication"
+  | "patent"
+  | "award"
+  | "external-article"
+  | "institutional-page"
+  | "video"
+  | "field-post"
+  | "photograph"
+  | "document";
+
+export type EvidenceRef = {
+  type: EvidenceType;
+  target?: EntityRef;
+  title?: string;
+  url?: string;
+  date?: string;
+  note?: string;
+};
+
+export type RecordPeriod = {
+  startYear?: number;
+  endYear?: number;
+  label?: string;
+};
+
+export type ProjectFacets = {
+  domains: NonEmptyArray<TaxonomySlug>;
+  contributions: NonEmptyArray<TaxonomySlug>;
+  applications?: TaxonomySlug[];
+  platforms?: TaxonomySlug[];
+  methods?: TaxonomySlug[];
+  outcomes?: TaxonomySlug[];
+};
+
+export type RecordStatus = "published" | "draft" | "needs-review";
+
+/**
+ * Person or organization credited on a project case file.
+ * Keep names full and roles precise — this separates collective credit
+ * from the personal `contributionSummary`.
+ */
+export type ProjectCredit = {
+  name: string;
+  /** e.g. Principal Investigator, Co-author, Industry partner */
+  role?: string;
+  org?: string;
+};
+
+/**
+ * First-class project / engagement case file.
+ * Labs are never facet values — connect via `relations` to infrastructure.
+ */
+export type ProjectRecord = {
+  type: "project";
+  slug: string;
+  title: string;
+  org?: string;
+  period: RecordPeriod;
+  summary: string;
+  contributionSummary: string;
+  /** Architecture / delivery bullets shown on the case file. */
+  highlights?: string[];
+  /** People and organizations credited alongside the personal contribution. */
+  credits: NonEmptyArray<ProjectCredit>;
+  facets: ProjectFacets;
+  relations?: EntityRelation[];
+  evidence?: EvidenceRef[];
+  evidencePending?: boolean;
+  explicitRelated?: EntityRef[];
+  video?: ProjectVideo;
+  images?: ProjectImage[];
+  link?: ProjectLink;
+  status?: RecordStatus;
+};
+
+export type InfrastructureRecord = {
+  type: "infrastructure";
+  slug: string;
+  title: string;
+  org?: string;
+  period: RecordPeriod;
+  summary: string;
+  contributionSummary: string;
+  highlights?: string[];
+  /** Domains this facility primarily serves. */
+  domains: NonEmptyArray<TaxonomySlug>;
+  contributions: NonEmptyArray<TaxonomySlug>;
+  /** Platforms available / operated here — NOT project-used platforms. */
+  inventory?: TaxonomySlug[];
+  relations?: EntityRelation[];
+  evidence?: EvidenceRef[];
+  video?: ProjectVideo;
+  images?: ProjectImage[];
+  link?: ProjectLink;
+  relatedPapersLabel?: string;
+  status?: RecordStatus;
+};
+
+export type ResearchOutputRecord = {
+  type: "research-output";
+  slug: string;
+  title: string;
+  authors?: string;
+  venue: string;
+  year: string;
+  url: string;
+  citations?: number;
+  status?: RecordStatus;
+};

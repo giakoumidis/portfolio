@@ -16,10 +16,11 @@ export default function Projects() {
           kicker="Selected Work"
         />
 
-        <Suspense fallback={<ProjectCards items={projects} />}>
+        <Suspense fallback={<ProjectCards items={projects} recordBasePath="/work" />}>
           <FilteredProjectCards
             items={projects}
             ariaLabel="Filter projects by domain"
+            recordBasePath="/work"
           />
         </Suspense>
       </div>

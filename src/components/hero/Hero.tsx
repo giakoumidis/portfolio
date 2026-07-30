@@ -138,7 +138,10 @@ export default function Hero() {
           }
           className="mt-10 flex flex-wrap gap-4"
         >
-          <NeonButton href="#about">View Work</NeonButton>
+          <NeonButton href="/work">Work Index</NeonButton>
+          <NeonButton href="/infrastructure" variant="magenta">
+            Infrastructure
+          </NeonButton>
           <NeonButton href="/cv.pdf" variant="orange" download>
             Download CV
           </NeonButton>

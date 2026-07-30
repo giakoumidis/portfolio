@@ -79,8 +79,20 @@ export const capabilities = [
       "PX4 & ArduPilot",
       "Quadruped & humanoid",
       "Amphibious platforms",
-      "Teleoperation",
       "Control & navigation",
+    ],
+  },
+  {
+    id: "teleoperation",
+    title: "Teleoperation",
+    blurb:
+      "Real-time human-in-the-loop control of industrial arms and robots — motion capture, kinematic retargeting, and operator-driven manipulation.",
+    tags: [
+      "Motion capture",
+      "Kinematic retargeting",
+      "Industrial manipulators",
+      "Human-robot interaction",
+      "Operator trials",
     ],
   },
   {
