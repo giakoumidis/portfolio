@@ -145,21 +145,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      <div
-        aria-hidden
-        className="label-mono absolute bottom-8 left-1/2 -translate-x-1/2 text-center text-text-dim"
-      >
-        <p>Scroll</p>
-        <svg
-          viewBox="0 0 16 16"
-          className="animate-bob mx-auto mt-2 h-4 w-4"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        >
-          <path d="M4 6l4 4 4-4" />
-        </svg>
-      </div>
     </section>
   );
 }

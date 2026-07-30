@@ -8,7 +8,6 @@ import {
   type MouseEvent,
 } from "react";
 import VideoLightbox from "@/components/ui/VideoLightbox";
-import { notifyVideoPlay, notifyVideoStop } from "@/lib/media-events";
 import {
   canHoverPlay,
   enterFullscreen,
@@ -40,23 +39,10 @@ export default function YouTubeEmbed({
   const [expanded, setExpanded] = useState(false);
   const [orientationExpand, setOrientationExpand] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
-  const videoActiveRef = useRef(false);
   const hoveringRef = useRef(false);
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const poster = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
   const embedSrc = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&rel=0&controls=0&modestbranding=1&playsinline=1`;
-
-  const markPlaying = () => {
-    if (videoActiveRef.current) return;
-    videoActiveRef.current = true;
-    notifyVideoPlay();
-  };
-
-  const markStopped = () => {
-    if (!videoActiveRef.current) return;
-    videoActiveRef.current = false;
-    notifyVideoStop();
-  };
 
   const clearLeaveTimer = () => {
     if (leaveTimerRef.current) {
@@ -81,7 +67,6 @@ export default function YouTubeEmbed({
   useEffect(() => {
     return () => {
       clearLeaveTimer();
-      markStopped();
     };
   }, []);
 
@@ -110,7 +95,6 @@ export default function YouTubeEmbed({
         setOrientationExpand(true);
         setExpanded(true);
         setActive(false);
-        markStopped();
       }
     };
 
@@ -126,21 +110,15 @@ export default function YouTubeEmbed({
     clearLeaveTimer();
     hoveringRef.current = false;
     setActive(false);
-    markStopped();
     setOrientationExpand(false);
     setExpanded(true);
-  };
-
-  const handleActivate = () => {
-    setActive(true);
-    markPlaying();
   };
 
   const handlePointerEnter = () => {
     if (!hoverMode || expanded) return;
     clearLeaveTimer();
     hoveringRef.current = true;
-    handleActivate();
+    setActive(true);
   };
 
   const handlePointerLeave = () => {
@@ -149,7 +127,6 @@ export default function YouTubeEmbed({
     leaveTimerRef.current = setTimeout(() => {
       hoveringRef.current = false;
       setActive(false);
-      markStopped();
       leaveTimerRef.current = null;
     }, LEAVE_DELAY_MS);
   };

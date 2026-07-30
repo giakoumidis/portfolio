@@ -74,7 +74,6 @@ const personSchema = {
   jobTitle: profile.currentRole.title,
   description: siteDescription,
   email: [`mailto:${profile.email}`, `mailto:${profile.nyuEmail}`],
-  telephone: profile.phone,
   url: siteUrl,
   address: {
     "@type": "PostalAddress",

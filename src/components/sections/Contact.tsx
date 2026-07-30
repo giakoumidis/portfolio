@@ -71,7 +71,7 @@ function CopyEmailButton({ email, targetId }: { email: string; targetId: string 
     <button
       type="button"
       onClick={copy}
-      className="label-mono shrink-0 border border-cyan/40 px-2.5 py-1 text-[0.65rem] text-cyan transition-colors duration-200 hover:bg-cyan/10"
+      className="label-mono shrink-0 border border-cyan/40 px-2.5 py-1 text-xs text-cyan transition-colors duration-200 hover:bg-cyan/10"
       aria-label={copied ? "Email copied" : `Copy ${email}`}
     >
       {copied ? "copied" : "copy"}
@@ -116,7 +116,7 @@ export default function Contact() {
           kicker="Get in touch"
         />
 
-        <Reveal className="mx-auto max-w-2xl">
+        <Reveal>
           <HudCard accent="cyan">
             <div className="relative flex items-center justify-between border-b border-grid-dim bg-bg-raised/70 px-4 py-2.5">
               {/* GNOME Terminal's new-tab button sits at the leading edge. */}
@@ -126,13 +126,13 @@ export default function Contact() {
               >
                 +
               </span>
-              <span className="absolute left-1/2 max-w-[70%] -translate-x-1/2 truncate font-mono text-xs text-text-dim">
+              <span className="absolute left-1/2 max-w-[70%] -translate-x-1/2 truncate font-mono text-sm text-text-dim">
                 {SHELL_USER}@{SHELL_HOST}: {SHELL_CWD}
               </span>
               <WindowControls />
             </div>
 
-            <div className="space-y-3 p-4 font-mono text-xs sm:p-6 sm:text-sm">
+            <div className="space-y-3 p-4 font-mono text-sm sm:p-6 sm:text-base">
               <p className="flex">
                 <Prompt />
                 <Typewriter
@@ -195,13 +195,6 @@ export default function Contact() {
                       id="contact-nyu-email"
                       email={profile.nyuEmail}
                     />
-                    <a
-                      href={`tel:${profile.phone}`}
-                      className="inline-flex select-all text-cyan transition-colors duration-200 hover:underline hover:underline-offset-4"
-                      aria-label={`Call ${profile.phoneDisplay}`}
-                    >
-                      {profile.phoneDisplay}
-                    </a>
                   </div>
 
                   <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2">
@@ -222,7 +215,7 @@ export default function Contact() {
                     <Prompt />
                     <span
                       aria-hidden
-                      className="animate-blink inline-block h-4 w-2 bg-text"
+                      className="animate-blink inline-block h-5 w-2.5 bg-text"
                     />
                   </p>
                 </>

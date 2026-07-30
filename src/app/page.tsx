@@ -16,6 +16,7 @@ import Signal from "@/components/sections/Signal";
 import TechArsenal from "@/components/sections/TechArsenal";
 import Timeline from "@/components/sections/Timeline";
 import BackgroundMusic from "@/components/ui/BackgroundMusic";
+import ScrollCue from "@/components/ui/ScrollCue";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       <HudRail />
       <CommandPalette />
       <BackgroundMusic />
+      <ScrollCue />
       <main>
         <Hero />
         <About />

@@ -8,7 +8,6 @@ import {
   type MouseEvent,
 } from "react";
 import VideoLightbox from "@/components/ui/VideoLightbox";
-import { notifyVideoPlay, notifyVideoStop } from "@/lib/media-events";
 import {
   canHoverPlay,
   enterFullscreen,
@@ -69,24 +68,11 @@ export default function LocalVideoPlayer({
   const [duration, setDuration] = useState(0);
   const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const videoActiveRef = useRef(false);
   const hoveringRef = useRef(false);
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const mime = type ?? mimeFromSrc(src);
   const remaining = Math.max(0, duration - currentTime);
   const progress = duration > 0 ? Math.min(1, currentTime / duration) : 0;
-
-  const markPlaying = () => {
-    if (videoActiveRef.current) return;
-    videoActiveRef.current = true;
-    notifyVideoPlay();
-  };
-
-  const markStopped = () => {
-    if (!videoActiveRef.current) return;
-    videoActiveRef.current = false;
-    notifyVideoStop();
-  };
 
   const playVideo = async () => {
     const video = videoRef.current;
@@ -128,7 +114,6 @@ export default function LocalVideoPlayer({
   useEffect(() => {
     return () => {
       clearLeaveTimer();
-      markStopped();
     };
   }, []);
 
@@ -267,13 +252,10 @@ export default function LocalVideoPlayer({
             aria-label={title}
             onPlay={() => {
               setPlaying(true);
-              markPlaying();
             }}
-            onPause={(event) => {
+            onPause={() => {
               setPlaying(false);
-              if (!event.currentTarget.ended) markStopped();
             }}
-            onEnded={markStopped}
             onCanPlay={handleVideoReady}
             onLoadedData={handleVideoReady}
             onTimeUpdate={syncTime}

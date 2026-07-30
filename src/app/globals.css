@@ -522,12 +522,26 @@
   }
 }
 
+@keyframes scroll-cue-pulse {
+  0%,
+  100% {
+    opacity: 0.22;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 .animate-blink {
   animation: blink 1.05s steps(1, end) infinite;
 }
 
 .animate-bob {
   animation: bob 2s var(--ease-reveal) infinite;
+}
+
+.scroll-cue {
+  animation: scroll-cue-pulse 2.4s var(--ease-reveal) infinite;
 }
 
 /* Glitch/RGB-split heading: two coloured copies sliced on top of the text */
@@ -558,6 +572,7 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-blink,
   .animate-bob,
+  .scroll-cue,
   .glitch[data-glitch="on"]::before,
   .glitch[data-glitch="on"]::after {
     animation: none;
