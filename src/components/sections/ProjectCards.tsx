@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import HudCard, { type Accent } from "@/components/ui/HudCard";
 import InstagramMedia from "@/components/ui/InstagramMedia";
 import LocalVideoPlayer from "@/components/ui/LocalVideoPlayer";
@@ -142,12 +140,17 @@ export default function ProjectCards({
 
                   <h3 className="mt-4 text-xl text-text sm:text-2xl">
                     {recordHref ? (
-                      <Link
+                      /*
+                        Native anchor (not next/link): leaving the WebGL homepage
+                        via client navigation races Three.js / media cleanup and
+                        throws removeChild. A full load is the reliable exit.
+                      */
+                      <a
                         href={recordHref}
                         className="transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                       >
                         {project.title}
-                      </Link>
+                      </a>
                     ) : (
                       project.title
                     )}
@@ -244,7 +247,11 @@ export default function ProjectCards({
                   {(project.video || project.paper || project.link) && (
                     <div className="mt-8 flex flex-wrap gap-3">
                       {project.link && (
-                        <NeonButton href={project.link.href} external>
+                        <NeonButton
+                          href={project.link.href}
+                          download={project.link.download}
+                          external={!project.link.download}
+                        >
                           {project.link.label} →
                         </NeonButton>
                       )}

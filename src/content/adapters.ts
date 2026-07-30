@@ -63,7 +63,7 @@ export function projectRecordToLegacy(record: ProjectRecord): Project {
       ...(record.facets.methods ?? []).map(taxonomyLabel),
     ].slice(0, 5),
     video: record.video,
-    images: record.images,
+    images: record.imagesOnIndex === false ? undefined : record.images,
     paper: primary,
     relatedPapers: related.length > 0 ? related : undefined,
     link: record.link,

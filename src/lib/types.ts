@@ -122,6 +122,8 @@ export type ProjectImage = {
 export type ProjectLink = {
   label: string;
   href: string;
+  /** When true, the CTA triggers a file download (same-origin assets). */
+  download?: boolean;
 };
 
 /** Linked paper — typically matches an entry in `publications`. */
@@ -411,6 +413,12 @@ export type ProjectRecord = {
   explicitRelated?: EntityRef[];
   video?: ProjectVideo;
   images?: ProjectImage[];
+  /**
+   * When false, photos are omitted from homepage ProjectCards (keeps the
+   * media facade light) and still render on the case-file page.
+   * Defaults to true.
+   */
+  imagesOnIndex?: boolean;
   link?: ProjectLink;
   status?: RecordStatus;
 };

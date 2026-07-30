@@ -123,5 +123,7 @@ export const education = [
     institution: "University of West Attica",
     location: "Greece",
     period: "2012",
+    detail:
+      "Thesis: automatic path finding and GPS navigation for a Parrot AR.Drone quadrotor — ArduPilot sensing payload and LabVIEW ground control station (ΤΕΙ Piraeus · Department of Automation).",
   },
 ] satisfies Education[];

@@ -547,7 +547,7 @@ export default function RobotStage() {
     renderer.domElement.style.width = "100%";
     renderer.domElement.style.height = "100%";
     renderer.domElement.style.display = "block";
-    host.prepend(renderer.domElement);
+    host.appendChild(renderer.domElement);
 
     const key = new THREE.DirectionalLight(CYAN, 1.3);
     key.position.set(2.5, 3.5, 1.5);
@@ -877,7 +877,6 @@ export default function RobotStage() {
 
   return (
     <div
-      ref={hostRef}
       aria-hidden
       className="pointer-events-none absolute inset-x-0 top-[12%] h-[52%]"
       style={{
@@ -887,6 +886,12 @@ export default function RobotStage() {
           "linear-gradient(to bottom, #000 0%, #000 76%, transparent 100%)",
       }}
     >
+      {/*
+        Canvas host stays empty of React children so Three.js can own the DOM
+        here without colliding with reconciliation on route unmount.
+      */}
+      <div ref={hostRef} className="absolute inset-0" />
+
       {/* Leader lines — drawn over the WebGL canvas, under the labels. */}
       <svg
         ref={svgRef}

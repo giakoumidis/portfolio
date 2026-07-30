@@ -2,7 +2,7 @@ import HudCard, { type Accent } from "@/components/ui/HudCard";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { capabilities } from "@/content/capabilities";
-import { getAllWork } from "@/lib/query";
+import { getAllInfrastructure, getAllWork } from "@/lib/query";
 
 const ACCENT_CYCLE = [
   "cyan",
@@ -25,11 +25,28 @@ const ACCENT_TEXT: Record<Accent, string> = {
   green: "text-green",
 };
 
-function workHref(domainId: string): string | null {
+/** Prefer Labs when a domain has infrastructure (e.g. HTS under Lab Automation). */
+function relatedHref(
+  domainId: string,
+): { href: string; label: string } | null {
+  const hasLab = getAllInfrastructure().some((item) =>
+    item.domains.includes(domainId),
+  );
+  if (hasLab) {
+    return {
+      href: `/?domain=${domainId}#labs`,
+      label: "View related labs →",
+    };
+  }
   const hasWork = getAllWork().some((item) =>
     item.facets.domains.includes(domainId),
   );
-  if (hasWork) return `/work?domain=${domainId}`;
+  if (hasWork) {
+    return {
+      href: `/work?domain=${domainId}`,
+      label: "View related work →",
+    };
+  }
   return null;
 }
 
@@ -47,7 +64,7 @@ export default function Capabilities() {
         <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {capabilities.map((capability, i) => {
             const accent = ACCENT_CYCLE[i % ACCENT_CYCLE.length];
-            const href = workHref(capability.id);
+            const related = relatedHref(capability.id);
 
             return (
               <Reveal
@@ -81,12 +98,12 @@ export default function Capabilities() {
                       ))}
                     </div>
 
-                    {href && (
+                    {related && (
                       <a
-                        href={href}
+                        href={related.href}
                         className={`label-mono mt-auto pt-6 transition-colors duration-200 hover:underline hover:underline-offset-4 ${ACCENT_TEXT[accent]}`}
                       >
-                        View related work →
+                        {related.label}
                       </a>
                     )}
                   </HudCard>

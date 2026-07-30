@@ -8,11 +8,12 @@ export const workRecords: ProjectRecord[] = [
     org: "NYU Abu Dhabi · CAIR with Etihad Rail",
     period: { startYear: 2024, label: "2024" },
     summary:
-      "Industry engagement with Etihad Rail to explore integrating artificial intelligence and robotics into rail operations — translating NYUAD research capabilities into collaborative experiments aimed at efficiency, sustainability, and next-generation rail transport standards.",
+      "Industry engagement with Etihad Rail to explore integrating artificial intelligence and robotics into rail operations — including depot trials where Spot collects multimodal inspection data around locomotives for downstream analysis and predictive maintenance — translating NYUAD research capabilities into collaborative experiments aimed at efficiency, sustainability, and next-generation rail transport standards.",
     contributionSummary:
-      "Led industry-facing translation of CAIR autonomous-systems research into a strategic collaboration with Etihad Rail — stakeholder engagement, lab and site visits, and public demonstration of partnership intent.",
+      "Led industry-facing translation of CAIR autonomous-systems research into a strategic collaboration with Etihad Rail — stakeholder engagement, lab and depot site visits where Spot gathered multimodal locomotive data for analysis and predictive maintenance, and public demonstration of partnership intent.",
     highlights: [
       "Featured in Etihad Rail's public announcement of the collaboration with New York University Abu Dhabi on AI and robotics for rail operations.",
+      "In the depot, Spot collects multimodal sensor data around locomotives — feeding further analysis aimed at predictive maintenance rather than one-off visual checks alone.",
       "Aligns with CAIR's commercialization track: stakeholder engagement, lab and site visits, and industry-facing translation of autonomous systems research.",
       "Part of a broader external engagement model spanning infrastructure partners across the UAE transport and logistics ecosystem.",
     ],
@@ -33,9 +34,15 @@ export const workRecords: ProjectRecord[] = [
       },
     ],
     facets: {
-      domains: ["industry-engagement"],
-      contributions: ["commercialized", "led"],
-      applications: ["rail-transport"],
+      domains: [
+        "industry-engagement",
+        "aerial-ground-underwater-robotics",
+        "perception-sensing",
+      ],
+      contributions: ["commercialized", "led", "field-testing"],
+      applications: ["rail-transport", "industrial-inspection"],
+      platforms: ["boston-dynamics-spot"],
+      methods: ["sensor-fusion"],
       outcomes: ["industry-collaboration", "public-demonstration"],
     },
     evidence: [
@@ -44,6 +51,11 @@ export const workRecords: ProjectRecord[] = [
         title: "Etihad Rail × NYUAD AI and robotics collaboration",
         url: "https://www.instagram.com/reel/DByqr6-Rndg/",
       },
+      {
+        type: "photograph",
+        title:
+          "Spot collecting multimodal locomotive data at the Etihad Rail depot for predictive maintenance",
+      },
     ],
     video: {
       provider: "instagram",
@@ -51,6 +63,24 @@ export const workRecords: ProjectRecord[] = [
       title: "Etihad Rail × NYUAD AI and robotics collaboration",
       poster: "/images/projects/etihad-rail-nyuad.jpg",
     },
+    images: [
+      {
+        src: "/images/projects/etihad-rail-depot-spot-train.jpg",
+        alt: "Spot beside an Etihad Rail locomotive inside the depot hangar, collecting multimodal inspection data for predictive maintenance",
+        caption: "DEPOT — MULTIMODAL LOCOMOTIVE SCAN",
+      },
+      {
+        src: "/images/projects/etihad-rail-depot-spot-tracks.jpg",
+        alt: "Spot on railway tracks facing the Etihad Rail depot, gathering multimodal data for locomotive predictive maintenance analysis",
+        caption: "TRACKSIDE — DATA FOR PREDICTIVE MAINT.",
+      },
+      {
+        src: "/images/projects/etihad-rail-depot-spot-yard.jpg",
+        alt: "Spot in the Etihad Rail yard between freight tracks, supporting multimodal data collection for further analysis and predictive maintenance",
+        caption: "YARD — SPOT MULTIMODAL COLLECTION",
+      },
+    ],
+    imagesOnIndex: false,
     status: "published",
   },
   {
@@ -266,6 +296,113 @@ export const workRecords: ProjectRecord[] = [
         orientation: "portrait",
       },
     ],
+    status: "published",
+  },
+  {
+    type: "project",
+    slug: "ribbon-curler-research-instrumentation",
+    title: "Ribbon Curler — Automated Research Instrumentation",
+    org: "NYU Abu Dhabi · Panče Naumov research group / Design Studio",
+    period: { startYear: 2016, endYear: 2017, label: "2016–2017" },
+    summary:
+      "A custom programmable apparatus for Panče Naumov's smart-materials group to investigate how controlled pulling conditions produce curling and chiral coiling in ribbon specimens. The system applied controlled linear pulling while varying speed, mounting orientation, geometry, and material parameters — turning an evolving scientific experiment into a repeatable mechatronic test instrument.",
+    contributionSummary:
+      "Designed and integrated the hardware, controller software, and automation for the ribbon-curling apparatus — motion-stage trade study, mechanical integration, fixture-alignment debugging, Newmark motion-control configuration, and operational handover so the group could run structured experiments and publication media.",
+    highlights: [
+      "Evaluated commercial linear stages across cost and performance (Thorlabs, Aerotech, Newmark, and lower-cost CNC options) against a ~300 mm travel envelope and experimental pull speeds up to about 100 mm/s.",
+      "Integrated the stage, puller, and sample-holder assembly and corrected a fixture-height mismatch that had blocked reliable curling — converting a near-complete build into a usable experimental instrument.",
+      "Enabled structured sample campaigns across pull speed, mounting angle/direction, width, and weight, producing catalogued curl, coil, spiral, and twist sets for analysis and figures.",
+      "Configured and handed over Newmark motion-control software to follow-on operators, and supported filming plus assembly animation used toward manuscript supplementary material.",
+    ],
+    credits: [
+      {
+        name: "Panče Naumov",
+        role: "Principal Investigator",
+        org: "NYU Abu Dhabi",
+      },
+      {
+        name: "Lidong Zhang",
+        role: "Experiment lead · sample campaigns",
+        org: "NYU Abu Dhabi · Naumov group",
+      },
+      {
+        name: "Khulood Alawadi",
+        role: "Design Studio · visualization & fabrication support",
+        org: "NYU Abu Dhabi",
+      },
+      {
+        name: "Israel Desta",
+        role: "Follow-on operator · measurements",
+        org: "NYU Abu Dhabi",
+      },
+    ],
+    facets: {
+      domains: [
+        "lab-automation-instrumentation",
+        "electronics-embedded-systems",
+      ],
+      contributions: [
+        "designed",
+        "built",
+        "system-integration",
+        "experimental-development",
+      ],
+      applications: ["research-infrastructure"],
+      outcomes: ["research-capability", "deployed-prototype"],
+    },
+    evidence: [
+      {
+        type: "video",
+        title: "Ribbon Curler — controlled pulling experiment",
+        url: "/videos/projects/ribbon-curler/ribbon-experiment.mp4",
+      },
+      {
+        type: "video",
+        title: "Ribbon Curler — final machine assembly animation",
+        url: "/videos/projects/ribbon-curler/ribbon-curler-assembly.mp4",
+      },
+      {
+        type: "photograph",
+        title:
+          "July 2016 experiment photographs — curl samples grouped by test condition",
+      },
+    ],
+    video: {
+      provider: "local",
+      src: "/videos/projects/ribbon-curler/ribbon-experiment.mp4",
+      title: "Ribbon Curler — controlled pulling experiment",
+      poster: "/images/projects/ribbon-curler-poster.jpg",
+    },
+    images: [
+      {
+        src: "/images/projects/ribbon-curler-sample-layout.jpg",
+        alt: "Laboratory workbench covered with pink ribbon curl samples arranged by test condition under a task light",
+        caption: "LAB BENCH — FULL SAMPLE CAMPAIGN",
+      },
+      {
+        src: "/images/projects/ribbon-curler-curl-conditions.jpg",
+        alt: "Drawer tray of pink ribbon curls with handwritten notes for weight, speed, width, and fixture geometry",
+        caption: "CURL SAMPLES — BY TEST CONDITION",
+      },
+      {
+        src: "/images/projects/ribbon-curler-mounting-angles.jpg",
+        alt: "Annotated sheets comparing left and right blade mounting angles with corresponding ribbon curl samples",
+        caption: "MOUNTING ANGLE — LEFT VS RIGHT",
+        orientation: "portrait",
+      },
+      {
+        src: "/images/projects/ribbon-curler-speed-response.jpg",
+        alt: "Ribbon curl samples arranged by pull speed from 1 mm/s to 150 mm/s showing increasing spiral radius",
+        caption: "SPEED SWEEP — SPIRAL RESPONSE",
+        orientation: "portrait",
+      },
+      {
+        src: "/images/projects/ribbon-curler-geometry-variations.jpg",
+        alt: "Ribbon curl and twist variations with trigonometric fixture sketches for different geometric conditions",
+        caption: "GEOMETRY — CURL & TWIST STATES",
+      },
+    ],
+    imagesOnIndex: false,
     status: "published",
   },
   {
@@ -780,6 +917,84 @@ export const workRecords: ProjectRecord[] = [
         orientation: "portrait",
       },
     ],
+    status: "published",
+  },
+  {
+    type: "project",
+    slug: "ardrone-gps-path-planning-bsc-thesis",
+    title: "Automatic UAV Path Finding & GPS Navigation",
+    org: "ΤΕΙ Piraeus · Department of Automation (BSc thesis)",
+    period: { startYear: 2010, endYear: 2012, label: "2010–2012" },
+    summary:
+      "Bachelor graduation project: an end-to-end autonomous navigation stack for a Parrot AR.Drone quadrotor — onboard ArduPilot Mega with GPS, IMU, and digital compass feeding a LabVIEW ground control station that computes great-circle routes (Haversine + bearing), overlays the vehicle on an interactive Google Earth map, and closes the loop to fly the UAV from its current geographic position to a user-selected destination.",
+    contributionSummary:
+      "Sole author of the BSc Automation Engineering thesis — designed, built, and demonstrated the AR.Drone sensing payload, ArduPilot firmware interfaces, and LabVIEW GCS for GPS path planning and automatic navigation.",
+    highlights: [
+      "Augmented the Parrot AR.Drone with ArduPilot Mega, a u-blox GPS receiver, IMU, HMC5883L 3-axis compass, and XBee RF link for independent navigation telemetry.",
+      "LabVIEW ground station splits vehicle control (Parrot SDK over Wi-Fi/UDP) from navigation: live map display via Google Earth/KML, Haversine distance and bearing to a clicked waypoint, and closed-loop heading corrections in flight.",
+      "Fourteen-month thesis (Dec 2010–2012) synthesizing automation coursework into a working automatic transport system — from equipment selection and wiring through GCS software and flight demonstration.",
+      "Demo reel documents path planning of the quadcopter UAV with GPS using LabVIEW.",
+    ],
+    credits: [
+      {
+        name: "Konstantinos Alafodimos",
+        role: "Thesis supervisor",
+        org: "ΤΕΙ Piraeus · Department of Automation",
+      },
+      {
+        name: "Grigoris Nikolaou",
+        role: "Thesis supervisor",
+        org: "ΤΕΙ Piraeus · Department of Automation",
+      },
+      {
+        name: "Nikolaos Mavridis",
+        role: "Advisor",
+        org: "Interactive Robots and Media Lab (IRML)",
+      },
+    ],
+    facets: {
+      domains: [
+        "aerial-ground-underwater-robotics",
+        "electronics-embedded-systems",
+      ],
+      contributions: [
+        "conceived",
+        "designed",
+        "built",
+        "system-integration",
+        "field-testing",
+      ],
+      platforms: ["uav-platform", "labview"],
+      methods: ["sensor-fusion"],
+      outcomes: ["deployed-prototype", "public-demonstration"],
+    },
+    evidence: [
+      {
+        type: "video",
+        title: "Ar.Drone UAV Project — GPS path planning with LabVIEW",
+        url: "https://www.youtube.com/watch?v=2k9F91N2o1I",
+        date: "2011-04-14",
+        note: "BSc thesis demonstration reel",
+      },
+      {
+        type: "document",
+        title:
+          "Αυτόματο σύστημα εύρεσης διαδρομής και πλοήγησης μη επανδρωμένου ιπτάμενου οχήματος",
+        url: "/documents/giakoumidis-bsc-thesis-ardrone-gps-navigation-2012.pdf",
+        note: "BSc thesis · ΤΕΙ Piraeus · Department of Automation · Athens 2012",
+        date: "2012",
+      },
+    ],
+    video: {
+      provider: "youtube",
+      id: "2k9F91N2o1I",
+      title: "Ar.Drone UAV Project — path planning with GPS using LabVIEW",
+    },
+    link: {
+      label: "Download thesis PDF",
+      href: "/documents/giakoumidis-bsc-thesis-ardrone-gps-navigation-2012.pdf",
+      download: true,
+    },
     status: "published",
   },
 ];

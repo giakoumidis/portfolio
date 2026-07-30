@@ -18,6 +18,18 @@ export default function CaseFileLayout({ caseFile }: CaseFileLayoutProps) {
   const { record, evidence, related, contributionTerms } = caseFile;
   const video = record.video;
   const images = record.images;
+  const primaryLocalSrc =
+    video?.provider === "local" ? video.src : undefined;
+  /** Extra self-hosted clips listed in evidence (not already the featured video). */
+  const additionalLocalVideos = (record.evidence ?? []).flatMap((item) => {
+    if (item.type !== "video" || !item.url?.startsWith("/") || !item.title) {
+      return [];
+    }
+    if (item.url === primaryLocalSrc) return [];
+    return [{ src: item.url, title: item.title }];
+  });
+  const hasFeaturedVideo =
+    Boolean(video) || additionalLocalVideos.length > 0;
 
   return (
     <article className="section-shell py-16 lg:py-24">
@@ -80,9 +92,25 @@ export default function CaseFileLayout({ caseFile }: CaseFileLayoutProps) {
         </div>
       )}
 
+      {additionalLocalVideos.length > 0 && (
+        <div className={`grid gap-4 ${video ? "mt-4" : "mt-10"}`}>
+          {additionalLocalVideos.map((clip) => (
+            <LocalVideoPlayer
+              key={clip.src}
+              src={clip.src}
+              title={clip.title}
+            />
+          ))}
+        </div>
+      )}
+
       {images && images.length > 0 && (
-        <div className={`grid gap-4 lg:grid-cols-2 ${video ? "mt-4" : "mt-10"}`}>
-          {images.slice(0, 2).map((image) => (
+        <div
+          className={`grid gap-4 ${
+            images.length > 1 ? "lg:grid-cols-2" : ""
+          } ${hasFeaturedVideo ? "mt-4" : "mt-10"}`}
+        >
+          {images.map((image) => (
             <RoboPhoto
               key={image.src}
               src={image.src}
@@ -252,7 +280,11 @@ export default function CaseFileLayout({ caseFile }: CaseFileLayoutProps) {
 
       {record.link && (
         <div className="mt-12">
-          <NeonButton href={record.link.href} external>
+          <NeonButton
+            href={record.link.href}
+            download={record.link.download}
+            external={!record.link.download}
+          >
             {record.link.label} →
           </NeonButton>
         </div>

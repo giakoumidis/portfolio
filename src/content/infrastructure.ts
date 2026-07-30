@@ -182,6 +182,41 @@ export const infrastructureRecords: InfrastructureRecord[] = [
         alt: "Plate-handling rail robot inside the NYUAD high-throughput screening enclosure, flanked by instrument stacks",
         caption: "PLATE-HANDLING RAIL ROBOT — HTS ENCLOSURE",
       },
+      {
+        src: "/images/projects/hts-rail-hotels.jpg",
+        alt: "Rail-mounted plate-handling robot between microplate hotels and Agilent instruments inside the HTS enclosure",
+        caption: "RAIL ROBOT — PLATE HOTELS & INSTRUMENTS",
+      },
+      {
+        src: "/images/projects/hts-cytomat-enclosure.jpg",
+        alt: "Thermo Scientific Cytomat automated incubator cabinets beneath the glass-fronted HTS robotic enclosure",
+        caption: "THERMO CYTOMAT — INCUBATOR UNDER ENCLOSURE",
+      },
+      {
+        src: "/images/projects/hts-lab-overview.jpg",
+        alt: "Wide view of the HTS robotic enclosure beside the multi-monitor operator control station",
+        caption: "HTS CELL — ENCLOSURE & CONTROL STATION",
+      },
+      {
+        src: "/images/projects/hts-control-station.jpg",
+        alt: "HTS control desk with four monitors, overhead camera-feed display, server rack, and emergency stop",
+        caption: "OPERATOR DESK — MONITORS & E-STOP",
+      },
+      {
+        src: "/images/projects/hts-bravo-liquid-handler.jpg",
+        alt: "Agilent Bravo automated liquid handler with a 96-channel ST head over the microplate deck",
+        caption: "AGILENT BRAVO — 96ST LIQUID HANDLER",
+      },
+      {
+        src: "/images/projects/hts-pipette-tips.jpg",
+        alt: "Underside close-up of a multi-channel liquid-handling head with a dense array of pipette tips",
+        caption: "PIPETTE HEAD — MULTI-CHANNEL TIP ARRAY",
+      },
+      {
+        src: "/images/projects/hts-microplate-labeler.jpg",
+        alt: "Agilent Microplate Labeler with cab a2+ printer, Foscam camera, and plate stacker on the HTS bench",
+        caption: "MICROPLATE LABELER — CAB A2+ & STACKER",
+      },
     ],
     status: "published",
   },
