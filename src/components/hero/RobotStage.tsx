@@ -213,16 +213,70 @@ const ROBOTS: RobotSpec[] = [
     baseYaw: 0.45,
     pose: G1_POSE,
     animate: (robot, t) => {
-      const sway = Math.sin(t * 0.8) * 0.05;
-      robot.setJointValue("waist_yaw_joint", Math.sin(t * 0.5) * 0.07);
+      // Idle humanoid: weight shift + arm reach + wrist roll — same
+      // continuous presence as Husky wheels / IIWA reach, but softer.
+      const breathe = Math.sin(t * 0.9) * 0.04;
+      const reach = Math.sin(t * 0.7) * 0.1;
+      const twist = Math.sin(t * 0.45) * 0.12;
+      const roll = Math.sin(t * 0.85) * 0.06;
+
+      robot.setJointValue("waist_yaw_joint", twist);
+
+      // Legs — opposite-phase weight shift (knees/ankles track hips).
+      robot.setJointValue(
+        "left_hip_pitch_joint",
+        G1_POSE.left_hip_pitch_joint + breathe,
+      );
+      robot.setJointValue(
+        "right_hip_pitch_joint",
+        G1_POSE.right_hip_pitch_joint - breathe,
+      );
+      robot.setJointValue(
+        "left_knee_joint",
+        G1_POSE.left_knee_joint - breathe * 0.8,
+      );
+      robot.setJointValue(
+        "right_knee_joint",
+        G1_POSE.right_knee_joint + breathe * 0.8,
+      );
+      robot.setJointValue(
+        "left_ankle_pitch_joint",
+        G1_POSE.left_ankle_pitch_joint - breathe * 0.5,
+      );
+      robot.setJointValue(
+        "right_ankle_pitch_joint",
+        G1_POSE.right_ankle_pitch_joint + breathe * 0.5,
+      );
+
+      // Arms — opposing reach + elbow + shoulder roll, like the IIWA chain.
       robot.setJointValue(
         "left_shoulder_pitch_joint",
-        G1_POSE.left_shoulder_pitch_joint + sway,
+        G1_POSE.left_shoulder_pitch_joint + reach,
       );
       robot.setJointValue(
         "right_shoulder_pitch_joint",
-        G1_POSE.right_shoulder_pitch_joint - sway,
+        G1_POSE.right_shoulder_pitch_joint - reach,
       );
+      robot.setJointValue(
+        "left_shoulder_roll_joint",
+        G1_POSE.left_shoulder_roll_joint + roll,
+      );
+      robot.setJointValue(
+        "right_shoulder_roll_joint",
+        G1_POSE.right_shoulder_roll_joint - roll,
+      );
+      robot.setJointValue(
+        "left_elbow_joint",
+        G1_POSE.left_elbow_joint - reach * 0.7,
+      );
+      robot.setJointValue(
+        "right_elbow_joint",
+        G1_POSE.right_elbow_joint + reach * 0.7,
+      );
+
+      // Wrists — continuous roll so hands stay alive like spinning wheels.
+      robot.setJointValue("left_wrist_roll_joint", Math.sin(t * 1.2) * 0.35);
+      robot.setJointValue("right_wrist_roll_joint", Math.sin(t * 1.2 + 1.2) * 0.35);
     },
     annotations: [
       { link: "head_link", label: "LIDAR + DEPTH HEAD", side: 1, lift: 48 },

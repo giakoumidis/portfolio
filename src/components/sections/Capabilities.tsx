@@ -55,9 +55,9 @@ export default function Capabilities() {
                 as="li"
                 key={capability.id}
                 delay={i * 0.08}
-                className="scroll-mt-20 lg:scroll-mt-8"
+                className="h-full scroll-mt-20 lg:scroll-mt-8"
               >
-                <div id={capability.id}>
+                <div id={capability.id} className="h-full">
                   <HudCard accent={accent} className="flex h-full flex-col p-6">
                     <p className={`label-mono ${ACCENT_TEXT[accent]}`}>
                       [{String(i + 1).padStart(2, "0")}]

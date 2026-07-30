@@ -60,14 +60,13 @@ export const capabilities = [
     id: "lab-automation-instrumentation",
     title: "Lab Automation & Instrumentation",
     blurb:
-      "Establishing and running research laboratories — from equipment strategy and custom instrumentation to platforms like NYUAD's High-Throughput Screening system — with safety and regulatory compliance built in.",
+      "Establishing and running research laboratories — from equipment strategy and custom instrumentation to platforms like NYUAD's High-Throughput Screening system.",
     tags: [
-      "Lab automation",
       "Scientific instrumentation",
       "LabVIEW",
       "High-throughput screening",
-      "Advanced manufacturing",
-      "Safety systems",
+      "Custom instrumentation",
+      "Equipment strategy",
     ],
   },
   {
@@ -88,7 +87,7 @@ export const capabilities = [
     id: "telecommunications-edge-computing",
     title: "Photonics & Telecommunications",
     blurb:
-      "Helped establish and operate NYU Abu Dhabi's Photonics Core Technology Platform — from capital planning and vendor benchmarking with faculty through commissioning, calibration, expansion, and seven years of shared-lab stewardship. Built a high-speed optical and RF characterization stack spanning tunable lasers, BER testing, arbitrary waveform generation, coherent and vector signal analysis, and lightwave component analysis to 67 GHz, enabling silicon photonics research acknowledged in peer-reviewed papers with 60–64 Gbit/s system demonstrations.",
+      "Establishing and operating NYU Abu Dhabi's Photonics Core — capital planning, commissioning, and high-speed optical/RF characterization for silicon photonics research.",
     tags: [
       "Silicon photonics",
       "High-speed optical test",
