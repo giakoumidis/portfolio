@@ -25,7 +25,7 @@ const ACCENT_TEXT: Record<Accent, string> = {
   green: "text-green",
 };
 
-/** Prefer Labs when a domain has infrastructure (e.g. HTS under Lab Automation). */
+/** Prefer Laboratories when a domain has a facility hub (e.g. HTS under Lab Automation). */
 function relatedHref(
   domainId: string,
 ): { href: string; label: string } | null {
@@ -34,8 +34,8 @@ function relatedHref(
   );
   if (hasLab) {
     return {
-      href: `/?domain=${domainId}#labs`,
-      label: "View related labs →",
+      href: `/?domain=${domainId}#laboratories`,
+      label: "View related laboratories →",
     };
   }
   const hasWork = getAllWork().some((item) =>

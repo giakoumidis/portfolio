@@ -3,8 +3,8 @@ import { workRecords } from "@/content/work";
 import type { FieldPhoto } from "@/lib/types";
 
 /**
- * Standalone shots not attached to a work or infrastructure record
- * (competitions, exhibition floors, etc.). Project/lab archive photos are
+ * Standalone shots not attached to a work or laboratory record
+ * (competitions, exhibition floors, etc.). Project/laboratory archive photos are
  * aggregated in `getFieldPhotos()` so the gallery stays in sync with content.
  *
  * Source archive: Google Drive "Kinesis Photos and Videos"; resize new
@@ -69,8 +69,8 @@ const standaloneFieldPhotos: FieldPhoto[] = [
 
 /**
  * Photos gallery for the homepage Field Log: every archive image from work
- * and infrastructure records, plus standalone field shots not already covered.
- * Each project/lab photo carries its description and a link to the case file.
+ * and laboratory records, plus standalone field shots not already covered.
+ * Each project/laboratory photo carries its description and a link to the case file.
  */
 export function getFieldPhotos(): FieldPhoto[] {
   const photos: FieldPhoto[] = [];
@@ -108,7 +108,7 @@ export function getFieldPhotos(): FieldPhoto[] {
         orientation: image.orientation,
         project: {
           title: record.title,
-          href: `/infrastructure/${record.slug}`,
+          href: `/laboratories/${record.slug}`,
         },
       });
     }

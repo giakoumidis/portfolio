@@ -12,9 +12,9 @@ type ProjectCardsProps = {
   items: Project[];
   /**
    * When set, card titles link into the knowledge-system case file or
-   * infrastructure hub (e.g. `/work` or `/infrastructure`).
+   * laboratory hub (e.g. `/work` or `/laboratories`).
    */
-  recordBasePath?: "/work" | "/infrastructure";
+  recordBasePath?: "/work" | "/laboratories";
 };
 
 const ACCENT_CYCLE = [

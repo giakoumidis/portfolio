@@ -24,10 +24,10 @@ export default function Footer() {
               Work Index
             </Link>
             <Link
-              href="/infrastructure"
+              href="/laboratories"
               className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
             >
-              Infrastructure
+              Laboratories
             </Link>
           </nav>
         </div>

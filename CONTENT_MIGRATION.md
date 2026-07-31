@@ -10,7 +10,7 @@ Statuses: **CONFIRMED** · **DRAFTED** · **NEEDS REVIEW** · **UNRESOLVED LEGAC
 | Domains from `capabilities.ts` | All seven capability ids registered as domain terms |
 | `industry-engagement` | Added as domain (was orphan `domainId` on Etihad Rail) |
 | `electronics-embedded-systems` | Added for ASIC / PCB work |
-| Kinesis / Photonics / HTS | First-class infrastructure entities (not taxonomy terms) |
+| Kinesis / Photonics / HTS | First-class laboratory hubs (`InfrastructureRecord`; public routes under `/laboratories`) |
 | RGB-T UAV → `tested-in` → Kinesis | Explicit in project narrative |
 | UAV Visual Tracking & Localization | One work record (`rgb-t-uav-detection-tracking`); RGB-T is the flagship arena demo inside a six-paper 2020–2022 thread (PTZ, relative localization, RGB-T, evader, spherical, Siamese) — Photonics-style multi-evidence, not a single-paper project |
 | PalmSpector → Clearpath Husky + SLAM | Explicit in highlights |

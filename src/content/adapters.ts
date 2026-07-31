@@ -102,7 +102,7 @@ export function getLegacyProjects(): Project[] {
   return workRecords.map(projectRecordToLegacy);
 }
 
-/** Homepage labs list — derived from infrastructure records. */
-export function getLegacyLabs(): Project[] {
+/** Homepage laboratories list — derived from infrastructure records. */
+export function getLegacyLaboratories(): Project[] {
   return infrastructureRecords.map(infrastructureToLegacy);
 }

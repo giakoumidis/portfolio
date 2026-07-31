@@ -1,7 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import {
-  useDeferredValue,
   useEffect,
   useId,
   useRef,
@@ -11,15 +11,18 @@ import {
 
 import {
   categoryLabel,
+  matchingCategories,
   searchEntries,
+  searchIndexStats,
   searchSuggestions,
+  type SearchCategory,
   type SearchEntry,
 } from "@/lib/search";
 
 const CATEGORY_TINT: Record<SearchEntry["category"], string> = {
   section: "text-text-dim border-grid-dim",
   project: "text-cyan border-cyan/40",
-  lab: "text-magenta border-magenta/40",
+  laboratory: "text-magenta border-magenta/40",
   domain: "text-orange border-orange/40",
   role: "text-blue border-blue/40",
   education: "text-violet border-violet/40",
@@ -29,6 +32,7 @@ const CATEGORY_TINT: Record<SearchEntry["category"], string> = {
   exhibition: "text-pink border-pink/40",
   post: "text-violet border-violet/40",
   tool: "text-cyan border-cyan/40",
+  contact: "text-orange border-orange/40",
 };
 
 function isExternal(href: string): boolean {
@@ -39,14 +43,18 @@ function isInternalPath(href: string): boolean {
   return href.startsWith("/") && !href.startsWith("/#");
 }
 
-export function activateSearchEntry(entry: SearchEntry) {
+export function activateSearchEntry(
+  entry: SearchEntry,
+  navigate?: (href: string) => void,
+) {
   if (isExternal(entry.href)) {
     window.open(entry.href, "_blank", "noopener,noreferrer");
     return;
   }
 
   if (isInternalPath(entry.href)) {
-    window.location.assign(entry.href);
+    if (navigate) navigate(entry.href);
+    else window.location.assign(entry.href);
     return;
   }
 
@@ -83,17 +91,25 @@ export default function SearchPanel({
   onNavigate,
   className,
 }: SearchPanelProps) {
+  const router = useRouter();
   const inputId = useId();
   const listId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
+  const optionRefs = useRef<Array<HTMLAnchorElement | null>>([]);
   const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<SearchCategory | "all">("all");
   const [activeIndex, setActiveIndex] = useState(0);
-  const deferredQuery = useDeferredValue(query);
-  const results = searchEntries(deferredQuery);
-  const trimmed = deferredQuery.trim();
+
+  const trimmed = query.trim();
   const searching = trimmed.length > 0;
+  const browsing = !searching && category !== "all";
+  const results = searchEntries(query, { category, limit: browsing ? 16 : 24 });
+  const availableCategories = searching
+    ? matchingCategories(trimmed)
+    : searchIndexStats.map((stat) => stat.category);
   const safeIndex =
     results.length === 0 ? 0 : Math.min(activeIndex, results.length - 1);
+  const showingResults = searching || browsing;
 
   useEffect(() => {
     if (!autoFocus) return;
@@ -104,13 +120,38 @@ export default function SearchPanel({
     return () => cancelAnimationFrame(frame);
   }, [autoFocus]);
 
+  useEffect(() => {
+    const node = optionRefs.current[safeIndex];
+    node?.scrollIntoView({ block: "nearest" });
+  }, [safeIndex, results.length]);
+
+  // Drop a facet that no longer matches the typed query.
+  useEffect(() => {
+    if (category === "all" || !searching) return;
+    if (!availableCategories.includes(category)) {
+      setCategory("all");
+      setActiveIndex(0);
+    }
+  }, [availableCategories, category, searching]);
+
   function activate(entry: SearchEntry) {
-    activateSearchEntry(entry);
+    activateSearchEntry(entry, (href) => router.push(href));
     onNavigate?.();
   }
 
   function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
-    if (!searching || results.length === 0) return;
+    if (event.key === "Escape") {
+      if (query || category !== "all") {
+        event.preventDefault();
+        event.stopPropagation();
+        setQuery("");
+        setCategory("all");
+        setActiveIndex(0);
+      }
+      return;
+    }
+
+    if (!showingResults || results.length === 0) return;
 
     if (event.key === "ArrowDown") {
       event.preventDefault();
@@ -129,6 +170,12 @@ export default function SearchPanel({
       const entry = results[safeIndex];
       if (entry) activate(entry);
     }
+  }
+
+  function selectCategory(next: SearchCategory | "all") {
+    setCategory(next);
+    setActiveIndex(0);
+    inputRef.current?.focus();
   }
 
   return (
@@ -166,11 +213,11 @@ export default function SearchPanel({
             value={query}
             autoComplete="off"
             spellCheck={false}
-            placeholder="drone · CAIR · PyTorch · wheelchair…"
+            placeholder="drone · CAIR · PyTorch · kinesis…"
             aria-controls={listId}
             aria-autocomplete="list"
             aria-activedescendant={
-              searching && results[safeIndex]
+              showingResults && results[safeIndex]
                 ? `${listId}-option-${safeIndex}`
                 : undefined
             }
@@ -181,11 +228,12 @@ export default function SearchPanel({
             onKeyDown={onKeyDown}
             className="min-w-0 flex-1 bg-transparent font-mono text-sm text-text outline-none placeholder:text-text-dim/50"
           />
-          {query && (
+          {(query || category !== "all") && (
             <button
               type="button"
               onClick={() => {
                 setQuery("");
+                setCategory("all");
                 setActiveIndex(0);
                 inputRef.current?.focus();
               }}
@@ -196,50 +244,129 @@ export default function SearchPanel({
           )}
         </div>
 
-        {!searching && (
-          <div className="mt-5 flex flex-wrap items-center gap-2">
-            <span className="label-mono text-text-dim">Try</span>
-            {searchSuggestions.map((suggestion) => (
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="label-mono text-text-dim">Filter</span>
+          <button
+            type="button"
+            onClick={() => selectCategory("all")}
+            aria-pressed={category === "all"}
+            className={`label-mono border px-3 py-1.5 transition-all duration-200 ${
+              category === "all"
+                ? "border-cyan/60 bg-cyan/10 text-cyan"
+                : "border-grid-dim text-text-dim hover:border-cyan/50 hover:text-cyan"
+            }`}
+          >
+            All
+          </button>
+          {availableCategories.map((facet) => {
+            const selected = category === facet;
+            return (
               <button
-                key={suggestion}
+                key={facet}
                 type="button"
-                onClick={() => {
-                  setQuery(suggestion);
-                  setActiveIndex(0);
-                  inputRef.current?.focus();
-                }}
-                className="label-mono border border-grid-dim px-3 py-1.5 text-text-dim transition-all duration-200 hover:border-cyan/50 hover:text-cyan"
+                onClick={() => selectCategory(facet)}
+                aria-pressed={selected}
+                className={`label-mono border px-3 py-1.5 transition-all duration-200 ${
+                  selected
+                    ? "border-cyan/60 bg-cyan/10 text-cyan"
+                    : "border-grid-dim text-text-dim hover:border-cyan/50 hover:text-cyan"
+                }`}
               >
-                {suggestion}
+                {categoryLabel(facet)}
               </button>
-            ))}
+            );
+          })}
+        </div>
+
+        {!showingResults && (
+          <div className="mt-5 space-y-5">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="label-mono text-text-dim">Try</span>
+              {searchSuggestions.map((suggestion) => (
+                <button
+                  key={suggestion}
+                  type="button"
+                  onClick={() => {
+                    setQuery(suggestion);
+                    setActiveIndex(0);
+                    inputRef.current?.focus();
+                  }}
+                  className="label-mono border border-grid-dim px-3 py-1.5 text-text-dim transition-all duration-200 hover:border-cyan/50 hover:text-cyan"
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
+
+            <ul className="grid grid-cols-2 gap-3 border-t border-grid-dim pt-5 sm:grid-cols-3 lg:grid-cols-5">
+              {searchIndexStats.map((stat) => (
+                <li key={stat.category}>
+                  <button
+                    type="button"
+                    onClick={() => selectCategory(stat.category)}
+                    className="w-full border border-grid-dim px-3 py-3 text-left transition-colors duration-200 hover:border-cyan/40 hover:bg-cyan/5"
+                  >
+                    <span className="label-mono block text-text-dim">
+                      {stat.label}
+                    </span>
+                    <span className="mt-1 block font-mono text-lg text-cyan">
+                      {stat.count}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 
-        {searching && (
+        {showingResults && (
           <div className="mt-5">
             <p aria-live="polite" className="label-mono mb-4 text-text-dim">
               {results.length === 0 ? (
                 <>
-                  <span className="text-magenta">0</span> hits for “{trimmed}”
+                  <span className="text-magenta">0</span> hits
+                  {searching ? (
+                    <>
+                      {" "}
+                      for “{trimmed}”
+                    </>
+                  ) : null}
+                  {category !== "all" ? (
+                    <>
+                      {" "}
+                      in {categoryLabel(category)}
+                    </>
+                  ) : null}
                 </>
               ) : (
                 <>
                   <span className="text-cyan">{results.length}</span> hit
-                  {results.length === 1 ? "" : "s"} for “{trimmed}”
+                  {results.length === 1 ? "" : "s"}
+                  {searching ? (
+                    <>
+                      {" "}
+                      for “{trimmed}”
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      in {categoryLabel(category as SearchCategory)}
+                    </>
+                  )}
                 </>
               )}
             </p>
 
             {results.length === 0 ? (
               <p className="font-mono text-sm text-text-dim">
-                No matching nodes. Try a shorter token or another domain.
+                No matching nodes. Try a shorter token, clear the filter, or pick
+                another domain.
               </p>
             ) : (
               <ul
                 id={listId}
                 role="listbox"
-                className="flex max-h-[min(24rem,50vh)] flex-col overflow-y-auto"
+                className="flex max-h-[min(28rem,55vh)] flex-col overflow-y-auto"
               >
                 {results.map((entry, index) => {
                   const selected = index === safeIndex;
@@ -253,6 +380,9 @@ export default function SearchPanel({
                       aria-selected={selected}
                     >
                       <a
+                        ref={(node) => {
+                          optionRefs.current[index] = node;
+                        }}
                         href={entry.href}
                         {...(external
                           ? {

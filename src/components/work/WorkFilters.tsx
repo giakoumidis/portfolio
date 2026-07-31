@@ -36,7 +36,7 @@ const FACET_META: Array<{
 }> = [
   { key: "domains", param: "domain", label: "Domain" },
   { key: "applications", param: "application", label: "Application" },
-  { key: "environments", param: "environment", label: "Environment" },
+  { key: "environments", param: "environment", label: "Laboratory" },
   { key: "platforms", param: "platform", label: "Platform" },
   { key: "methods", param: "method", label: "Technology", more: true },
   { key: "outcomes", param: "outcome", label: "Outcome", more: true },

@@ -23,7 +23,7 @@ export const profile = {
     { value: 15, suffix: "+", label: "Years experience" },
     { value: 100, suffix: "+", label: "Researchers supported" },
     { value: 800, prefix: "$", suffix: "K", label: "Annual purchasing influence" },
-    { value: 4, label: "Labs built" },
+    { value: 4, label: "Laboratories built" },
     { value: 4, label: "First-prize awards" },
     { value: 30, suffix: "+", label: "Publications" },
   ],

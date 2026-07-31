@@ -3,28 +3,31 @@ import { Suspense } from "react";
 import FilteredProjectCards from "@/components/sections/FilteredProjectCards";
 import ProjectCards from "@/components/sections/ProjectCards";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { labs } from "@/content/labs";
+import { laboratories } from "@/content/laboratories";
 
-export default function Labs() {
+export default function Laboratories() {
   return (
-    <section id="labs" aria-labelledby="labs-heading">
+    <section id="laboratories" aria-labelledby="laboratories-heading">
       <div className="section-shell">
         <SectionHeading
           index="04"
-          title="Labs"
-          headingId="labs-heading"
+          title="Laboratories"
+          headingId="laboratories-heading"
           kicker="Built & Operated"
         />
 
         <Suspense
           fallback={
-            <ProjectCards items={labs} recordBasePath="/infrastructure" />
+            <ProjectCards
+              items={laboratories}
+              recordBasePath="/laboratories"
+            />
           }
         >
           <FilteredProjectCards
-            items={labs}
-            ariaLabel="Filter labs by domain"
-            recordBasePath="/infrastructure"
+            items={laboratories}
+            ariaLabel="Filter laboratories by domain"
+            recordBasePath="/laboratories"
           />
         </Suspense>
       </div>

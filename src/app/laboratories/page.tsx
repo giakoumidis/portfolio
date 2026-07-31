@@ -6,23 +6,23 @@ import { getAllInfrastructure } from "@/lib/query";
 import { siteTitle } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `Infrastructure — ${siteTitle}`,
+  title: `Laboratories — ${siteTitle}`,
   description:
     "Laboratories and research facilities established, commissioned, or operated — with connected work generated from typed relationships.",
-  alternates: { canonical: "/infrastructure" },
+  alternates: { canonical: "/laboratories" },
 };
 
-export default function InfrastructureIndexPage() {
+export default function LaboratoriesIndexPage() {
   const items = getAllInfrastructure();
 
   return (
-    <RouteChrome active="infrastructure">
+    <RouteChrome active="laboratories">
       <div className="section-shell py-16 lg:py-24">
         <p className="label-mono text-cyan">
-          02 <span className="text-text-dim">{"//"} Infrastructure</span>
+          02 <span className="text-text-dim">{"//"} Laboratories</span>
         </p>
         <h1 className="mt-3 text-[clamp(1.6rem,3.5vw,2.5rem)] text-text">
-          Infrastructure
+          Laboratories
         </h1>
         <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
         <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
@@ -34,11 +34,11 @@ export default function InfrastructureIndexPage() {
           {items.map((item) => (
             <li key={item.slug}>
               <Link
-                href={`/infrastructure/${item.slug}`}
+                href={`/laboratories/${item.slug}`}
                 className="flex h-full flex-col border border-grid-dim bg-bg-raised/30 p-5 transition-colors hover:border-cyan/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
               >
                 <p className="label-mono text-text-dim">
-                  Laboratory Hub
+                  Laboratory
                   {item.period.label && (
                     <span className="ml-3">{item.period.label}</span>
                   )}

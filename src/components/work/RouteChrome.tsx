@@ -3,16 +3,16 @@ import Link from "next/link";
 type RouteChromeProps = {
   children: React.ReactNode;
   /** Active top-level path for nav highlight. */
-  active?: "work" | "infrastructure" | "home";
+  active?: "work" | "laboratories" | "home";
 };
 
 const NAV = [
   { href: "/", label: "Home", key: "home" as const },
   { href: "/work", label: "Work Index", key: "work" as const },
   {
-    href: "/infrastructure",
-    label: "Infrastructure",
-    key: "infrastructure" as const,
+    href: "/laboratories",
+    label: "Laboratories",
+    key: "laboratories" as const,
   },
 ];
 

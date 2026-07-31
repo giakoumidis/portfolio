@@ -83,11 +83,11 @@ export default function SystemRecord({ caseFile }: SystemRecordProps) {
             />
           ))}
         </Row>
-        <Row label="Environment">
+        <Row label="Laboratory">
           {environments.map(({ record: infra, relationType }) => (
             <Link
               key={infra.slug}
-              href={`/infrastructure/${infra.slug}`}
+              href={`/laboratories/${infra.slug}`}
               className="label-mono border border-grid-dim px-2 py-1 text-text-dim transition-colors hover:border-cyan/50 hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
             >
               <span className="text-cyan/70">

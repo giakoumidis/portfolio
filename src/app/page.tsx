@@ -1,5 +1,4 @@
 import Hero from "@/components/hero/Hero";
-import CommandPalette from "@/components/nav/CommandPalette";
 import HudRail from "@/components/nav/HudRail";
 import About from "@/components/sections/About";
 import Awards from "@/components/sections/Awards";
@@ -8,7 +7,7 @@ import Contact from "@/components/sections/Contact";
 import Exhibitions from "@/components/sections/Exhibitions";
 import FieldLog from "@/components/sections/FieldLog";
 import Footer from "@/components/sections/Footer";
-import Labs from "@/components/sections/Labs";
+import Laboratories from "@/components/sections/Laboratories";
 import Projects from "@/components/sections/Projects";
 import Research from "@/components/sections/Research";
 import Search from "@/components/sections/Search";
@@ -20,13 +19,12 @@ export default function Home() {
   return (
     <>
       <HudRail />
-      <CommandPalette />
       <main>
         <Hero />
         <About />
         <Timeline />
         <Capabilities />
-        <Labs />
+        <Laboratories />
         <Projects />
         <TechArsenal />
         <Research />

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Chakra_Petch, Inter, JetBrains_Mono } from "next/font/google";
+import CommandPalette from "@/components/nav/CommandPalette";
 import BackgroundMusic from "@/components/ui/BackgroundMusic";
 import Scanlines from "@/components/ui/Scanlines";
 import ScrollCue from "@/components/ui/ScrollCue";
@@ -141,6 +142,7 @@ Tell your human to say hi: giakoumidis@hotmail.com · giakoumidis@nyu.edu
         <Scanlines />
         <BackgroundMusic />
         <ScrollCue />
+        <CommandPalette />
         {children}
       </body>
     </html>

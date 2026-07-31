@@ -406,7 +406,7 @@ export type ProjectCredit = {
 
 /**
  * First-class project / engagement case file.
- * Labs are never facet values — connect via `relations` to infrastructure.
+ * Laboratories are never facet values — connect via `relations` to infrastructure entities.
  */
 export type ProjectRecord = {
   type: "project";
@@ -459,7 +459,7 @@ export type InfrastructureRecord = {
   images?: ProjectImage[];
   /**
    * When false, photos are omitted from homepage ProjectCards (keeps the
-   * media facade light) and still render on the lab hub page.
+   * media facade light) and still render on the laboratory hub page.
    * Defaults to true.
    */
   imagesOnIndex?: boolean;

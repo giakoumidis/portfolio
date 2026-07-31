@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${siteUrl}/infrastructure`,
+      url: `${siteUrl}/laboratories`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.85,
@@ -37,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   for (const infra of getAllInfrastructure()) {
     entries.push({
-      url: `${siteUrl}/infrastructure/${infra.slug}`,
+      url: `${siteUrl}/laboratories/${infra.slug}`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.75,

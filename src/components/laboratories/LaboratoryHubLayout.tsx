@@ -8,11 +8,11 @@ import RoboPhoto from "@/components/ui/RoboPhoto";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
 import type { InfrastructureHub } from "@/lib/query";
 
-type LabHubLayoutProps = {
+type LaboratoryHubLayoutProps = {
   hub: InfrastructureHub;
 };
 
-export default function LabHubLayout({ hub }: LabHubLayoutProps) {
+export default function LaboratoryHubLayout({ hub }: LaboratoryHubLayoutProps) {
   const {
     record,
     domainTerms,
@@ -36,10 +36,10 @@ export default function LabHubLayout({ hub }: LabHubLayoutProps) {
     <article className="section-shell py-16 lg:py-24">
       <nav aria-label="Breadcrumb" className="label-mono text-text-dim">
         <Link
-          href="/infrastructure"
+          href="/laboratories"
           className="hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
         >
-          Infrastructure
+          Laboratories
         </Link>
         <span className="mx-2">/</span>
         <span className="text-text">Laboratory Hub</span>
@@ -47,7 +47,7 @@ export default function LabHubLayout({ hub }: LabHubLayoutProps) {
 
       <header className="mt-8">
         <p className="label-mono text-cyan">
-          Infrastructure
+          Laboratory
           {record.period.label && (
             <span className="ml-3 text-text-dim">{record.period.label}</span>
           )}
@@ -181,7 +181,7 @@ export default function LabHubLayout({ hub }: LabHubLayoutProps) {
             Platforms & Systems
           </h2>
           <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
-            Equipment and platforms established or operated in this environment
+            Equipment and platforms established or operated in this laboratory
             — not a claim that every connected project used each system.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -201,7 +201,7 @@ export default function LabHubLayout({ hub }: LabHubLayoutProps) {
       {connectedWork.length > 0 && (
         <section className="mt-12" aria-labelledby="lab-work-heading">
           <h2 id="lab-work-heading" className="label-mono text-text-dim">
-            Work From This Lab
+            Work From This Laboratory
           </h2>
           <ul className="mt-4 grid gap-4 sm:grid-cols-2">
             {connectedWork.map(({ project, relationType }) => (

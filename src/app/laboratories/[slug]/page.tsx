@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import LabHubLayout from "@/components/infrastructure/LabHubLayout";
+import LaboratoryHubLayout from "@/components/laboratories/LaboratoryHubLayout";
 import RouteChrome from "@/components/work/RouteChrome";
 import { getAllInfrastructure, getInfrastructureHub } from "@/lib/query";
 import { siteTitle } from "@/lib/site";
@@ -23,18 +23,18 @@ export async function generateMetadata({
   return {
     title: `${hub.record.title} — ${siteTitle}`,
     description: hub.record.contributionSummary,
-    alternates: { canonical: `/infrastructure/${slug}` },
+    alternates: { canonical: `/laboratories/${slug}` },
   };
 }
 
-export default async function InfrastructureHubPage({ params }: PageProps) {
+export default async function LaboratoryHubPage({ params }: PageProps) {
   const { slug } = await params;
   const hub = getInfrastructureHub(slug);
   if (!hub) notFound();
 
   return (
-    <RouteChrome active="infrastructure">
-      <LabHubLayout hub={hub} />
+    <RouteChrome active="laboratories">
+      <LaboratoryHubLayout hub={hub} />
     </RouteChrome>
   );
 }
