@@ -47,7 +47,15 @@ function WindowControls() {
   );
 }
 
-function CopyEmailButton({ email, targetId }: { email: string; targetId: string }) {
+function CopyEmailButton({
+  email,
+  targetId,
+  revealed,
+}: {
+  email: string;
+  targetId: string;
+  revealed: boolean;
+}) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
@@ -71,6 +79,8 @@ function CopyEmailButton({ email, targetId }: { email: string; targetId: string 
     <button
       type="button"
       onClick={copy}
+      disabled={!revealed}
+      tabIndex={revealed ? undefined : -1}
       className="label-mono shrink-0 border border-cyan/40 px-2.5 py-1 text-xs text-cyan transition-colors duration-200 hover:bg-cyan/10"
       aria-label={copied ? "Email copied" : `Copy ${email}`}
     >
@@ -82,20 +92,23 @@ function CopyEmailButton({ email, targetId }: { email: string; targetId: string 
 function ContactEmailRow({
   email,
   id,
+  revealed,
 }: {
   email: string;
   id: string;
+  revealed: boolean;
 }) {
   return (
     <div className="flex flex-wrap items-center gap-3">
       <a
         id={id}
         href={`mailto:${email}`}
+        tabIndex={revealed ? undefined : -1}
         className="select-all text-cyan transition-colors duration-200 hover:underline hover:underline-offset-4"
       >
         {email}
       </a>
-      <CopyEmailButton email={email} targetId={id} />
+      <CopyEmailButton email={email} targetId={id} revealed={revealed} />
     </div>
   );
 }
@@ -104,6 +117,7 @@ type Line = 0 | 1 | 2 | 3 | 4;
 
 export default function Contact() {
   const [line, setLine] = useState<Line>(0);
+  const revealed = line >= 4;
   const roleLine = `${profile.currentRole.title} · ${profile.currentRole.org}`;
 
   return (
@@ -184,41 +198,53 @@ export default function Contact() {
                 </p>
               )}
 
-              {line >= 4 && (
-                <>
-                  <div className="space-y-2">
-                    <ContactEmailRow
-                      id="contact-email"
-                      email={profile.email}
-                    />
-                    <ContactEmailRow
-                      id="contact-nyu-email"
-                      email={profile.nyuEmail}
-                    />
-                  </div>
+              {/*
+                Always mount contact links so SSR / crawlers / a11y trees see them.
+                Humans still get the terminal reveal: they stay sr-only until the
+                typewriter sequence finishes.
+              */}
+              <div className={revealed ? "space-y-2" : "sr-only"}>
+                <ContactEmailRow
+                  id="contact-email"
+                  email={profile.email}
+                  revealed={revealed}
+                />
+                <ContactEmailRow
+                  id="contact-nyu-email"
+                  email={profile.nyuEmail}
+                  revealed={revealed}
+                />
+              </div>
 
-                  <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2">
-                    {socialLinks.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="label-mono text-cyan transition-colors duration-200 hover:underline hover:underline-offset-4"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
+              <div
+                className={
+                  revealed
+                    ? "flex flex-wrap gap-x-6 gap-y-2 pt-2"
+                    : "sr-only"
+                }
+              >
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabIndex={revealed ? undefined : -1}
+                    className="label-mono text-cyan transition-colors duration-200 hover:underline hover:underline-offset-4"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
 
-                  <p className="flex items-center pt-2">
-                    <Prompt />
-                    <span
-                      aria-hidden
-                      className="animate-blink inline-block h-5 w-2.5 bg-text"
-                    />
-                  </p>
-                </>
+              {revealed && (
+                <p className="flex items-center pt-2">
+                  <Prompt />
+                  <span
+                    aria-hidden
+                    className="animate-blink inline-block h-5 w-2.5 bg-text"
+                  />
+                </p>
               )}
             </div>
           </HudCard>
