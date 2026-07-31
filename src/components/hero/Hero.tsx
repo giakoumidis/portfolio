@@ -136,14 +136,17 @@ export default function Hero() {
               ? { duration: 0 }
               : { duration: 0.6, delay: 0.15, ease: REVEAL_EASE }
           }
-          className="mt-10 flex flex-wrap gap-4"
+          className="mt-10 grid w-full max-w-sm grid-cols-1 gap-3 sm:max-w-3xl sm:grid-cols-3 sm:gap-4"
         >
-          <NeonButton href="/work">Work Index</NeonButton>
-          <NeonButton href="/infrastructure" variant="magenta">
-            Infrastructure
+          <NeonButton href="#contact" className="w-full">
+            Contact
           </NeonButton>
-          <NeonButton href="/cv.pdf" variant="orange" download>
+          <NeonButton href="/cv.pdf" download className="w-full">
             Download CV
+          </NeonButton>
+          <NeonButton href="#about" className="w-full">
+            View my Work
+            <span aria-hidden>↓</span>
           </NeonButton>
         </motion.div>
       </div>
