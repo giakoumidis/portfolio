@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import HudCard from "@/components/ui/HudCard";
 import NeonButton from "@/components/ui/NeonButton";
@@ -13,6 +13,7 @@ const SHELL_USER = "nikolaos";
 const SHELL_HOST = "portfolio";
 const SHELL_CWD = "~";
 const WHOAMI = "whoami";
+const LINK_STAGGER_MS = 80;
 
 /** Ubuntu's stock PS1, decorative: the command itself is announced by Typewriter. */
 function Prompt() {
@@ -92,23 +93,43 @@ function CopyEmailButton({
 function ContactEmailRow({
   email,
   id,
-  revealed,
+  animate,
+  onDone,
 }: {
   email: string;
   id: string;
-  revealed: boolean;
+  /** When true, type the address; when false, show it fully (already revealed). */
+  animate: boolean;
+  onDone?: () => void;
 }) {
+  const [done, setDone] = useState(!animate);
+
   return (
     <div className="flex flex-wrap items-center gap-3">
       <a
         id={id}
         href={`mailto:${email}`}
-        tabIndex={revealed ? undefined : -1}
+        tabIndex={done ? undefined : -1}
         className="select-all text-cyan transition-colors duration-200 hover:underline hover:underline-offset-4"
       >
-        {email}
+        {animate && !done ? (
+          <Typewriter
+            text={email}
+            showCursor
+            hideCursorWhenDone
+            pauseAfterDone={120}
+            speed={28}
+            className="text-cyan"
+            onDone={() => {
+              setDone(true);
+              onDone?.();
+            }}
+          />
+        ) : (
+          email
+        )}
       </a>
-      <CopyEmailButton email={email} targetId={id} revealed={revealed} />
+      <CopyEmailButton email={email} targetId={id} revealed={done} />
     </div>
   );
 }
@@ -117,8 +138,19 @@ type Line = 0 | 1 | 2 | 3 | 4;
 
 export default function Contact() {
   const [line, setLine] = useState<Line>(0);
-  const revealed = line >= 4;
-  const roleLine = `${profile.currentRole.title} · ${profile.currentRole.org}`;
+  const [linksShown, setLinksShown] = useState(0);
+  const linksPhase = line >= 4;
+  const sequenceDone = linksPhase && linksShown >= socialLinks.length;
+
+  useEffect(() => {
+    if (!linksPhase || linksShown >= socialLinks.length) return;
+    const delay = linksShown === 0 ? 0 : LINK_STAGGER_MS;
+    const timer = window.setTimeout(
+      () => setLinksShown((n) => n + 1),
+      delay,
+    );
+    return () => window.clearTimeout(timer);
+  }, [linksPhase, linksShown]);
 
   return (
     <section id="contact" aria-labelledby="contact-heading">
@@ -172,72 +204,75 @@ export default function Contact() {
                 </p>
               )}
 
-              {line >= 2 && (
-                <p className="text-text-dim">
-                  <Typewriter
-                    text={roleLine}
-                    showCursor
-                    hideCursorWhenDone
-                    pauseAfterDone={280}
-                    className="text-text-dim"
-                    onDone={() => setLine(3)}
-                  />
-                </p>
-              )}
-
-              {line >= 3 && (
-                <p className="text-text-dim">
-                  <Typewriter
-                    text={profile.location}
-                    showCursor
-                    hideCursorWhenDone
-                    pauseAfterDone={280}
-                    className="text-text-dim"
-                    onDone={() => setLine(4)}
-                  />
-                </p>
-              )}
-
               {/*
                 Always mount contact links so SSR / crawlers / a11y trees see them.
                 Humans still get the terminal reveal: they stay sr-only until the
-                typewriter sequence finishes.
+                typewriter sequence reaches them.
               */}
-              <div className={revealed ? "space-y-2" : "sr-only"}>
-                <ContactEmailRow
-                  id="contact-email"
-                  email={profile.email}
-                  revealed={revealed}
-                />
-                <ContactEmailRow
-                  id="contact-nyu-email"
-                  email={profile.nyuEmail}
-                  revealed={revealed}
-                />
+              <div className={line >= 2 ? "space-y-2" : "sr-only"}>
+                {line < 2 ? (
+                  <>
+                    <a id="contact-email" href={`mailto:${profile.email}`}>
+                      {profile.email}
+                    </a>
+                    <a
+                      id="contact-nyu-email"
+                      href={`mailto:${profile.nyuEmail}`}
+                    >
+                      {profile.nyuEmail}
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <ContactEmailRow
+                      id="contact-email"
+                      email={profile.email}
+                      animate={line === 2}
+                      onDone={() => setLine(3)}
+                    />
+                    {line >= 3 && (
+                      <ContactEmailRow
+                        id="contact-nyu-email"
+                        email={profile.nyuEmail}
+                        animate={line === 3}
+                        onDone={() => setLine(4)}
+                      />
+                    )}
+                  </>
+                )}
               </div>
 
               <div
                 className={
-                  revealed
+                  linksPhase
                     ? "flex flex-wrap gap-x-6 gap-y-2 pt-2"
                     : "sr-only"
                 }
               >
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    tabIndex={revealed ? undefined : -1}
-                    className="label-mono text-cyan transition-colors duration-200 hover:underline hover:underline-offset-4"
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {socialLinks.map((link, i) => {
+                  const visible = !linksPhase || i < linksShown;
+                  return (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      tabIndex={visible && linksPhase ? undefined : -1}
+                      className={
+                        linksPhase
+                          ? `label-mono text-cyan transition-opacity duration-150 hover:underline hover:underline-offset-4 ${
+                              visible ? "opacity-100" : "pointer-events-none opacity-0"
+                            }`
+                          : "label-mono text-cyan"
+                      }
+                    >
+                      {link.label}
+                    </a>
+                  );
+                })}
               </div>
 
-              {revealed && (
+              {sequenceDone && (
                 <p className="flex items-center pt-2">
                   <Prompt />
                   <span
