@@ -11,6 +11,10 @@ type StatCounterProps = {
   durationMs?: number;
 };
 
+/**
+ * Server-renders the final verified value so crawlers / no-JS readers see real
+ * numbers. Count-up is progressive enhancement after hydration + in-view.
+ */
 export default function StatCounter({
   value,
   label,
@@ -21,20 +25,23 @@ export default function StatCounter({
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px 0px" });
   const reduced = useReducedMotion();
-  const [tweened, setTweened] = useState(0);
+  // Initial state = final value so SSR HTML contains real metrics.
+  const [shown, setShown] = useState(value);
+  const animated = useRef(false);
 
   useEffect(() => {
-    if (!inView || reduced) return;
+    if (!inView || reduced || animated.current) return;
+    animated.current = true;
 
     let frame = 0;
     let start: number | null = null;
+    setShown(0);
 
     const tick = (now: number) => {
       start ??= now;
       const t = Math.min((now - start) / durationMs, 1);
-      // Ease-out cubic: fast arrival, gentle settle.
       const eased = 1 - Math.pow(1 - t, 3);
-      setTweened(Math.round(value * eased));
+      setShown(Math.round(value * eased));
       if (t < 1) frame = requestAnimationFrame(tick);
     };
 
@@ -42,9 +49,9 @@ export default function StatCounter({
     return () => cancelAnimationFrame(frame);
   }, [inView, reduced, value, durationMs]);
 
-  // With motion suppressed the figure is content, not an effect, so it reads
-  // its final value straight away instead of waiting to be scrolled past.
-  const shown = reduced ? value : tweened;
+  useEffect(() => {
+    if (reduced) setShown(value);
+  }, [reduced, value]);
 
   return (
     <div ref={ref} className="px-5 py-6">

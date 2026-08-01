@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
         destination: "/laboratories/:slug",
         permanent: true,
       },
+      {
+        source: "/photos",
+        destination: "/archive",
+        permanent: true,
+      },
     ];
   },
 };

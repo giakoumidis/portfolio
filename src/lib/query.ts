@@ -5,6 +5,7 @@ import {
   getTaxonomyTerm,
   taxonomyLabel,
 } from "@/content/taxonomy";
+import { flagshipProjectSlugs } from "@/content/homepage";
 import { workRecords } from "@/content/work";
 import {
   ENVIRONMENT_RELATION_TYPES,
@@ -92,6 +93,66 @@ export function getAllInfrastructure(): InfrastructureRecord[] {
 export function getProject(slug: string): ProjectRecord | undefined {
   const entity = getEntity({ type: "project", slug });
   return entity?.type === "project" ? entity : undefined;
+}
+
+/** Flagship projects first (homepage order), then remaining work by start year desc. */
+export function getCuratedWork(): ProjectRecord[] {
+  const all = getAllWork();
+  const flagshipSet = new Set<string>(flagshipProjectSlugs);
+  const flagships: ProjectRecord[] = [];
+
+  for (const slug of flagshipProjectSlugs) {
+    const project = getProject(slug);
+    if (project) flagships.push(project);
+  }
+
+  const rest = all
+    .filter((project) => !flagshipSet.has(project.slug))
+    .sort(
+      (a, b) =>
+        (b.period.startYear ?? 0) - (a.period.startYear ?? 0),
+    );
+
+  return [...flagships, ...rest];
+}
+
+export type SpokeNeighbor = {
+  slug: string;
+  title: string;
+};
+
+export function getWorkNeighbors(slug: string): {
+  prev: SpokeNeighbor | null;
+  next: SpokeNeighbor | null;
+} {
+  const curated = getCuratedWork();
+  const index = curated.findIndex((project) => project.slug === slug);
+  if (index === -1) return { prev: null, next: null };
+
+  const prev = index > 0 ? curated[index - 1] : null;
+  const next = index < curated.length - 1 ? curated[index + 1] : null;
+
+  return {
+    prev: prev ? { slug: prev.slug, title: prev.title } : null,
+    next: next ? { slug: next.slug, title: next.title } : null,
+  };
+}
+
+export function getInfrastructureNeighbors(slug: string): {
+  prev: SpokeNeighbor | null;
+  next: SpokeNeighbor | null;
+} {
+  const all = getAllInfrastructure();
+  const index = all.findIndex((record) => record.slug === slug);
+  if (index === -1) return { prev: null, next: null };
+
+  const prev = index > 0 ? all[index - 1] : null;
+  const next = index < all.length - 1 ? all[index + 1] : null;
+
+  return {
+    prev: prev ? { slug: prev.slug, title: prev.title } : null,
+    next: next ? { slug: next.slug, title: next.title } : null,
+  };
 }
 
 export function getInfrastructure(
@@ -364,6 +425,20 @@ export function filterWork(filters: WorkFilterParams): ProjectRecord[] {
     }
     return true;
   });
+}
+
+export function hasActiveWorkFilters(filters: WorkFilterParams): boolean {
+  return Boolean(
+    filters.domains?.length ||
+      filters.applications?.length ||
+      filters.environments?.length ||
+      filters.platforms?.length ||
+      filters.methods?.length ||
+      filters.outcomes?.length ||
+      filters.contributions?.length ||
+      filters.contentTypes?.length ||
+      filters.years?.length,
+  );
 }
 
 /* ------------------------------------------------------------------ */

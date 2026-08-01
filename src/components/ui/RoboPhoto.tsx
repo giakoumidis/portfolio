@@ -48,7 +48,7 @@ export default function RoboPhoto({
   description,
   link,
   aspect = "aspect-[3/2]",
-  sizes = "(min-width: 1024px) 40vw, 100vw",
+  sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw",
   preload,
   className = "",
   gallery,

@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type PointerEvent } from "react";
+import { AUDIO_TRACK } from "@/lib/audio";
 import { MEDIA_VIDEO_PLAY, MEDIA_VIDEO_STOP } from "@/lib/media-events";
 
-const VIDEO_ID = "smpTDkLCYb0";
+// Ambient track license status: see AUDIO_LICENSE_STATUS in @/lib/audio
+const VIDEO_ID = AUDIO_TRACK.videoId;
 const MUTED_KEY = "ng-audio-muted";
 const VOLUME_KEY = "ng-audio-volume-v2";
 const DEFAULT_VOLUME = 50;
@@ -157,6 +159,7 @@ export default function BackgroundMusic() {
   // Detect mobile only after mount so SSR and the first client render match.
   const [mobileMode, setMobileMode] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const mutedRef = useRef(false);
   const volumeRef = useRef(DEFAULT_VOLUME);
@@ -169,11 +172,15 @@ export default function BackgroundMusic() {
   const pausedByVideoRef = useRef(false);
   const activeVideoCountRef = useRef(0);
   const seekingRef = useRef(false);
+  const seekSettleRef = useRef<number | null>(null);
   const durationRef = useRef(0);
   /** Seconds to resume from after pause (desktop + mobile). */
   const resumeAtRef = useRef(0);
   const mobilePlayStartedRef = useRef<number | null>(null);
   const progressRef = useRef(0);
+  const playingRef = useRef(false);
+  /** Wall-clock anchor — hidden YT embeds often report stale/zero currentTime. */
+  const lastWallRef = useRef<number | null>(null);
 
   useEffect(() => {
     const storedMuted = readStoredMuted();
@@ -221,29 +228,91 @@ export default function BackgroundMusic() {
   }, [progress]);
 
   useEffect(() => {
-    if (mobileMode) return;
+    playingRef.current = playing;
+    if (!playing) lastWallRef.current = null;
+  }, [playing]);
+
+  useEffect(() => {
+    return () => {
+      if (seekSettleRef.current != null) window.clearTimeout(seekSettleRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (mobileMode || !ready) return;
+
+    const applyPlayhead = (seconds: number, duration: number) => {
+      const wrapped = ((seconds % duration) + duration) % duration;
+      resumeAtRef.current = wrapped;
+      const next = clampProgress((wrapped / duration) * 100);
+      progressRef.current = next;
+      setProgress(next);
+    };
 
     const tick = () => {
+      if (seekingRef.current) return;
+
       const player = playerRef.current;
-      if (!player) return;
-      try {
-        const duration = player.getDuration();
-        if (!duration || duration <= 0) return;
-        durationRef.current = duration;
-        if (seekingRef.current) return;
-        if (!playing) return;
-        const current = player.getCurrentTime();
-        resumeAtRef.current = current;
-        setProgress(clampProgress((current / duration) * 100));
-      } catch {
-        /* player not ready */
+      const now = performance.now();
+      let duration = durationRef.current;
+
+      if (player) {
+        try {
+          const apiDuration = player.getDuration();
+          if (apiDuration > 0) {
+            duration = apiDuration;
+            durationRef.current = apiDuration;
+          }
+        } catch {
+          /* ignore */
+        }
+      }
+
+      if (!duration || duration <= 0) return;
+
+      // Prefer API time only when it looks trustworthy.
+      if (player) {
+        try {
+          const state = player.getPlayerState();
+          const apiTime = player.getCurrentTime();
+          const playingState = 1;
+          const pausedState = 2;
+          const spuriousZero =
+            apiTime < 0.35 && resumeAtRef.current > 1.5 && state !== pausedState;
+          if (
+            (state === playingState || state === pausedState) &&
+            Number.isFinite(apiTime) &&
+            apiTime >= 0 &&
+            !spuriousZero
+          ) {
+            lastWallRef.current = now;
+            applyPlayhead(apiTime, duration);
+            return;
+          }
+        } catch {
+          /* ignore */
+        }
+      }
+
+      // Fallback: advance from last known position while transport says playing.
+      // Hidden/opacity-scrubbed YT players often stick in BUFFERING with currentTime=0.
+      if (playingRef.current) {
+        if (lastWallRef.current != null) {
+          applyPlayhead(
+            resumeAtRef.current + (now - lastWallRef.current) / 1000,
+            duration,
+          );
+        }
+        lastWallRef.current = now;
+      } else {
+        lastWallRef.current = null;
       }
     };
 
     tick();
-    const id = window.setInterval(tick, 250);
+    const id = window.setInterval(tick, 200);
     return () => window.clearInterval(id);
-  }, [playing, mobileMode, ready]);
+  }, [mobileMode, ready]);
 
   const clearFade = () => {
     if (fadeRef.current != null) {
@@ -559,7 +628,11 @@ export default function BackgroundMusic() {
       if (event.data === YT.PlayerState.ENDED) {
         event.target.playVideo();
       }
-      setPlaying(event.data === YT.PlayerState.PLAYING);
+      // Treat buffering as playing so seeks don't flip the transport to "paused".
+      setPlaying(
+        event.data === YT.PlayerState.PLAYING ||
+          event.data === YT.PlayerState.BUFFERING,
+      );
     };
 
     const createPlayer = () => {
@@ -699,8 +772,6 @@ export default function BackgroundMusic() {
     iframe.allow =
       "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     iframe.setAttribute("playsinline", "true");
-    iframe.className =
-      "pointer-events-none fixed bottom-0 left-0 z-[-1] h-[200px] w-[200px] border-0 opacity-[0.01]";
     document.body.appendChild(iframe);
     iframeRef.current = iframe;
 
@@ -709,6 +780,15 @@ export default function BackgroundMusic() {
       iframeRef.current = null;
     };
   }, [mounted, mobileMode]);
+
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe || !mobileMode) return;
+
+    // Keep mobile audio parked; the dock preview uses a thumbnail + credits instead.
+    iframe.className =
+      "pointer-events-none fixed bottom-0 left-0 z-[-1] h-[200px] w-[200px] border-0 opacity-[0.01]";
+  }, [mobileMode]);
 
   const handleStartTap = () => {
     if (!wantPlayRef.current || playing) return;
@@ -796,6 +876,8 @@ export default function BackgroundMusic() {
   const seekToPercent = (value: number, opts?: { resume?: boolean }) => {
     const next = clampProgress(value);
     setProgress(next);
+    progressRef.current = next;
+    lastWallRef.current = performance.now();
 
     const player = playerRef.current;
     if (!player) return;
@@ -819,14 +901,28 @@ export default function BackgroundMusic() {
     }
   };
 
+  const holdSeekUntilSettled = () => {
+    seekingRef.current = true;
+    if (seekSettleRef.current != null) window.clearTimeout(seekSettleRef.current);
+    // YouTube seekTo is async — keep polling paused briefly so the bar doesn't snap back.
+    seekSettleRef.current = window.setTimeout(() => {
+      seekingRef.current = false;
+      seekSettleRef.current = null;
+    }, 400);
+  };
+
   const beginSeek = (event: PointerEvent<HTMLInputElement>) => {
     seekingRef.current = true;
+    if (seekSettleRef.current != null) {
+      window.clearTimeout(seekSettleRef.current);
+      seekSettleRef.current = null;
+    }
     event.currentTarget.setPointerCapture(event.pointerId);
   };
 
   const endSeek = (event: PointerEvent<HTMLInputElement>) => {
     seekToPercent(Number(event.currentTarget.value), { resume: true });
-    seekingRef.current = false;
+    holdSeekUntilSettled();
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
@@ -835,23 +931,85 @@ export default function BackgroundMusic() {
   const isPaused = !playing && !awaitingTap;
   const showPlaying = playing && !awaitingTap;
 
-  return (
-    <>
-      <div
-        id={`yt-audio-${hostId}`}
-        aria-hidden
-        hidden={mobileMode}
-        className="pointer-events-none fixed bottom-0 left-0 z-[-1] h-[200px] w-[200px] overflow-hidden opacity-[0.01]"
-      />
+  const openPreview = () => setPreviewOpen(true);
+  const closePreview = () => setPreviewOpen(false);
 
+  return (
+    <div
+      role="group"
+      aria-label="Background music controls"
+      onTouchStart={handleStartTap}
+      onMouseEnter={openPreview}
+      onMouseLeave={closePreview}
+      onFocusCapture={openPreview}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          closePreview();
+        }
+      }}
+      className={`fixed right-4 bottom-4 z-50 flex flex-col items-stretch border bg-bg/85 backdrop-blur-md lg:right-6 lg:bottom-6 ${
+        awaitingTap ? "border-cyan/60 shadow-[0_0_16px_rgba(0,240,255,0.25)]" : "border-grid-dim"
+      }`}
+    >
+      {/* One frame: video + credits together (→ YouTube). Parked offscreen when closed. */}
       <div
-        role="group"
-        aria-label="Background music controls"
-        onTouchStart={handleStartTap}
-        className={`fixed right-4 bottom-4 z-50 flex items-center gap-2 border bg-bg/85 px-2.5 py-2 backdrop-blur-md sm:gap-3 sm:px-3 lg:right-6 lg:bottom-6 ${
-          awaitingTap ? "border-cyan/60 shadow-[0_0_16px_rgba(0,240,255,0.25)]" : "border-grid-dim"
-        }`}
+        className={
+          previewOpen
+            ? "relative flex h-[90px] w-full min-w-[280px] overflow-hidden border-b border-cyan/40 bg-bg sm:min-w-[320px]"
+            : "pointer-events-none fixed bottom-0 left-0 z-[-1] h-[200px] w-[200px] overflow-hidden opacity-[0.01]"
+        }
+        aria-hidden={!previewOpen}
       >
+        {previewOpen && (
+          <a
+            href={AUDIO_TRACK.youtubeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute inset-0 z-10"
+            aria-label={`Open ${AUDIO_TRACK.title} by ${AUDIO_TRACK.artist} on YouTube`}
+            title="Open on YouTube"
+          />
+        )}
+
+        <div
+          className={
+            previewOpen
+              ? "relative h-full w-[120px] shrink-0 overflow-hidden bg-bg-raised sm:w-[140px] [&_iframe]:pointer-events-none [&_iframe]:!h-full [&_iframe]:!w-full"
+              : "h-full w-full [&_iframe]:!h-full [&_iframe]:!w-full"
+          }
+        >
+          {mobileMode ? (
+            previewOpen ? (
+              <img
+                src={`https://i.ytimg.com/vi/${VIDEO_ID}/hqdefault.jpg`}
+                alt=""
+                className="h-full w-full object-cover opacity-90"
+              />
+            ) : null
+          ) : (
+            /* Stable mount — YT replaces this with an iframe; don't toggle its classes. */
+            <div id={`yt-audio-${hostId}`} />
+          )}
+        </div>
+
+        {previewOpen && (
+          <div className="pointer-events-none relative flex min-w-0 flex-1 flex-col justify-center gap-0.5 px-2.5 py-2">
+            <p className="label-mono text-[10px] tracking-[0.14em] text-cyan">
+              Ambient audio
+            </p>
+            <p className="truncate font-display text-xs font-semibold text-text">
+              {AUDIO_TRACK.title}
+            </p>
+            <p className="truncate text-[11px] text-text-dim">{AUDIO_TRACK.artist}</p>
+            <p className="truncate text-[10px] text-text-dim/80">
+              {AUDIO_TRACK.albumShort}
+            </p>
+            <p className="label-mono mt-0.5 text-[10px] text-cyan/80">YouTube ↗</p>
+          </div>
+        )}
+      </div>
+
+      <div className="relative z-20 flex items-center gap-2 px-2.5 py-2 sm:gap-3 sm:px-3">
         <button
           type="button"
           onClick={togglePlay}
@@ -873,8 +1031,33 @@ export default function BackgroundMusic() {
         </button>
 
         {!mobileMode ? (
-          <label className="relative flex h-8 min-w-0 flex-1 cursor-pointer items-center">
+          <label
+            className={`relative flex h-8 w-28 cursor-pointer items-center sm:w-40 ${
+              !ready ? "cursor-not-allowed opacity-45" : ""
+            }`}
+          >
             <span className="sr-only">Scrub track position</span>
+            {/* Custom track — webkit/moz range pseudos are unreliable with appearance:none */}
+            <span
+              aria-hidden
+              className={`audio-progress-track pointer-events-none absolute inset-x-0 top-1/2 h-2 -translate-y-1/2 overflow-hidden ${
+                showPlaying ? "audio-progress-track--active" : ""
+              }`}
+            >
+              <span
+                className={`audio-progress-fill absolute inset-y-0 left-0 ${
+                  showPlaying ? "audio-progress-fill--active" : ""
+                }`}
+                style={{ width: `${progress}%` }}
+              />
+            </span>
+            <span
+              aria-hidden
+              className={`audio-progress-thumb pointer-events-none absolute top-1/2 -translate-y-1/2 ${
+                showPlaying ? "audio-progress-thumb--active" : ""
+              }`}
+              style={{ left: `clamp(0px, calc(${progress}% - 3px), calc(100% - 6px))` }}
+            />
             <input
               type="range"
               min={0}
@@ -890,7 +1073,9 @@ export default function BackgroundMusic() {
                 seekToPercent(Number(event.currentTarget.value));
               }}
               onChange={(event) =>
-                seekToPercent(Number(event.currentTarget.value), { resume: !seekingRef.current })
+                seekToPercent(Number(event.currentTarget.value), {
+                  resume: !seekingRef.current,
+                })
               }
               onKeyUp={(event) => {
                 if (
@@ -900,14 +1085,12 @@ export default function BackgroundMusic() {
                   event.key === "End"
                 ) {
                   seekToPercent(Number(event.currentTarget.value), { resume: true });
+                  holdSeekUntilSettled();
                 }
               }}
               aria-valuetext={showPlaying ? "Playing" : isPaused ? "Paused" : "Loading"}
               title="Drag to scrub track"
-              className={`audio-progress w-28 cursor-pointer appearance-none sm:w-40 ${
-                showPlaying ? "audio-progress--active" : ""
-              }`}
-              style={{ ["--progress" as string]: `${progress}%` }}
+              className="audio-progress-input absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent disabled:cursor-not-allowed"
             />
           </label>
         ) : (
@@ -950,6 +1133,6 @@ export default function BackgroundMusic() {
           </label>
         )}
       </div>
-    </>
+    </div>
   );
 }

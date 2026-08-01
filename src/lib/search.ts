@@ -79,7 +79,7 @@ function joinHaystack(...parts: Array<string | undefined | null>): string {
     .toLowerCase();
 }
 
-/** Homepage deep links stay resolvable from /work and /laboratories. */
+/** Homepage deep links stay resolvable from hub routes. */
 function homeHash(id: string): string {
   return `/#${id}`;
 }
@@ -89,52 +89,80 @@ function buildIndex(): SearchEntry[] {
   const fieldPhotos = getFieldPhotos();
 
   for (const section of sections) {
-    if (section.id === "search") continue;
-
-    const extras: string[] = [];
-    if (section.id === "field-log") {
-      for (const photo of fieldPhotos) {
-        extras.push(photo.caption, photo.location ?? "", photo.alt);
-      }
-    }
-    if (section.id === "research") {
-      extras.push(patent.title, patent.number, patent.note ?? "");
-    }
-
     entries.push({
       id: `section:${section.id}`,
       title: section.label,
-      blurb: `Jump to ${section.label}`,
+      blurb: `Open ${section.label}`,
       category: "section",
-      href: homeHash(section.id),
-      haystack: joinHaystack(section.label, section.id, section.index, ...extras),
+      href: section.href ?? homeHash(section.id),
+      haystack: joinHaystack(section.label, section.id, section.index),
     });
   }
 
-  entries.push({
-    id: "section:work-index",
-    title: "Work Index",
-    blurb: "Faceted project and engagement index",
-    category: "section",
-    href: "/work",
-    haystack: joinHaystack("work index", "projects", "case files", "filters"),
-  });
-
-  entries.push({
-    id: "section:laboratories-index",
-    title: "Laboratories",
-    blurb: "Laboratory and facility hubs",
-    category: "section",
-    href: "/laboratories",
-    haystack: joinHaystack(
-      "laboratories",
-      "labs",
-      "infrastructure",
-      "kinesis",
-      "photonics",
-      "hts",
-    ),
-  });
+  entries.push(
+    {
+      id: "section:research-hub",
+      title: "Research",
+      blurb: "Publications, IP, and awards",
+      category: "section",
+      href: "/research",
+      haystack: joinHaystack(
+        "research",
+        "publications",
+        patent.title,
+        patent.number,
+        patent.note,
+      ),
+    },
+    {
+      id: "section:archive-hub",
+      title: "Archive",
+      blurb: "Documentary evidence and field photography",
+      category: "section",
+      href: "/archive",
+      haystack: joinHaystack(
+        "archive",
+        "photos",
+        "field log",
+        ...fieldPhotos.flatMap((photo) => [
+          photo.caption,
+          photo.location ?? "",
+          photo.alt,
+        ]),
+      ),
+    },
+    {
+      id: "section:profile-hub",
+      title: "Profile",
+      blurb: "Career narrative and CV",
+      category: "section",
+      href: "/profile",
+      haystack: joinHaystack("profile", "career", "cv", "experience"),
+    },
+    {
+      id: "section:work-index",
+      title: "Work Index",
+      blurb: "Faceted project and engagement index",
+      category: "section",
+      href: "/work",
+      haystack: joinHaystack("work index", "projects", "case files", "filters"),
+    },
+    {
+      id: "section:laboratories-index",
+      title: "Laboratories",
+      blurb: "Laboratory and facility hubs",
+      category: "section",
+      href: "/laboratories",
+      haystack: joinHaystack(
+        "laboratories",
+        "labs",
+        "infrastructure",
+        "kinesis",
+        "photonics",
+        "hts",
+      ),
+    },
+  );
 
   for (const project of projects) {
     entries.push({
@@ -200,7 +228,7 @@ function buildIndex(): SearchEntry[] {
       title: role.title,
       blurb: [role.org, role.unit, role.period].filter(Boolean).join(" · "),
       category: "role",
-      href: homeHash(role.id),
+      href: "/profile",
       haystack: joinHaystack(
         role.title,
         role.org,
@@ -218,7 +246,7 @@ function buildIndex(): SearchEntry[] {
       title: item.degree,
       blurb: [item.institution, item.period].filter(Boolean).join(" · "),
       category: "education",
-      href: homeHash(item.id),
+      href: "/profile",
       haystack: joinHaystack(
         item.degree,
         item.institution,
@@ -255,7 +283,7 @@ function buildIndex(): SearchEntry[] {
     title: patent.title,
     blurb: `Patent · ${patent.number}`,
     category: "publication",
-    href: homeHash("research"),
+    href: "/research",
     haystack: joinHaystack(
       patent.title,
       patent.number,
@@ -274,7 +302,7 @@ function buildIndex(): SearchEntry[] {
         .filter(Boolean)
         .join(" · "),
       category: "award",
-      href: homeHash(award.id),
+      href: "/research#recognition",
       haystack: joinHaystack(
         award.placement,
         award.event,
@@ -293,7 +321,7 @@ function buildIndex(): SearchEntry[] {
         .filter(Boolean)
         .join(" · "),
       category: "certification",
-      href: homeHash(certification.id),
+      href: "/profile",
       haystack: joinHaystack(
         certification.name,
         certification.issuer,
@@ -311,7 +339,7 @@ function buildIndex(): SearchEntry[] {
         .filter(Boolean)
         .join(" · "),
       category: "exhibition",
-      href: homeHash(exhibition.id),
+      href: "/profile",
       haystack: joinHaystack(
         exhibition.name,
         exhibition.role,
@@ -340,38 +368,38 @@ function buildIndex(): SearchEntry[] {
         title: item,
         blurb: group.label,
         category: "tool",
-        href: homeHash("arsenal"),
+        href: "/work",
         haystack: joinHaystack(item, group.label),
       });
     }
   }
 
   entries.push({
-    id: "contact:primary",
-    title: profile.email,
-    blurb: `${profile.name} · primary email`,
+    id: "contact:nyu",
+    title: profile.nyuEmail,
+    blurb: `${profile.name} · institutional email`,
     category: "contact",
-    href: homeHash("contact"),
+    href: "/#contact",
     haystack: joinHaystack(
-      profile.email,
+      profile.nyuEmail,
       profile.name,
       "email",
+      "nyu",
       "contact",
       "reach",
     ),
   });
 
   entries.push({
-    id: "contact:nyu",
-    title: profile.nyuEmail,
-    blurb: `${profile.name} · NYU email`,
+    id: "contact:primary",
+    title: profile.email,
+    blurb: `${profile.name} · personal email`,
     category: "contact",
-    href: homeHash("contact"),
+    href: "/#contact",
     haystack: joinHaystack(
-      profile.nyuEmail,
+      profile.email,
       profile.name,
       "email",
-      "nyu",
       "contact",
     ),
   });
@@ -383,7 +411,7 @@ function buildIndex(): SearchEntry[] {
       .filter(Boolean)
       .join(" · "),
     category: "contact",
-    href: homeHash("about"),
+    href: "/profile",
     haystack: joinHaystack(
       profile.name,
       profile.tagline,

@@ -1,18 +1,37 @@
 import Link from "next/link";
 
+import Breadcrumbs from "@/components/nav/Breadcrumbs";
 import TaxonomyChip from "@/components/work/TaxonomyChip";
 import InstagramMedia from "@/components/ui/InstagramMedia";
 import LocalVideoPlayer from "@/components/ui/LocalVideoPlayer";
 import NeonButton from "@/components/ui/NeonButton";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
-import type { InfrastructureHub } from "@/lib/query";
+import SpokeNav from "@/components/work/SpokeNav";
+import SpokeScanBlock from "@/components/work/SpokeScanBlock";
+import type { InfrastructureHub, SpokeNeighbor } from "@/lib/query";
+import { resolveSpokeChallenge, resolveSpokeOutcome } from "@/lib/spoke-copy";
+
+const INVERSE_RELATION_LABEL: Record<string, string> = {
+  "testing-environment-for": "Tested here",
+  "development-environment-for": "Developed here",
+  enabled: "Enabled",
+  "fabricated-for": "Fabricated here",
+  "deployment-site-of": "Deployed here",
+  "hosted-demonstration-of": "Demonstrated here",
+};
 
 type LaboratoryHubLayoutProps = {
   hub: InfrastructureHub;
+  prev?: SpokeNeighbor | null;
+  next?: SpokeNeighbor | null;
 };
 
-export default function LaboratoryHubLayout({ hub }: LaboratoryHubLayoutProps) {
+export default function LaboratoryHubLayout({
+  hub,
+  prev = null,
+  next = null,
+}: LaboratoryHubLayoutProps) {
   const {
     record,
     domainTerms,
@@ -32,18 +51,29 @@ export default function LaboratoryHubLayout({ hub }: LaboratoryHubLayoutProps) {
         }))
       : undefined;
 
+  const publicationEvidence = evidence.filter(
+    (item) => item.type === "publication" || item.resolved,
+  );
+  const archiveEvidence = evidence.filter(
+    (item) =>
+      item.type === "document" ||
+      item.type === "field-post" ||
+      item.type === "photograph",
+  );
+  const otherEvidence = evidence.filter(
+    (item) =>
+      !publicationEvidence.includes(item) && !archiveEvidence.includes(item),
+  );
+
   return (
     <article className="section-shell py-16 lg:py-24">
-      <nav aria-label="Breadcrumb" className="label-mono text-text-dim">
-        <Link
-          href="/laboratories"
-          className="hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-        >
-          Laboratories
-        </Link>
-        <span className="mx-2">/</span>
-        <span className="text-text">Laboratory Hub</span>
-      </nav>
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Laboratories", href: "/laboratories" },
+          { label: record.title },
+        ]}
+      />
 
       <header className="mt-8">
         <p className="label-mono text-cyan">
@@ -58,10 +88,17 @@ export default function LaboratoryHubLayout({ hub }: LaboratoryHubLayoutProps) {
         {record.org && (
           <p className="mt-3 font-body text-sm text-text-dim">{record.org}</p>
         )}
-        <p className="mt-6 max-w-3xl font-body text-base leading-relaxed text-text-dim">
-          {record.summary}
-        </p>
       </header>
+
+      <SpokeScanBlock
+        challenge={resolveSpokeChallenge(record.challenge, record.summary)}
+        contribution={record.contributionSummary}
+        outcome={resolveSpokeOutcome(
+          record.outcomeSummary,
+          record.highlights,
+          record.summary,
+        )}
+      />
 
       {video && (
         <div
@@ -92,12 +129,12 @@ export default function LaboratoryHubLayout({ hub }: LaboratoryHubLayoutProps) {
         </div>
       )}
 
-      <section className="mt-12" aria-labelledby="lab-contribution-heading">
-        <h2 id="lab-contribution-heading" className="label-mono text-text-dim">
-          My Contribution
+      <section className="mt-12" aria-labelledby="lab-narrative-heading">
+        <h2 id="lab-narrative-heading" className="label-mono text-text-dim">
+          Facility Narrative
         </h2>
-        <p className="mt-4 max-w-3xl font-body text-base leading-relaxed text-text">
-          {record.contributionSummary}
+        <p className="mt-4 max-w-3xl font-body text-base leading-relaxed text-text-dim">
+          {record.summary}
         </p>
         {contributionTerms.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
@@ -128,7 +165,7 @@ export default function LaboratoryHubLayout({ hub }: LaboratoryHubLayoutProps) {
       {record.highlights && record.highlights.length > 0 && (
         <section className="mt-12" aria-labelledby="lab-story-heading">
           <h2 id="lab-story-heading" className="label-mono text-text-dim">
-            Facility Narrative
+            Facility Highlights
           </h2>
           <ul className="mt-4 max-w-3xl space-y-3">
             {record.highlights.map((item) => (
@@ -174,7 +211,6 @@ export default function LaboratoryHubLayout({ hub }: LaboratoryHubLayoutProps) {
         </section>
       )}
 
-      {/* Inventory — separate from project-used platforms */}
       {inventoryTerms.length > 0 && (
         <section className="mt-12" aria-labelledby="inventory-heading">
           <h2 id="inventory-heading" className="label-mono text-text-dim">
@@ -197,11 +233,10 @@ export default function LaboratoryHubLayout({ hub }: LaboratoryHubLayoutProps) {
         </section>
       )}
 
-      {/* Work from typed relations */}
       {connectedWork.length > 0 && (
         <section className="mt-12" aria-labelledby="lab-work-heading">
           <h2 id="lab-work-heading" className="label-mono text-text-dim">
-            Work From This Laboratory
+            Projects enabled here
           </h2>
           <ul className="mt-4 grid gap-4 sm:grid-cols-2">
             {connectedWork.map(({ project, relationType }) => (
@@ -211,7 +246,8 @@ export default function LaboratoryHubLayout({ hub }: LaboratoryHubLayoutProps) {
                   className="block h-full border border-grid-dim p-5 transition-colors hover:border-cyan/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                 >
                   <p className="label-mono text-cyan/70">
-                    {String(relationType).replace(/-/g, " ")}
+                    {INVERSE_RELATION_LABEL[relationType] ??
+                      String(relationType).replace(/-/g, " ")}
                   </p>
                   <p className="mt-2 font-display text-base uppercase text-text">
                     {project.title}
@@ -226,45 +262,138 @@ export default function LaboratoryHubLayout({ hub }: LaboratoryHubLayoutProps) {
         </section>
       )}
 
-      {evidence.length > 0 && (
+      {(otherEvidence.length > 0 ||
+        publicationEvidence.length > 0 ||
+        archiveEvidence.length > 0) && (
         <section className="mt-12" aria-labelledby="lab-evidence-heading">
           <h2 id="lab-evidence-heading" className="label-mono text-text-dim">
             Publications & Evidence
           </h2>
-          <ul className="mt-4 space-y-4">
-            {evidence.map((item, i) => {
-              const title = item.resolved?.title ?? item.title ?? item.type;
-              const url = item.resolved?.url ?? item.url;
-              const meta = item.resolved
-                ? `${item.resolved.venue} · ${item.resolved.year}`
-                : item.note;
-              return (
-                <li
-                  key={`${item.type}-${i}`}
-                  className="border border-grid-dim bg-bg/40 p-4"
-                >
-                  <p className="label-mono text-text-dim">
-                    {item.type.replace(/-/g, " ")}
-                  </p>
-                  {url ? (
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-2 block font-body text-sm font-medium text-text transition-colors hover:text-cyan hover:underline hover:underline-offset-4"
+
+          {publicationEvidence.length > 0 && (
+            <div className="mt-6">
+              <h3 className="label-mono text-cyan">Publications</h3>
+              <ul className="mt-3 space-y-4">
+                {publicationEvidence.map((item, i) => {
+                  const title =
+                    item.resolved?.title ?? item.title ?? item.type;
+                  const url = item.resolved?.url ?? item.url;
+                  const meta = item.resolved
+                    ? `${item.resolved.venue} · ${item.resolved.year}`
+                    : item.note;
+                  return (
+                    <li
+                      key={`pub-${i}`}
+                      className="border border-grid-dim bg-bg/40 p-4"
                     >
-                      {title}
-                    </a>
-                  ) : (
-                    <p className="mt-2 font-body text-sm text-text">{title}</p>
-                  )}
-                  {meta && (
-                    <p className="mt-1 font-body text-sm text-text-dim">{meta}</p>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+                      {url ? (
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-body text-sm font-medium text-text transition-colors hover:text-cyan hover:underline hover:underline-offset-4"
+                        >
+                          {title}
+                        </a>
+                      ) : (
+                        <p className="font-body text-sm text-text">{title}</p>
+                      )}
+                      {meta && (
+                        <p className="mt-1 font-body text-sm text-text-dim">
+                          {meta}
+                        </p>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+
+          {otherEvidence.length > 0 && (
+            <ul className="mt-6 space-y-4">
+              {otherEvidence.map((item, i) => {
+                const title =
+                  item.resolved?.title ?? item.title ?? item.type;
+                const url = item.resolved?.url ?? item.url;
+                const meta = item.resolved
+                  ? `${item.resolved.venue} · ${item.resolved.year}`
+                  : item.note;
+                return (
+                  <li
+                    key={`${item.type}-${i}`}
+                    className="border border-grid-dim bg-bg/40 p-4"
+                  >
+                    <p className="label-mono text-text-dim">
+                      {item.type.replace(/-/g, " ")}
+                    </p>
+                    {url ? (
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 block font-body text-sm font-medium text-text transition-colors hover:text-cyan hover:underline hover:underline-offset-4"
+                      >
+                        {title}
+                      </a>
+                    ) : (
+                      <p className="mt-2 font-body text-sm text-text">{title}</p>
+                    )}
+                    {meta && (
+                      <p className="mt-1 font-body text-sm text-text-dim">
+                        {meta}
+                      </p>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+
+          {archiveEvidence.length > 0 && (
+            <div className="mt-8">
+              <h3 className="label-mono text-cyan">Archive</h3>
+              <ul className="mt-3 space-y-4">
+                {archiveEvidence.map((item, i) => {
+                  const title =
+                    item.resolved?.title ?? item.title ?? item.type;
+                  const url = item.resolved?.url ?? item.url;
+                  return (
+                    <li
+                      key={`archive-${i}`}
+                      className="border border-grid-dim bg-bg/40 p-4"
+                    >
+                      <p className="label-mono text-text-dim">
+                        {item.type.replace(/-/g, " ")}
+                      </p>
+                      {url ? (
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-2 block font-body text-sm font-medium text-text transition-colors hover:text-cyan hover:underline hover:underline-offset-4"
+                        >
+                          {title}
+                        </a>
+                      ) : (
+                        <Link
+                          href="/archive"
+                          className="mt-2 block font-body text-sm font-medium text-text transition-colors hover:text-cyan hover:underline hover:underline-offset-4"
+                        >
+                          {title}
+                        </Link>
+                      )}
+                      {item.note && (
+                        <p className="mt-1 font-body text-sm text-text-dim">
+                          {item.note}
+                        </p>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
         </section>
       )}
 
@@ -303,6 +432,8 @@ export default function LaboratoryHubLayout({ hub }: LaboratoryHubLayoutProps) {
           </NeonButton>
         </div>
       )}
+
+      <SpokeNav basePath="/laboratories" prev={prev} next={next} />
     </article>
   );
 }

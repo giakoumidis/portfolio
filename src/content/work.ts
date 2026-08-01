@@ -7,10 +7,14 @@ export const workRecords: ProjectRecord[] = [
     title: "Etihad Rail × NYUAD AI & Robotics Collaboration",
     org: "NYU Abu Dhabi · CAIR with Etihad Rail",
     period: { startYear: 2024, label: "2024" },
+    challenge:
+      "Etihad Rail needed a credible path to integrate AI and robotics into depot operations without treating university research as a one-off demo.",
     summary:
       "Industry engagement with Etihad Rail to explore integrating artificial intelligence and robotics into rail operations — including depot inspection trials where I operated Boston Dynamics Spot to collect multimodal data around locomotives for downstream analysis and predictive maintenance — translating NYUAD research capabilities into collaborative experiments aimed at efficiency, sustainability, and next-generation rail transport standards.",
     contributionSummary:
       "Led industry-facing translation of CAIR autonomous-systems research into a strategic collaboration with Etihad Rail — stakeholder engagement, lab visits, and depot inspection with Spot, which I operated to gather multimodal locomotive data for analysis and predictive maintenance, plus public demonstration of partnership intent.",
+    outcomeSummary:
+      "Established a public industry collaboration featuring depot Spot inspections that collect multimodal locomotive data for predictive maintenance analysis.",
     highlights: [
       "Featured in Etihad Rail's public announcement of the collaboration with New York University Abu Dhabi on AI and robotics for rail operations.",
       "At the Etihad Rail depot I used Spot for locomotive inspection — collecting multimodal sensor data that feeds further analysis aimed at predictive maintenance rather than one-off visual checks alone.",
@@ -90,14 +94,115 @@ export const workRecords: ProjectRecord[] = [
   },
   {
     type: "project",
+    slug: "rta-dubai-delivery-drone",
+    title: "RTA Delivery Drone — Dubai World Challenge",
+    org: "NYU Abu Dhabi · RTA Dubai World Challenge for Self-Driving Transport",
+    period: { startYear: 2021, label: "2021" },
+    // PENDING OWNER REVIEW
+    challenge:
+      "The RTA Dubai World Challenge required a competition-ready delivery octarotor that could fly and demonstrate under real autonomous-transport conditions.",
+    summary:
+      "First-prize delivery octarotor for the RTA Dubai World Challenge for Self-Driving Transport — a mechatronic aerial logistics platform demonstrated under competition conditions in Dubai, with USD 100,000 prize recognition and a peer-reviewed mechatronic design paper.",
+    contributionSummary:
+      "Designed and integrated the delivery octarotor mechatronics and supported competition deployment that won First Prize at the RTA Dubai World Challenge.",
+    outcomeSummary:
+      "Won First Prize (USD 100,000) and produced a peer-reviewed mechatronic design paper on the delivery octarotor.",
+    highlights: [
+      "First Prize, RTA Dubai World Challenge for Self-Driving Transport (Delivery Drone · USD 100,000).",
+      "Octarotor delivery airframe with central payload bay, flown and demonstrated at the RTA test venue.",
+      "Peer-reviewed follow-on: Mechatronic design of a delivery octarotor drone (IJMERR, 2022).",
+    ],
+    credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Mechatronics & systems integration",
+        org: "NYU Abu Dhabi",
+      },
+      {
+        name: "NYU Abu Dhabi team",
+        role: "Competition team",
+      },
+      {
+        name: "Roads and Transport Authority (RTA)",
+        role: "Challenge organiser",
+        org: "Dubai",
+      },
+    ],
+    facets: {
+      domains: ["aerial-ground-underwater-robotics"],
+      contributions: ["designed", "system-integration", "field-testing"],
+      platforms: ["uav-platform"],
+      methods: ["aerial-manipulation"],
+      outcomes: [
+        "prize-award",
+        "peer-reviewed-publication",
+        "public-demonstration",
+        "deployed-prototype",
+      ],
+    },
+    evidence: [
+      {
+        type: "award",
+        title: "First Prize — RTA Dubai World Challenge 2021",
+      },
+      {
+        type: "video",
+        title:
+          "Delivery drone — RTA Dubai World Challenge for Self-Driving Transport",
+        url: "/videos/awards/rta-2021/drone-delivery.mp4",
+      },
+      {
+        type: "photograph",
+        title: "Delivery octarotor — top view",
+      },
+      {
+        type: "publication",
+        title: "Mechatronic design of a delivery octarotor drone",
+        url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=HmOOogwAAAAJ&citation_for_view=HmOOogwAAAAJ:hqOjcs7Dif8C",
+        note: "International Journal of Mechanical Engineering and Robotics Research 11 (5)",
+        date: "2022",
+      },
+    ],
+    video: {
+      provider: "local",
+      src: "/videos/awards/rta-2021/drone-delivery.mp4",
+      title:
+        "Delivery drone — RTA Dubai World Challenge for Self-Driving Transport",
+      poster: "/images/awards/rta-2021/delivery-drone-nyuad.jpg",
+    },
+    images: [
+      {
+        src: "/images/awards/rta-2021/delivery-octarotor-top.jpg",
+        alt: "Top-down view of the delivery octarotor drone with eight rotors arranged around a central payload bay",
+        caption: "DELIVERY OCTAROTOR — TOP VIEW",
+      },
+      {
+        src: "/images/awards/rta-2021/rta-ceremony.jpg",
+        alt: "NYU Abu Dhabi receiving the first-prize award for the delivery drone at the RTA Dubai World Challenge ceremony",
+        caption: "FIRST PRIZE — RTA AWARD CEREMONY",
+      },
+      {
+        src: "/images/awards/rta-2021/rta-test-venue.jpg",
+        alt: "Delivery drone on the RTA self-driving transport challenge test floor in Dubai",
+        caption: "FLIGHT TEST — RTA CHALLENGE VENUE",
+      },
+    ],
+    status: "published",
+  },
+  {
+    type: "project",
     slug: "etihad-rail-desert-environment-monitoring",
     title: "Digital Twin-Based Desert Environment Monitoring for Rail Tracks",
     org: "NYU Abu Dhabi · SMART Lab with Etihad Rail",
     period: { startYear: 2024, label: "2024" },
+    challenge:
+      "Desert sand movement, water pooling, and vegetation encroachment threaten UAE rail corridors in ways cab visibility alone cannot detect early enough.",
     summary:
       "Proposed and field-piloted a train-mounted sensing concept for Etihad Rail: LiDAR, cameras, and supporting sensors capture the rail corridor so the surrounding geo-environment can be reconstructed in 3D. The aim is early detection of desert-environment hazards that threaten operations — sand movement, water accumulation, and vegetation encroachment — giving maintenance teams a proactive view of track-side risk across UAE conditions.",
     contributionSummary:
       "Supported the Etihad Rail proposal and train-side sensing pilot — coordinating the industry engagement and the field installation of the rearward LiDAR and camera payload used to capture corridor evidence for the desert-environment monitoring concept.",
+    outcomeSummary:
+      "Field-piloted a train-mounted LiDAR and camera payload that captures corridor evidence for 3D geo-environment monitoring and change detection.",
     highlights: [
       "Addresses Middle Eastern rail hazards that cab visibility alone cannot cover: sand dune shifts, flood-related water pooling, and vegetation growth along the alignment.",
       "Pilot sensor suite mounts LiDAR and cameras on selected trains to collect corridor data and regenerate a dynamic 3D view of the track-side geo-environment for visual monitoring and change detection.",
@@ -188,10 +293,15 @@ export const workRecords: ProjectRecord[] = [
     title: "Multi-Agent Exploration for Construction Data Collection",
     org: "NYU Abu Dhabi · SMART Lab",
     period: { startYear: 2024, label: "2024" },
+    challenge:
+      "Construction sites need cooperative robotic exploration and mapping when obstacles block a single agent's path.",
     summary:
       "Cooperative multi-agent robotic system for 3D digitization and data collection in construction environments — one agent explores and maps the space while coordinating with another to clear obstacles, with a human operator in the loop via remote access when needed.",
     contributionSummary:
       "Contributed to the multi-agent exploration system and its Journal of Field Robotics publication — cooperative mapping with human-in-the-loop teleoperation for construction-site data collection.",
+    // PENDING OWNER REVIEW
+    outcomeSummary:
+      "Published in the Journal of Field Robotics on multi-agent exploration with human-in-the-loop teleoperation for construction data collection.",
     highlights: [
       "Demonstrates autonomous exploration paired with agent-to-agent coordination so the team can keep mapping after an obstacle blocks the path.",
       "Human-in-the-loop teleoperation backs the autonomous stack when remote support is required to finish the mission.",
@@ -248,10 +358,14 @@ export const workRecords: ProjectRecord[] = [
     title: "Eye-Gaze-Controlled Wheelchair",
     org: "NYU Abu Dhabi · with University of Ottawa",
     period: { startYear: 2013, endYear: 2016, label: "2013–2016" },
+    challenge:
+      "People who have lost voluntary motor control need a safe way to navigate unknown environments using eye gaze alone.",
     summary:
       "A wheelchair navigation system driven entirely by eye gaze, built for people who have lost voluntary motor control — combining gaze tracking, obstacle sensing, and shared autonomy so the chair can navigate unknown environments safely. Validated in a real-world case study with a person living with ALS.",
     contributionSummary:
       "Designed and field-validated a gaze-driven wheelchair navigation stack with shared autonomy — the most-cited work in the publication record (170+ citations).",
+    outcomeSummary:
+      "Field-validated a gaze-driven wheelchair with shared autonomy in a real-world ALS case study — 170+ citations.",
     highlights: [
       "Gaze input is fused with onboard sensing and assisted-control logic, so a single modality — where the user looks — becomes a safe, complete driving interface.",
       "Field-tested beyond the lab: the system was deployed and evaluated in the home of a person with ALS, navigating environments it had never seen.",
@@ -324,10 +438,14 @@ export const workRecords: ProjectRecord[] = [
     title: "Ribbon Curler — Automated Research Instrumentation",
     org: "NYU Abu Dhabi · Panče Naumov research group / Design Studio",
     period: { startYear: 2016, endYear: 2017, label: "2016–2017" },
+    challenge:
+      "Panče Naumov's smart-materials group needed repeatable control over pull speed, orientation, and geometry to study ribbon curling and chiral coiling.",
     summary:
       "A custom programmable apparatus for Panče Naumov's smart-materials group to investigate how controlled pulling conditions produce curling and chiral coiling in ribbon specimens. The system applied controlled linear pulling while varying speed, mounting orientation, geometry, and material parameters — turning an evolving scientific experiment into a repeatable mechatronic test instrument.",
     contributionSummary:
       "Designed and integrated the hardware, controller software, and automation for the ribbon-curling apparatus — motion-stage trade study, mechanical integration, fixture-alignment debugging, Newmark motion-control configuration, and operational handover so the group could run structured experiments and publication media.",
+    outcomeSummary:
+      "Delivered a programmable ribbon-curling apparatus that unlocked structured sample campaigns and supplementary publication media.",
     highlights: [
       "Evaluated commercial linear stages across cost and performance (Thorlabs, Aerotech, Newmark, and lower-cost CNC options) against a ~300 mm travel envelope and experimental pull speeds up to about 100 mm/s.",
       "Integrated the stage, puller, and sample-holder assembly and corrected a fixture-height mismatch that had blocked reliable curling — converting a near-complete build into a usable experimental instrument.",
@@ -436,10 +554,15 @@ export const workRecords: ProjectRecord[] = [
     title: "Hardware-Security ASIC Validation Platform",
     org: "NYU Abu Dhabi · with Ozgur Sinanoglu's hardware-security group",
     period: { startYear: 2017, label: "2017" },
+    challenge:
+      "The hardware-security group needed a reliable PCB test rig to validate logic-locked 65 nm ARM Cortex-M0 silicon before ACM CCS publication.",
     summary:
       "Led PCB development and hardware bring-up of a custom test platform for a 65 nm ARM Cortex-M0 logic-locked ASIC — UART programming, key activation, and silicon validation for ACM CCS 2017.",
     contributionSummary:
       "Led electronics design and fabrication of the ASIC validation PCB — schematic, layout, in-house fabrication, and silicon bring-up for the ACM CCS 2017 logic-locking work.",
+    // PENDING OWNER REVIEW
+    outcomeSummary:
+      "Validated locked processor silicon on the custom board: correct execution with the valid key, failure with an incorrect one.",
     highlights: [
       "Eagle schematic, two-layer layout, and in-house fabrication on NYUAD Core Technology Platform equipment — two revisions to a reliable UART/DIP-switch test rig.",
       "Validated locked processor silicon: correct execution with the valid key, failure with an incorrect one.",
@@ -497,10 +620,15 @@ export const workRecords: ProjectRecord[] = [
     title: "Drone Inspection of Abu Dhabi International Airport",
     org: "NYU Abu Dhabi · with Abu Dhabi Airports (ADAC)",
     period: { startYear: 2019, label: "2019" },
+    challenge:
+      "Abu Dhabi International Airport's aerodynamic terminal roof is hazardous for human inspectors but still requires contact inspection.",
     summary:
       "Collaboration between NYU Abu Dhabi and Abu Dhabi Airports to protect infrastructure and keep workers safe at the city's new international airport — engineering a drone equipped with robotic arms to inspect the terminal's aerodynamic roof, which is not safe for humans to access.",
     contributionSummary:
       "Supported the aerial-manipulation inspection collaboration with Abu Dhabi Airports — drone-based contact inspection of the terminal roof where human access is hazardous.",
+    // PENDING OWNER REVIEW
+    outcomeSummary:
+      "Demonstrated drone-based aerial manipulation for terminal roof inspection in NYUAD's industry collaboration with Abu Dhabi Airports.",
     highlights: [
       "Aerial manipulation for infrastructure inspection: the drone's robotic arms take over contact inspection of the roof structure, \"minimizing the risks and hazards of using humans in difficult tasks\" (Prof. Anthony Tzes, NYUAD).",
       "Targets the aerodynamic roof design of the airport terminal, whose geometry makes conventional human inspection hazardous.",
@@ -560,10 +688,14 @@ export const workRecords: ProjectRecord[] = [
     title: "UAV Visual Tracking & Localization",
     org: "NYU Abu Dhabi · CAIR",
     period: { startYear: 2020, endYear: 2022, label: "2020–2022" },
+    challenge:
+      "CAIR needed real-time UAV detection, tracking, and cooperative localization pipelines that could survive live arena flights.",
     summary:
       "Multi-paper research thread on detecting, tracking, and relatively localizing UAVs in real time — from airborne PTZ visual lock and cooperative spherical localization through RGB-thermal fusion and deep-learning / Siamese aerial trackers, validated on live flights in the Kinesis arena.",
     contributionSummary:
       "System integration and experimental development across the CAIR UAV perception thread — arena instrumentation, RGB-T PTZ pipelines, and field validation that underpins six peer-reviewed papers (2020–2022).",
+    outcomeSummary:
+      "Integrated and flight-tested the RGB-T arena stack underpinning six peer-reviewed papers (2020–2022).",
     highlights: [
       "Thread opens with airborne PTZ visual tracking and relative visual localization for cooperative UAS, then layers computationally efficient RGB-thermal detection so thermal cues pull small drones out of clutter while RGB refines boxes at frame rate.",
       "Deep-learning evader pursuit and a Siamese adaptive transformer tracker extend the same arena stack to agile targets; relative spherical-visual localization closes the loop for multi-UAV cooperative localization.",
@@ -696,10 +828,14 @@ export const workRecords: ProjectRecord[] = [
     title: "PalmSpector — Robotic Monitoring for Date Palm Health",
     org: "NYU Abu Dhabi · with Imperial College London IDE",
     period: { startYear: 2020, label: "2020" },
+    challenge:
+      "Red Palm Weevil larvae feed internally, leaving almost no external symptoms until the tree is beyond saving.",
     summary:
       "Integrated robotic monitoring system for early Red Palm Weevil detection at the scale of UAE date plantations — fusing acoustic, thermal, and RGB sensing so hidden larval infestations can be flagged before trunk collapse, then handing farmers targeted trees for inspection rather than blanket pesticide treatment.",
     contributionSummary:
       "Built the multimodal field data collector and automated the inspection path on Clearpath Husky — sensor fusion, SLAM under canopy, and Gazebo simulation for plantation-scale monitoring.",
+    outcomeSummary:
+      "Field-validated acoustic trunk probing and multimodal capture that lets farmers target inspection instead of blanket pesticide treatment.",
     highlights: [
       "Built a sensor-fusion field data collector around a single-board computer: thermal and RGB cameras, contact microphone, GPS-RTK, storage, and a Healthy/Infested UI so every tree sample follows the same acquisition protocol for supervised deep learning.",
       "Field-validated acoustic trunk probing and multimodal capture across date plantations, addressing the core challenge that RPW larvae feed internally and leave almost no external symptoms until it is too late to save the tree.",
@@ -759,10 +895,14 @@ export const workRecords: ProjectRecord[] = [
     title: "UAV-UGV Hybrid with Air-Based Path Planning",
     org: "NYU Abu Dhabi · Interactive Robots and Media Lab (IRML)",
     period: { startYear: 2012, label: "2012" },
+    challenge:
+      "Ground robots need overhead situational awareness for path planning, but a single platform cannot carry both mobility and long-range vision affordably.",
     summary:
       "Heterogeneous symbiotic robot pair treated as one entity with separable bodies: the ground vehicle carries and recharges a lightweight quad-rotor, while the quad-rotor acts as the pair's detachable long-range vision system, turning top-down aerial views into the maps that plan the ground vehicle's route.",
     contributionSummary:
       "First-author development of the UAV–UGV hybrid pilot: aerial mapping into ground-robot path planning, published at FIT 2012.",
+    outcomeSummary:
+      "First-author FIT 2012 paper on a symbiotic UAV–UGV pair that maps from the air and plans ground routes from stitched aerial frames.",
     highlights: [
       "Aerial frames are stitched into a single overhead map, obstacles are segmented from it, and a slowness map yields a collision-free minimum-time trajectory for the ground robot.",
       "Built as a small-scale indoor pilot standing in for a much larger outdoor system, which made the concept testable and iterable at low cost and risk.",
@@ -831,10 +971,14 @@ export const workRecords: ProjectRecord[] = [
     title: "Industrial Arm Teleoperation by Motion Capture",
     org: "Interactive Robots and Media Lab (IRML)",
     period: { startYear: 2010, endYear: 2012, label: "2010–2012" },
+    challenge:
+      "Industrial manipulators are kinematically unlike human arms, making intuitive real-time teleoperation through natural motion difficult to evaluate.",
     summary:
       "Real-time teleoperation of an industrial robotic arm through natural human arm imitation: the operator wears a motion-capture marker suit, and the arm reproduces their movement live. The work grew into a general evaluation framework for teleoperation quality, published in the International Journal of Social Robotics.",
     contributionSummary:
       "Built the motion-capture teleoperation pipeline from optical tracking through kinematic retargeting to live industrial-arm control; published at IRIS 2010.",
+    outcomeSummary:
+      "Built and published a motion-capture teleoperation pipeline from optical tracking through kinematic retargeting to live arm control (IRIS 2010).",
     highlights: [
       "Full pipeline from optical motion capture through kinematic retargeting to live control of an industrial manipulator.",
       "Operator trials measured how naturally human arm movement transfers to a machine with very different kinematics.",
@@ -913,10 +1057,14 @@ export const workRecords: ProjectRecord[] = [
     title: "Android Telepresence Robot Hardware",
     org: "Interactive Robots and Media Lab (IRML)",
     period: { startYear: 2010, endYear: 2011, label: "2010–2011" },
+    challenge:
+      "IRML's android telepresence platform required dense electromechanical upkeep to stay research-ready at an affordable price point.",
     summary:
       "Hands-on electromechanical work on IRML's android telepresence platform — servicing the actuation, wiring, and control hardware behind a human-like robot head and torso, in pursuit of android telepresence at an affordable price point.",
     contributionSummary:
       "Maintained and upgraded the android telepresence actuation and wiring hardware — electromechanical support contributing to the HRI 2011 workshop paper.",
+    outcomeSummary:
+      "Kept the android head and torso running for HRI research, contributing to the HRI 2011 workshop paper on affordable telepresence.",
     highlights: [
       "Maintained and upgraded the dense servo actuation and wiring loom driving the android's facial expressions and head movement.",
       "Bench-level rebuild work spanning skin, servo, and controller maintenance kept the platform running for HRI research.",
@@ -985,10 +1133,14 @@ export const workRecords: ProjectRecord[] = [
     title: "Automatic UAV Path Finding & GPS Navigation",
     org: "ΤΕΙ Piraeus · Department of Automation (BSc thesis)",
     period: { startYear: 2010, endYear: 2012, label: "2010–2012" },
+    challenge:
+      "A stock Parrot AR.Drone lacked the sensing and ground-station tooling needed for autonomous GPS waypoint navigation.",
     summary:
       "Bachelor graduation project: an end-to-end autonomous navigation stack for a Parrot AR.Drone quadrotor — onboard ArduPilot Mega with GPS, IMU, and digital compass feeding a LabVIEW ground control station that computes great-circle routes (Haversine + bearing), overlays the vehicle on an interactive Google Earth map, and closes the loop to fly the UAV from its current geographic position to a user-selected destination.",
     contributionSummary:
       "Sole author of the BSc Automation Engineering thesis — designed, built, and demonstrated the AR.Drone sensing payload, ArduPilot firmware interfaces, and LabVIEW GCS for GPS path planning and automatic navigation.",
+    outcomeSummary:
+      "Sole-author BSc thesis demonstrating closed-loop GPS path planning from a LabVIEW ground station to a modified AR.Drone.",
     highlights: [
       "Augmented the Parrot AR.Drone with ArduPilot Mega, a u-blox GPS receiver, IMU, HMC5883L 3-axis compass, and XBee RF link for independent navigation telemetry.",
       "LabVIEW ground station splits vehicle control (Parrot SDK over Wi-Fi/UDP) from navigation: live map display via Google Earth/KML, Haversine distance and bearing to a clicked waypoint, and closed-loop heading corrections in flight.",

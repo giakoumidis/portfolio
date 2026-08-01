@@ -71,7 +71,7 @@ function RoleEntry({ role, isLast }: { role: Role; isLast: boolean }) {
     <div
       id={role.id}
       ref={ref}
-      className={`relative scroll-mt-20 pl-8 lg:scroll-mt-8 lg:pl-0 ${isLast ? "" : "pb-12"} ${GUTTER}`}
+      className={`relative scroll-mt-24 pl-8 lg:scroll-mt-24 lg:pl-0 ${isLast ? "" : "pb-12"} ${GUTTER}`}
     >
       <Node lit={lit} />
 
@@ -118,7 +118,7 @@ function EducationEntry({ item }: { item: Education }) {
     <div
       id={item.id}
       ref={ref}
-      className={`relative scroll-mt-20 pb-12 pl-8 lg:scroll-mt-8 lg:pl-0 ${GUTTER}`}
+      className={`relative scroll-mt-24 pb-12 pl-8 lg:scroll-mt-24 lg:pl-0 ${GUTTER}`}
     >
       <Node accent="violet" lit={lit} />
 
@@ -162,7 +162,8 @@ function GroupHeader({
   );
 }
 
-export default function Timeline() {
+/** Animated career spine — experience groups + education. */
+export function CareerTimeline() {
   const groups = groupByOrg(experience);
   const spineRef = useRef<HTMLDivElement>(null);
 
@@ -170,12 +171,65 @@ export default function Timeline() {
     target: spineRef,
     offset: ["start 65%", "end 55%"],
   });
-  // Spring keeps the lit segment from jittering with wheel/trackpad noise.
   const fill = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 30,
     restDelta: 0.001,
   });
+
+  return (
+    <div ref={spineRef} className="relative">
+      <div
+        aria-hidden
+        className={`absolute inset-y-0 w-px bg-grid-dim ${SPINE_X}`}
+      />
+      <motion.div
+        aria-hidden
+        className={`absolute inset-y-0 w-px origin-top bg-gradient-to-b from-cyan via-violet to-orange ${SPINE_X}`}
+        style={{ scaleY: fill }}
+      />
+
+      <div className="space-y-16">
+        {groups.map((group) => (
+          <div key={group.org}>
+            <GroupHeader
+              title={group.org}
+              meta={
+                group.roles.length > 1
+                  ? `${group.period} · ${group.roles.length} roles`
+                  : group.period
+              }
+            />
+            {group.roles.map((role, i) => (
+              <RoleEntry
+                key={role.id}
+                role={role}
+                isLast={i === group.roles.length - 1}
+              />
+            ))}
+          </div>
+        ))}
+
+        <div>
+          <GroupHeader title="Education" accent="violet" />
+          {education.map((item) => (
+            <EducationEntry key={item.id} item={item} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type TimelineProps = {
+  /** Omit homepage section chrome when embedding on /profile. */
+  embedded?: boolean;
+};
+
+export default function Timeline({ embedded = false }: TimelineProps) {
+  if (embedded) {
+    return <CareerTimeline />;
+  }
 
   return (
     <section id="experience" aria-labelledby="experience-heading">
@@ -186,50 +240,7 @@ export default function Timeline() {
           headingId="experience-heading"
           kicker="Career & education"
         />
-
-        <div ref={spineRef} className="relative">
-          {/* Unlit trace, then the segment that fills with scroll progress. */}
-          <div
-            aria-hidden
-            className={`absolute inset-y-0 w-px bg-grid-dim ${SPINE_X}`}
-          />
-          <motion.div
-            aria-hidden
-            className={`absolute inset-y-0 w-px origin-top bg-gradient-to-b from-cyan via-violet to-orange ${SPINE_X}`}
-            /* Scroll-linked rather than autonomous, so it stays live under
-               reduced motion; branching here would break hydration anyway. */
-            style={{ scaleY: fill }}
-          />
-
-          <div className="space-y-16">
-            {groups.map((group) => (
-              <div key={group.org}>
-                <GroupHeader
-                  title={group.org}
-                  meta={
-                    group.roles.length > 1
-                      ? `${group.period} · ${group.roles.length} roles`
-                      : group.period
-                  }
-                />
-                {group.roles.map((role, i) => (
-                  <RoleEntry
-                    key={role.id}
-                    role={role}
-                    isLast={i === group.roles.length - 1}
-                  />
-                ))}
-              </div>
-            ))}
-
-            <div>
-              <GroupHeader title="Education" accent="violet" />
-              {education.map((item) => (
-                <EducationEntry key={item.id} item={item} />
-              ))}
-            </div>
-          </div>
-        </div>
+        <CareerTimeline />
       </div>
     </section>
   );

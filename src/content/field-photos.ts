@@ -57,7 +57,7 @@ const standaloneFieldPhotos: FieldPhoto[] = [
     src: "/images/field/global-rail-humanoid.jpg",
     alt: "Humanoid robot standing beside a researcher in front of the Global Rail Innovation Hub backdrop",
     caption: "H1 AT THE INNOVATION HUB",
-    location: "GLOBAL RAIL · 2024",
+    location: "GLOBAL RAIL · 2025",
   },
   {
     src: "/images/field/etihad-rail-booth-spots.jpg",

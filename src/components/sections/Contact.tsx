@@ -153,10 +153,14 @@ export default function Contact() {
   }, [linksPhase, linksShown]);
 
   return (
-    <section id="contact" aria-labelledby="contact-heading">
+    <section
+      id="contact"
+      aria-labelledby="contact-heading"
+      className="scroll-mt-20"
+    >
       <div className="section-shell">
         <SectionHeading
-          index="13"
+          index="05"
           title="Contact"
           headingId="contact-heading"
           kicker="Get in touch"
@@ -212,28 +216,28 @@ export default function Contact() {
               <div className={line >= 2 ? "space-y-2" : "sr-only"}>
                 {line < 2 ? (
                   <>
-                    <a id="contact-email" href={`mailto:${profile.email}`}>
-                      {profile.email}
-                    </a>
                     <a
                       id="contact-nyu-email"
                       href={`mailto:${profile.nyuEmail}`}
                     >
                       {profile.nyuEmail}
                     </a>
+                    <a id="contact-email" href={`mailto:${profile.email}`}>
+                      {profile.email}
+                    </a>
                   </>
                 ) : (
                   <>
                     <ContactEmailRow
-                      id="contact-email"
-                      email={profile.email}
+                      id="contact-nyu-email"
+                      email={profile.nyuEmail}
                       animate={line === 2}
                       onDone={() => setLine(3)}
                     />
                     {line >= 3 && (
                       <ContactEmailRow
-                        id="contact-nyu-email"
-                        email={profile.nyuEmail}
+                        id="contact-email"
+                        email={profile.email}
                         animate={line === 3}
                         onDone={() => setLine(4)}
                       />

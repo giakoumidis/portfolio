@@ -68,7 +68,7 @@ export default function Hero() {
     <section
       id="hero"
       aria-label="Introduction"
-      className="relative flex min-h-svh items-center overflow-hidden"
+      className="relative flex min-h-svh scroll-mt-20 items-center overflow-hidden"
     >
       <GridHorizon />
       <RobotStage />
@@ -136,18 +136,23 @@ export default function Hero() {
               ? { duration: 0 }
               : { duration: 0.6, delay: 0.15, ease: REVEAL_EASE }
           }
-          className="mt-10 grid w-full max-w-sm grid-cols-1 gap-3 sm:max-w-3xl sm:grid-cols-3 sm:gap-4"
+          className="mt-10 flex w-full max-w-xl flex-col gap-3 sm:max-w-3xl sm:flex-row sm:flex-wrap sm:items-center"
         >
-          <NeonButton href="#contact" className="w-full">
+          <NeonButton href="/map" className="w-full sm:w-auto">
+            Explore the map
+          </NeonButton>
+          <NeonButton href="#selected-work" className="w-full sm:w-auto">
+            Selected work
+          </NeonButton>
+          <NeonButton href="/cv.pdf" download className="w-full sm:w-auto">
+            View CV
+          </NeonButton>
+          <a
+            href="#contact"
+            className="label-mono px-2 py-2 text-center text-text-dim transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan sm:ml-2"
+          >
             Contact
-          </NeonButton>
-          <NeonButton href="/cv.pdf" download className="w-full">
-            Download CV
-          </NeonButton>
-          <NeonButton href="#about" className="w-full">
-            View my Work
-            <span aria-hidden>↓</span>
-          </NeonButton>
+          </a>
         </motion.div>
       </div>
 

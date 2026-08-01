@@ -415,7 +415,11 @@ export type ProjectRecord = {
   org?: string;
   period: RecordPeriod;
   summary: string;
+  /** One-sentence problem statement for the case-file scan block. */
+  challenge?: string;
   contributionSummary: string;
+  /** One-sentence strongest concrete result for the case-file scan block. */
+  outcomeSummary?: string;
   /** Architecture / delivery bullets shown on the case file. */
   highlights?: string[];
   /** People and organizations credited on the case file, including the subject. */
@@ -444,7 +448,11 @@ export type InfrastructureRecord = {
   org?: string;
   period: RecordPeriod;
   summary: string;
+  /** One-sentence problem statement for the laboratory hub scan block. */
+  challenge?: string;
   contributionSummary: string;
+  /** One-sentence strongest concrete result for the laboratory hub scan block. */
+  outcomeSummary?: string;
   highlights?: string[];
   /** People and organizations behind the facility — scientific owners, engineering partners, vendors. */
   credits?: ProjectCredit[];

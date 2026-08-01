@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import RecordCardHero from "@/components/ui/RecordCardHero";
 import RouteChrome from "@/components/work/RouteChrome";
 import { getAllInfrastructure } from "@/lib/query";
 import { siteTitle } from "@/lib/site";
@@ -33,24 +34,45 @@ export default function LaboratoriesIndexPage() {
         <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
             <li key={item.slug}>
-              <Link
-                href={`/laboratories/${item.slug}`}
-                className="flex h-full flex-col border border-grid-dim bg-bg-raised/30 p-5 transition-colors hover:border-cyan/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-              >
-                <p className="label-mono text-text-dim">
-                  Laboratory
-                  {item.period.label && (
-                    <span className="ml-3">{item.period.label}</span>
+              <article className="flex h-full flex-col overflow-hidden border border-grid-dim bg-bg-raised/30 transition-colors hover:border-cyan/40">
+                <RecordCardHero
+                  video={item.video}
+                  images={item.images}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="flex flex-1 flex-col p-5">
+                  <p className="label-mono text-text-dim">
+                    Laboratory
+                    {item.period.label && (
+                      <span className="ml-3">{item.period.label}</span>
+                    )}
+                  </p>
+                  <h2 className="mt-3 font-display text-lg uppercase text-text">
+                    <Link
+                      href={`/laboratories/${item.slug}`}
+                      className="transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                    >
+                      {item.title}
+                    </Link>
+                  </h2>
+                  {item.org && (
+                    <p className="mt-2 font-body text-sm text-text-dim">
+                      {item.org}
+                    </p>
                   )}
-                </p>
-                <h2 className="mt-3 font-display text-lg uppercase text-text">
-                  {item.title}
-                </h2>
-                <p className="mt-4 flex-1 font-body text-sm leading-relaxed text-text-dim">
-                  {item.contributionSummary}
-                </p>
-                <p className="label-mono mt-5 text-cyan">Open hub →</p>
-              </Link>
+                  <p className="mt-4 flex-1 font-body text-sm leading-relaxed text-text-dim">
+                    {item.contributionSummary}
+                  </p>
+                  <p className="mt-5">
+                    <Link
+                      href={`/laboratories/${item.slug}`}
+                      className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                    >
+                      Open hub →
+                    </Link>
+                  </p>
+                </div>
+              </article>
             </li>
           ))}
         </ul>

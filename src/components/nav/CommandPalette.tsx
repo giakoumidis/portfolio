@@ -5,11 +5,20 @@ import { useEffect, useId, useState } from "react";
 
 import SearchPanel from "@/components/nav/SearchPanel";
 import HudCard from "@/components/ui/HudCard";
+import { OPEN_SEARCH_EVENT } from "@/lib/search-events";
 
 export default function CommandPalette() {
   const titleId = useId();
   const [open, setOpen] = useState(false);
   const reduced = useReducedMotion();
+
+  useEffect(() => {
+    function onOpenSearch() {
+      setOpen(true);
+    }
+    window.addEventListener(OPEN_SEARCH_EVENT, onOpenSearch);
+    return () => window.removeEventListener(OPEN_SEARCH_EVENT, onOpenSearch);
+  }, []);
 
   useEffect(() => {
     function onGlobalKeyDown(event: KeyboardEvent) {

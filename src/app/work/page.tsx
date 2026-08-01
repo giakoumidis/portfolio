@@ -6,7 +6,9 @@ import WorkFilters from "@/components/work/WorkFilters";
 import WorkGrid from "@/components/work/WorkGrid";
 import {
   filterWork,
+  getCuratedWork,
   getWorkFilterOptions,
+  hasActiveWorkFilters,
   parseWorkSearchParams,
 } from "@/lib/query";
 import { siteTitle } from "@/lib/site";
@@ -25,7 +27,8 @@ type PageProps = {
 export default async function WorkIndexPage({ searchParams }: PageProps) {
   const raw = await searchParams;
   const { filters, unknown, canonicalQuery } = parseWorkSearchParams(raw);
-  const items = filterWork(filters);
+  const filtered = hasActiveWorkFilters(filters);
+  const items = filtered ? filterWork(filters) : getCuratedWork();
   const options = getWorkFilterOptions();
   const unknownNotice = unknown.length > 0;
 
@@ -41,8 +44,9 @@ export default async function WorkIndexPage({ searchParams }: PageProps) {
         <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
         <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
           Projects and engagements with explicit contribution, typed
-          relationships to laboratories, and evidence-backed outcomes. Filters
-          are shareable via the URL
+          relationships to laboratories, and evidence-backed outcomes. Without
+          filters, the index opens on a curated default — flagship work first,
+          then the rest by year. Filters are shareable via the URL
           {canonicalQuery ? ` (?${canonicalQuery})` : ""}.
         </p>
 

@@ -425,6 +425,12 @@ export const taxonomyTerms: TaxonomyTerm[] = [
     aliases: ["Institutional demonstration"],
   },
   {
+    slug: "prize-award",
+    label: "Prize / Award",
+    facet: "outcome",
+    aliases: ["First prize", "Competition award", "Award"],
+  },
+  {
     slug: "research-capability",
     label: "Research Capability",
     facet: "outcome",
