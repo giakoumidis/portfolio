@@ -14,10 +14,10 @@ export default function WorkGrid({ items }: WorkGridProps) {
     return (
       <div className="border border-grid-dim bg-bg-raised/40 p-8 text-center">
         <p className="font-body text-text-dim">
-          No work matches these filters.
+          No projects match these filters.
         </p>
         <Link
-          href="/work"
+          href="/projects"
           className="label-mono mt-4 inline-block text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
         >
           Clear filters →
@@ -33,19 +33,19 @@ export default function WorkGrid({ items }: WorkGridProps) {
           ...(item.facets.domains.slice(0, 1).map((slug) => ({
             slug,
             label: taxonomyLabel(slug),
-            href: `/work?domain=${slug}`,
+            href: `/projects?domain=${slug}`,
             prefix: "DOMAIN",
           }))),
           ...(item.facets.applications?.slice(0, 1).map((slug) => ({
             slug,
             label: taxonomyLabel(slug),
-            href: `/work?application=${slug}`,
+            href: `/projects?application=${slug}`,
             prefix: "APP",
           })) ?? []),
           ...(item.facets.platforms?.slice(0, 1).map((slug) => ({
             slug,
             label: taxonomyLabel(slug),
-            href: `/work?platform=${slug}`,
+            href: `/projects?platform=${slug}`,
             prefix: "PLATFORM",
           })) ?? []),
         ].slice(0, 3);
@@ -63,7 +63,7 @@ export default function WorkGrid({ items }: WorkGridProps) {
                 </p>
                 <h3 className="mt-3 text-lg text-text">
                   <Link
-                    href={`/work/${item.slug}`}
+                    href={`/projects/${item.slug}`}
                     className="transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                   >
                     {item.title}

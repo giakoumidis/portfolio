@@ -88,7 +88,7 @@ export default function WorkFilters({
 
   function pushFilters(next: WorkFilterParams) {
     const qs = buildCanonicalQuery(next);
-    router.replace(qs ? `/work?${qs}` : "/work", { scroll: false });
+    router.replace(qs ? `/projects?${qs}` : "/projects", { scroll: false });
   }
 
   function toggle(facet: FacetKey, slug: string) {

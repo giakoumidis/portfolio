@@ -63,7 +63,7 @@ function institutionFromLocation(location?: string): string | undefined {
 function inferArchiveType(photo: FieldPhoto): ArchiveType {
   if (photo.src.includes("/awards/")) return "award";
   if (photo.project?.href.startsWith("/laboratories/")) return "laboratory";
-  if (photo.project?.href.startsWith("/work/")) return "project";
+  if (photo.project?.href.startsWith("/projects/")) return "project";
 
   const loc = photo.location ?? "";
   if (EXHIBITION_HINTS.test(loc) || EXHIBITION_HINTS.test(photo.caption)) {

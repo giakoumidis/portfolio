@@ -89,7 +89,7 @@ export function getFieldPhotos(): FieldPhoto[] {
         orientation: image.orientation,
         project: {
           title: record.title,
-          href: `/work/${record.slug}`,
+          href: `/projects/${record.slug}`,
         },
       });
     }

@@ -140,6 +140,12 @@ export const workRecords: ProjectRecord[] = [
         "deployed-prototype",
       ],
     },
+    explicitRelated: [
+      {
+        type: "project",
+        slug: "hybrid-ground-air-water-vehicle",
+      },
+    ],
     evidence: [
       {
         type: "award",
@@ -764,6 +770,10 @@ export const workRecords: ProjectRecord[] = [
         type: "project",
         slug: "nyuad-adac-airport-inspection-drone",
       },
+      {
+        type: "project",
+        slug: "hybrid-ground-air-water-vehicle",
+      },
     ],
     evidence: [
       {
@@ -819,6 +829,140 @@ export const workRecords: ProjectRecord[] = [
       src: "/videos/projects/drone-detection/drone-detection.mp4",
       title: "RGB-T UAV detection and tracking — live arena demo",
       poster: "/images/projects/drone-detection-poster.jpg",
+    },
+    status: "published",
+  },
+  {
+    type: "project",
+    slug: "hybrid-ground-air-water-vehicle",
+    title: "Hybrid Ground–Air–Water Autonomous Vehicle",
+    org: "NYU Abu Dhabi · Kinesis Lab / CTP · RISC Lab · ACCESS",
+    period: { startYear: 2023, label: "2023" },
+    challenge:
+      "Most autonomous vehicles are optimized for one medium — consolidating flight, ground driving, and surface-vessel operation into one waterproof platform under 10 kg forces conflicting actuator, buoyancy, and control requirements.",
+    summary:
+      "A multimodal robotic platform capable of flying, driving, and navigating on water — combining a coaxial six-motor UAV, a tri-omniwheel ground vehicle, and a twin-thruster surface vessel in one waterproof system. Two Pixhawk autopilots, an Intel NUC supervisory computer, ROS/MAVROS coordination, custom motor-control electronics, and waterproof mechanical integration enabled autonomous mode switching across air, land, and water.",
+    contributionSummary:
+      "Co-constructed the original hybrid platform and supported technical integration through the Kinesis Lab / Core Technology Platform — co-author on both IEEE publications documenting the mechatronic design, control architecture, and experimental validation.",
+    outcomeSummary:
+      "Experimentally validated three-domain operation and published at ICARA and ICUAS 2023, with IEEE Spectrum coverage of the hybrid platform.",
+    highlights: [
+      "Unified aerial (coaxial hex-motor multirotor), terrestrial (three waterproof Dynamixel-driven omniwheels), and marine (twin underwater thrusters with flotation body) mobility in a single vehicle under 10 kg MTOW.",
+      "Dual-autopilot architecture — ArduCopter for flight and ArduRover for land/water — supervised by an Intel NUC running ROS/MAVROS with a state machine that activates only one operating mode at a time.",
+      "Custom waterproof electronics enclosure (IP68 characterization), PWM-to-RS485 Dynamixel interface board, and simulation-to-hardware validation spanning vessel operation, water take-off, flight, landing, and omnidirectional ground motion.",
+      "Featured by IEEE Spectrum as “This Drone Can Fly, Float, and Roll to Get Around”; later reused as the basis for an NYU Abu Dhabi engineering capstone activity.",
+    ],
+    credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Robotic systems integration · Co-author",
+        org: "NYU Abu Dhabi · Kinesis Lab / CTP",
+      },
+      {
+        name: "Dimitris Chaikalis",
+        role: "Lead author · platform design",
+        org: "NYU Abu Dhabi · RISC Lab",
+      },
+      {
+        name: "Nikolaos Evangeliou",
+        role: "Co-construction · Co-author",
+        org: "NYU Abu Dhabi",
+      },
+      {
+        name: "Muhammed Nabeel",
+        role: "Co-construction · Co-author",
+        org: "NYU Abu Dhabi · ACCESS",
+      },
+      {
+        name: "Anthony Tzes",
+        role: "Principal Investigator",
+        org: "NYU Abu Dhabi · CAIR",
+      },
+    ],
+    facets: {
+      domains: [
+        "aerial-ground-underwater-robotics",
+        "sim2real-digital-twins",
+        "lab-automation-instrumentation",
+      ],
+      contributions: [
+        "built",
+        "system-integration",
+        "supported",
+        "co-authored",
+        "experimental-development",
+      ],
+      applications: ["environmental-monitoring"],
+      platforms: ["uav-platform", "ugv-platform", "usv-platform"],
+      outcomes: [
+        "peer-reviewed-publication",
+        "deployed-prototype",
+        "public-demonstration",
+      ],
+    },
+    relations: [
+      {
+        type: "developed-in",
+        target: {
+          type: "infrastructure",
+          slug: "kinesis-ctp-laboratory",
+        },
+      },
+      {
+        type: "published-as",
+        target: {
+          type: "research-output",
+          slug: "icara-2023-amphibious-drone",
+        },
+      },
+      {
+        type: "published-as",
+        target: {
+          type: "research-output",
+          slug: "icuas-2023-hybrid-ground-air-water",
+        },
+      },
+    ],
+    explicitRelated: [
+      {
+        type: "project",
+        slug: "uav-ugv-hybrid-air-based-path-planning",
+      },
+      {
+        type: "project",
+        slug: "rta-dubai-delivery-drone",
+      },
+      {
+        type: "project",
+        slug: "rgb-t-uav-detection-tracking",
+      },
+    ],
+    evidence: [
+      {
+        type: "publication",
+        target: {
+          type: "research-output",
+          slug: "icara-2023-amphibious-drone",
+        },
+      },
+      {
+        type: "publication",
+        target: {
+          type: "research-output",
+          slug: "icuas-2023-hybrid-ground-air-water",
+        },
+      },
+      {
+        type: "external-article",
+        title: "This Drone Can Fly, Float, and Roll to Get Around",
+        url: "https://spectrum.ieee.org/climate-change-drone",
+        date: "2023",
+        note: "IEEE Spectrum feature",
+      },
+    ],
+    link: {
+      label: "IEEE Spectrum feature",
+      href: "https://spectrum.ieee.org/climate-change-drone",
     },
     status: "published",
   },
@@ -942,6 +1086,12 @@ export const workRecords: ProjectRecord[] = [
       methods: ["air-based-path-planning"],
       outcomes: ["peer-reviewed-publication"],
     },
+    explicitRelated: [
+      {
+        type: "project",
+        slug: "hybrid-ground-air-water-vehicle",
+      },
+    ],
     evidence: [
       {
         type: "publication",

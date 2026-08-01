@@ -140,12 +140,17 @@ function buildIndex(): SearchEntry[] {
       haystack: joinHaystack("profile", "career", "cv", "experience"),
     },
     {
-      id: "section:work-index",
-      title: "Work Index",
+      id: "section:projects-index",
+      title: "Projects",
       blurb: "Faceted project and engagement index",
       category: "section",
-      href: "/work",
-      haystack: joinHaystack("work index", "projects", "case files", "filters"),
+      href: "/projects",
+      haystack: joinHaystack(
+        "projects",
+        "work index",
+        "case files",
+        "filters",
+      ),
     },
     {
       id: "section:laboratories-index",
@@ -172,7 +177,7 @@ function buildIndex(): SearchEntry[] {
         .filter(Boolean)
         .join(" · "),
       category: "project",
-      href: `/work/${project.id}`,
+      href: `/projects/${project.id}`,
       haystack: joinHaystack(
         project.title,
         project.summary,
@@ -213,7 +218,7 @@ function buildIndex(): SearchEntry[] {
       title: capability.title,
       blurb: capability.blurb,
       category: "domain",
-      href: `/work?domain=${capability.id}`,
+      href: `/projects?domain=${capability.id}`,
       haystack: joinHaystack(
         capability.title,
         capability.blurb,
@@ -302,7 +307,7 @@ function buildIndex(): SearchEntry[] {
         .filter(Boolean)
         .join(" · "),
       category: "award",
-      href: "/research#recognition",
+      href: `/profile#${award.id}`,
       haystack: joinHaystack(
         award.placement,
         award.event,
@@ -368,7 +373,7 @@ function buildIndex(): SearchEntry[] {
         title: item,
         blurb: group.label,
         category: "tool",
-        href: "/work",
+        href: "/projects",
         haystack: joinHaystack(item, group.label),
       });
     }

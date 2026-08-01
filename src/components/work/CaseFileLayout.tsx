@@ -80,7 +80,7 @@ export default function CaseFileLayout({
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },
-          { label: "Work", href: "/work" },
+          { label: "Projects", href: "/projects" },
           { label: record.title },
         ]}
       />
@@ -337,7 +337,7 @@ export default function CaseFileLayout({
                 {related.map((item) => (
                   <li key={item.slug}>
                     <Link
-                      href={`/work/${item.slug}`}
+                      href={`/projects/${item.slug}`}
                       className="block h-full border border-grid-dim p-4 transition-colors hover:border-cyan/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                     >
                       <p className="label-mono text-text-dim">
@@ -440,7 +440,7 @@ export default function CaseFileLayout({
         </div>
       )}
 
-      <SpokeNav basePath="/work" prev={prev} next={next} />
+      <SpokeNav basePath="/projects" prev={prev} next={next} />
     </article>
   );
 }

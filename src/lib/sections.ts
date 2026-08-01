@@ -16,7 +16,7 @@ export const sections: SectionMeta[] = [
   { id: "hero", label: "Home", index: "00", href: "/" },
   { id: "profile-proof", label: "Profile", index: "01", href: "/profile" },
   { id: "portfolio-map", label: "Map", index: "02", href: "/map" },
-  { id: "selected-work", label: "Work", index: "03", href: "/work" },
+  { id: "selected-projects", label: "Projects", index: "03", href: "/projects" },
   {
     id: "credibility",
     label: "Evidence",

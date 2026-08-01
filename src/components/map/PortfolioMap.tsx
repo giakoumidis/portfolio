@@ -30,10 +30,9 @@ type PortfolioMapProps = {
 const HUB_POSITIONS: Record<MapHubId, MapPoint> = {
   career: { x: 50, y: 12 },
   laboratories: { x: 14, y: 42 },
-  work: { x: 86, y: 42 },
-  research: { x: 50, y: 58 },
-  recognition: { x: 28, y: 84 },
-  archive: { x: 72, y: 84 },
+  projects: { x: 86, y: 42 },
+  research: { x: 28, y: 78 },
+  archive: { x: 72, y: 78 },
 };
 
 const CENTER_POSITION: MapPoint = { x: 50, y: 38 };

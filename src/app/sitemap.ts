@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
-      url: `${siteUrl}/work`,
+      url: `${siteUrl}/projects`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
@@ -52,7 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   for (const project of getAllWork()) {
     entries.push({
-      url: `${siteUrl}/work/${project.slug}`,
+      url: `${siteUrl}/projects/${project.slug}`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,

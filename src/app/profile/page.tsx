@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import Timeline from "@/components/sections/Timeline";
+import AwardCard from "@/components/ui/AwardCard";
 import CertThumb from "@/components/ui/CertThumb";
 import HudCard from "@/components/ui/HudCard";
 import { awards, certifications } from "@/content/awards";
@@ -19,8 +20,6 @@ export const metadata: Metadata = {
 };
 
 export default function ProfilePage() {
-  const majorAwards = awards.filter((a) => a.placement === "First Prize");
-
   return (
     <main className="section-shell py-16 lg:py-24">
       <p className="label-mono text-cyan">
@@ -51,7 +50,7 @@ export default function ProfilePage() {
         </h2>
         <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
           Four eras spanning early robotics research through commercialization
-          leadership — with links into work and laboratory hubs.
+          leadership — with links into project and laboratory hubs.
         </p>
 
         <ul className="mt-8 grid gap-5 lg:grid-cols-2">
@@ -73,7 +72,7 @@ export default function ProfilePage() {
                       return (
                         <Link
                           key={slug}
-                          href={`/work/${slug}`}
+                          href={`/projects/${slug}`}
                           className="label-mono block text-sm text-text-dim transition-colors hover:text-cyan"
                         >
                           {project.title} →
@@ -116,25 +115,16 @@ export default function ProfilePage() {
         </div>
       </section>
 
-      <section className="mt-16">
-        <h2 className="font-display text-lg uppercase text-text">
-          Major awards
-        </h2>
-        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {majorAwards.map((award) => (
+      <section id="awards" className="mt-16 scroll-mt-24">
+        <h2 className="font-display text-lg uppercase text-text">Awards</h2>
+        <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
+          First-prize competition wins — with deployment video or ceremony
+          photography where available.
+        </p>
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2">
+          {awards.map((award) => (
             <li key={award.id}>
-              <Link
-                href={`/research#recognition`}
-                className="group flex h-full flex-col border border-grid-dim bg-bg-raised/30 p-5 transition-colors hover:border-amber/40"
-              >
-                <p className="label-mono glow-amber">▲ {award.placement}</p>
-                <h3 className="mt-3 text-sm text-text group-hover:text-cyan">
-                  {award.event}
-                </h3>
-                <p className="label-mono mt-auto pt-4 text-text-dim">
-                  {award.year}
-                </p>
-              </Link>
+              <AwardCard award={award} detailed />
             </li>
           ))}
         </ul>

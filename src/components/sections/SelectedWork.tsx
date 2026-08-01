@@ -25,15 +25,15 @@ export default function SelectedWork() {
 
   return (
     <section
-      id="selected-work"
-      aria-labelledby="selected-work-heading"
+      id="selected-projects"
+      aria-labelledby="selected-projects-heading"
       className="scroll-mt-20"
     >
       <div className="section-shell">
         <SectionHeading
           index="03"
-          title="Selected Work"
-          headingId="selected-work-heading"
+          title="Selected Projects"
+          headingId="selected-projects-heading"
           kicker="Flagship case files"
         />
 
@@ -70,7 +70,7 @@ export default function SelectedWork() {
                     </p>
                     <h3 className="mt-3 font-display text-lg uppercase text-text">
                       <Link
-                        href={`/work/${project.slug}`}
+                        href={`/projects/${project.slug}`}
                         className="transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                       >
                         {project.title}
@@ -97,7 +97,7 @@ export default function SelectedWork() {
                     )}
                     <p className="mt-auto pt-5">
                       <Link
-                        href={`/work/${project.slug}`}
+                        href={`/projects/${project.slug}`}
                         className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                       >
                         Open case file →
@@ -112,10 +112,10 @@ export default function SelectedWork() {
 
         <p className="mt-10">
           <Link
-            href="/work"
+            href="/projects"
             className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
           >
-            View all work →
+            View all projects →
           </Link>
         </p>
       </div>

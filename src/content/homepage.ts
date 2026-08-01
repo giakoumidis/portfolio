@@ -3,7 +3,7 @@
  * PENDING OWNER REVIEW on flagship order, sixth project, metrics, teaser count.
  */
 
-/** Flagship project slugs in narrative order (homepage Selected Work). */
+/** Flagship project slugs in narrative order (homepage Selected Projects). */
 export const flagshipProjectSlugs = [
   "etihad-rail-nyuad-collaboration",
   "rta-dubai-delivery-drone",

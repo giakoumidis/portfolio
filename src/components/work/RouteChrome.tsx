@@ -7,7 +7,15 @@ export default function RouteChrome({
 }: {
   children: React.ReactNode;
   /** @deprecated Active highlighting is handled by SiteHeader. */
-  active?: "work" | "laboratories" | "home" | "research" | "archive" | "profile" | "map";
+  active?:
+    | "projects"
+    | "work"
+    | "laboratories"
+    | "home"
+    | "research"
+    | "archive"
+    | "profile"
+    | "map";
 }) {
   return <>{children}</>;
 }

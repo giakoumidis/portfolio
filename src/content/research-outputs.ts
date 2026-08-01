@@ -91,6 +91,29 @@ export const researchOutputs: ResearchOutputRecord[] = [
   },
   {
     type: "research-output",
+    slug: "icara-2023-amphibious-drone",
+    title: "Mechatronic design of an amphibious drone",
+    authors: "N Evangeliou, D Chaikalis, N Giakoumidis, A Tzes",
+    venue:
+      "2023 9th International Conference on Automation, Robotics and Applications (ICARA), 230–233",
+    year: "2023",
+    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=HmOOogwAAAAJ&citation_for_view=HmOOogwAAAAJ:5nxA0vEk-isC",
+    citations: 8,
+  },
+  {
+    type: "research-output",
+    slug: "icuas-2023-hybrid-ground-air-water",
+    title:
+      "Mechatronic design and control of a hybrid ground-air-water autonomous vehicle",
+    authors: "D Chaikalis, N Evangeliou, M Nabeel, N Giakoumidis, A Tzes",
+    venue:
+      "2023 International Conference on Unmanned Aircraft Systems (ICUAS), 1337–1342",
+    year: "2023",
+    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=HmOOogwAAAAJ&citation_for_view=HmOOogwAAAAJ:8k81kl-MbHgC",
+    citations: 5,
+  },
+  {
+    type: "research-output",
     slug: "fit-2012-uav-ugv-hybrid",
     title:
       "Pilot-scale development of a UAV-UGV hybrid with air-based UGV path planning",

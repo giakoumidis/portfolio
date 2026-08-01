@@ -20,7 +20,7 @@ type FilteredProjectCardsProps = {
   items: Project[];
   /** Accessible name for the chip group. */
   ariaLabel: string;
-  recordBasePath?: "/work" | "/laboratories";
+  recordBasePath?: "/projects" | "/laboratories";
 };
 
 function itemDomainIds(item: Project): string[] {

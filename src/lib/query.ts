@@ -573,7 +573,7 @@ function resolveTerms(
       if (!term || term.facet !== facet) return null;
       return {
         ...term,
-        href: `/work?${facet === "domain" ? "domain" : facet}=${slug}`,
+        href: `/projects?${facet === "domain" ? "domain" : facet}=${slug}`,
       };
     })
     .filter((t): t is ResolvedTaxonomy => t !== null);
@@ -720,7 +720,7 @@ export function getWorkFilterOptions(): {
 
 export function workIndexHref(filters: WorkFilterParams = {}): string {
   const qs = buildCanonicalQuery(filters);
-  return qs ? `/work?${qs}` : "/work";
+  return qs ? `/projects?${qs}` : "/projects";
 }
 
 export { taxonomyLabel, getTaxonomyByFacet, getTaxonomyTerm };

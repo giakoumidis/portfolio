@@ -101,7 +101,7 @@ export default function CredibilityLayer() {
 
         <Reveal>
           <div className="border border-grid-dim bg-bg-raised/20 p-5 sm:p-6">
-            <p className="label-mono text-cyan">Research & recognition</p>
+            <p className="label-mono text-cyan">Research & awards</p>
             <div className="mt-4 flex flex-wrap gap-x-8 gap-y-2">
               <p className="label-mono text-text-dim">
                 <span className="text-cyan">{publications.length}</span> publications

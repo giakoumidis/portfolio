@@ -11,10 +11,10 @@ export default function NotFound() {
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-4">
         <Link
-          href="/work"
+          href="/projects"
           className="label-mono border border-cyan/50 px-5 py-3 text-cyan transition-colors hover:bg-cyan/10"
         >
-          Work Index →
+          Projects →
         </Link>
         <Link
           href="/laboratories"

@@ -141,8 +141,8 @@ export default function Hero() {
           <NeonButton href="/map" className="w-full sm:w-auto">
             Explore the map
           </NeonButton>
-          <NeonButton href="#selected-work" className="w-full sm:w-auto">
-            Selected work
+          <NeonButton href="#selected-projects" className="w-full sm:w-auto">
+            Selected projects
           </NeonButton>
           <NeonButton href="/cv.pdf" download className="w-full sm:w-auto">
             View CV

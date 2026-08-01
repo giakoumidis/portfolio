@@ -23,7 +23,7 @@ export async function generateMetadata({
   return {
     title: `${caseFile.record.title} | Nikolaos Giakoumidis`,
     description: caseFile.record.contributionSummary,
-    alternates: { canonical: `/work/${slug}` },
+    alternates: { canonical: `/projects/${slug}` },
   };
 }
 
@@ -46,20 +46,20 @@ export default async function WorkCaseFilePage({ params }: PageProps) {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Work",
-        item: `${siteUrl}/work`,
+        name: "Projects",
+        item: `${siteUrl}/projects`,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: caseFile.record.title,
-        item: `${siteUrl}/work/${slug}`,
+        item: `${siteUrl}/projects/${slug}`,
       },
     ],
   };
 
   return (
-    <RouteChrome active="work">
+    <RouteChrome active="projects">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}

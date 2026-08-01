@@ -17,10 +17,10 @@ Commercializing AI and robotics built on more than a decade of research infrastr
 
 ## Site structure
 
-- / — Concise homepage (hero, profile proof, portfolio map, selected work, laboratories/research/archive teaser, contact)
+- / — Concise homepage (hero, profile proof, portfolio map, selected projects, laboratories/research/archive teaser, contact)
 - /map — Portfolio map connecting major hubs
-- /work — Project case files (faceted index)
-- /work/[slug] — Individual case file
+- /projects — Project case files (faceted index)
+- /projects/[slug] — Individual case file
 - /laboratories — Laboratory hubs
 - /laboratories/[slug] — Laboratory detail
 - /research — Publications, IP, awards
@@ -28,7 +28,7 @@ Commercializing AI and robotics built on more than a decade of research infrastr
 - /profile — Connected career narrative
 - /cv.pdf — Downloadable CV
 
-Legacy redirects: /infrastructure → /laboratories; /photos → /archive.
+Legacy redirects: /infrastructure → /laboratories; /photos → /archive; /work → /projects.
 
 ## Contact
 

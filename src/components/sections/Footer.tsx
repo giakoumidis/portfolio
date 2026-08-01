@@ -5,7 +5,7 @@ import { AUDIO_LICENSE_STATUS, AUDIO_TRACK } from "@/lib/audio";
 
 const NAVIGATE = [
   { href: "/map", label: "Map" },
-  { href: "/work", label: "Work" },
+  { href: "/projects", label: "Projects" },
   { href: "/laboratories", label: "Laboratories" },
   { href: "/research", label: "Research" },
   { href: "/archive", label: "Archive" },

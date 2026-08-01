@@ -56,6 +56,7 @@ export const careerEras: CareerEra[] = [
     relatedWorkSlugs: [
       "rta-dubai-delivery-drone",
       "rgb-t-uav-detection-tracking",
+      "hybrid-ground-air-water-vehicle",
       "multiagent-construction-exploration",
       "nyuad-adac-airport-inspection-drone",
     ],

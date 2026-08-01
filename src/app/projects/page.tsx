@@ -14,10 +14,10 @@ import {
 import { siteTitle } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `Work Index — ${siteTitle}`,
+  title: `Projects — ${siteTitle}`,
   description:
     "Faceted index of projects and engagements — filter by domain, application, environment, platform, and method.",
-  alternates: { canonical: "/work" },
+  alternates: { canonical: "/projects" },
 };
 
 type PageProps = {
@@ -33,20 +33,20 @@ export default async function WorkIndexPage({ searchParams }: PageProps) {
   const unknownNotice = unknown.length > 0;
 
   return (
-    <RouteChrome active="work">
+    <RouteChrome active="projects">
       <div className="section-shell py-16 lg:py-24">
         <p className="label-mono text-cyan">
-          01 <span className="text-text-dim">{"//"} Work Index</span>
+          01 <span className="text-text-dim">{"//"} Projects</span>
         </p>
         <h1 className="mt-3 text-[clamp(1.6rem,3.5vw,2.5rem)] text-text">
-          Work
+          Projects
         </h1>
         <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
         <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-          Projects and engagements with explicit contribution, typed
+          Case files and engagements with explicit contribution, typed
           relationships to laboratories, and evidence-backed outcomes. Without
-          filters, the index opens on a curated default — flagship work first,
-          then the rest by year. Filters are shareable via the URL
+          filters, the index opens on a curated default — flagship projects
+          first, then the rest by year. Filters are shareable via the URL
           {canonicalQuery ? ` (?${canonicalQuery})` : ""}.
         </p>
 

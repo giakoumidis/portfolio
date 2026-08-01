@@ -225,7 +225,7 @@ export default function LaboratoryHubLayout({
               <TaxonomyChip
                 key={term.slug}
                 label={term.label}
-                href={`/work?platform=${term.slug}`}
+                href={`/projects?platform=${term.slug}`}
                 prefix="INVENTORY"
               />
             ))}
@@ -242,7 +242,7 @@ export default function LaboratoryHubLayout({
             {connectedWork.map(({ project, relationType }) => (
               <li key={project.slug}>
                 <Link
-                  href={`/work/${project.slug}`}
+                  href={`/projects/${project.slug}`}
                   className="block h-full border border-grid-dim p-5 transition-colors hover:border-cyan/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                 >
                   <p className="label-mono text-cyan/70">

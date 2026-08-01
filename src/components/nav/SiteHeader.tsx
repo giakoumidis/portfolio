@@ -20,9 +20,9 @@ const PRIMARY: NavItem[] = [
     match: (p) => p === "/map" || p.startsWith("/map/"),
   },
   {
-    href: "/work",
-    label: "Work",
-    match: (p) => p === "/work" || p.startsWith("/work/"),
+    href: "/projects",
+    label: "Projects",
+    match: (p) => p === "/projects" || p.startsWith("/projects/"),
   },
   {
     href: "/laboratories",

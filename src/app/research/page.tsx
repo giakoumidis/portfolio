@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import AwardCard from "@/components/ui/AwardCard";
 import HudCard from "@/components/ui/HudCard";
 import NeonButton from "@/components/ui/NeonButton";
 import { awards } from "@/content/awards";
@@ -135,15 +136,15 @@ export default async function ResearchPage({ searchParams }: PageProps) {
   return (
     <main className="section-shell py-16 lg:py-24">
       <p className="label-mono text-cyan">
-        Research <span className="text-text-dim">{"//"} Outputs & recognition</span>
+        Research <span className="text-text-dim">{"//"} Outputs & IP</span>
       </p>
       <h1 className="mt-3 text-[clamp(1.6rem,3.5vw,2.5rem)] text-text">
         Research
       </h1>
       <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
       <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-        Publications, intellectual property, and external recognition — linked
-        to projects and laboratories across the portfolio.
+        Publications and intellectual property — linked to projects and
+        laboratories. Awards live on the Profile page with full media.
       </p>
 
       <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border border-grid-dim bg-bg-raised/20 p-5">
@@ -236,32 +237,22 @@ export default async function ResearchPage({ searchParams }: PageProps) {
         </NeonButton>
       </div>
 
-      <section id="recognition" className="mt-20 scroll-mt-24">
-        <h2 className="font-display text-lg uppercase text-text">Recognition</h2>
+      <section id="awards" className="mt-20 scroll-mt-24">
+        <h2 className="font-display text-lg uppercase text-text">Awards</h2>
         <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
-          First-prize awards and competition wins — each with detail on the
-          homepage and linked evidence in the archive.
+          First-prize competition wins. Full certificates and detail on{" "}
+          <Link
+            href="/profile#awards"
+            className="text-cyan transition-colors hover:text-text"
+          >
+            Profile → Awards
+          </Link>
+          .
         </p>
-
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2">
           {awards.map((award) => (
             <li key={award.id}>
-              <Link
-                href={`/#${award.id}`}
-                className="group flex h-full flex-col border border-grid-dim bg-bg-raised/30 p-5 transition-colors hover:border-amber/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-              >
-                <p className="label-mono glow-amber">▲ {award.placement}</p>
-                <h3 className="mt-4 text-base text-text transition-colors group-hover:text-cyan">
-                  {award.event}
-                </h3>
-                {award.detail && (
-                  <p className="mt-2 text-sm text-text-dim">{award.detail}</p>
-                )}
-                <p className="label-mono mt-auto pt-6 text-text-dim">
-                  {award.year}
-                </p>
-                <p className="label-mono mt-2 text-cyan">View detail →</p>
-              </Link>
+              <AwardCard award={award} />
             </li>
           ))}
         </ul>

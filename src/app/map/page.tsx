@@ -6,7 +6,7 @@ import { siteTitle } from "@/lib/site";
 export const metadata: Metadata = {
   title: `Portfolio Map — ${siteTitle}`,
   description:
-    "Navigable portfolio map connecting work, laboratories, research, career, recognition, and archive evidence.",
+    "Navigable portfolio map connecting projects, laboratories, research, career, and archive evidence.",
   alternates: { canonical: "/map" },
 };
 
@@ -21,10 +21,10 @@ export default function MapPage() {
       </h1>
       <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
       <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-        Explore how work, laboratories, research, career periods, recognition,
-        and archive records connect. Hover to highlight relationships; select a
-        hub for local detail, then open the destination. On mobile, drill down
-        one hub at a time.
+        Explore how projects, laboratories, research, career periods, and
+        archive records connect. Awards live on Profile. Hover to highlight
+        relationships; select a hub for local detail, then open the destination.
+        On mobile, drill down one hub at a time.
       </p>
       <div className="mt-12">
         <PortfolioMap variant="full" />

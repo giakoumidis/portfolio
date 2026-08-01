@@ -131,6 +131,16 @@ export const taxonomyTerms: TaxonomyTerm[] = [
     aliases: ["Date palm inspection", "Red Palm Weevil", "Field robotics"],
   },
   {
+    slug: "environmental-monitoring",
+    label: "Environmental Monitoring",
+    facet: "application",
+    aliases: [
+      "Climate monitoring",
+      "Remote water sampling",
+      "Cross-domain autonomy",
+    ],
+  },
+  {
     slug: "rail-transport",
     label: "Rail Transport",
     facet: "application",
@@ -185,6 +195,17 @@ export const taxonomyTerms: TaxonomyTerm[] = [
     label: "UGV Platform",
     facet: "platform",
     aliases: ["UGV", "Ground robot", "Ground vehicle"],
+  },
+  {
+    slug: "usv-platform",
+    label: "USV Platform",
+    facet: "platform",
+    aliases: [
+      "USV",
+      "Surface vessel",
+      "Water-surface vehicle",
+      "Amphibious drone",
+    ],
   },
   {
     slug: "rgbt-ptz-camera",

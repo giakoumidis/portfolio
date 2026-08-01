@@ -43,7 +43,7 @@ function relatedHref(
   );
   if (hasWork) {
     return {
-      href: `/work?domain=${domainId}`,
+      href: `/projects?domain=${domainId}`,
       label: "View related work →",
     };
   }

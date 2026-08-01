@@ -18,9 +18,9 @@ export default function PortfolioMapSection() {
         />
         <Reveal>
           <p className="mb-8 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-            Start from the major hubs — work, laboratories, research, career,
-            recognition, and archive — then drill into the entities that matter
-            for your path.
+            Start from the major hubs — projects, laboratories, research,
+            career, and archive — then drill into the entities that matter for
+            your path.
           </p>
           <PortfolioMap variant="teaser" />
         </Reveal>

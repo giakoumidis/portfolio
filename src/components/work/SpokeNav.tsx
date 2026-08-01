@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { SpokeNeighbor } from "@/lib/query";
 
 type SpokeNavProps = {
-  basePath: "/work" | "/laboratories";
+  basePath: "/projects" | "/laboratories";
   prev: SpokeNeighbor | null;
   next: SpokeNeighbor | null;
 };

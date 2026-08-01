@@ -13,14 +13,14 @@ export default function Projects() {
           index="05"
           title="Projects"
           headingId="projects-heading"
-          kicker="Selected Work"
+          kicker="Selected Projects"
         />
 
-        <Suspense fallback={<ProjectCards items={projects} recordBasePath="/work" />}>
+        <Suspense fallback={<ProjectCards items={projects} recordBasePath="/projects" />}>
           <FilteredProjectCards
             items={projects}
             ariaLabel="Filter projects by domain"
-            recordBasePath="/work"
+            recordBasePath="/projects"
           />
         </Suspense>
       </div>
