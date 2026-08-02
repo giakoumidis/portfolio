@@ -139,20 +139,17 @@ export default function Hero() {
           className="mt-10 flex w-full max-w-xl flex-col gap-3 sm:max-w-3xl sm:flex-row sm:flex-wrap sm:items-center"
         >
           <NeonButton href="/map" className="w-full sm:w-auto">
-            Explore the map
+            Site map
           </NeonButton>
           <NeonButton href="#selected-projects" className="w-full sm:w-auto">
             Selected projects
           </NeonButton>
           <NeonButton href="/cv.pdf" download className="w-full sm:w-auto">
-            View CV
+            Download CV
           </NeonButton>
-          <a
-            href="#contact"
-            className="label-mono px-2 py-2 text-center text-text-dim transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan sm:ml-2"
-          >
+          <NeonButton href="#contact" className="w-full sm:w-auto">
             Contact
-          </a>
+          </NeonButton>
         </motion.div>
       </div>
 
