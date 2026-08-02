@@ -12,4 +12,6 @@ export const AUDIO_TRACK = {
   album: "Blade Runner (Music From The Original Soundtrack)",
   albumShort: "Blade Runner OST",
   youtubeUrl: "https://www.youtube.com/watch?v=smpTDkLCYb0",
+  /** Used for mobile wall-clock progress (YT API time is unavailable there). */
+  durationSeconds: 222,
 } as const;

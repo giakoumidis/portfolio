@@ -1,11 +1,20 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type PointerEvent } from "react";
+import {
+  startTransition,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type PointerEvent,
+} from "react";
 import { AUDIO_TRACK } from "@/lib/audio";
 import { MEDIA_VIDEO_PLAY, MEDIA_VIDEO_STOP } from "@/lib/media-events";
+import { canHoverPlay } from "@/lib/video-playback";
 
 // Ambient track license status: see AUDIO_LICENSE_STATUS in @/lib/audio
 const VIDEO_ID = AUDIO_TRACK.videoId;
+const TRACK_DURATION = AUDIO_TRACK.durationSeconds;
 const MUTED_KEY = "ng-audio-muted";
 const VOLUME_KEY = "ng-audio-volume-v2";
 const DEFAULT_VOLUME = 50;
@@ -103,12 +112,32 @@ function mobileEmbedSrc(muted: boolean, startSeconds = 0) {
     iv_load_policy: "3",
     disablekb: "1",
     fs: "0",
+    enablejsapi: "1",
     mute: muted ? "1" : "0",
   });
+  if (typeof window !== "undefined") {
+    params.set("origin", window.location.origin);
+  }
   if (startSeconds > 0) {
     params.set("start", String(Math.floor(startSeconds)));
   }
   return `https://www.youtube.com/embed/${VIDEO_ID}?${params}`;
+}
+
+/** Best-effort command channel for the mobile direct embed (no YT.Player). */
+function sendYtCommand(
+  iframe: HTMLIFrameElement,
+  func: string,
+  args: Array<string | number | boolean> = [],
+) {
+  try {
+    iframe.contentWindow?.postMessage(
+      JSON.stringify({ event: "command", func, args }),
+      "*",
+    );
+  } catch {
+    /* cross-origin / not ready */
+  }
 }
 
 function PlayIcon({ className }: { className?: string }) {
@@ -143,6 +172,15 @@ function VolumeOffIcon({ className }: { className?: string }) {
   );
 }
 
+function InfoIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden fill="none" stroke="currentColor" strokeWidth="1.75">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 10.5V17M12 7.5h.01" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 /**
  * Ambient soundtrack via YouTube.
  * Desktop: IFrame API with volume fade + progress.
@@ -160,6 +198,7 @@ export default function BackgroundMusic() {
   const [mobileMode, setMobileMode] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [hoverPreview, setHoverPreview] = useState(false);
 
   const mutedRef = useRef(false);
   const volumeRef = useRef(DEFAULT_VOLUME);
@@ -173,7 +212,7 @@ export default function BackgroundMusic() {
   const activeVideoCountRef = useRef(0);
   const seekingRef = useRef(false);
   const seekSettleRef = useRef<number | null>(null);
-  const durationRef = useRef(0);
+  const durationRef = useRef<number>(TRACK_DURATION);
   /** Seconds to resume from after pause (desktop + mobile). */
   const resumeAtRef = useRef(0);
   const mobilePlayStartedRef = useRef<number | null>(null);
@@ -181,6 +220,12 @@ export default function BackgroundMusic() {
   const playingRef = useRef(false);
   /** Wall-clock anchor — hidden YT embeds often report stale/zero currentTime. */
   const lastWallRef = useRef<number | null>(null);
+  /**
+   * iOS fires touchstart then a synthetic click. Starting in touchstart and
+   * toggling again on click would immediately pause — suppress that click.
+   */
+  const suppressPlayClickRef = useRef(false);
+  const dockRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const storedMuted = readStoredMuted();
@@ -188,17 +233,23 @@ export default function BackgroundMusic() {
     mutedRef.current = storedMuted;
     volumeRef.current = storedVolume;
     wantPlayRef.current = !storedMuted;
-    setMuted(storedMuted);
-    setVolume(storedVolume);
+    durationRef.current = TRACK_DURATION;
 
     const isMobile = prefersDirectEmbed();
     mobileModeRef.current = isMobile;
-    setMobileMode(isMobile);
-    setMounted(true);
-    if (isMobile) {
-      setReady(true);
-      if (!storedMuted) setAwaitingTap(true);
-    }
+
+    // Defer client-only hydration so SSR markup matches the first paint.
+    startTransition(() => {
+      setMuted(storedMuted);
+      setVolume(storedVolume);
+      setMobileMode(isMobile);
+      setHoverPreview(canHoverPlay());
+      setMounted(true);
+      if (isMobile) {
+        setReady(true);
+        if (!storedMuted) setAwaitingTap(true);
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -238,8 +289,31 @@ export default function BackgroundMusic() {
     };
   }, []);
 
+  // Close track preview on outside tap (fixes iOS sticky-hover / stuck overlay).
   useEffect(() => {
-    if (mobileMode || !ready) return;
+    if (!previewOpen) return;
+
+    const onPointerDown = (event: Event) => {
+      const dock = dockRef.current;
+      const target = event.target;
+      if (dock && target instanceof Node && dock.contains(target)) return;
+      setPreviewOpen(false);
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setPreviewOpen(false);
+    };
+
+    document.addEventListener("pointerdown", onPointerDown, true);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown, true);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [previewOpen]);
+
+  useEffect(() => {
+    if (!ready) return;
 
     const applyPlayhead = (seconds: number, duration: number) => {
       const wrapped = ((seconds % duration) + duration) % duration;
@@ -270,8 +344,8 @@ export default function BackgroundMusic() {
 
       if (!duration || duration <= 0) return;
 
-      // Prefer API time only when it looks trustworthy.
-      if (player) {
+      // Desktop: prefer API time only when it looks trustworthy.
+      if (player && !mobileModeRef.current) {
         try {
           const state = player.getPlayerState();
           const apiTime = player.getCurrentTime();
@@ -294,8 +368,7 @@ export default function BackgroundMusic() {
         }
       }
 
-      // Fallback: advance from last known position while transport says playing.
-      // Hidden/opacity-scrubbed YT players often stick in BUFFERING with currentTime=0.
+      // Mobile (and desktop fallback): advance from last known position while playing.
       if (playingRef.current) {
         if (lastWallRef.current != null) {
           applyPlayhead(
@@ -312,7 +385,7 @@ export default function BackgroundMusic() {
     tick();
     const id = window.setInterval(tick, 200);
     return () => window.clearInterval(id);
-  }, [mobileMode, ready]);
+  }, [ready]);
 
   const clearFade = () => {
     if (fadeRef.current != null) {
@@ -393,13 +466,30 @@ export default function BackgroundMusic() {
   };
 
   const captureMobilePosition = () => {
-    if (mobilePlayStartedRef.current == null) return;
-    resumeAtRef.current +=
-      (performance.now() - mobilePlayStartedRef.current) / 1000;
+    // Progress polling keeps resumeAt/progress current — just freeze the clocks.
+    if (durationRef.current > 0) {
+      resumeAtRef.current = (progressRef.current / 100) * durationRef.current;
+    }
     mobilePlayStartedRef.current = null;
-    const duration = durationRef.current;
-    if (duration > 0) {
-      resumeAtRef.current = resumeAtRef.current % duration;
+    lastWallRef.current = null;
+  };
+
+  const applyMobileVolume = (iframe: HTMLIFrameElement, nextMuted: boolean, nextVolume: number) => {
+    // Handshake + commands — works when enablejsapi is on; ignored if the player isn't ready.
+    try {
+      iframe.contentWindow?.postMessage(
+        JSON.stringify({ event: "listening", id: hostId }),
+        "*",
+      );
+    } catch {
+      /* ignore */
+    }
+    if (nextMuted || nextVolume <= 0) {
+      sendYtCommand(iframe, "mute");
+      sendYtCommand(iframe, "setVolume", [0]);
+    } else {
+      sendYtCommand(iframe, "unMute");
+      sendYtCommand(iframe, "setVolume", [nextVolume]);
     }
   };
 
@@ -412,6 +502,14 @@ export default function BackgroundMusic() {
     // Setting src synchronously inside a tap handler is what iOS Safari requires.
     iframe.src = mobileEmbedSrc(mutedRef.current, resumeAtRef.current);
     mobilePlayStartedRef.current = performance.now();
+    lastWallRef.current = performance.now();
+
+    // After the embed boots, push stored volume (unmute path may still start muted by policy).
+    window.setTimeout(() => {
+      const live = iframeRef.current;
+      if (!live || !playingRef.current) return;
+      applyMobileVolume(live, mutedRef.current, volumeRef.current);
+    }, 600);
 
     setPlaying(true);
     setAwaitingTap(false);
@@ -486,11 +584,6 @@ export default function BackgroundMusic() {
     player.mute();
     player.pauseVideo();
     setPlaying(false);
-  };
-
-  const startPlayback = () => {
-    if (mobileModeRef.current) return startMobilePlayback();
-    return startDesktopPlayback();
   };
 
   const pausePlayback = () => {
@@ -772,6 +865,10 @@ export default function BackgroundMusic() {
     iframe.allow =
       "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     iframe.setAttribute("playsinline", "true");
+    iframe.setAttribute("aria-hidden", "true");
+    // 1×1 visible pixel — iOS often refuses playback for opacity~0 / offscreen media.
+    iframe.className =
+      "pointer-events-none fixed bottom-0 left-0 z-[-1] h-px w-px border-0 opacity-100";
     document.body.appendChild(iframe);
     iframeRef.current = iframe;
 
@@ -781,22 +878,8 @@ export default function BackgroundMusic() {
     };
   }, [mounted, mobileMode]);
 
-  useEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe || !mobileMode) return;
-
-    // Keep mobile audio parked; the dock preview uses a thumbnail + credits instead.
-    iframe.className =
-      "pointer-events-none fixed bottom-0 left-0 z-[-1] h-[200px] w-[200px] border-0 opacity-[0.01]";
-  }, [mobileMode]);
-
-  const handleStartTap = () => {
-    if (!wantPlayRef.current || playing) return;
-    startPlayback();
-  };
-
   const togglePlay = () => {
-    if (playing) {
+    if (playingRef.current) {
       wantPlayRef.current = false;
       pausePlayback();
       setAwaitingTap(false);
@@ -816,18 +899,31 @@ export default function BackgroundMusic() {
     }
   };
 
+  /** Start inside the user-gesture window on touch; ignore the follow-up click. */
+  const onPlayPointerDown = (event: PointerEvent<HTMLButtonElement>) => {
+    if (event.pointerType !== "touch" && event.pointerType !== "pen") return;
+    suppressPlayClickRef.current = true;
+    togglePlay();
+  };
+
+  const onPlayClick = () => {
+    if (suppressPlayClickRef.current) {
+      suppressPlayClickRef.current = false;
+      return;
+    }
+    togglePlay();
+  };
+
   const toggleMute = () => {
     const next = !mutedRef.current;
     mutedRef.current = next;
     setMuted(next);
 
     if (mobileModeRef.current) {
-      // Mobile embed has no volume API — remount with mute flag from the same spot.
-      if (!wantPlayRef.current) return;
-      if (playing) {
-        captureMobilePosition();
-        startMobilePlayback();
-      }
+      if (!wantPlayRef.current || !playingRef.current) return;
+      // Remount with mute flag — postMessage mute is unreliable on iOS.
+      captureMobilePosition();
+      startMobilePlayback();
       return;
     }
 
@@ -845,6 +941,11 @@ export default function BackgroundMusic() {
     if (next === 0) {
       mutedRef.current = true;
       setMuted(true);
+      if (mobileModeRef.current) {
+        const iframe = iframeRef.current;
+        if (iframe && playingRef.current) applyMobileVolume(iframe, true, 0);
+        return;
+      }
       applyMuteToPlayer(true);
       return;
     }
@@ -852,6 +953,21 @@ export default function BackgroundMusic() {
     if (mutedRef.current) {
       mutedRef.current = false;
       setMuted(false);
+    }
+
+    if (mobileModeRef.current) {
+      const iframe = iframeRef.current;
+      if (!iframe) return;
+      if (!playingRef.current && wantPlayRef.current) {
+        startMobilePlayback();
+      }
+      applyMobileVolume(iframe, false, next);
+      // Remount unmuted so iOS actually hears audio if postMessage was ignored.
+      if (playingRef.current && iframe.src.includes("mute=1")) {
+        captureMobilePosition();
+        startMobilePlayback();
+      }
+      return;
     }
 
     clearFade();
@@ -879,15 +995,30 @@ export default function BackgroundMusic() {
     progressRef.current = next;
     lastWallRef.current = performance.now();
 
+    const duration = durationRef.current;
+    if (!duration || duration <= 0) return;
+    const seconds = (next / 100) * duration;
+    resumeAtRef.current = seconds;
+
+    if (mobileModeRef.current) {
+      // Only remount when the scrub ends — live input would thrash the embed.
+      if (opts?.resume && wantPlayRef.current) {
+        mobilePlayStartedRef.current = performance.now();
+        startMobilePlayback();
+      }
+      return;
+    }
+
     const player = playerRef.current;
     if (!player) return;
 
     try {
-      const duration = player.getDuration() || durationRef.current;
-      if (!duration || duration <= 0) return;
-      durationRef.current = duration;
-      const seconds = (next / 100) * duration;
-      resumeAtRef.current = seconds;
+      try {
+        const apiDuration = player.getDuration();
+        if (apiDuration > 0) durationRef.current = apiDuration;
+      } catch {
+        /* keep fallback duration */
+      }
       player.seekTo(seconds, true);
       if (opts?.resume && wantPlayRef.current) {
         applyMuteToPlayer(mutedRef.current);
@@ -931,14 +1062,21 @@ export default function BackgroundMusic() {
   const isPaused = !playing && !awaitingTap;
   const showPlaying = playing && !awaitingTap;
 
-  const openPreview = () => setPreviewOpen(true);
-  const closePreview = () => setPreviewOpen(false);
+  const openPreview = () => {
+    if (!hoverPreview) return;
+    setPreviewOpen(true);
+  };
+  const closePreview = () => {
+    if (!hoverPreview) return;
+    setPreviewOpen(false);
+  };
+  const togglePreview = () => setPreviewOpen((open) => !open);
 
   return (
     <div
+      ref={dockRef}
       role="group"
       aria-label="Background music controls"
-      onTouchStart={handleStartTap}
       onMouseEnter={openPreview}
       onMouseLeave={closePreview}
       onFocusCapture={openPreview}
@@ -947,16 +1085,19 @@ export default function BackgroundMusic() {
           closePreview();
         }
       }}
-      className={`fixed right-4 bottom-4 z-50 flex flex-col items-stretch border bg-bg/85 backdrop-blur-md lg:right-6 lg:bottom-6 ${
+      className={`fixed right-4 bottom-4 z-50 flex flex-col items-stretch border bg-bg/40 backdrop-blur-md lg:right-6 lg:bottom-6 ${
         awaitingTap ? "border-cyan/60 shadow-[0_0_16px_rgba(0,240,255,0.25)]" : "border-grid-dim"
       }`}
     >
-      {/* One frame: video + credits together (→ YouTube). Parked offscreen when closed. */}
+      {/* Track credits preview — hover on desktop; explicit toggle on touch. */}
       <div
         className={
           previewOpen
-            ? "relative flex h-[90px] w-full min-w-[280px] overflow-hidden border-b border-cyan/40 bg-bg sm:min-w-[320px]"
-            : "pointer-events-none fixed bottom-0 left-0 z-[-1] h-[200px] w-[200px] overflow-hidden opacity-[0.01]"
+            ? "relative flex h-[90px] w-full min-w-[280px] overflow-hidden border-b border-cyan/40 bg-bg/50 sm:min-w-[320px]"
+            : mobileMode
+              ? "pointer-events-none fixed bottom-0 left-0 z-[-1] h-px w-px overflow-hidden opacity-100"
+              : // Desktop YT host must stay large enough for the IFrame API / autoplay.
+                "pointer-events-none fixed bottom-0 left-0 z-[-1] h-[200px] w-[200px] overflow-hidden opacity-[0.01]"
         }
         aria-hidden={!previewOpen}
       >
@@ -974,7 +1115,7 @@ export default function BackgroundMusic() {
         <div
           className={
             previewOpen
-              ? "relative h-full w-[120px] shrink-0 overflow-hidden bg-bg-raised sm:w-[140px] [&_iframe]:pointer-events-none [&_iframe]:!h-full [&_iframe]:!w-full"
+              ? "relative h-full w-[120px] shrink-0 overflow-hidden bg-bg-raised/60 sm:w-[140px] [&_iframe]:pointer-events-none [&_iframe]:!h-full [&_iframe]:!w-full"
               : "h-full w-full [&_iframe]:!h-full [&_iframe]:!w-full"
           }
         >
@@ -1012,7 +1153,8 @@ export default function BackgroundMusic() {
       <div className="relative z-20 flex items-center gap-2 px-2.5 py-2 sm:gap-3 sm:px-3">
         <button
           type="button"
-          onClick={togglePlay}
+          onPointerDown={onPlayPointerDown}
+          onClick={onPlayClick}
           disabled={!ready && !mobileMode}
           aria-label={showPlaying ? "Pause background music" : "Play background music"}
           title={showPlaying ? "Pause" : awaitingTap ? "Tap to start" : "Play"}
@@ -1030,77 +1172,67 @@ export default function BackgroundMusic() {
           )}
         </button>
 
-        {!mobileMode ? (
-          <label
-            className={`relative flex h-8 w-28 cursor-pointer items-center sm:w-40 ${
-              !ready ? "cursor-not-allowed opacity-45" : ""
+        <label
+          className={`relative flex h-8 w-24 cursor-pointer items-center sm:w-40 ${
+            !ready ? "cursor-not-allowed opacity-45" : ""
+          }`}
+        >
+          <span className="sr-only">Scrub track position</span>
+          <span
+            aria-hidden
+            className={`audio-progress-track pointer-events-none absolute inset-x-0 top-1/2 h-2 -translate-y-1/2 overflow-hidden ${
+              showPlaying ? "audio-progress-track--active" : ""
             }`}
           >
-            <span className="sr-only">Scrub track position</span>
-            {/* Custom track — webkit/moz range pseudos are unreliable with appearance:none */}
             <span
-              aria-hidden
-              className={`audio-progress-track pointer-events-none absolute inset-x-0 top-1/2 h-2 -translate-y-1/2 overflow-hidden ${
-                showPlaying ? "audio-progress-track--active" : ""
+              className={`audio-progress-fill absolute inset-y-0 left-0 ${
+                showPlaying ? "audio-progress-fill--active" : ""
               }`}
-            >
-              <span
-                className={`audio-progress-fill absolute inset-y-0 left-0 ${
-                  showPlaying ? "audio-progress-fill--active" : ""
-                }`}
-                style={{ width: `${progress}%` }}
-              />
-            </span>
-            <span
-              aria-hidden
-              className={`audio-progress-thumb pointer-events-none absolute top-1/2 -translate-y-1/2 ${
-                showPlaying ? "audio-progress-thumb--active" : ""
-              }`}
-              style={{ left: `clamp(0px, calc(${progress}% - 3px), calc(100% - 6px))` }}
+              style={{ width: `${progress}%` }}
             />
-            <input
-              type="range"
-              min={0}
-              max={100}
-              step={0.25}
-              value={progress}
-              disabled={!ready}
-              onPointerDown={beginSeek}
-              onPointerUp={endSeek}
-              onPointerCancel={endSeek}
-              onInput={(event) => {
-                seekingRef.current = true;
-                seekToPercent(Number(event.currentTarget.value));
-              }}
-              onChange={(event) =>
-                seekToPercent(Number(event.currentTarget.value), {
-                  resume: !seekingRef.current,
-                })
-              }
-              onKeyUp={(event) => {
-                if (
-                  event.key === "ArrowLeft" ||
-                  event.key === "ArrowRight" ||
-                  event.key === "Home" ||
-                  event.key === "End"
-                ) {
-                  seekToPercent(Number(event.currentTarget.value), { resume: true });
-                  holdSeekUntilSettled();
-                }
-              }}
-              aria-valuetext={showPlaying ? "Playing" : isPaused ? "Paused" : "Loading"}
-              title="Drag to scrub track"
-              className="audio-progress-input absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent disabled:cursor-not-allowed"
-            />
-          </label>
-        ) : (
-          <div
+          </span>
+          <span
             aria-hidden
-            className={`audio-progress-indeterminate h-2 w-20 overflow-hidden sm:w-28 ${
-              showPlaying ? "audio-progress-indeterminate--active" : ""
+            className={`audio-progress-thumb pointer-events-none absolute top-1/2 -translate-y-1/2 ${
+              showPlaying ? "audio-progress-thumb--active" : ""
             }`}
+            style={{ left: `clamp(0px, calc(${progress}% - 3px), calc(100% - 6px))` }}
           />
-        )}
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={0.25}
+            value={progress}
+            disabled={!ready}
+            onPointerDown={beginSeek}
+            onPointerUp={endSeek}
+            onPointerCancel={endSeek}
+            onInput={(event) => {
+              seekingRef.current = true;
+              seekToPercent(Number(event.currentTarget.value));
+            }}
+            onChange={(event) =>
+              seekToPercent(Number(event.currentTarget.value), {
+                resume: !seekingRef.current,
+              })
+            }
+            onKeyUp={(event) => {
+              if (
+                event.key === "ArrowLeft" ||
+                event.key === "ArrowRight" ||
+                event.key === "Home" ||
+                event.key === "End"
+              ) {
+                seekToPercent(Number(event.currentTarget.value), { resume: true });
+                holdSeekUntilSettled();
+              }
+            }}
+            aria-valuetext={showPlaying ? "Playing" : isPaused ? "Paused" : "Loading"}
+            title="Drag to scrub track"
+            className="audio-progress-input absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent disabled:cursor-not-allowed"
+          />
+        </label>
 
         <button
           type="button"
@@ -1117,20 +1249,33 @@ export default function BackgroundMusic() {
           )}
         </button>
 
-        {!mobileMode && (
-          <label className="flex items-center gap-2">
-            <span className="sr-only">Volume</span>
-            <input
-              type="range"
-              min={0}
-              max={100}
-              step={1}
-              value={muted ? 0 : volume}
-              onChange={(event) => onVolumeInput(Number(event.target.value))}
-              aria-valuetext={muted ? "Muted" : `${volume} percent`}
-              className="audio-slider h-1 w-16 cursor-pointer appearance-none bg-transparent accent-cyan sm:w-20"
-            />
-          </label>
+        <label className="flex items-center gap-2">
+          <span className="sr-only">Volume</span>
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={1}
+            value={muted ? 0 : volume}
+            onChange={(event) => onVolumeInput(Number(event.target.value))}
+            aria-valuetext={muted ? "Muted" : `${volume} percent`}
+            className="audio-slider h-1 w-14 cursor-pointer appearance-none bg-transparent accent-cyan sm:w-20"
+          />
+        </label>
+
+        {mounted && !hoverPreview && (
+          <button
+            type="button"
+            onClick={togglePreview}
+            aria-expanded={previewOpen}
+            aria-label={previewOpen ? "Hide track info" : "Show track info"}
+            title={previewOpen ? "Hide info" : "Track info"}
+            className={`flex h-8 w-8 shrink-0 items-center justify-center transition-colors duration-200 hover:text-cyan ${
+              previewOpen ? "text-cyan" : "text-text-dim"
+            }`}
+          >
+            <InfoIcon className="h-4 w-4" />
+          </button>
         )}
       </div>
     </div>
