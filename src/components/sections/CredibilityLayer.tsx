@@ -10,7 +10,7 @@ import {
   featuredPublicationTitles,
   publications,
   scholarProfileUrl,
-  totalCitations,
+  durableCitationLabel,
   patent,
 } from "@/content/publications";
 import { getAllInfrastructure } from "@/lib/query";
@@ -107,7 +107,7 @@ export default function CredibilityLayer() {
                 <span className="text-cyan">{publications.length}</span> publications
               </p>
               <p className="label-mono text-text-dim">
-                <span className="text-cyan">{totalCitations}</span> citations
+                <span className="text-cyan">{durableCitationLabel}</span> citations
               </p>
               <p className="label-mono text-text-dim">
                 <span className="text-cyan">{firstPrizes.length}</span> first-prize awards

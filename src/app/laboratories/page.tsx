@@ -4,14 +4,14 @@ import Link from "next/link";
 import RecordCardHero from "@/components/ui/RecordCardHero";
 import RouteChrome from "@/components/work/RouteChrome";
 import { getAllInfrastructure } from "@/lib/query";
-import { siteTitle } from "@/lib/site";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Laboratories — ${siteTitle}`,
+export const metadata: Metadata = buildPageMetadata({
+  title: "Laboratories — Nikolaos Giakoumidis",
   description:
     "Laboratories and research facilities established, commissioned, or operated — with connected work generated from typed relationships.",
-  alternates: { canonical: "/laboratories" },
-};
+  path: "/laboratories",
+});
 
 export default function LaboratoriesIndexPage() {
   const items = getAllInfrastructure();

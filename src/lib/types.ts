@@ -415,6 +415,11 @@ export type ProjectRecord = {
   org?: string;
   period: RecordPeriod;
   summary: string;
+  /**
+   * Homepage / index card hook — complete 25–40 word sentence.
+   * Never mid-sentence truncated in the UI.
+   */
+  cardHook?: string;
   /** One-sentence problem statement for the case-file scan block. */
   challenge?: string;
   contributionSummary: string;

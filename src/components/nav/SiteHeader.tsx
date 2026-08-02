@@ -13,12 +13,8 @@ type NavItem = {
   match: (path: string) => boolean;
 };
 
+/** Desktop primary destinations — order matches the approved nav plan. */
 const PRIMARY: NavItem[] = [
-  {
-    href: "/map",
-    label: "Map",
-    match: (p) => p === "/map" || p.startsWith("/map/"),
-  },
   {
     href: "/projects",
     label: "Projects",
@@ -36,20 +32,34 @@ const PRIMARY: NavItem[] = [
     match: (p) => p === "/research" || p.startsWith("/research/"),
   },
   {
+    href: "/archive",
+    label: "Archive",
+    match: (p) => p === "/archive" || p.startsWith("/archive/"),
+  },
+  {
     href: "/profile",
     label: "Profile",
     match: (p) => p === "/profile" || p.startsWith("/profile/"),
   },
+  {
+    href: "/map",
+    label: "Map",
+    match: (p) => p === "/map" || p.startsWith("/map/"),
+  },
 ];
+
+const linkClass = (active: boolean) =>
+  `label-mono px-2 py-1 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+    active ? "text-cyan" : "text-text-dim hover:text-text"
+  }`;
+
+const utilityClass =
+  "label-mono px-2 py-1 text-text-dim transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan";
 
 export default function SiteHeader() {
   const pathname = usePathname() ?? "/";
   const [menuOpen, setMenuOpen] = useState(false);
   const menuId = useId();
-
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -59,6 +69,10 @@ export default function SiteHeader() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
+
+  function closeMenu() {
+    setMenuOpen(false);
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-grid-dim bg-bg/90 backdrop-blur-md">
@@ -81,9 +95,7 @@ export default function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`label-mono px-2 py-1 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
-                  active ? "text-cyan" : "text-text-dim hover:text-text"
-                }`}
+                className={linkClass(active)}
                 aria-current={active ? "page" : undefined}
               >
                 <span className="lg:hidden">{item.shortLabel ?? item.label}</span>
@@ -97,23 +109,13 @@ export default function SiteHeader() {
           <button
             type="button"
             onClick={() => openSearch()}
-            className="label-mono px-2 py-1 text-text-dim transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+            className={utilityClass}
             aria-label="Open search"
           >
             Search
           </button>
-          <Link
-            href="/cv.pdf"
-            className="label-mono hidden px-2 py-1 text-text-dim transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan sm:inline"
-            download
-          >
+          <Link href="/cv.pdf" className={`${utilityClass} hidden sm:inline`} download>
             CV
-          </Link>
-          <Link
-            href="/#contact"
-            className="label-mono hidden px-2 py-1 text-text-dim transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan sm:inline"
-          >
-            Contact
           </Link>
           <button
             type="button"
@@ -128,10 +130,7 @@ export default function SiteHeader() {
       </div>
 
       {menuOpen && (
-        <div
-          id={menuId}
-          className="border-t border-grid-dim bg-bg md:hidden"
-        >
+        <div id={menuId} className="border-t border-grid-dim bg-bg md:hidden">
           <nav aria-label="Mobile primary" className="mx-auto max-w-6xl px-4 py-3">
             <ul className="flex flex-col gap-1">
               {PRIMARY.map((item) => {
@@ -140,6 +139,7 @@ export default function SiteHeader() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
+                      onClick={closeMenu}
                       className={`label-mono block px-2 py-2.5 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
                         active ? "text-cyan" : "text-text-dim hover:text-text"
                       }`}
@@ -152,16 +152,9 @@ export default function SiteHeader() {
               })}
               <li>
                 <Link
-                  href="/archive"
-                  className="label-mono block px-2 py-2.5 text-text-dim transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-                >
-                  Archive
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/cv.pdf"
                   download
+                  onClick={closeMenu}
                   className="label-mono block px-2 py-2.5 text-text-dim transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                 >
                   CV
@@ -170,6 +163,7 @@ export default function SiteHeader() {
               <li>
                 <Link
                   href="/#contact"
+                  onClick={closeMenu}
                   className="label-mono block px-2 py-2.5 text-text-dim transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                 >
                   Contact

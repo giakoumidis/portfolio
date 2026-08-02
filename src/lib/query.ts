@@ -573,7 +573,13 @@ function resolveTerms(
       if (!term || term.facet !== facet) return null;
       return {
         ...term,
-        href: `/projects?${facet === "domain" ? "domain" : facet}=${slug}`,
+        href: `/projects?${
+          facet === "domain"
+            ? "domain"
+            : facet === "contribution"
+              ? "contribution"
+              : facet
+        }=${slug}`,
       };
     })
     .filter((t): t is ResolvedTaxonomy => t !== null);
@@ -681,6 +687,7 @@ export function getWorkFilterOptions(): {
   platforms: FilterOption[];
   methods: FilterOption[];
   outcomes: FilterOption[];
+  contributions: FilterOption[];
 } {
   const used = {
     domains: new Set<string>(),
@@ -689,6 +696,7 @@ export function getWorkFilterOptions(): {
     platforms: new Set<string>(),
     methods: new Set<string>(),
     outcomes: new Set<string>(),
+    contributions: new Set<string>(),
   };
 
   for (const project of getAllWork()) {
@@ -697,6 +705,7 @@ export function getWorkFilterOptions(): {
     for (const s of project.facets.platforms ?? []) used.platforms.add(s);
     for (const s of project.facets.methods ?? []) used.methods.add(s);
     for (const s of project.facets.outcomes ?? []) used.outcomes.add(s);
+    for (const s of project.facets.contributions) used.contributions.add(s);
     for (const s of projectEnvironmentSlugs(project)) used.environments.add(s);
   }
 
@@ -715,7 +724,32 @@ export function getWorkFilterOptions(): {
     platforms: toOptions(used.platforms, "platform"),
     methods: toOptions(used.methods, "method"),
     outcomes: toOptions(used.outcomes, "outcome"),
+    contributions: toOptions(used.contributions, "contribution"),
   };
+}
+
+export type WorkFilterFacetKey =
+  | "domains"
+  | "applications"
+  | "environments"
+  | "platforms"
+  | "methods"
+  | "outcomes"
+  | "contributions";
+
+/** Toggle a single facet value and return the shareable projects index href. */
+export function toggleWorkFilterHref(
+  filters: WorkFilterParams,
+  facet: WorkFilterFacetKey,
+  slug: string,
+): string {
+  const current = new Set(filters[facet] ?? []);
+  if (current.has(slug)) current.delete(slug);
+  else current.add(slug);
+  return workIndexHref({
+    ...filters,
+    [facet]: [...current].sort(),
+  });
 }
 
 export function workIndexHref(filters: WorkFilterParams = {}): string {

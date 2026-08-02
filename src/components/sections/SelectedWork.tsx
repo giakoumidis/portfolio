@@ -3,19 +3,15 @@ import Link from "next/link";
 import Reveal from "@/components/ui/Reveal";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import SectionHeading from "@/components/ui/SectionHeading";
+import TaxonomyChip from "@/components/work/TaxonomyChip";
 import { flagshipProjectSlugs } from "@/content/homepage";
 import { taxonomyLabel } from "@/content/taxonomy";
 import { getProject } from "@/lib/query";
 
-function oneSentence(text: string): string {
+function completeFirstSentence(text: string): string {
   const trimmed = text.trim();
   const match = trimmed.match(/^(.+?[.!?])(\s|$)/);
   return match ? match[1] : trimmed;
-}
-
-function contributionPhrase(text: string): string {
-  const sentence = oneSentence(text);
-  return sentence.length > 120 ? `${sentence.slice(0, 117)}…` : sentence;
 }
 
 export default function SelectedWork() {
@@ -40,13 +36,29 @@ export default function SelectedWork() {
         <ul className="mt-4 grid gap-6 lg:grid-cols-2">
           {projects.map((project, index) => {
             const image = project.images?.[0];
-            const tags = [
-              ...(project.facets.domains ?? []).slice(0, 1),
-              ...(project.facets.applications ?? []).slice(0, 1),
-              ...(project.facets.outcomes ?? []).slice(0, 2),
-            ]
-              .slice(0, 4)
-              .map(taxonomyLabel);
+            const hook =
+              project.cardHook?.trim() ||
+              completeFirstSentence(project.summary);
+            const facetChips = [
+              ...(project.facets.domains ?? []).slice(0, 1).map((slug) => ({
+                slug,
+                label: taxonomyLabel(slug),
+                href: `/projects?domain=${slug}`,
+                prefix: "DOMAIN",
+              })),
+              ...(project.facets.applications ?? []).slice(0, 1).map((slug) => ({
+                slug,
+                label: taxonomyLabel(slug),
+                href: `/projects?application=${slug}`,
+                prefix: "APP",
+              })),
+              ...(project.facets.outcomes ?? []).slice(0, 2).map((slug) => ({
+                slug,
+                label: taxonomyLabel(slug),
+                href: `/projects?outcome=${slug}`,
+                prefix: "OUTCOME",
+              })),
+            ].slice(0, 4);
 
             return (
               <Reveal as="li" key={project.slug} delay={(index % 2) * 0.06}>
@@ -77,20 +89,23 @@ export default function SelectedWork() {
                       </Link>
                     </h3>
                     <p className="mt-3 font-body text-sm leading-relaxed text-text-dim">
-                      {oneSentence(project.summary)}
+                      {hook}
                     </p>
                     <p className="mt-4 font-body text-sm text-text">
-                      <span className="label-mono text-cyan">My contribution · </span>
-                      {contributionPhrase(project.contributionSummary)}
+                      <span className="label-mono text-cyan">
+                        My contribution ·{" "}
+                      </span>
+                      {project.contributionSummary.trim()}
                     </p>
-                    {tags.length > 0 && (
+                    {facetChips.length > 0 && (
                       <ul className="mt-4 flex flex-wrap gap-2">
-                        {tags.map((tag) => (
-                          <li
-                            key={tag}
-                            className="label-mono border border-grid-dim px-2 py-1 text-text-dim"
-                          >
-                            {tag}
+                        {facetChips.map((chip) => (
+                          <li key={`${chip.prefix}-${chip.slug}`}>
+                            <TaxonomyChip
+                              label={chip.label}
+                              href={chip.href}
+                              prefix={chip.prefix}
+                            />
                           </li>
                         ))}
                       </ul>

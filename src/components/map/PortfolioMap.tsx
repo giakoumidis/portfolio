@@ -2,9 +2,11 @@
 
 import { useReducedMotion } from "framer-motion";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import {
+  isMapPathId,
   mapCenter,
   mapHubEntities,
   mapHubs,
@@ -25,6 +27,8 @@ import {
 type PortfolioMapProps = {
   /** Compact homepage embed vs full /map page. */
   variant?: "teaser" | "full";
+  /** Optional initial path (e.g. from /map?path=industry). */
+  initialPathId?: MapPathId | null;
 };
 
 const HUB_POSITIONS: Record<MapHubId, MapPoint> = {
@@ -36,7 +40,6 @@ const HUB_POSITIONS: Record<MapHubId, MapPoint> = {
 };
 
 const CENTER_POSITION: MapPoint = { x: 50, y: 38 };
-/** ViewBox % inset so cables meet node edges (nodes are ~9–11% wide). */
 const HUB_PORT = 6.2;
 const CENTER_PORT = 6.8;
 
@@ -71,13 +74,7 @@ function CornerTicks({ active }: { active: boolean }) {
   );
 }
 
-function PortDot({
-  side,
-  lit,
-}: {
-  side: MapSide;
-  lit: boolean;
-}) {
+function PortDot({ side, lit }: { side: MapSide; lit: boolean }) {
   const pos =
     side === "top"
       ? "left-1/2 top-0 -translate-x-1/2 -translate-y-1/2"
@@ -99,12 +96,37 @@ function PortDot({
   );
 }
 
-export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
+export default function PortfolioMap({
+  variant = "full",
+  initialPathId = null,
+}: PortfolioMapProps) {
   const reduced = useReducedMotion();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [active, setActive] = useState<MapHubId | null>(null);
   const [selected, setSelected] = useState<MapHubId | null>(null);
-  const [pathId, setPathId] = useState<MapPathId | null>(null);
-  const [mobileHub, setMobileHub] = useState<MapHubId | null>(null);
+  const [localPathId, setLocalPathId] = useState<MapPathId | null>(
+    initialPathId,
+  );
+
+  const pathFromUrl = (() => {
+    const raw = searchParams.get("path");
+    return isMapPathId(raw) ? raw : null;
+  })();
+  /** On /map the URL is canonical; elsewhere local path selection drives the UI. */
+  const pathId = pathname === "/map" ? pathFromUrl ?? localPathId : localPathId;
+
+  function selectPath(next: MapPathId | null) {
+    setLocalPathId(next);
+    if (pathname === "/map") {
+      const params = new URLSearchParams(searchParams.toString());
+      if (next) params.set("path", next);
+      else params.delete("path");
+      const qs = params.toString();
+      router.replace(qs ? `/map?${qs}` : "/map", { scroll: false });
+    }
+  }
 
   const highlight = selected ?? active;
   const connected = useMemo(() => {
@@ -191,15 +213,15 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
         map.get(hub.id)?.add(facingSide(from, to));
         map.get(targetId)?.add(facingSide(to, from));
       }
-      // Identity spoke always attaches toward center
       map.get(hub.id)?.add(facingSide(HUB_POSITIONS[hub.id], CENTER_POSITION));
     }
     return map;
   }, []);
 
-  const panelHub = selected ?? mobileHub;
+  const panelHub = selected;
   const panelEntities = panelHub ? mapHubEntities[panelHub] : [];
   const activePath = mapPaths.find((path) => path.id === pathId);
+  const isTeaser = variant === "teaser";
 
   function onHubActivate(id: MapHubId) {
     if (selected === id) {
@@ -212,12 +234,16 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
 
   function edgeLit(a: MapHubId, b: MapHubId): boolean {
     if (pathEdgeKeys.has(edgeKey(a, b))) return true;
-    if (!highlight) return false;
-    return a === highlight || b === highlight || (connected.has(a) && connected.has(b));
+    if (!highlight) return true;
+    return (
+      a === highlight || b === highlight || (connected.has(a) && connected.has(b))
+    );
   }
 
   function edgeRelated(a: MapHubId, b: MapHubId): boolean {
-    if (!highlight) return true;
+    if (!highlight && !pathId) return true;
+    if (pathEdgeKeys.has(edgeKey(a, b))) return true;
+    if (!highlight) return pathHubSet.has(a) || pathHubSet.has(b);
     return (
       a === highlight ||
       b === highlight ||
@@ -226,35 +252,44 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
     );
   }
 
+  const pathControls = (
+    <div className="flex flex-wrap gap-2" role="group" aria-label="Audience paths">
+      {mapPaths.map((path) => {
+        const on = pathId === path.id;
+        return (
+          <button
+            key={path.id}
+            type="button"
+            onClick={() => selectPath(on ? null : path.id)}
+            className={`label-mono border px-3 py-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+              on
+                ? "border-cyan text-cyan"
+                : "border-grid-dim text-text-dim hover:border-cyan/40 hover:text-text"
+            }`}
+            aria-pressed={on}
+          >
+            Path · {path.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+
   return (
-    <div className="space-y-6">
-      {variant === "full" && (
-        <div className="flex flex-wrap gap-2">
-          {mapPaths.map((path) => {
-            const on = pathId === path.id;
-            return (
-              <button
-                key={path.id}
-                type="button"
-                onClick={() => setPathId(on ? null : path.id)}
-                className={`label-mono border px-3 py-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
-                  on
-                    ? "border-cyan text-cyan"
-                    : "border-grid-dim text-text-dim hover:border-cyan/40 hover:text-text"
-                }`}
-                aria-pressed={on}
-              >
-                Path · {path.label}
-              </button>
-            );
-          })}
-        </div>
-      )}
+    <div className="space-y-5">
+      {pathControls}
 
       {activePath && (
-        <div className="border border-grid-dim bg-bg-raised/30 p-4">
-          <p className="label-mono text-cyan">Visitor path · {activePath.label}</p>
-          <p className="mt-2 font-body text-sm text-text-dim">{activePath.summary}</p>
+        <div
+          className="border border-grid-dim bg-bg-raised/30 p-4"
+          aria-live="polite"
+        >
+          <p className="label-mono text-cyan">
+            Visitor path · {activePath.label}
+          </p>
+          <p className="mt-2 font-body text-sm text-text-dim">
+            {activePath.summary}
+          </p>
           <ol className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
             {activePath.steps.map((step, index) => (
               <li key={step.href} className="flex items-center gap-2">
@@ -272,12 +307,33 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
               </li>
             ))}
           </ol>
+          <div className="mt-4 border-t border-grid-dim pt-4">
+            <p className="label-mono text-text-dim">Recommended evidence</p>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {activePath.recommendations.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="label-mono border border-grid-dim px-2 py-1 text-text-dim transition-colors hover:border-cyan/50 hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                  >
+                    <span className="text-cyan/70">{item.kind}</span> {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
 
-      {/* Desktop graph */}
-      <div className="relative hidden aspect-[16/10] w-full overflow-hidden border border-grid-dim bg-bg-raised/20 md:block">
-        {/* Atmosphere */}
+      {/* Desktop graph — always-visible spokes/cables communicate meaning before interaction */}
+      <div
+        className={`relative hidden w-full overflow-hidden border border-grid-dim bg-bg-raised/20 md:block ${
+          isTeaser
+            ? "aspect-[16/9] max-h-[min(70vh,36rem)]"
+            : "aspect-[16/10]"
+        }`}
+        aria-hidden
+      >
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgb(5_4_15/0.75)_100%)]"
@@ -293,18 +349,6 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
             backgroundSize: "8% 10%",
           }}
         />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute left-3 top-3 label-mono text-[0.6rem] text-text-dim/50"
-        >
-          X 00 · Y 00
-        </span>
-        <span
-          aria-hidden
-          className="pointer-events-none absolute bottom-3 right-3 label-mono text-[0.6rem] text-text-dim/50"
-        >
-          SIG · TOPO
-        </span>
 
         <svg
           viewBox="0 0 100 100"
@@ -350,11 +394,11 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
             </marker>
           </defs>
 
-          {/* Identity spokes — magenta dashed Bezier */}
           {spokePaths.map((spoke) => {
             const lit =
-              Boolean(highlight && (spoke.id === highlight || connected.has(spoke.id))) ||
-              pathHubSet.has(spoke.id);
+              Boolean(
+                highlight && (spoke.id === highlight || connected.has(spoke.id)),
+              ) || pathHubSet.has(spoke.id);
             const dimmed =
               Boolean(highlight) &&
               spoke.id !== highlight &&
@@ -379,7 +423,6 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
             );
           })}
 
-          {/* Domain cables — cyan Bezier */}
           {domainEdges.map((edge) => {
             const lit = edgeLit(edge.a, edge.b);
             const related = edgeRelated(edge.a, edge.b);
@@ -403,9 +446,7 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
                 <path
                   d={edge.d}
                   fill="none"
-                  className={
-                    !reduced && !lit ? "map-edge-drift" : undefined
-                  }
+                  className={!reduced && !lit ? "map-edge-drift" : undefined}
                   stroke={
                     lit
                       ? "rgb(0 240 255 / 0.85)"
@@ -447,7 +488,6 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
             );
           })}
 
-          {/* Visitor path traveling pulse */}
           {pathPulseD && !reduced && (
             <g>
               <path
@@ -459,13 +499,6 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
                 filter="url(#map-edge-glow)"
               />
               <circle r="0.9" fill="rgb(0 240 255)" filter="url(#map-edge-glow)">
-                <animateMotion
-                  dur="4.5s"
-                  repeatCount="indefinite"
-                  path={pathPulseD}
-                />
-              </circle>
-              <circle r="0.45" fill="rgb(255 255 255 / 0.9)">
                 <animateMotion
                   dur="4.5s"
                   repeatCount="indefinite"
@@ -487,14 +520,14 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
 
         <Link
           href={mapCenter.href}
-          className="absolute left-1/2 top-[38%] z-10 flex min-w-[9.5rem] -translate-x-1/2 -translate-y-1/2 flex-col items-center border border-cyan/60 bg-bg/95 px-3 py-3 text-center transition-colors panel-glow-cyan hover:border-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+          className="absolute left-1/2 top-[38%] z-10 flex min-w-[10rem] -translate-x-1/2 -translate-y-1/2 flex-col items-center border border-cyan/60 bg-bg/95 px-3 py-3 text-center transition-colors panel-glow-cyan hover:border-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
         >
           <CornerTicks active />
           <span className="label-mono glow-cyan whitespace-nowrap tracking-[0.16em] text-cyan">
             {mapCenter.label}
           </span>
           <span className="mt-1 text-[0.65rem] leading-snug text-text-dim">
-            Center
+            {mapCenter.signal}
           </span>
           {(["top", "right", "bottom", "left"] as MapSide[]).map((side) => (
             <PortDot key={side} side={side} lit />
@@ -515,7 +548,7 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
               key={hub.id}
               type="button"
               style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
-              className={`absolute z-10 min-w-[9.5rem] -translate-x-1/2 -translate-y-1/2 border px-3 py-2.5 text-center transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+              className={`absolute z-10 min-w-[10.5rem] max-w-[12rem] -translate-x-1/2 -translate-y-1/2 border px-3 py-2 text-center transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
                 isActive
                   ? "border-cyan bg-cyan/10 text-cyan panel-glow-cyan"
                   : isConnected
@@ -533,11 +566,14 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
             >
               <CornerTicks active={isActive || selected === hub.id} />
               <span
-                className={`label-mono whitespace-nowrap tracking-[0.16em] ${
+                className={`label-mono whitespace-nowrap tracking-[0.14em] ${
                   isActive ? "glow-cyan" : ""
                 }`}
               >
                 {hub.label}
+              </span>
+              <span className="mt-1 block text-[0.58rem] leading-snug text-text-dim">
+                {hub.signal}
               </span>
               {[...sides].map((side) => (
                 <PortDot
@@ -551,63 +587,63 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
         })}
       </div>
 
-      {/* Mobile drill-down */}
-      <div className="border border-grid-dim bg-bg-raised/20 p-4 md:hidden">
-        <p className="label-mono text-text-dim">
-          {mobileHub ? (
-            <>
-              <button
-                type="button"
-                className="text-cyan"
-                onClick={() => setMobileHub(null)}
-              >
-                Hubs
-              </button>
-              <span aria-hidden> / </span>
-              <span className="text-text">
-                {mapHubs.find((h) => h.id === mobileHub)?.label}
-              </span>
-            </>
-          ) : (
-            "Select a hub"
-          )}
-        </p>
-        {!mobileHub ? (
-          <ul className="mt-4 grid grid-cols-2 gap-2">
-            {mapHubs.map((hub) => (
+      {/* Simplified mobile — center + grouped hub cards, not a compressed graph */}
+      <div className="space-y-4 md:hidden">
+        <Link
+          href={mapCenter.href}
+          className="block border border-cyan/50 bg-bg-raised/40 p-4 text-center panel-glow-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+        >
+          <span className="label-mono text-cyan">{mapCenter.label}</span>
+          <span className="mt-1 block font-body text-sm text-text-dim">
+            {mapCenter.blurb}
+          </span>
+          <span className="label-mono mt-2 block text-[0.65rem] text-text-dim">
+            {mapCenter.signal}
+          </span>
+        </Link>
+
+        <ul className="grid gap-3">
+          {mapHubs.map((hub, index) => {
+            const onPath = pathHubSet.has(hub.id);
+            return (
               <li key={hub.id}>
-                <button
-                  type="button"
-                  onClick={() => setMobileHub(hub.id)}
-                  className="label-mono w-full border border-grid-dim px-3 py-3 text-left text-text-dim transition-colors hover:border-cyan/40 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                <div
+                  className={`border p-4 ${
+                    onPath
+                      ? "border-cyan/50 bg-cyan/5"
+                      : "border-grid-dim bg-bg-raised/20"
+                  }`}
                 >
-                  {hub.label}
-                </button>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <Link
+                        href={hub.href}
+                        className="label-mono text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                      >
+                        {hub.label}
+                      </Link>
+                      <p className="label-mono mt-1 text-[0.65rem] text-text-dim">
+                        {hub.signal}
+                      </p>
+                    </div>
+                    <span className="label-mono text-text-dim/60">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <p className="mt-2 font-body text-sm text-text-dim">
+                    {hub.blurb}
+                  </p>
+                  <p className="label-mono mt-3 text-[0.6rem] text-text-dim/70">
+                    ↔{" "}
+                    {hub.connected
+                      .map((id) => mapHubs.find((h) => h.id === id)?.label ?? id)
+                      .join(" · ")}
+                  </p>
+                </div>
               </li>
-            ))}
-          </ul>
-        ) : (
-          <ul className="mt-4 space-y-2">
-            <li>
-              <Link
-                href={mapHubs.find((h) => h.id === mobileHub)?.href ?? "/"}
-                className="label-mono text-cyan"
-              >
-                Open {mapHubs.find((h) => h.id === mobileHub)?.label} hub →
-              </Link>
-            </li>
-            {mapHubEntities[mobileHub].map((entity) => (
-              <li key={entity.href}>
-                <Link
-                  href={entity.href}
-                  className="font-body text-sm text-text-dim transition-colors hover:text-cyan"
-                >
-                  {entity.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+            );
+          })}
+        </ul>
       </div>
 
       {panelHub && (
@@ -617,6 +653,9 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
         >
           <p className="label-mono text-cyan">
             {mapHubs.find((h) => h.id === panelHub)?.label}
+          </p>
+          <p className="label-mono mt-1 text-[0.65rem] text-text-dim">
+            {mapHubs.find((h) => h.id === panelHub)?.signal}
           </p>
           <p className="mt-2 font-body text-sm text-text-dim">
             {mapHubs.find((h) => h.id === panelHub)?.blurb}
@@ -640,40 +679,14 @@ export default function PortfolioMap({ variant = "full" }: PortfolioMapProps) {
             >
               Open hub →
             </Link>
-            <span className="label-mono ml-3 text-text-dim">
-              Click hub again to navigate
-            </span>
           </p>
         </aside>
       )}
 
-      {/* Text alternative */}
-      <nav aria-label="Portfolio map text alternative" className="sr-only">
-        <ul>
-          <li>
-            <Link href={mapCenter.href}>{mapCenter.label}</Link>
-          </li>
-          {mapHubs.map((hub) => (
-            <li key={hub.id}>
-              <Link href={hub.href}>
-                {hub.label}: {hub.blurb}
-              </Link>
-              <ul>
-                {mapHubEntities[hub.id].map((entity) => (
-                  <li key={entity.href}>
-                    <Link href={entity.href}>{entity.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      {variant === "teaser" && (
+      {isTeaser && (
         <p>
           <Link
-            href="/map"
+            href={pathId ? `/map?path=${pathId}` : "/map"}
             className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
           >
             Open full map →

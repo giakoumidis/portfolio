@@ -11,7 +11,7 @@ import {
   patent,
   publications,
   scholarProfileUrl,
-  totalCitations,
+  durableCitationLabel,
 } from "@/content/publications";
 import type { Publication } from "@/lib/types";
 
@@ -101,7 +101,7 @@ export default function Research() {
             Publications
           </p>
           <p className="label-mono text-text-dim">
-            <span className="text-cyan">~{totalCitations}</span> Citations
+            <span className="text-cyan">{durableCitationLabel}</span> Citations
           </p>
         </Reveal>
 

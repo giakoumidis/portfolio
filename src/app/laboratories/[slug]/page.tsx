@@ -8,7 +8,9 @@ import {
   getInfrastructureHub,
   getInfrastructureNeighbors,
 } from "@/lib/query";
-import { siteTitle, siteUrl } from "@/lib/site";
+import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { buildPageMetadata } from "@/lib/seo";
+import { siteTitle } from "@/lib/site";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -24,11 +26,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const hub = getInfrastructureHub(slug);
   if (!hub) return { title: `Not found — ${siteTitle}` };
-  return {
+  const image = hub.record.images?.[0]?.src;
+  return buildPageMetadata({
     title: `${hub.record.title} — NYU Abu Dhabi | Nikolaos Giakoumidis`,
     description: hub.record.contributionSummary,
-    alternates: { canonical: `/laboratories/${slug}` },
-  };
+    path: `/laboratories/${slug}`,
+    image,
+  });
 }
 
 export default async function LaboratoryHubPage({ params }: PageProps) {
@@ -37,36 +41,17 @@ export default async function LaboratoryHubPage({ params }: PageProps) {
   if (!hub) notFound();
 
   const { prev, next } = getInfrastructureNeighbors(slug);
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: siteUrl,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Laboratories",
-        item: `${siteUrl}/laboratories`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: hub.record.title,
-        item: `${siteUrl}/laboratories/${slug}`,
-      },
-    ],
-  };
+  const crumbs = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Laboratories", path: "/laboratories" },
+    { name: hub.record.title, path: `/laboratories/${slug}` },
+  ]);
 
   return (
     <RouteChrome active="laboratories">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }}
       />
       <LaboratoryHubLayout hub={hub} prev={prev} next={next} />
     </RouteChrome>

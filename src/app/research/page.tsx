@@ -11,17 +11,18 @@ import {
   patent,
   publications,
   scholarProfileUrl,
-  totalCitations,
+  durableCitationLabel,
 } from "@/content/publications";
+import { scholarlyArticleListJsonLd } from "@/lib/jsonld";
 import type { Publication } from "@/lib/types";
-import { siteTitle } from "@/lib/site";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Research — ${siteTitle}`,
+export const metadata: Metadata = buildPageMetadata({
+  title: "Research — Nikolaos Giakoumidis",
   description:
     "Publications, patents, research themes, and awards — connected to projects and laboratories.",
-  alternates: { canonical: "/research" },
-};
+  path: "/research",
+});
 
 const SUBJECT_SURNAME = "Giakoumidis";
 
@@ -135,6 +136,12 @@ export default async function ResearchPage({ searchParams }: PageProps) {
 
   return (
     <main className="section-shell py-16 lg:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(scholarlyArticleListJsonLd(sorted)),
+        }}
+      />
       <p className="label-mono text-cyan">
         Research <span className="text-text-dim">{"//"} Outputs & IP</span>
       </p>
@@ -152,7 +159,7 @@ export default async function ResearchPage({ searchParams }: PageProps) {
           <span className="text-cyan">{publications.length}</span> publications
         </p>
         <p className="label-mono text-text-dim">
-          <span className="text-cyan">~{totalCitations}</span> citations
+          <span className="text-cyan">{durableCitationLabel}</span> citations
         </p>
         <p className="label-mono text-text-dim">
           Patent <span className="text-cyan">{patent.number}</span>

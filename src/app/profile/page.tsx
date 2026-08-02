@@ -10,14 +10,14 @@ import { careerEras } from "@/content/career-eras";
 import { exhibitions } from "@/content/exhibitions";
 import { profile } from "@/content/profile";
 import { getInfrastructure, getProject } from "@/lib/query";
-import { siteTitle } from "@/lib/site";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Profile — ${siteTitle}`,
+export const metadata: Metadata = buildPageMetadata({
+  title: "Profile — Nikolaos Giakoumidis",
   description:
     "Career narrative, roles, education, expertise, and commercialization leadership — with links into the portfolio graph.",
-  alternates: { canonical: "/profile" },
-};
+  path: "/profile",
+});
 
 export default function ProfilePage() {
   return (

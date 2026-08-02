@@ -10,14 +10,14 @@ import {
   type ArchiveRecord,
   type ArchiveType,
 } from "@/content/archive";
-import { siteTitle } from "@/lib/site";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Archive — ${siteTitle}`,
+export const metadata: Metadata = buildPageMetadata({
+  title: "Archive — Nikolaos Giakoumidis",
   description:
-    "Field photographs, laboratory construction, exhibitions, awards, media, and documentary evidence linked to projects and laboratories.",
-  alternates: { canonical: "/archive" },
-};
+    "Field records, exhibitions, media, documents, and evidence linked to projects and laboratories.",
+  path: "/archive",
+});
 
 const PAGE_SIZE = 12;
 
@@ -26,12 +26,12 @@ const FILTER_LABELS: Record<ArchiveType | "all", string> = {
   field: "Field",
   exhibition: "Exhibition",
   award: "Award",
-  laboratory: "Laboratory",
-  project: "Project",
+  laboratory: "Institutional Event",
+  project: "Prototype",
   media: "Media",
-  career: "Career",
+  career: "Behind the Scenes",
   research: "Research",
-  documents: "Documents",
+  documents: "Document",
 };
 
 type PageProps = {
@@ -244,16 +244,19 @@ export default async function ArchivePage({ searchParams }: PageProps) {
   return (
     <main className="section-shell py-16 lg:py-24">
       <p className="label-mono text-cyan">
-        Archive <span className="text-text-dim">{"//"} Documentary evidence</span>
+        Archive{" "}
+        <span className="text-text-dim">
+          {"//"} Field records, exhibitions, media, documents, and evidence
+        </span>
       </p>
       <h1 className="mt-3 text-[clamp(1.6rem,3.5vw,2.5rem)] text-text">
         Archive
       </h1>
       <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
       <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-        Contextual records from field deployments, laboratory construction,
-        exhibitions, awards, and research evidence — each linked back to the
-        work and laboratories it documents.
+        Field records, exhibitions, media, documents, and evidence — the
+        documentary layer of the portfolio, not deprecated material. Each record
+        links back to the projects and laboratories it substantiates.
       </p>
 
       <div className="mt-10 border border-grid-dim bg-bg-raised/20 p-5 sm:p-6">

@@ -28,7 +28,7 @@ export const experience = [
       "Established, expanded, and ran key NYUAD laboratories across robotics, photonics, high-throughput screening, electronics, and advanced manufacturing.",
       "Owned end-to-end technical decision-making across multiple labs: equipment strategy, vendor selection, system architecture, workflow design, safety procedures, and repair-versus-replacement planning.",
       "Supported 100+ users — faculty, researchers, students, and technical staff — across multidisciplinary research communities.",
-      "Influenced approximately $800K in annual purchasing, peaking near $3M, and generated major institutional savings through strategic procurement and in-house repair of high-value systems.",
+      "Approximately US$800K average annual procurement, with peak years approaching US$3M — distinct from US$9M+ in research assets stewarded across shared platforms — plus major institutional savings through strategic procurement and in-house repair of high-value systems.",
       "Ran roughly four student workshops per semester and co-supervised about two capstone projects annually, while operating within demanding safety and regulatory environments involving drones, lasers, and RF systems.",
     ],
   },

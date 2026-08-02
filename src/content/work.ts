@@ -1,5 +1,13 @@
 import type { ProjectRecord } from "@/lib/types";
 
+/**
+ * Partner-controlled imagery — publication rights checklist (owner confirm before launch):
+ * - Etihad Rail depot / yard / locomotive Spot photos (`etihad-rail-depot-*`, rear-camera field installs)
+ * - Abu Dhabi Airports / ADAC facility material (currently video-only via NYUAD public channel)
+ * Until confirmed, restricted-site stills are omitted from `images` arrays; public announcement
+ * media (Instagram/YouTube) remains.
+ */
+
 export const workRecords: ProjectRecord[] = [
   {
     type: "project",
@@ -7,19 +15,21 @@ export const workRecords: ProjectRecord[] = [
     title: "Etihad Rail × NYUAD AI & Robotics Collaboration",
     org: "NYU Abu Dhabi · CAIR with Etihad Rail",
     period: { startYear: 2024, label: "2024" },
+    cardHook:
+      "Strategic AI and robotics collaboration with Etihad Rail, including depot Spot trials that collect multimodal locomotive data for predictive maintenance analysis and industry-facing research translation.",
     challenge:
       "Etihad Rail needed a credible path to integrate AI and robotics into depot operations without treating university research as a one-off demo.",
     summary:
       "Industry engagement with Etihad Rail to explore integrating artificial intelligence and robotics into rail operations — including depot inspection trials where I operated Boston Dynamics Spot to collect multimodal data around locomotives for downstream analysis and predictive maintenance — translating NYUAD research capabilities into collaborative experiments aimed at efficiency, sustainability, and next-generation rail transport standards.",
     contributionSummary:
-      "Led industry-facing translation of CAIR autonomous-systems research into a strategic collaboration with Etihad Rail — stakeholder engagement, lab visits, and depot inspection with Spot, which I operated to gather multimodal locomotive data for analysis and predictive maintenance, plus public demonstration of partnership intent.",
+      "Led industry-facing translation of CAIR autonomous-systems research into the Etihad Rail collaboration — stakeholder engagement, lab visits, and operating Spot at the depot to gather multimodal locomotive data for predictive-maintenance analysis.",
     outcomeSummary:
-      "Established a public industry collaboration featuring depot Spot inspections that collect multimodal locomotive data for predictive maintenance analysis.",
+      "Established a publicly announced industry collaboration with depot Spot inspections feeding multimodal locomotive data into predictive-maintenance analysis.",
     highlights: [
-      "Featured in Etihad Rail's public announcement of the collaboration with New York University Abu Dhabi on AI and robotics for rail operations.",
-      "At the Etihad Rail depot I used Spot for locomotive inspection — collecting multimodal sensor data that feeds further analysis aimed at predictive maintenance rather than one-off visual checks alone.",
-      "Aligns with CAIR's commercialization track: stakeholder engagement, lab and site visits, and industry-facing translation of autonomous systems research.",
-      "Part of a broader external engagement model spanning infrastructure partners across the UAE transport and logistics ecosystem.",
+      "Constraint: university research had to map onto depot operations without becoming a one-off demo.",
+      "Field conditions: operated Spot around locomotives inside an active Etihad Rail depot to collect multimodal sensor evidence.",
+      "Engagement model: lab visits, site trials, and public partnership messaging with Etihad Rail and CAIR.",
+      "Iteration path: move from visual checks toward data that can support predictive maintenance workflows.",
     ],
     credits: [
       {
@@ -72,21 +82,13 @@ export const workRecords: ProjectRecord[] = [
       title: "Etihad Rail × NYUAD AI and robotics collaboration",
       poster: "/images/projects/etihad-rail-nyuad.jpg",
     },
+    // PENDING PUBLICATION RIGHTS — depot/yard stills omitted until Etihad Rail permission confirmed.
+    // Files retained on disk: etihad-rail-depot-spot-{train,tracks,yard}.jpg
     images: [
       {
-        src: "/images/projects/etihad-rail-depot-spot-train.jpg",
-        alt: "Spot beside an Etihad Rail locomotive inside the depot hangar, collecting multimodal inspection data for predictive maintenance",
-        caption: "DEPOT — MULTIMODAL LOCOMOTIVE SCAN",
-      },
-      {
-        src: "/images/projects/etihad-rail-depot-spot-tracks.jpg",
-        alt: "Spot on railway tracks facing the Etihad Rail depot, gathering multimodal data for locomotive predictive maintenance analysis",
-        caption: "TRACKSIDE — DATA FOR PREDICTIVE MAINT.",
-      },
-      {
-        src: "/images/projects/etihad-rail-depot-spot-yard.jpg",
-        alt: "Spot in the Etihad Rail yard between freight tracks, supporting multimodal data collection for further analysis and predictive maintenance",
-        caption: "YARD — SPOT MULTIMODAL COLLECTION",
+        src: "/images/projects/etihad-rail-nyuad.jpg",
+        alt: "Public collaboration imagery for the Etihad Rail × NYUAD AI and robotics partnership",
+        caption: "ETIHAD RAIL × NYUAD — PUBLIC COLLAB",
       },
     ],
     imagesOnIndex: false,
@@ -98,6 +100,8 @@ export const workRecords: ProjectRecord[] = [
     title: "RTA Delivery Drone — Dubai World Challenge",
     org: "NYU Abu Dhabi · RTA Dubai World Challenge for Self-Driving Transport",
     period: { startYear: 2021, label: "2021" },
+    cardHook:
+      "First-prize delivery octarotor for the RTA Dubai World Challenge — a competition-ready aerial logistics platform with peer-reviewed mechatronic design follow-on and public demonstration evidence.",
     // PENDING OWNER REVIEW
     challenge:
       "The RTA Dubai World Challenge required a competition-ready delivery octarotor that could fly and demonstrate under real autonomous-transport conditions.",
@@ -201,6 +205,8 @@ export const workRecords: ProjectRecord[] = [
     title: "Digital Twin-Based Desert Environment Monitoring for Rail Tracks",
     org: "NYU Abu Dhabi · SMART Lab with Etihad Rail",
     period: { startYear: 2024, label: "2024" },
+    cardHook:
+      "Train-mounted LiDAR and camera sensing for Etihad Rail, capturing desert corridor conditions so sand, water, and vegetation risks can be reconstructed and monitored in three dimensions.",
     challenge:
       "Desert sand movement, water pooling, and vegetation encroachment threaten UAE rail corridors in ways cab visibility alone cannot detect early enough.",
     summary:
@@ -278,19 +284,9 @@ export const workRecords: ProjectRecord[] = [
       title: "Field walkaround of the train-mounted desert-environment sensing payload",
       poster: "/images/projects/etihad-rail-rear-camera-poster.jpg",
     },
-    images: [
-      {
-        src: "/images/projects/etihad-rail-rear-camera-team.jpg",
-        alt: "Three engineers in PPE on the rear platform of an Etihad Rail locomotive with a LiDAR and camera sensing payload mounted on the handrail",
-        caption: "FIELD CREW — TRAIN SENSOR INSTALL",
-        orientation: "portrait",
-      },
-      {
-        src: "/images/projects/etihad-rail-rear-camera-mount.jpg",
-        alt: "Close-up of LiDAR and camera sensors bracketed to the train rear handrail, with an Etihad Rail service vehicle beside the tracks",
-        caption: "LIDAR · CAMERA — REAR HANDRAIL MOUNT",
-      },
-    ],
+    // PENDING PUBLICATION RIGHTS — locomotive install stills omitted until Etihad Rail permission confirmed.
+    // Files retained: etihad-rail-rear-camera-{team,mount,poster}.jpg
+    images: undefined,
     status: "published",
   },
   {
@@ -299,6 +295,8 @@ export const workRecords: ProjectRecord[] = [
     title: "Multi-Agent Exploration for Construction Data Collection",
     org: "NYU Abu Dhabi · SMART Lab",
     period: { startYear: 2024, label: "2024" },
+    cardHook:
+      "Cooperative multi-agent robotic exploration for construction sites — coordinated mapping with human-in-the-loop teleoperation when obstacles block a single agent’s path.",
     challenge:
       "Construction sites need cooperative robotic exploration and mapping when obstacles block a single agent's path.",
     summary:
@@ -364,18 +362,21 @@ export const workRecords: ProjectRecord[] = [
     title: "Eye-Gaze-Controlled Wheelchair",
     org: "NYU Abu Dhabi · with University of Ottawa",
     period: { startYear: 2013, endYear: 2016, label: "2013–2016" },
+    cardHook:
+      "Gaze-driven wheelchair with shared autonomy, field-validated in a real-world ALS case study and among the most-cited works in the publication record.",
     challenge:
       "People who have lost voluntary motor control need a safe way to navigate unknown environments using eye gaze alone.",
     summary:
       "A wheelchair navigation system driven entirely by eye gaze, built for people who have lost voluntary motor control — combining gaze tracking, obstacle sensing, and shared autonomy so the chair can navigate unknown environments safely. Validated in a real-world case study with a person living with ALS.",
     contributionSummary:
-      "Designed and field-validated a gaze-driven wheelchair navigation stack with shared autonomy — the most-cited work in the publication record (170+ citations).",
+      "Designed, integrated, and field-tested the gaze-driven wheelchair navigation stack with shared autonomy — fusing gaze tracking, obstacle sensing, and assisted control into a complete driving interface.",
     outcomeSummary:
-      "Field-validated a gaze-driven wheelchair with shared autonomy in a real-world ALS case study — 170+ citations.",
+      "Validated in a real-world ALS home case study and published in IEEE Access — the most-cited work in the publication record (170+ citations).",
     highlights: [
-      "Gaze input is fused with onboard sensing and assisted-control logic, so a single modality — where the user looks — becomes a safe, complete driving interface.",
-      "Field-tested beyond the lab: the system was deployed and evaluated in the home of a person with ALS, navigating environments it had never seen.",
-      "Published in IEEE Access; the most-cited work in my publication record (170+ citations).",
+      "Constraint: the interface had to work from a single voluntary channel — gaze — without requiring residual limb control.",
+      "Engineering decision: fuse gaze with onboard sensing and shared autonomy so unsafe commanded paths are filtered before the chair moves.",
+      "Field conditions: evaluated outside the lab in the home of a person with ALS, navigating previously unseen rooms and corridors.",
+      "Trade-off: higher assisted-control safety reduces raw teleoperation freedom; the stack prioritizes collision avoidance over direct gaze-to-velocity mapping.",
     ],
     credits: [
       {
@@ -618,6 +619,7 @@ export const workRecords: ProjectRecord[] = [
         caption: "SOP-28 SOCKET — LOCKED PROCESSOR UNDER TEST",
       },
     ],
+    // Fabricated on NYUAD CTP electronics equipment — no separate Electronics Workshop entity in the graph.
     status: "needs-review",
   },
   {
@@ -694,6 +696,8 @@ export const workRecords: ProjectRecord[] = [
     title: "UAV Visual Tracking & Localization",
     org: "NYU Abu Dhabi · CAIR",
     period: { startYear: 2020, endYear: 2022, label: "2020–2022" },
+    cardHook:
+      "RGB-thermal UAV detection, tracking, and cooperative localization pipelines validated on live flights in the Kinesis arena across a multi-paper perception research thread.",
     challenge:
       "CAIR needed real-time UAV detection, tracking, and cooperative localization pipelines that could survive live arena flights.",
     summary:

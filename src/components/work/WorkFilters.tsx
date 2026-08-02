@@ -1,10 +1,11 @@
-"use client";
-
-import { useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import Link from "next/link";
 
 import type { FilterOption, WorkFilterParams } from "@/lib/query";
-import { buildCanonicalQuery } from "@/lib/query";
+import {
+  toggleWorkFilterHref,
+  workIndexHref,
+  type WorkFilterFacetKey,
+} from "@/lib/query";
 
 type WorkFiltersProps = {
   options: {
@@ -14,109 +15,54 @@ type WorkFiltersProps = {
     platforms: FilterOption[];
     methods: FilterOption[];
     outcomes: FilterOption[];
+    contributions: FilterOption[];
   };
-  initialFilters: WorkFilterParams;
+  filters: WorkFilterParams;
   resultCount: number;
   unknownNotice?: boolean;
 };
 
-type FacetKey =
-  | "domains"
-  | "applications"
-  | "environments"
-  | "platforms"
-  | "methods"
-  | "outcomes";
-
 const FACET_META: Array<{
-  key: FacetKey;
-  param: string;
+  key: WorkFilterFacetKey;
   label: string;
-  more?: boolean;
+  primary?: boolean;
 }> = [
-  { key: "domains", param: "domain", label: "Domain" },
-  { key: "applications", param: "application", label: "Application" },
-  { key: "environments", param: "environment", label: "Laboratory" },
-  { key: "platforms", param: "platform", label: "Platform" },
-  { key: "methods", param: "method", label: "Technology", more: true },
-  { key: "outcomes", param: "outcome", label: "Outcome", more: true },
+  { key: "domains", label: "Domain", primary: true },
+  { key: "applications", label: "Application", primary: true },
+  { key: "contributions", label: "Contribution", primary: true },
+  { key: "outcomes", label: "Outcome", primary: true },
+  { key: "environments", label: "Laboratory" },
+  { key: "platforms", label: "Platform" },
+  { key: "methods", label: "Technology" },
 ];
 
 const CHIP =
-  "label-mono cursor-pointer border px-3 py-1.5 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan";
+  "label-mono inline-block border px-3 py-1.5 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan";
 const CHIP_ON = "border-cyan/60 bg-cyan/10 text-cyan";
-const CHIP_OFF = "border-grid-dim text-text-dim hover:border-grid hover:text-text";
+const CHIP_OFF =
+  "border-grid-dim text-text-dim hover:border-grid hover:text-text";
 
 export default function WorkFilters({
   options,
-  initialFilters,
+  filters,
   resultCount,
   unknownNotice,
 }: WorkFiltersProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [moreOpen, setMoreOpen] = useState(false);
+  const active = {
+    domains: filters.domains ?? [],
+    applications: filters.applications ?? [],
+    environments: filters.environments ?? [],
+    platforms: filters.platforms ?? [],
+    methods: filters.methods ?? [],
+    outcomes: filters.outcomes ?? [],
+    contributions: filters.contributions ?? [],
+  };
 
-  const active = useMemo(() => {
-    const read = (key: string) =>
-      searchParams.getAll(key).length > 0
-        ? searchParams.getAll(key)
-        : ((initialFilters as Record<string, string[] | undefined>)[
-            key === "domain"
-              ? "domains"
-              : key === "application"
-                ? "applications"
-                : key === "environment"
-                  ? "environments"
-                  : key === "platform"
-                    ? "platforms"
-                    : key === "method"
-                      ? "methods"
-                      : key === "outcome"
-                        ? "outcomes"
-                        : key
-          ] ?? []);
-    return {
-      domains: read("domain"),
-      applications: read("application"),
-      environments: read("environment"),
-      platforms: read("platform"),
-      methods: read("method"),
-      outcomes: read("outcome"),
-    } satisfies Record<FacetKey, string[]>;
-  }, [searchParams, initialFilters]);
-
-  function pushFilters(next: WorkFilterParams) {
-    const qs = buildCanonicalQuery(next);
-    router.replace(qs ? `/projects?${qs}` : "/projects", { scroll: false });
-  }
-
-  function toggle(facet: FacetKey, slug: string) {
-    const current = new Set(active[facet]);
-    if (current.has(slug)) current.delete(slug);
-    else current.add(slug);
-    pushFilters({
-      domains: facet === "domains" ? [...current].sort() : active.domains,
-      applications:
-        facet === "applications" ? [...current].sort() : active.applications,
-      environments:
-        facet === "environments" ? [...current].sort() : active.environments,
-      platforms: facet === "platforms" ? [...current].sort() : active.platforms,
-      methods: facet === "methods" ? [...current].sort() : active.methods,
-      outcomes: facet === "outcomes" ? [...current].sort() : active.outcomes,
-    });
-  }
-
-  function clearAll() {
-    pushFilters({});
-  }
-
-  function removeChip(facet: FacetKey, slug: string) {
-    toggle(facet, slug);
-  }
-
-  const activeChips: Array<{ facet: FacetKey; slug: string; label: string }> =
-    [];
+  const activeChips: Array<{
+    facet: WorkFilterFacetKey;
+    slug: string;
+    label: string;
+  }> = [];
   for (const meta of FACET_META) {
     const opts = options[meta.key];
     for (const slug of active[meta.key]) {
@@ -125,8 +71,8 @@ export default function WorkFilters({
     }
   }
 
-  const primaryFacets = FACET_META.filter((f) => !f.more);
-  const moreFacets = FACET_META.filter((f) => f.more);
+  const primaryFacets = FACET_META.filter((f) => f.primary);
+  const moreFacets = FACET_META.filter((f) => !f.primary);
 
   function renderFacet(meta: (typeof FACET_META)[number]) {
     const opts = options[meta.key];
@@ -142,15 +88,14 @@ export default function WorkFilters({
           {opts.map((opt) => {
             const on = active[meta.key].includes(opt.slug);
             return (
-              <button
+              <Link
                 key={opt.slug}
-                type="button"
-                aria-pressed={on}
-                onClick={() => toggle(meta.key, opt.slug)}
+                href={toggleWorkFilterHref(filters, meta.key, opt.slug)}
+                aria-current={on ? "true" : undefined}
                 className={`${CHIP} ${on ? CHIP_ON : CHIP_OFF}`}
               >
                 {opt.label}
-              </button>
+              </Link>
             );
           })}
         </div>
@@ -172,23 +117,18 @@ export default function WorkFilters({
           {resultCount === 1 ? "result" : "results"}
         </p>
         {activeChips.length > 0 && (
-          <button
-            type="button"
-            onClick={clearAll}
-            className={`${CHIP} ${CHIP_OFF}`}
-          >
+          <Link href={workIndexHref()} className={`${CHIP} ${CHIP_OFF}`}>
             Clear all
-          </button>
+          </Link>
         )}
       </div>
 
       {activeChips.length > 0 && (
         <div className="flex flex-wrap gap-2" aria-label="Active filters">
           {activeChips.map((chip) => (
-            <button
+            <Link
               key={`${chip.facet}-${chip.slug}`}
-              type="button"
-              onClick={() => removeChip(chip.facet, chip.slug)}
+              href={toggleWorkFilterHref(filters, chip.facet, chip.slug)}
               className={`${CHIP} ${CHIP_ON}`}
               aria-label={`Remove filter ${chip.label}`}
             >
@@ -196,7 +136,7 @@ export default function WorkFilters({
               <span aria-hidden className="ml-2">
                 ×
               </span>
-            </button>
+            </Link>
           ))}
         </div>
       )}
@@ -205,21 +145,22 @@ export default function WorkFilters({
         {primaryFacets.map(renderFacet)}
       </div>
 
-      <div>
-        <button
-          type="button"
-          onClick={() => setMoreOpen((v) => !v)}
-          className={`${CHIP} ${CHIP_OFF}`}
-          aria-expanded={moreOpen}
+      <details className="group">
+        <summary
+          className={`${CHIP} ${CHIP_OFF} cursor-pointer list-none [&::-webkit-details-marker]:hidden`}
         >
-          More {moreOpen ? "▴" : "▾"}
-        </button>
-        {moreOpen && (
-          <div className="mt-4 grid gap-6 lg:grid-cols-2">
-            {moreFacets.map(renderFacet)}
-          </div>
-        )}
-      </div>
+          More filters
+          <span aria-hidden className="ml-2 group-open:hidden">
+            ▾
+          </span>
+          <span aria-hidden className="ml-2 hidden group-open:inline">
+            ▴
+          </span>
+        </summary>
+        <div className="mt-4 grid gap-6 lg:grid-cols-2">
+          {moreFacets.map(renderFacet)}
+        </div>
+      </details>
     </div>
   );
 }

@@ -25,7 +25,11 @@ export const collaborationStrip = [
 export const homepageProfileBlurb =
   "Commercial Lead for AI and Robotics at NYU Abu Dhabi's CAIR. I commercialize embodied AI and multi-agent robotics built on more than a decade of research infrastructure, experimental engineering, and field deployment across the UAE — from shared laboratories that support 100+ researchers to award-winning systems and industry collaborations.";
 
-/** Archive teaser photo srcs (matched against archive records). */
+/**
+ * Archive teaser photo srcs (matched against archive records).
+ * Etihad Rail booth stills are public exhibition imagery; depot/facility stills
+ * are excluded until publication rights are confirmed.
+ */
 export const archiveTeaserSrcs = [
   "/images/field/global-rail-humanoid.jpg",
   "/images/field/kinesis-arena-aerial.jpg",

@@ -309,3 +309,6 @@ export const totalCitations: number = publications.reduce(
   (sum, publication) => sum + publication.citations,
   0,
 );
+
+/** Durable public-facing citation floor — avoid brittle exact totals on the homepage. */
+export const durableCitationLabel = "450+";

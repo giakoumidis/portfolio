@@ -16,6 +16,15 @@ type SystemRecordProps = {
   caseFile: ProjectCaseFile;
 };
 
+function hasRenderableChildren(children: React.ReactNode): boolean {
+  if (children == null || children === false) return false;
+  if (typeof children === "string") return children.trim().length > 0;
+  if (Array.isArray(children)) {
+    return children.some((child) => hasRenderableChildren(child));
+  }
+  return true;
+}
+
 function Row({
   label,
   children,
@@ -23,7 +32,7 @@ function Row({
   label: string;
   children: React.ReactNode;
 }) {
-  if (!children) return null;
+  if (!hasRenderableChildren(children)) return null;
   return (
     <div className="grid gap-2 border-b border-grid-dim py-3 sm:grid-cols-[9rem_1fr] sm:gap-4">
       <dt className="label-mono text-cyan">{label}</dt>

@@ -1,12 +1,12 @@
 import Link from "next/link";
 
 import Breadcrumbs from "@/components/nav/Breadcrumbs";
-import LocalVideoEvidenceLink from "@/components/ui/LocalVideoEvidenceLink";
 import LocalVideoPlayer from "@/components/ui/LocalVideoPlayer";
 import NeonButton from "@/components/ui/NeonButton";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
 import InstagramMedia from "@/components/ui/InstagramMedia";
+import EvidenceList from "@/components/work/EvidenceList";
 import SpokeNav from "@/components/work/SpokeNav";
 import SpokeScanBlock from "@/components/work/SpokeScanBlock";
 import SystemRecord from "@/components/work/SystemRecord";
@@ -55,25 +55,7 @@ export default function CaseFileLayout({
         }))
       : undefined;
 
-  const publicationEvidence = evidence.filter(
-    (item) => item.type === "publication" || item.resolved,
-  );
-  const archiveEvidence = evidence.filter(
-    (item) =>
-      item.type === "document" ||
-      item.type === "field-post" ||
-      item.type === "photograph",
-  );
-  const otherEvidence = evidence.filter(
-    (item) =>
-      !publicationEvidence.includes(item) && !archiveEvidence.includes(item),
-  );
-
-  const hasRelated =
-    environments.length > 0 ||
-    publicationEvidence.length > 0 ||
-    related.length > 0 ||
-    archiveEvidence.length > 0;
+  const hasRelated = environments.length > 0 || related.length > 0;
 
   return (
     <article className="section-shell py-16 lg:py-24">
@@ -209,62 +191,19 @@ export default function CaseFileLayout({
         </ul>
       </section>
 
-      {(otherEvidence.length > 0 || record.evidencePending) && (
+      {(evidence.length > 0 || record.evidencePending) && (
         <section className="mt-12" aria-labelledby="evidence-heading">
           <h2 id="evidence-heading" className="label-mono text-text-dim">
             Evidence
           </h2>
-          {record.evidencePending && otherEvidence.length === 0 && (
-            <p className="mt-4 font-body text-sm text-text-dim">
-              Evidence pending — structured artifacts will be linked here.
-            </p>
-          )}
-          <ul className="mt-4 space-y-4">
-            {otherEvidence.map((item, i) => {
-              const title =
-                item.resolved?.title ?? item.title ?? item.type;
-              const url = item.resolved?.url ?? item.url;
-              const meta = item.resolved
-                ? `${item.resolved.venue} · ${item.resolved.year}`
-                : item.note;
-              return (
-                <li
-                  key={`${item.type}-${i}`}
-                  className="border border-grid-dim bg-bg/40 p-4"
-                >
-                  <p className="label-mono text-text-dim">
-                    {item.type.replace(/-/g, " ")}
-                  </p>
-                  {url ? (
-                    item.type === "video" && url.startsWith("/") ? (
-                      <LocalVideoEvidenceLink src={url} title={title} />
-                    ) : (
-                      <a
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-2 block font-body text-sm font-medium text-text transition-colors hover:text-cyan hover:underline hover:underline-offset-4"
-                      >
-                        {title}
-                      </a>
-                    )
-                  ) : (
-                    <p className="mt-2 font-body text-sm text-text">{title}</p>
-                  )}
-                  {meta && (
-                    <p className="mt-1 font-body text-sm text-text-dim">{meta}</p>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+          <EvidenceList items={evidence} pending={record.evidencePending} />
         </section>
       )}
 
       {hasRelated && (
         <section className="mt-12" aria-labelledby="related-heading">
           <h2 id="related-heading" className="label-mono text-text-dim">
-            Related
+            Related Work
           </h2>
 
           {environments.length > 0 && (
@@ -286,46 +225,6 @@ export default function CaseFileLayout({
                     </Link>
                   </li>
                 ))}
-              </ul>
-            </div>
-          )}
-
-          {publicationEvidence.length > 0 && (
-            <div className="mt-8">
-              <h3 className="label-mono text-cyan">Publications</h3>
-              <ul className="mt-3 space-y-4">
-                {publicationEvidence.map((item, i) => {
-                  const title =
-                    item.resolved?.title ?? item.title ?? item.type;
-                  const url = item.resolved?.url ?? item.url;
-                  const meta = item.resolved
-                    ? `${item.resolved.venue} · ${item.resolved.year}`
-                    : item.note;
-                  return (
-                    <li
-                      key={`pub-${i}`}
-                      className="border border-grid-dim bg-bg/40 p-4"
-                    >
-                      {url ? (
-                        <a
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-body text-sm font-medium text-text transition-colors hover:text-cyan hover:underline hover:underline-offset-4"
-                        >
-                          {title}
-                        </a>
-                      ) : (
-                        <p className="font-body text-sm text-text">{title}</p>
-                      )}
-                      {meta && (
-                        <p className="mt-1 font-body text-sm text-text-dim">
-                          {meta}
-                        </p>
-                      )}
-                    </li>
-                  );
-                })}
               </ul>
             </div>
           )}
@@ -353,57 +252,13 @@ export default function CaseFileLayout({
             </div>
           )}
 
-          {archiveEvidence.length > 0 && (
-            <div className="mt-8">
-              <h3 className="label-mono text-cyan">Archive</h3>
-              <ul className="mt-3 space-y-4">
-                {archiveEvidence.map((item, i) => {
-                  const title =
-                    item.resolved?.title ?? item.title ?? item.type;
-                  const url = item.resolved?.url ?? item.url;
-                  return (
-                    <li
-                      key={`archive-${i}`}
-                      className="border border-grid-dim bg-bg/40 p-4"
-                    >
-                      <p className="label-mono text-text-dim">
-                        {item.type.replace(/-/g, " ")}
-                      </p>
-                      {url ? (
-                        <a
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-2 block font-body text-sm font-medium text-text transition-colors hover:text-cyan hover:underline hover:underline-offset-4"
-                        >
-                          {title}
-                        </a>
-                      ) : (
-                        <Link
-                          href="/archive"
-                          className="mt-2 block font-body text-sm font-medium text-text transition-colors hover:text-cyan hover:underline hover:underline-offset-4"
-                        >
-                          {title}
-                        </Link>
-                      )}
-                      {item.note && (
-                        <p className="mt-1 font-body text-sm text-text-dim">
-                          {item.note}
-                        </p>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
         </section>
       )}
 
       {images && images.length > 0 && (
         <section className="mt-12" aria-labelledby="photos-heading">
           <h2 id="photos-heading" className="label-mono text-text-dim">
-            Photos
+            Additional Media
           </h2>
           <div
             className={`mt-4 grid gap-4 ${

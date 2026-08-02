@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { profile, socialLinks } from "@/content/profile";
-import { AUDIO_LICENSE_STATUS, AUDIO_TRACK } from "@/lib/audio";
+import { AUDIO_TRACK, audioLicenseCredit } from "@/lib/audio";
 
 const NAVIGATE = [
   { href: "/map", label: "Map" },
@@ -89,9 +89,7 @@ export default function Footer() {
             {" — "}
             {AUDIO_TRACK.artist}, from{" "}
             <span className="text-text">{AUDIO_TRACK.album}</span>.
-            {AUDIO_LICENSE_STATUS === "pending-confirmation" && (
-              <> Licensing confirmation pending.</>
-            )}
+            {audioLicenseCredit() && <> {audioLicenseCredit()}</>}
           </p>
         </div>
       </div>

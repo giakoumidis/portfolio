@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
 
 import RouteChrome from "@/components/work/RouteChrome";
@@ -11,14 +10,14 @@ import {
   hasActiveWorkFilters,
   parseWorkSearchParams,
 } from "@/lib/query";
-import { siteTitle } from "@/lib/site";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Projects — ${siteTitle}`,
+export const metadata: Metadata = buildPageMetadata({
+  title: "Projects — Nikolaos Giakoumidis",
   description:
-    "Faceted index of projects and engagements — filter by domain, application, environment, platform, and method.",
-  alternates: { canonical: "/projects" },
-};
+    "Faceted index of projects and engagements — filter by domain, application, contribution, outcome, environment, platform, and method.",
+  path: "/projects",
+});
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -51,18 +50,12 @@ export default async function WorkIndexPage({ searchParams }: PageProps) {
         </p>
 
         <div className="mt-10 border border-grid-dim bg-bg-raised/20 p-5 sm:p-6">
-          <Suspense
-            fallback={
-              <p className="label-mono text-text-dim">Loading filters…</p>
-            }
-          >
-            <WorkFilters
-              options={options}
-              initialFilters={filters}
-              resultCount={items.length}
-              unknownNotice={unknownNotice}
-            />
-          </Suspense>
+          <WorkFilters
+            options={options}
+            filters={filters}
+            resultCount={items.length}
+            unknownNotice={unknownNotice}
+          />
         </div>
 
         <div className="mt-12">

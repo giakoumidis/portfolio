@@ -1,4 +1,4 @@
-import PortfolioMap from "@/components/map/PortfolioMap";
+import MapExperience from "@/components/map/MapExperience";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 
@@ -14,15 +14,15 @@ export default function PortfolioMapSection() {
           index="02"
           title="Portfolio Map"
           headingId="portfolio-map-heading"
-          kicker="How the career connects"
+          kicker="One integrated professional system"
         />
         <Reveal>
-          <p className="mb-8 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-            Start from the major hubs — projects, laboratories, research,
-            career, and archive — then drill into the entities that matter for
-            your path.
+          <p className="mb-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
+            Nikolaos is the center. Projects, laboratories, research, profile
+            periods, recognition, and archive evidence connect as one body of
+            work — not unrelated portfolio entries.
           </p>
-          <PortfolioMap variant="teaser" />
+          <MapExperience variant="teaser" />
         </Reveal>
       </div>
     </section>

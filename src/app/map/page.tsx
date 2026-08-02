@@ -1,16 +1,22 @@
-import type { Metadata } from "next";
+import MapExperience from "@/components/map/MapExperience";
+import { isMapPathId, type MapPathId } from "@/content/map";
+import { buildPageMetadata } from "@/lib/seo";
 
-import PortfolioMap from "@/components/map/PortfolioMap";
-import { siteTitle } from "@/lib/site";
-
-export const metadata: Metadata = {
-  title: `Portfolio Map — ${siteTitle}`,
+export const metadata = buildPageMetadata({
+  title: "Portfolio Map — Nikolaos Giakoumidis",
   description:
     "Navigable portfolio map connecting projects, laboratories, research, career, and archive evidence.",
-  alternates: { canonical: "/map" },
+  path: "/map",
+});
+
+type PageProps = {
+  searchParams: Promise<{ path?: string }>;
 };
 
-export default function MapPage() {
+export default async function MapPage({ searchParams }: PageProps) {
+  const raw = await searchParams;
+  const initialPathId: MapPathId | null = isMapPathId(raw.path) ? raw.path : null;
+
   return (
     <main className="section-shell py-16 lg:py-24">
       <p className="label-mono text-cyan">
@@ -21,13 +27,14 @@ export default function MapPage() {
       </h1>
       <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
       <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-        Explore how projects, laboratories, research, career periods, and
-        archive records connect. Awards live on Profile. Hover to highlight
-        relationships; select a hub for local detail, then open the destination.
-        On mobile, drill down one hub at a time.
+        Nikolaos is the central entity. Explore how projects, laboratories,
+        research, profile periods, recognition, and archive records connect —
+        then follow an Industry, Research, or Recruiter path through curated
+        evidence.
       </p>
+
       <div className="mt-12">
-        <PortfolioMap variant="full" />
+        <MapExperience variant="full" initialPathId={initialPathId} />
       </div>
     </main>
   );

@@ -20,11 +20,16 @@ export const profile = {
     github: "https://github.com/giakoumidis",
     scholar: "https://scholar.google.com/citations?user=HmOOogwAAAAJ&hl=en",
   },
-  // PENDING OWNER REVIEW — proof metrics pending verification with site owner.
+  // Durable proof metrics — keep definitions aligned with CV and experience copy.
   stats: [
     { value: 15, suffix: "+", label: "Years in robotics & research engineering" },
     { value: 100, suffix: "+", label: "Researchers supported" },
-    { value: 9, prefix: "$", suffix: "M+", label: "Research assets managed" },
+    {
+      value: 9,
+      prefix: "US$",
+      suffix: "M+",
+      label: "Research assets stewarded across shared platforms",
+    },
     { value: 3, label: "Major shared research platforms" },
     { value: 30, suffix: "+", label: "Publications" },
     { value: 4, label: "First-prize awards" },

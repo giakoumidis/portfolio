@@ -1,7 +1,7 @@
 /**
  * Portfolio map taxonomy — shared by homepage teaser and /map.
  * Level-0 hubs only at first; Level-1 entities revealed on interaction.
- * Awards live under Profile (not a separate Recognition hub).
+ * Recognition is surfaced as an evidence signal on the Profile/Career hub.
  */
 
 export type MapHubId =
@@ -16,6 +16,8 @@ export type MapHub = {
   label: string;
   href: string;
   blurb: string;
+  /** Compact durable evidence signal shown without interaction. */
+  signal: string;
   /** Conceptual neighbours for highlight relationships. */
   connected: MapHubId[];
 };
@@ -32,20 +34,34 @@ export type MapPath = {
   label: string;
   summary: string;
   steps: MapPathStep[];
+  /** Recommended case files / evidence shown when the path is active. */
+  recommendations: Array<{ label: string; href: string; kind: string }>;
 };
 
 export const mapCenter = {
   label: "Nikolaos",
   href: "/profile",
   blurb: "Commercial Lead — AI & Robotics, NYUAD CAIR",
+  signal: "Central entity",
+} as const;
+
+/** Durable hub counts — verify before deploy; prefer rounded floors. */
+export const mapSignals = {
+  projects: "15 case files",
+  laboratories: "3 shared research platforms",
+  research: "30+ publications",
+  recognition: "4 first-prize awards",
+  archive: "Field records & documentary evidence",
+  career: "4 career periods",
 } as const;
 
 export const mapHubs: MapHub[] = [
   {
     id: "career",
-    label: "Career",
+    label: "Profile",
     href: "/profile",
-    blurb: "Four-era trajectory, roles, and awards",
+    blurb: "Four-era trajectory, roles, and recognition",
+    signal: `${mapSignals.career} · ${mapSignals.recognition}`,
     connected: ["projects", "laboratories", "archive"],
   },
   {
@@ -53,6 +69,7 @@ export const mapHubs: MapHub[] = [
     label: "Laboratories",
     href: "/laboratories",
     blurb: "Research platforms established and operated",
+    signal: mapSignals.laboratories,
     connected: ["projects", "research", "archive"],
   },
   {
@@ -60,6 +77,7 @@ export const mapHubs: MapHub[] = [
     label: "Projects",
     href: "/projects",
     blurb: "Case files, deployments, and engagements",
+    signal: mapSignals.projects,
     connected: ["laboratories", "research", "archive"],
   },
   {
@@ -67,13 +85,15 @@ export const mapHubs: MapHub[] = [
     label: "Research",
     href: "/research",
     blurb: "Publications, IP, and themes",
+    signal: mapSignals.research,
     connected: ["projects", "laboratories", "archive"],
   },
   {
     id: "archive",
     label: "Archive",
     href: "/archive",
-    blurb: "Documentary evidence of the work",
+    blurb: "Field records, exhibitions, media, documents, and evidence",
+    signal: mapSignals.archive,
     connected: ["projects", "laboratories", "career"],
   },
 ];
@@ -82,7 +102,8 @@ export const mapPaths: MapPath[] = [
   {
     id: "industry",
     label: "Industry",
-    summary: "Application → project → deployment evidence → outcome → contact",
+    summary:
+      "Follow applied collaborations from rail and inspection projects through deployment evidence to contact.",
     steps: [
       {
         label: "Rail & industry projects",
@@ -95,11 +116,34 @@ export const mapPaths: MapPath[] = [
       { label: "Archive evidence", href: "/archive?type=exhibition" },
       { label: "Contact", href: "/#contact" },
     ],
+    recommendations: [
+      {
+        label: "Etihad Rail × NYUAD",
+        href: "/projects/etihad-rail-nyuad-collaboration",
+        kind: "Project",
+      },
+      {
+        label: "Desert environment monitoring",
+        href: "/projects/etihad-rail-desert-environment-monitoring",
+        kind: "Project",
+      },
+      {
+        label: "Airport inspection collaboration",
+        href: "/projects/nyuad-adac-airport-inspection-drone",
+        kind: "Project",
+      },
+      {
+        label: "Exhibition archive",
+        href: "/archive?type=exhibition",
+        kind: "Evidence",
+      },
+    ],
   },
   {
     id: "research",
     label: "Research",
-    summary: "Domain → laboratory → project → publication → evidence",
+    summary:
+      "Move from shared laboratories through perception projects into publications and citation evidence.",
     steps: [
       { label: "Laboratories", href: "/laboratories" },
       {
@@ -112,11 +156,30 @@ export const mapPaths: MapPath[] = [
       },
       { label: "Publications", href: "/research" },
     ],
+    recommendations: [
+      {
+        label: "Kinesis CTP Laboratory",
+        href: "/laboratories/kinesis-ctp-laboratory",
+        kind: "Laboratory",
+      },
+      {
+        label: "UAV visual tracking",
+        href: "/projects/rgb-t-uav-detection-tracking",
+        kind: "Project",
+      },
+      {
+        label: "Eye-gaze wheelchair",
+        href: "/projects/eye-gaze-wheelchair",
+        kind: "Project",
+      },
+      { label: "Research index", href: "/research", kind: "Hub" },
+    ],
   },
   {
     id: "recruiter",
     label: "Recruiter",
-    summary: "Profile → career → laboratories → projects → awards → CV",
+    summary:
+      "Read the career narrative, laboratories built, selected projects, awards, then download the CV.",
     steps: [
       { label: "Profile", href: "/profile" },
       { label: "Laboratories built", href: "/laboratories" },
@@ -124,12 +187,22 @@ export const mapPaths: MapPath[] = [
       { label: "Awards", href: "/profile#awards" },
       { label: "CV", href: "/cv.pdf" },
     ],
+    recommendations: [
+      { label: "Career narrative", href: "/profile", kind: "Profile" },
+      { label: "Laboratories", href: "/laboratories", kind: "Hub" },
+      {
+        label: "RTA delivery drone",
+        href: "/projects/rta-dubai-delivery-drone",
+        kind: "Project",
+      },
+      { label: "Download CV", href: "/cv.pdf", kind: "Document" },
+    ],
   },
 ];
 
 /** Hub sequence used for the traveling pulse when a visitor path is active. */
 export const mapPathHubs: Record<MapPathId, MapHubId[]> = {
-  industry: ["projects", "archive"],
+  industry: ["projects", "archive", "career"],
   research: ["laboratories", "projects", "research"],
   recruiter: ["career", "laboratories", "projects", "archive"],
 };
@@ -176,7 +249,7 @@ export const mapHubEntities: Record<
   ],
   career: [
     { label: "Four-era trajectory", href: "/profile" },
-    { label: "Awards", href: "/profile#awards" },
+    { label: "Awards / recognition", href: "/profile#awards" },
     { label: "Download CV", href: "/cv.pdf" },
   ],
   archive: [
@@ -185,3 +258,7 @@ export const mapHubEntities: Record<
     { label: "Field deployments", href: "/archive?type=field" },
   ],
 };
+
+export function isMapPathId(value: string | null | undefined): value is MapPathId {
+  return value === "industry" || value === "research" || value === "recruiter";
+}

@@ -7,7 +7,8 @@ import BackgroundMusic from "@/components/ui/BackgroundMusic";
 import Scanlines from "@/components/ui/Scanlines";
 import ScrollCue from "@/components/ui/ScrollCue";
 import { profile } from "@/content/profile";
-import { siteDescription, siteTitle, siteUrl } from "@/lib/site";
+import { personJsonLd } from "@/lib/jsonld";
+import { rootMetadata } from "@/lib/seo";
 import "./globals.css";
 
 const display = Chakra_Petch({
@@ -31,78 +32,7 @@ const body = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: siteTitle,
-  description: siteDescription,
-  applicationName: "Nikolaos Giakoumidis — Portfolio",
-  authors: [{ name: profile.name, url: profile.links.linkedin }],
-  creator: profile.name,
-  keywords: [
-    "robotics engineer",
-    "embodied AI",
-    "physical AI",
-    "autonomous systems",
-    "multi-agent robotics",
-    "industrial inspection",
-    "digital twins",
-    "sim2real",
-    "lab automation",
-    "NYU Abu Dhabi",
-    "Nikolaos Giakoumidis",
-  ],
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    url: siteUrl,
-    siteName: profile.name,
-    title: siteTitle,
-    description: siteDescription,
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteTitle,
-    description: siteDescription,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
-  },
-};
-
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: profile.name,
-  jobTitle: profile.currentRole.title,
-  description: siteDescription,
-  email: [`mailto:${profile.nyuEmail}`, `mailto:${profile.email}`],
-  url: siteUrl,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Abu Dhabi",
-    addressCountry: "AE",
-  },
-  worksFor: {
-    "@type": "Organization",
-    name: "New York University Abu Dhabi",
-  },
-  alumniOf: [
-    { "@type": "CollegeOrUniversity", name: "University of the Aegean" },
-    { "@type": "CollegeOrUniversity", name: "University of West Attica" },
-  ],
-  knowsAbout: [
-    "Robotics",
-    "Embodied AI",
-    "Autonomous Systems",
-    "Multi-Agent Systems",
-    "Computer Vision",
-    "Lab Automation",
-  ],
-  sameAs: Object.values(profile.links),
-};
+export const metadata: Metadata = rootMetadata();
 
 export default function RootLayout({
   children,
@@ -127,7 +57,7 @@ Contact: giakoumidis@nyu.edu · giakoumidis@hotmail.com
         <script
           type="application/ld+json"
           // Static, developer-authored JSON with no user input.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd()) }}
         />
         <p className="sr-only" data-agent-note="">
           Nikolaos Giakoumidis — robotics, AI, and autonomous systems portfolio.
@@ -140,12 +70,13 @@ Contact: giakoumidis@nyu.edu · giakoumidis@hotmail.com
           Skip to content
         </a>
         <Scanlines />
-        <BackgroundMusic />
         <ScrollCue />
         <CommandPalette />
         <SiteHeader />
         <div id="main">{children}</div>
         <Footer />
+        {/* After primary nav and main content so keyboard users reach destinations first. */}
+        <BackgroundMusic />
       </body>
     </html>
   );

@@ -210,6 +210,21 @@ function validateProject(project: ProjectRecord) {
   if (!project.title?.trim()) fail("Missing title", { entity, field: "title" });
   if (!project.summary?.trim())
     fail("Missing summary", { entity, field: "summary" });
+  if (project.cardHook) {
+    const words = project.cardHook.trim().split(/\s+/).filter(Boolean).length;
+    if (words < 20 || words > 45) {
+      fail(`cardHook should be ~25–40 words (got ${words})`, {
+        entity,
+        field: "cardHook",
+      });
+    }
+    if (/…|\.\.\.$/.test(project.cardHook.trim())) {
+      fail("cardHook must not end with an ellipsis truncation", {
+        entity,
+        field: "cardHook",
+      });
+    }
+  }
   if (!project.contributionSummary?.trim()) {
     fail("Missing contributionSummary", {
       entity,
