@@ -3,7 +3,8 @@ import type { ProjectRecord } from "@/lib/types";
 /**
  * Partner-controlled imagery — publication rights checklist (owner confirm before launch):
  * - Etihad Rail depot / yard / locomotive Spot photos (`etihad-rail-depot-*`, rear-camera field installs)
- * - Abu Dhabi Airports / ADAC facility material (currently video-only via NYUAD public channel)
+ * - Abu Dhabi Airports / ADAC facility material (currently video-only via NYUAD public channel).
+ *   The exhibition-booth still is a public display photo, not restricted-site imagery.
  * Until confirmed, restricted-site stills are omitted from `images` arrays; public announcement
  * media (Instagram/YouTube) remains.
  */
@@ -773,6 +774,13 @@ export const workRecords: ProjectRecord[] = [
       title:
         "NYUAD and ADAC use drone technology to maintain safety standards at Abu Dhabi International Airport",
     },
+    images: [
+      {
+        src: "/images/projects/adac-inspection-drone-exhibit.jpg",
+        alt: "Custom inspection multirotor in a clear display cylinder at an exhibition booth, with NYU Abu Dhabi and Abu Dhabi Airports branding and a screen showing the collaboration",
+        caption: "EXHIBITION — INSPECTION DRONE",
+      },
+    ],
     status: "needs-review",
   },
   {
@@ -919,6 +927,13 @@ export const workRecords: ProjectRecord[] = [
       title: "RGB-T UAV detection and tracking — live arena demo",
       poster: "/images/projects/drone-detection-poster.jpg",
     },
+    images: [
+      {
+        src: "/images/projects/uav-tracking-field-test.jpg",
+        alt: "Researcher steadying a long custom multirotor on a sports field, with a canopy ground station, dish antenna, and tripod sensors set up behind",
+        caption: "FIELD TEST — UAV & GROUND STATION",
+      },
+    ],
     status: "published",
   },
   {
