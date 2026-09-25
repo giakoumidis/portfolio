@@ -14,8 +14,7 @@ export default function RouteChrome({
     | "home"
     | "research"
     | "archive"
-    | "profile"
-    | "map";
+    | "profile";
 }) {
   return <>{children}</>;
 }

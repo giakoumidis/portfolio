@@ -11,25 +11,110 @@ import type { ProjectRecord } from "@/lib/types";
 export const workRecords: ProjectRecord[] = [
   {
     type: "project",
+    slug: "agentic-robotics-framework",
+    title: "Agentic Robotics Framework",
+    org: "NYU Abu Dhabi · CAIR · PhD research, University of the Aegean",
+    period: { startYear: 2025, label: "2025–" },
+    cardHook:
+      "Operators command a Boston Dynamics Spot for industrial inspection in ordinary language. A model-agnostic agent harness grounds skills through tool descriptions and keeps language-model reasoning behind a deterministic safety boundary.",
+    challenge:
+      "Let facility operators command a field robot for inspection without specialist interfaces or task-specific model training.",
+    summary:
+      "This is my current research system for natural-language field inspection. I designed and built a three-layer agent harness — interface, orchestration, and decision-and-skill — joined only by tool calls. Robot and sensor skills are independent Model Context Protocol servers, so a locally served open-weight model chooses actions from tool descriptions without fine-tuning. Every call is checked before it reaches the Boston Dynamics Spot SDK, and the model cannot clear an operator e-stop. The working stack accepts voice and text, keeps session memory, and drives Spot through navigation, vision, and thermal inspection skills. The paper is under review at the Journal of Field Robotics.",
+    contributionSummary:
+      "Designed and built the agent harness, MCP skill servers, and orchestration that connect natural-language commands to Spot inspection skills.",
+    outcomeSummary:
+      "A working inspection stack on Boston Dynamics Spot, commanded by voice and text through a local model. The paper is under review at the Journal of Field Robotics.",
+    highlights: [
+      "Three layers — a messaging interface, n8n orchestration, and a language-model skill loop — exchange natural language upward and structured tool calls downward.",
+      "Spot locomotion, vision, and thermal sensing are separate MCP servers. The model reads descriptions, not robot code, and is not trained on the inspection task.",
+      "Each tool server validates arguments before the Spot SDK runs them. The agent can request a stop; it cannot release an operator e-stop.",
+      "Voice and text over Telegram, plus browser and webhook entry points, share one orchestration path and PostgreSQL session memory.",
+      "The deployment runs on Spot with an arm and thermal payload, with on-robot perception and the language model served locally.",
+    ],
+    credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Designer and builder",
+        org: "NYU Abu Dhabi · CAIR",
+      },
+      {
+        name: "Anthony Tzes",
+        role: "Co-author",
+        org: "NYU Abu Dhabi · CAIR",
+      },
+      {
+        name: "Christos-Nikolaos Anagnostopoulos",
+        role: "Co-author",
+        org: "University of the Aegean",
+      },
+    ],
+    facets: {
+      domains: ["embodied-physical-ai", "perception-sensing"],
+      contributions: [
+        "conceived",
+        "designed",
+        "built",
+        "system-integration",
+        "experimental-development",
+      ],
+      applications: ["industrial-inspection"],
+      platforms: ["boston-dynamics-spot"],
+      methods: ["thermal-imaging"],
+      outcomes: ["deployed-prototype"],
+    },
+    evidence: [
+      {
+        type: "photograph",
+        title: "Spot CAM panorama during an inspection pass",
+      },
+      {
+        type: "photograph",
+        title: "Spot PTZ view down an inspection aisle",
+      },
+      {
+        type: "publication",
+        title:
+          "A Zero-Training Robot Agent Harness for Natural-Language Field Inspection",
+        note: "Journal of Field Robotics, under review",
+        date: "2026",
+      },
+    ],
+    images: [
+      {
+        src: "/images/projects/agentic-spot-pano.jpg",
+        alt: "Spot's panoramic camera looking down a server aisle, with the robot's sensor arm in the foreground and a tripod camera ahead",
+        caption: "SPOT CAM — INSPECTION PASS",
+      },
+      {
+        src: "/images/projects/agentic-spot-aisle.jpg",
+        alt: "Spot PTZ view down a server aisle with inspection objects on the raised floor",
+        caption: "SPOT PTZ — AISLE VIEW",
+      },
+    ],
+    status: "published",
+  },
+  {
+    type: "project",
     slug: "etihad-rail-nyuad-collaboration",
     title: "Etihad Rail × NYUAD AI & Robotics Collaboration",
     org: "NYU Abu Dhabi · CAIR with Etihad Rail",
     period: { startYear: 2024, label: "2024" },
     cardHook:
-      "Strategic AI and robotics collaboration with Etihad Rail, including depot Spot trials that collect multimodal locomotive data for predictive maintenance analysis and industry-facing research translation.",
+      "Connecting robotics research with rail operations through industry engagement and hands-on Spot inspection trials at an Etihad Rail depot, collecting multimodal locomotive data for further analysis.",
     challenge:
-      "Etihad Rail needed a credible path to integrate AI and robotics into depot operations without treating university research as a one-off demo.",
+      "Evaluate how AI and robotics research could address inspection needs in an operating rail depot.",
     summary:
-      "Industry engagement with Etihad Rail to explore integrating artificial intelligence and robotics into rail operations — including depot inspection trials where I operated Boston Dynamics Spot to collect multimodal data around locomotives for downstream analysis and predictive maintenance — translating NYUAD research capabilities into collaborative experiments aimed at efficiency, sustainability, and next-generation rail transport standards.",
+      "This NYUAD–Etihad Rail collaboration explored the use of AI and robotics in rail operations. I combined stakeholder engagement and laboratory visits with hands-on operation of Boston Dynamics Spot at the depot, collecting multimodal locomotive data for inspection research. The trials provided a practical basis for exploring predictive-maintenance applications.",
     contributionSummary:
-      "Led industry-facing translation of CAIR autonomous-systems research into the Etihad Rail collaboration — stakeholder engagement, lab visits, and operating Spot at the depot to gather multimodal locomotive data for predictive-maintenance analysis.",
+      "Connected CAIR research with Etihad Rail through stakeholder engagement, laboratory visits, and hands-on Spot inspection trials at the depot.",
     outcomeSummary:
-      "Established a publicly announced industry collaboration with depot Spot inspections feeding multimodal locomotive data into predictive-maintenance analysis.",
+      "A publicly announced collaboration and depot trials that collected multimodal locomotive data for inspection and predictive-maintenance research.",
     highlights: [
-      "Constraint: university research had to map onto depot operations without becoming a one-off demo.",
-      "Field conditions: operated Spot around locomotives inside an active Etihad Rail depot to collect multimodal sensor evidence.",
-      "Engagement model: lab visits, site trials, and public partnership messaging with Etihad Rail and CAIR.",
-      "Iteration path: move from visual checks toward data that can support predictive maintenance workflows.",
+      "Connected research capabilities with the practical requirements of depot inspection through laboratory visits and field trials.",
+      "Operated Spot around locomotives in an active depot to collect multimodal inspection data.",
+      "Combined technical demonstrations, stakeholder engagement, and hands-on fieldwork within the Etihad Rail–CAIR collaboration.",
+      "Collected data for further analysis, with predictive maintenance as a research application to develop and validate.",
     ],
     credits: [
       {
@@ -101,16 +186,16 @@ export const workRecords: ProjectRecord[] = [
     org: "NYU Abu Dhabi · RTA Dubai World Challenge for Self-Driving Transport",
     period: { startYear: 2021, label: "2021" },
     cardHook:
-      "First-prize delivery octarotor for the RTA Dubai World Challenge — a competition-ready aerial logistics platform with peer-reviewed mechatronic design follow-on and public demonstration evidence.",
+      "Delivery drone developed by the NYUAD team that won First Prize at the RTA Dubai World Challenge for Self-Driving Transport.",
     // PENDING OWNER REVIEW
     challenge:
-      "The RTA Dubai World Challenge required a competition-ready delivery octarotor that could fly and demonstrate under real autonomous-transport conditions.",
+      "Build and demonstrate an aerial delivery platform for the RTA Dubai World Challenge for Self-Driving Transport.",
     summary:
-      "First-prize delivery octarotor for the RTA Dubai World Challenge for Self-Driving Transport — a mechatronic aerial logistics platform demonstrated under competition conditions in Dubai, with USD 100,000 prize recognition and a peer-reviewed mechatronic design paper.",
+      "An eight-rotor aerial delivery platform developed by the NYUAD team for the RTA Dubai World Challenge for Self-Driving Transport. I designed and integrated its mechatronics and supported its competition deployment. The team won First Prize and USD 100,000, and the platform was documented in a subsequent mechatronic design paper.",
     contributionSummary:
-      "Designed and integrated the delivery octarotor mechatronics and supported competition deployment that won First Prize at the RTA Dubai World Challenge.",
+      "Designed and integrated the delivery drone’s mechatronics and supported the NYUAD team’s deployment at the RTA competition.",
     outcomeSummary:
-      "Won First Prize (USD 100,000) and produced a peer-reviewed mechatronic design paper on the delivery octarotor.",
+      "The NYUAD team won First Prize and USD 100,000. The platform’s mechatronic design was subsequently published in IJMERR.",
     highlights: [
       "First Prize, RTA Dubai World Challenge for Self-Driving Transport (Delivery Drone · USD 100,000).",
       "Octarotor delivery airframe with central payload bay, flown and demonstrated at the RTA test venue.",
@@ -206,20 +291,20 @@ export const workRecords: ProjectRecord[] = [
     org: "NYU Abu Dhabi · SMART Lab with Etihad Rail",
     period: { startYear: 2024, label: "2024" },
     cardHook:
-      "Train-mounted LiDAR and camera sensing for Etihad Rail, capturing desert corridor conditions so sand, water, and vegetation risks can be reconstructed and monitored in three dimensions.",
+      "A train-mounted LiDAR and camera pilot for Etihad Rail, collecting corridor data to investigate 3D environmental monitoring and support future maintenance planning under UAE field conditions.",
     challenge:
-      "Desert sand movement, water pooling, and vegetation encroachment threaten UAE rail corridors in ways cab visibility alone cannot detect early enough.",
+      "Collect rail-corridor data to investigate sand movement, water accumulation, and vegetation encroachment under UAE field conditions.",
     summary:
-      "Proposed and field-piloted a train-mounted sensing concept for Etihad Rail: LiDAR, cameras, and supporting sensors capture the rail corridor so the surrounding geo-environment can be reconstructed in 3D. The aim is early detection of desert-environment hazards that threaten operations — sand movement, water accumulation, and vegetation encroachment — giving maintenance teams a proactive view of track-side risk across UAE conditions.",
+      "A field pilot within the NYUAD–Etihad Rail collaboration, using rearward-facing LiDAR and cameras to capture the rail corridor. I supported the proposal and coordinated industry engagement and payload installation. The wider research concept uses these observations to reconstruct the track-side environment in 3D and investigate environmental change for maintenance planning.",
     contributionSummary:
-      "Supported the Etihad Rail proposal and train-side sensing pilot — coordinating the industry engagement and the field installation of the rearward LiDAR and camera payload used to capture corridor evidence for the desert-environment monitoring concept.",
+      "Coordinated industry engagement and installation of the train-mounted LiDAR and camera payload, supporting the proposal and field sensing pilot.",
     outcomeSummary:
-      "Field-piloted a train-mounted LiDAR and camera payload that captures corridor evidence for 3D geo-environment monitoring and change detection.",
+      "Field-piloted a train-mounted sensing payload to collect corridor data for subsequent 3D environmental monitoring research.",
     highlights: [
-      "Addresses Middle Eastern rail hazards that cab visibility alone cannot cover: sand dune shifts, flood-related water pooling, and vegetation growth along the alignment.",
-      "Pilot sensor suite mounts LiDAR and cameras on selected trains to collect corridor data and regenerate a dynamic 3D view of the track-side geo-environment for visual monitoring and change detection.",
-      "Machine-learning analysis of environmental change patterns is intended to surface actionable alerts for operators and maintenance teams, supporting safer, more reliable service with fewer weather- and terrain-driven delays.",
-      "Scale path: expand onboard sensing across the fleet into a centralized platform that aggregates train and environmental feeds for network-wide risk awareness and maintenance planning.",
+      "Targets data collection for rail-corridor hazards including sand movement, water accumulation, and vegetation growth.",
+      "The pilot mounted LiDAR and cameras on a train to collect the observations needed for subsequent 3D reconstruction and environmental monitoring.",
+      "The proposed analysis would compare environmental observations over time and investigate alerts for operators and maintenance teams.",
+      "The longer-term concept is to aggregate observations from multiple trains for network-wide monitoring and maintenance planning.",
     ],
     credits: [
       {
@@ -296,16 +381,16 @@ export const workRecords: ProjectRecord[] = [
     org: "NYU Abu Dhabi · SMART Lab",
     period: { startYear: 2024, label: "2024" },
     cardHook:
-      "Cooperative multi-agent robotic exploration for construction sites — coordinated mapping with human-in-the-loop teleoperation when obstacles block a single agent’s path.",
+      "Cooperative robot exploration and mapping for construction environments, combining complementary robot capabilities with human assistance when obstacles interrupt the task. Published in the Journal of Field Robotics.",
     challenge:
-      "Construction sites need cooperative robotic exploration and mapping when obstacles block a single agent's path.",
+      "Continue robotic mapping and data collection when obstacles prevent a single robot from completing the task.",
     summary:
-      "Cooperative multi-agent robotic system for 3D digitization and data collection in construction environments — one agent explores and maps the space while coordinating with another to clear obstacles, with a human operator in the loop via remote access when needed.",
+      "A cooperative robotic system for 3D digitization and data collection in construction environments. One robot explores and maps the space, coordinating with another to address obstacles and drawing on human teleoperation when needed. The work investigates how complementary robot capabilities and human assistance can keep a data-collection task progressing.",
     contributionSummary:
-      "Contributed to the multi-agent exploration system and its Journal of Field Robotics publication — cooperative mapping with human-in-the-loop teleoperation for construction-site data collection.",
+      "Contributed to the cooperative exploration system and co-authored the Journal of Field Robotics paper on construction-site data collection.",
     // PENDING OWNER REVIEW
     outcomeSummary:
-      "Published in the Journal of Field Robotics on multi-agent exploration with human-in-the-loop teleoperation for construction data collection.",
+      "Demonstrated cooperative exploration with human assistance for construction data collection; published in the Journal of Field Robotics in 2024.",
     highlights: [
       "Demonstrates autonomous exploration paired with agent-to-agent coordination so the team can keep mapping after an obstacle blocks the path.",
       "Human-in-the-loop teleoperation backs the autonomous stack when remote support is required to finish the mission.",
@@ -363,15 +448,15 @@ export const workRecords: ProjectRecord[] = [
     org: "NYU Abu Dhabi · with University of Ottawa",
     period: { startYear: 2013, endYear: 2016, label: "2013–2016" },
     cardHook:
-      "Gaze-driven wheelchair with shared autonomy, field-validated in a real-world ALS case study and among the most-cited works in the publication record.",
+      "Eye-gaze control and shared autonomy for powered mobility, evaluated in a home case study with a person living with ALS.",
     challenge:
-      "People who have lost voluntary motor control need a safe way to navigate unknown environments using eye gaze alone.",
+      "Enable a person with severely limited voluntary movement to navigate unfamiliar spaces using eye gaze and assisted control.",
     summary:
-      "A wheelchair navigation system driven entirely by eye gaze, built for people who have lost voluntary motor control — combining gaze tracking, obstacle sensing, and shared autonomy so the chair can navigate unknown environments safely. Validated in a real-world case study with a person living with ALS.",
+      "A powered-wheelchair navigation system that combines eye-gaze input with obstacle sensing and shared autonomy. I designed, integrated, and field-tested the navigation stack, connecting the user’s intended direction with assisted robot control. The system was evaluated in the home of a person living with ALS and documented in IEEE Access.",
     contributionSummary:
-      "Designed, integrated, and field-tested the gaze-driven wheelchair navigation stack with shared autonomy — fusing gaze tracking, obstacle sensing, and assisted control into a complete driving interface.",
+      "Designed, integrated, and field-tested the wheelchair navigation stack, combining gaze tracking, obstacle sensing, and shared autonomy.",
     outcomeSummary:
-      "Validated in a real-world ALS home case study and published in IEEE Access — the most-cited work in the publication record (170+ citations).",
+      "Evaluated in a home case study with a person living with ALS and published in IEEE Access.",
     highlights: [
       "Constraint: the interface had to work from a single voluntary channel — gaze — without requiring residual limb control.",
       "Engineering decision: fuse gaze with onboard sensing and shared autonomy so unsafe commanded paths are filtered before the chair moves.",
@@ -448,11 +533,11 @@ export const workRecords: ProjectRecord[] = [
     challenge:
       "Panče Naumov's smart-materials group needed repeatable control over pull speed, orientation, and geometry to study ribbon curling and chiral coiling.",
     summary:
-      "A custom programmable apparatus for Panče Naumov's smart-materials group to investigate how controlled pulling conditions produce curling and chiral coiling in ribbon specimens. The system applied controlled linear pulling while varying speed, mounting orientation, geometry, and material parameters — turning an evolving scientific experiment into a repeatable mechatronic test instrument.",
+      "A programmable test instrument developed for Panče Naumov’s group to study ribbon curling and chiral coiling. I translated changing experimental requirements into integrated motion hardware and control software, allowing researchers to vary pulling speed, sample orientation, and fixture geometry. The work included stage selection, mechanical integration, alignment troubleshooting, and operator handover.",
     contributionSummary:
-      "Designed and integrated the hardware, controller software, and automation for the ribbon-curling apparatus — motion-stage trade study, mechanical integration, fixture-alignment debugging, Newmark motion-control configuration, and operational handover so the group could run structured experiments and publication media.",
+      "Designed and integrated the motion hardware and control software, resolved fixture-alignment problems, and handed over a programmable instrument for repeatable ribbon-curling experiments.",
     outcomeSummary:
-      "Delivered a programmable ribbon-curling apparatus that unlocked structured sample campaigns and supplementary publication media.",
+      "Delivered a programmable apparatus for structured sample campaigns and supported preparation of supplementary publication media.",
     highlights: [
       "Evaluated commercial linear stages across cost and performance (Thorlabs, Aerotech, Newmark, and lower-cost CNC options) against a ~300 mm travel envelope and experimental pull speeds up to about 100 mm/s.",
       "Integrated the stage, puller, and sample-holder assembly and corrected a fixture-height mismatch that had blocked reliable curling — converting a near-complete build into a usable experimental instrument.",
@@ -562,14 +647,14 @@ export const workRecords: ProjectRecord[] = [
     org: "NYU Abu Dhabi · with Ozgur Sinanoglu's hardware-security group",
     period: { startYear: 2017, label: "2017" },
     challenge:
-      "The hardware-security group needed a reliable PCB test rig to validate logic-locked 65 nm ARM Cortex-M0 silicon before ACM CCS publication.",
+      "Create a practical test platform for programming and validating a logic-locked 65 nm ARM Cortex-M0 ASIC.",
     summary:
-      "Led PCB development and hardware bring-up of a custom test platform for a 65 nm ARM Cortex-M0 logic-locked ASIC — UART programming, key activation, and silicon validation for ACM CCS 2017.",
+      "A custom PCB test platform for hardware-security research on a logic-locked ARM Cortex-M0 ASIC. I led schematic design, board layout, in-house fabrication, and initial hardware testing. The board supported UART programming and key activation, allowing the research team to compare processor behaviour with valid and invalid keys for the ACM CCS 2017 work.",
     contributionSummary:
-      "Led electronics design and fabrication of the ASIC validation PCB — schematic, layout, in-house fabrication, and silicon bring-up for the ACM CCS 2017 logic-locking work.",
+      "Led schematic design, PCB layout, in-house fabrication, and initial testing of the custom ASIC validation board.",
     // PENDING OWNER REVIEW
     outcomeSummary:
-      "Validated locked processor silicon on the custom board: correct execution with the valid key, failure with an incorrect one.",
+      "Enabled physical testing of the locked processor: correct execution with a valid key and failure with an incorrect key.",
     highlights: [
       "Eagle schematic, two-layer layout, and in-house fabrication on NYUAD Core Technology Platform equipment — two revisions to a reliable UART/DIP-switch test rig.",
       "Validated locked processor silicon: correct execution with the valid key, failure with an incorrect one.",
@@ -629,14 +714,14 @@ export const workRecords: ProjectRecord[] = [
     org: "NYU Abu Dhabi · with Abu Dhabi Airports (ADAC)",
     period: { startYear: 2019, label: "2019" },
     challenge:
-      "Abu Dhabi International Airport's aerodynamic terminal roof is hazardous for human inspectors but still requires contact inspection.",
+      "Investigate contact inspection of an airport terminal roof whose geometry makes human access hazardous.",
     summary:
-      "Collaboration between NYU Abu Dhabi and Abu Dhabi Airports to protect infrastructure and keep workers safe at the city's new international airport — engineering a drone equipped with robotic arms to inspect the terminal's aerodynamic roof, which is not safe for humans to access.",
+      "An NYUAD collaboration with Abu Dhabi Airports investigating aerial manipulation for terminal-roof inspection. The system uses a drone equipped with robotic arms to make contact with the structure. My involvement supported the collaboration’s application of robotics to inspection in difficult-access infrastructure.",
     contributionSummary:
-      "Supported the aerial-manipulation inspection collaboration with Abu Dhabi Airports — drone-based contact inspection of the terminal roof where human access is hazardous.",
+      "Supported the NYUAD–Abu Dhabi Airports collaboration on drone-based contact inspection of the terminal roof.",
     // PENDING OWNER REVIEW
     outcomeSummary:
-      "Demonstrated drone-based aerial manipulation for terminal roof inspection in NYUAD's industry collaboration with Abu Dhabi Airports.",
+      "Demonstrated an aerial-manipulation approach to terminal-roof inspection, featured in NYUAD’s public collaboration with Abu Dhabi Airports.",
     highlights: [
       "Aerial manipulation for infrastructure inspection: the drone's robotic arms take over contact inspection of the roof structure, \"minimizing the risks and hazards of using humans in difficult tasks\" (Prof. Anthony Tzes, NYUAD).",
       "Targets the aerodynamic roof design of the airport terminal, whose geometry makes conventional human inspection hazardous.",
@@ -697,15 +782,15 @@ export const workRecords: ProjectRecord[] = [
     org: "NYU Abu Dhabi · CAIR",
     period: { startYear: 2020, endYear: 2022, label: "2020–2022" },
     cardHook:
-      "RGB-thermal UAV detection, tracking, and cooperative localization pipelines validated on live flights in the Kinesis arena across a multi-paper perception research thread.",
+      "Experimental development and flight validation across six publications on UAV detection, visual tracking, and cooperative localization, connecting perception algorithms with integrated sensing systems in the Kinesis arena.",
     challenge:
-      "CAIR needed real-time UAV detection, tracking, and cooperative localization pipelines that could survive live arena flights.",
+      "Translate UAV perception algorithms into integrated systems that could be evaluated during live flights.",
     summary:
-      "Multi-paper research thread on detecting, tracking, and relatively localizing UAVs in real time — from airborne PTZ visual lock and cooperative spherical localization through RGB-thermal fusion and deep-learning / Siamese aerial trackers, validated on live flights in the Kinesis arena.",
+      "A research programme spanning UAV detection, tracking, and relative localization. I contributed system integration and experimental development, including arena instrumentation, RGB-thermal pan-tilt-zoom sensing, and flight validation in Kinesis. The programme covered cooperative localization, deep-learning tracking, and Siamese aerial trackers across six peer-reviewed papers from 2020 to 2022.",
     contributionSummary:
-      "System integration and experimental development across the CAIR UAV perception thread — arena instrumentation, RGB-T PTZ pipelines, and field validation that underpins six peer-reviewed papers (2020–2022).",
+      "Integrated sensing and arena instrumentation and supported flight validation across six papers on UAV perception and cooperative localization.",
     outcomeSummary:
-      "Integrated and flight-tested the RGB-T arena stack underpinning six peer-reviewed papers (2020–2022).",
+      "Experimental systems and flight validation supporting six peer-reviewed publications on UAV perception from 2020 to 2022.",
     highlights: [
       "Thread opens with airborne PTZ visual tracking and relative visual localization for cooperative UAS, then layers computationally efficient RGB-thermal detection so thermal cues pull small drones out of clutter while RGB refines boxes at frame rate.",
       "Deep-learning evader pursuit and a Siamese adaptive transformer tracker extend the same arena stack to agile targets; relative spherical-visual localization closes the loop for multi-UAV cooperative localization.",
@@ -847,9 +932,9 @@ export const workRecords: ProjectRecord[] = [
     summary:
       "A multimodal robotic platform capable of flying, driving, and navigating on water — combining a coaxial six-motor UAV, a tri-omniwheel ground vehicle, and a twin-thruster surface vessel in one waterproof system. Two Pixhawk autopilots, an Intel NUC supervisory computer, ROS/MAVROS coordination, custom motor-control electronics, and waterproof mechanical integration enabled autonomous mode switching across air, land, and water.",
     contributionSummary:
-      "Co-constructed the original hybrid platform and supported technical integration through the Kinesis Lab / Core Technology Platform — co-author on both IEEE publications documenting the mechatronic design, control architecture, and experimental validation.",
+      "Co-built the original hybrid platform, supported its technical integration through Kinesis, and co-authored both IEEE papers on its design and validation.",
     outcomeSummary:
-      "Experimentally validated three-domain operation and published at ICARA and ICUAS 2023, with IEEE Spectrum coverage of the hybrid platform.",
+      "The team demonstrated aerial, ground, and water-surface operation, published at ICARA and ICUAS 2023, and received IEEE Spectrum coverage.",
     highlights: [
       "Unified aerial (coaxial hex-motor multirotor), terrestrial (three waterproof Dynamixel-driven omniwheels), and marine (twin underwater thrusters with flotation body) mobility in a single vehicle under 10 kg MTOW.",
       "Dual-autopilot architecture — ArduCopter for flight and ArduRover for land/water — supervised by an Intel NUC running ROS/MAVROS with a state machine that activates only one operating mode at a time.",
@@ -974,30 +1059,35 @@ export const workRecords: ProjectRecord[] = [
     type: "project",
     slug: "palmspector-date-palm-monitoring",
     title: "PalmSpector — Robotic Monitoring for Date Palm Health",
-    org: "NYU Abu Dhabi · with Imperial College London IDE",
+    org: "Imperial College London / Royal College of Art IDE · robotics support from NYU Abu Dhabi",
     period: { startYear: 2020, label: "2020" },
     challenge:
-      "Red Palm Weevil larvae feed internally, leaving almost no external symptoms until the tree is beyond saving.",
+      "Collect consistent sensor data to investigate Red Palm Weevil infestation, which develops inside the trunk and can be difficult to detect visually.",
     summary:
-      "Integrated robotic monitoring system for early Red Palm Weevil detection at the scale of UAE date plantations — fusing acoustic, thermal, and RGB sensing so hidden larval infestations can be flagged before trunk collapse, then handing farmers targeted trees for inspection rather than blanket pesticide treatment.",
+      "PalmSpector was created and led by Khulood Alawadi as her Innovation Design Engineering project at Imperial College London and the Royal College of Art; she is now at NYU Abu Dhabi. I supported the robotics side of the project at NYU Abu Dhabi, helping integrate the Clearpath Husky and develop the plantation-inspection workflow through SLAM and Gazebo/RViz simulation.",
     contributionSummary:
-      "Built the multimodal field data collector and automated the inspection path on Clearpath Husky — sensor fusion, SLAM under canopy, and Gazebo simulation for plantation-scale monitoring.",
+      "Supported Khulood Alawadi’s PalmSpector project on the robotics side, including Clearpath Husky integration, plantation navigation, SLAM, and Gazebo/RViz simulation.",
     outcomeSummary:
-      "Field-validated acoustic trunk probing and multimodal capture that lets farmers target inspection instead of blanket pesticide treatment.",
+      "Field-tested acoustic trunk probing and multimodal data collection, with Husky navigation and simulation supporting further inspection-automation research.",
     highlights: [
       "Built a sensor-fusion field data collector around a single-board computer: thermal and RGB cameras, contact microphone, GPS-RTK, storage, and a Healthy/Infested UI so every tree sample follows the same acquisition protocol for supervised deep learning.",
-      "Field-validated acoustic trunk probing and multimodal capture across date plantations, addressing the core challenge that RPW larvae feed internally and leave almost no external symptoms until it is too late to save the tree.",
-      "Automated the inspection path on a Clearpath Husky UGV platform — SLAM with RGB-D sensing under palm canopy, plus Gazebo/RViz simulation of row navigation — so the same sensing stack can scale from handheld surveys to thousands of trees.",
+      "Field-tested acoustic trunk probing and multimodal data capture in date plantations to investigate signs of infestation inside the trunk.",
+      "Automated inspection-path navigation on Clearpath Husky using RGB-D sensing and SLAM under palm canopy, with Gazebo/RViz simulation to investigate repeatable navigation between rows.",
     ],
     credits: [
       {
+        name: "Khulood Alawadi",
+        role: "Project creator · Principal Investigator",
+        org: "NYU Abu Dhabi · developed at Imperial College London / Royal College of Art IDE",
+      },
+      {
         name: "Nikolaos Giakoumidis",
-        role: "System integration · field sensing",
+        role: "Robotics support · systems integration",
         org: "NYU Abu Dhabi",
       },
       {
-        name: "Imperial College London · Innovation Design Engineering (IDE)",
-        role: "Research partner",
+        name: "Imperial College London / Royal College of Art",
+        role: "Innovation Design Engineering programme",
       },
       {
         name: "NYU Abu Dhabi",
@@ -1044,13 +1134,13 @@ export const workRecords: ProjectRecord[] = [
     org: "NYU Abu Dhabi · Interactive Robots and Media Lab (IRML)",
     period: { startYear: 2012, label: "2012" },
     challenge:
-      "Ground robots need overhead situational awareness for path planning, but a single platform cannot carry both mobility and long-range vision affordably.",
+      "Give a ground robot an overhead view of obstacles by coordinating it with a lightweight aerial robot.",
     summary:
-      "Heterogeneous symbiotic robot pair treated as one entity with separable bodies: the ground vehicle carries and recharges a lightweight quad-rotor, while the quad-rotor acts as the pair's detachable long-range vision system, turning top-down aerial views into the maps that plan the ground vehicle's route.",
+      "An early heterogeneous robot team pairing a ground vehicle with a quadrotor. The ground vehicle carries and recharges the aerial robot, whose overhead images are stitched into maps for ground-route planning. Developed as an indoor pilot, the work demonstrates how two physically different platforms can combine sensing and mobility capabilities.",
     contributionSummary:
-      "First-author development of the UAV–UGV hybrid pilot: aerial mapping into ground-robot path planning, published at FIT 2012.",
+      "Developed the UAV–UGV pilot linking aerial mapping to ground-robot path planning and served as first author of the FIT 2012 paper.",
     outcomeSummary:
-      "First-author FIT 2012 paper on a symbiotic UAV–UGV pair that maps from the air and plans ground routes from stitched aerial frames.",
+      "An indoor pilot and first-author FIT 2012 paper demonstrating aerial-image mapping for ground-robot route planning.",
     highlights: [
       "Aerial frames are stitched into a single overhead map, obstacles are segmented from it, and a slowness map yields a collision-free minimum-time trajectory for the ground robot.",
       "Built as a small-scale indoor pilot standing in for a much larger outdoor system, which made the concept testable and iterable at low cost and risk.",
@@ -1128,11 +1218,11 @@ export const workRecords: ProjectRecord[] = [
     challenge:
       "Industrial manipulators are kinematically unlike human arms, making intuitive real-time teleoperation through natural motion difficult to evaluate.",
     summary:
-      "Real-time teleoperation of an industrial robotic arm through natural human arm imitation: the operator wears a motion-capture marker suit, and the arm reproduces their movement live. The work grew into a general evaluation framework for teleoperation quality, published in the International Journal of Social Robotics.",
+      "A real-time teleoperation system that transfers an operator’s arm movements to an industrial manipulator using optical motion capture and kinematic retargeting. I built the pipeline connecting human motion to live robot control. Operator trials informed the initial IRIS 2010 work and a subsequent teleoperation-evaluation framework published in the International Journal of Social Robotics.",
     contributionSummary:
-      "Built the motion-capture teleoperation pipeline from optical tracking through kinematic retargeting to live industrial-arm control; published at IRIS 2010.",
+      "Built the complete teleoperation pipeline from optical motion capture through kinematic retargeting to live industrial-arm control.",
     outcomeSummary:
-      "Built and published a motion-capture teleoperation pipeline from optical tracking through kinematic retargeting to live arm control (IRIS 2010).",
+      "Demonstrated motion-driven industrial-arm control and contributed to the IRIS 2010 publication and subsequent teleoperation research.",
     highlights: [
       "Full pipeline from optical motion capture through kinematic retargeting to live control of an industrial manipulator.",
       "Operator trials measured how naturally human arm movement transfers to a machine with very different kinematics.",
@@ -1212,13 +1302,13 @@ export const workRecords: ProjectRecord[] = [
     org: "Interactive Robots and Media Lab (IRML)",
     period: { startYear: 2010, endYear: 2011, label: "2010–2011" },
     challenge:
-      "IRML's android telepresence platform required dense electromechanical upkeep to stay research-ready at an affordable price point.",
+      "Maintain and improve the compact servo, wiring, and control systems of an android telepresence research platform.",
     summary:
-      "Hands-on electromechanical work on IRML's android telepresence platform — servicing the actuation, wiring, and control hardware behind a human-like robot head and torso, in pursuit of android telepresence at an affordable price point.",
+      "Hands-on electromechanical development and maintenance of IRML’s android telepresence platform. I worked on the servo actuation, wiring, and control hardware responsible for facial expressions and head movement, helping keep the platform available for human–robot interaction experiments.",
     contributionSummary:
-      "Maintained and upgraded the android telepresence actuation and wiring hardware — electromechanical support contributing to the HRI 2011 workshop paper.",
+      "Maintained and upgraded servo actuation, wiring, and control hardware for the android platform, contributing to the HRI 2011 workshop paper.",
     outcomeSummary:
-      "Kept the android head and torso running for HRI research, contributing to the HRI 2011 workshop paper on affordable telepresence.",
+      "Supported continued use of the android platform in human–robot interaction research and co-authored work on affordable telepresence.",
     highlights: [
       "Maintained and upgraded the dense servo actuation and wiring loom driving the android's facial expressions and head movement.",
       "Bench-level rebuild work spanning skin, servo, and controller maintenance kept the platform running for HRI research.",
@@ -1290,11 +1380,11 @@ export const workRecords: ProjectRecord[] = [
     challenge:
       "A stock Parrot AR.Drone lacked the sensing and ground-station tooling needed for autonomous GPS waypoint navigation.",
     summary:
-      "Bachelor graduation project: an end-to-end autonomous navigation stack for a Parrot AR.Drone quadrotor — onboard ArduPilot Mega with GPS, IMU, and digital compass feeding a LabVIEW ground control station that computes great-circle routes (Haversine + bearing), overlays the vehicle on an interactive Google Earth map, and closes the loop to fly the UAV from its current geographic position to a user-selected destination.",
+      "An autonomous GPS-navigation system developed for my BSc thesis, combining a modified Parrot AR.Drone with an ArduPilot sensing payload and a LabVIEW ground station. I integrated GPS, inertial sensing, compass data, and radio telemetry, and implemented waypoint planning, map display, and closed-loop heading control. The project brought hardware selection, embedded interfaces, software, and flight demonstration together in one working system.",
     contributionSummary:
-      "Sole author of the BSc Automation Engineering thesis — designed, built, and demonstrated the AR.Drone sensing payload, ArduPilot firmware interfaces, and LabVIEW GCS for GPS path planning and automatic navigation.",
+      "Independently designed, built, and demonstrated the sensing payload, firmware interfaces, and LabVIEW ground station for my BSc thesis on autonomous UAV navigation.",
     outcomeSummary:
-      "Sole-author BSc thesis demonstrating closed-loop GPS path planning from a LabVIEW ground station to a modified AR.Drone.",
+      "A working GPS-navigation demonstration and sole-author BSc thesis documenting the integrated hardware, software, and flight-control system.",
     highlights: [
       "Augmented the Parrot AR.Drone with ArduPilot Mega, a u-blox GPS receiver, IMU, HMC5883L 3-axis compass, and XBee RF link for independent navigation telemetry.",
       "LabVIEW ground station splits vehicle control (Parrot SDK over Wi-Fi/UDP) from navigation: live map display via Google Earth/KML, Haversine distance and bearing to a clicked waypoint, and closed-loop heading corrections in flight.",

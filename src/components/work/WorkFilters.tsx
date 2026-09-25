@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 import type { FilterOption, WorkFilterParams } from "@/lib/query";
 import {
@@ -48,6 +51,8 @@ export default function WorkFilters({
   resultCount,
   unknownNotice,
 }: WorkFiltersProps) {
+  const [open, setOpen] = useState(false);
+
   const active = {
     domains: filters.domains ?? [],
     applications: filters.applications ?? [],
@@ -91,6 +96,7 @@ export default function WorkFilters({
               <Link
                 key={opt.slug}
                 href={toggleWorkFilterHref(filters, meta.key, opt.slug)}
+                scroll={false}
                 aria-current={on ? "true" : undefined}
                 className={`${CHIP} ${on ? CHIP_ON : CHIP_OFF}`}
               >
@@ -104,23 +110,44 @@ export default function WorkFilters({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {unknownNotice && (
         <p className="label-mono text-amber" role="status">
           One or more filters could not be recognized and were removed.
         </p>
       )}
 
-      <div className="flex flex-wrap items-end justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="label-mono text-text-dim" aria-live="polite" aria-atomic>
           <span className="text-cyan">{resultCount}</span>{" "}
           {resultCount === 1 ? "result" : "results"}
         </p>
-        {activeChips.length > 0 && (
-          <Link href={workIndexHref()} className={`${CHIP} ${CHIP_OFF}`}>
-            Clear all
-          </Link>
-        )}
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            aria-expanded={open}
+            aria-controls="project-filters"
+            onClick={() => setOpen((value) => !value)}
+            className={`${CHIP} cursor-pointer ${open ? CHIP_ON : CHIP_OFF}`}
+          >
+            Filters
+            {activeChips.length > 0 && (
+              <span className="ml-2 text-cyan">{activeChips.length}</span>
+            )}
+            <span aria-hidden className="ml-2">
+              {open ? "▴" : "▾"}
+            </span>
+          </button>
+          {activeChips.length > 0 && (
+            <Link
+              href={workIndexHref()}
+              scroll={false}
+              className={`${CHIP} ${CHIP_OFF}`}
+            >
+              Clear all
+            </Link>
+          )}
+        </div>
       </div>
 
       {activeChips.length > 0 && (
@@ -129,6 +156,7 @@ export default function WorkFilters({
             <Link
               key={`${chip.facet}-${chip.slug}`}
               href={toggleWorkFilterHref(filters, chip.facet, chip.slug)}
+              scroll={false}
               className={`${CHIP} ${CHIP_ON}`}
               aria-label={`Remove filter ${chip.label}`}
             >
@@ -141,26 +169,33 @@ export default function WorkFilters({
         </div>
       )}
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        {primaryFacets.map(renderFacet)}
-      </div>
-
-      <details className="group">
-        <summary
-          className={`${CHIP} ${CHIP_OFF} cursor-pointer list-none [&::-webkit-details-marker]:hidden`}
+      {open && (
+        <div
+          id="project-filters"
+          className="space-y-6 border-t border-grid-dim pt-5"
         >
-          More filters
-          <span aria-hidden className="ml-2 group-open:hidden">
-            ▾
-          </span>
-          <span aria-hidden className="ml-2 hidden group-open:inline">
-            ▴
-          </span>
-        </summary>
-        <div className="mt-4 grid gap-6 lg:grid-cols-2">
-          {moreFacets.map(renderFacet)}
+          <div className="grid gap-6 lg:grid-cols-2">
+            {primaryFacets.map(renderFacet)}
+          </div>
+
+          <details className="group">
+            <summary
+              className={`${CHIP} ${CHIP_OFF} cursor-pointer list-none [&::-webkit-details-marker]:hidden`}
+            >
+              More filters
+              <span aria-hidden className="ml-2 group-open:hidden">
+                ▾
+              </span>
+              <span aria-hidden className="ml-2 hidden group-open:inline">
+                ▴
+              </span>
+            </summary>
+            <div className="mt-4 grid gap-6 lg:grid-cols-2">
+              {moreFacets.map(renderFacet)}
+            </div>
+          </details>
         </div>
-      </details>
+      )}
     </div>
   );
 }

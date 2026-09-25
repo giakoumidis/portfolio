@@ -10,11 +10,11 @@ export const experience = [
     period: "2025–Present",
     current: true,
     highlights: [
-      "Lead commercialization and external engagement for CAIR, positioning NYUAD's AI, robotics, and autonomous systems research for industry-facing translation and strategic collaboration.",
-      "Authored 15+ project proposals in the first year in role, spanning embodied and physical AI, industrial inspection, logistics, infrastructure, digital twins, and autonomous systems.",
-      "Completed 5 NDAs with external stakeholders, advancing discussions toward next-stage collaboration.",
+      "Lead commercialization and industry engagement for CAIR, working with faculty and external stakeholders to identify industrial needs, assess research applications, and develop technical proposals and pilot opportunities.",
+      "Authored 15+ project proposals in my first year, defining applications for CAIR research in inspection, logistics, infrastructure, embodied AI, and digital twins.",
+      "Completed 5 NDAs with external stakeholders to support further technical discussions and collaboration development.",
       "Represented NYUAD and CAIR at Dubai AI Festival, Make it in the Emirates, Global Rail, Future Digital Twin & AI, DriftX, and ADIPEC, and in meetings with stakeholders including AD Ports Group, Etihad Rail, GCAA, Kent, Mubadala, MGX, Analog, CycloTech, and Mimik.",
-      "Built a structured engagement model averaging roughly two external visits per week in 2025, generating proposal requests, technical workshops, lab and site visits, pilot discussions, and executive follow-ups.",
+      "Established a structured engagement process averaging roughly two external visits per week in 2025, leading to proposal requests, technical workshops, site visits, and pilot discussions.",
     ],
   },
   {
@@ -25,11 +25,11 @@ export const experience = [
     location: "Abu Dhabi, UAE",
     period: "2017–2025",
     highlights: [
-      "Established, expanded, and ran key NYUAD laboratories across robotics, photonics, high-throughput screening, electronics, and advanced manufacturing.",
-      "Owned end-to-end technical decision-making across multiple labs: equipment strategy, vendor selection, system architecture, workflow design, safety procedures, and repair-versus-replacement planning.",
-      "Supported 100+ users — faculty, researchers, students, and technical staff — across multidisciplinary research communities.",
-      "Approximately US$800K average annual procurement, with peak years approaching US$3M — distinct from US$9M+ in research assets stewarded across shared platforms — plus major institutional savings through strategic procurement and in-house repair of high-value systems.",
-      "Ran roughly four student workshops per semester and co-supervised about two capstone projects annually, while operating within demanding safety and regulatory environments involving drones, lasers, and RF systems.",
+      "Established, expanded, and operated research facilities spanning robotics, photonics, high-throughput screening, electronics, and advanced manufacturing.",
+      "Led technical decisions across multiple laboratories, including system architecture, equipment strategy, vendor selection, workflow design, safety procedures, and repair-versus-replacement planning.",
+      "Supported 100+ faculty, researchers, students, and technical staff in using shared facilities for multidisciplinary experimental research.",
+      "Stewarded US$9M+ in shared research assets, with responsibility for technical planning and equipment lifecycle decisions. Managed approximately US$800K in average annual procurement, with peak years approaching US$3M, and reduced costs through strategic purchasing and in-house repair of high-value equipment.",
+      "Delivered roughly four student workshops per semester and co-supervised about two capstone projects annually. Managed laboratory activities involving drones, lasers, and RF systems within university safety and regulatory requirements.",
     ],
   },
   {
@@ -39,11 +39,11 @@ export const experience = [
     location: "Abu Dhabi, UAE",
     period: "2013–2017",
     highlights: [
-      "Fully established the Electronics Workshop and co-established the Advanced Manufacturing Workshop, expanding NYUAD's internal prototyping and scientific instrumentation capabilities.",
-      "Played a key role in planning and relocating research laboratories from the Center for Science and Engineering to the Saadiyat campus.",
+      "Established the Electronics Workshop and co-established the Advanced Manufacturing Workshop, giving NYUAD greater in-house capability in prototyping and scientific instrumentation.",
+      "Helped plan and deliver the relocation of research laboratories from the Center for Science and Engineering to the Saadiyat campus.",
       "Supported faculty, researchers, and students across electronics, automation, robotics, and scientific instrumentation, including the High Throughput Screening Platform (HTS).",
       "Delivered in-house troubleshooting, maintenance, and repair of scientific equipment, improving operational continuity and cost efficiency.",
-      "Conducted demonstrations for industry and government delegations to showcase research capabilities.",
+      "Demonstrated research systems to industry and government delegations, explaining technical capabilities and potential applications.",
     ],
   },
   {
@@ -55,7 +55,7 @@ export const experience = [
     period: "2012–2013",
     highlights: [
       "Supported the setup and early development of NYUAD's first robotics laboratory.",
-      "Contributed to robotics research projects and day-to-day laboratory operations in IRML.",
+      "Contributed to robotics experiments, prototype development, and day-to-day operation of IRML.",
       "Served as teaching assistant for engineering courses and supported international robotics workshop activities.",
     ],
   },

@@ -8,14 +8,14 @@ import HudCard from "@/components/ui/HudCard";
 import { awards, certifications } from "@/content/awards";
 import { careerEras } from "@/content/career-eras";
 import { exhibitions } from "@/content/exhibitions";
-import { profile } from "@/content/profile";
+import { profile, professionalCapabilities } from "@/content/profile";
 import { getInfrastructure, getProject } from "@/lib/query";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Profile — Nikolaos Giakoumidis",
   description:
-    "Career narrative, roles, education, expertise, and commercialization leadership — with links into the portfolio graph.",
+    "Nikolaos Giakoumidis: 15+ years in robotics engineering, research infrastructure, and industry collaboration. Experience, education, and recognition.",
   path: "/profile",
 });
 
@@ -23,7 +23,7 @@ export default function ProfilePage() {
   return (
     <main className="section-shell py-16 lg:py-24">
       <p className="label-mono text-cyan">
-        Profile <span className="text-text-dim">{"//"} Career narrative</span>
+        Profile <span className="text-text-dim">{"//"} Engineering & leadership</span>
       </p>
       <h1 className="mt-3 text-[clamp(1.6rem,3.5vw,2.5rem)] text-text">
         {profile.name}
@@ -44,13 +44,45 @@ export default function ProfilePage() {
         </p>
       </section>
 
+      <section id="expertise" className="mt-16 scroll-mt-24" aria-labelledby="expertise-heading">
+        <h2 id="expertise-heading" className="font-display text-lg uppercase text-text">
+          Engineering & leadership expertise
+        </h2>
+        <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
+          My experience spans the development of individual robotic systems,
+          the facilities that support research, and the partnerships that connect
+          research with industrial applications.
+        </p>
+        <ul className="mt-8 grid gap-5 lg:grid-cols-2">
+          {professionalCapabilities.map((capability) => (
+            <li key={capability.title}>
+              <HudCard accent="cyan" className="flex h-full flex-col p-6">
+                <h3 className="text-base text-text">{capability.title}</h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-text-dim">
+                  {capability.description}
+                </p>
+                <ul className="mt-5 space-y-2 border-t border-grid-dim pt-4">
+                  {capability.links.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href} className="label-mono text-sm text-cyan hover:underline">
+                        {link.label} →
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </HudCard>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section className="mt-16">
         <h2 className="font-display text-lg uppercase text-text">
           Career trajectory
         </h2>
         <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
-          Four eras spanning early robotics research through commercialization
-          leadership — with links into project and laboratory hubs.
+          From developing robotic systems to establishing research facilities
+          and leading industry engagement, each stage builds on direct engineering experience.
         </p>
 
         <ul className="mt-8 grid gap-5 lg:grid-cols-2">
@@ -100,7 +132,7 @@ export default function ProfilePage() {
         </ul>
       </section>
 
-      <section className="mt-16" aria-labelledby="experience-education-heading">
+      <section id="experience-education" className="mt-16 scroll-mt-24" aria-labelledby="experience-education-heading">
         <h2
           id="experience-education-heading"
           className="font-display text-lg uppercase text-text"
@@ -108,7 +140,8 @@ export default function ProfilePage() {
           Experience & education
         </h2>
         <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
-          Full role history and education along the career spine.
+          Engineering, research, and leadership experience, supported by continued
+          study in cooperative autonomous systems.
         </p>
         <div className="mt-10">
           <Timeline embedded />
@@ -118,8 +151,8 @@ export default function ProfilePage() {
       <section id="awards" className="mt-16 scroll-mt-24">
         <h2 className="font-display text-lg uppercase text-text">Awards</h2>
         <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
-          First-prize competition wins — with deployment video or ceremony
-          photography where available.
+          Recognition for robotics design and competition performance, with
+          demonstrations and award records.
         </p>
         <ul className="mt-8 grid gap-5 sm:grid-cols-2">
           {awards.map((award) => (

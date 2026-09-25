@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { featuredProjectSlug } from "@/content/homepage";
 import { getAllInfrastructure, getAllWork } from "@/lib/query";
 import { siteUrl } from "@/lib/site";
 
@@ -11,12 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 1,
-    },
-    {
-      url: `${siteUrl}/map`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.95,
     },
     {
       url: `${siteUrl}/projects`,
@@ -55,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteUrl}/projects/${project.slug}`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: project.slug === featuredProjectSlug ? 0.9 : 0.7,
     });
   }
 

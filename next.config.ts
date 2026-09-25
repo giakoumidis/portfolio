@@ -3,6 +3,15 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Allow iPhone / other devices on the LAN to load dev JS chunks (Next.js 16 blocks by default).
   allowedDevOrigins: ["192.168.1.*", "192.168.0.*", "10.0.0.*"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/vi/**",
+      },
+    ],
+  },
   async redirects() {
     return [
       {
@@ -28,6 +37,11 @@ const nextConfig: NextConfig = {
       {
         source: "/work/:slug",
         destination: "/projects/:slug",
+        permanent: true,
+      },
+      {
+        source: "/map",
+        destination: "/",
         permanent: true,
       },
     ];

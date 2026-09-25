@@ -43,28 +43,24 @@ for (const width of WIDTHS) {
   );
   if (overflow > 1) note(`${width}px: horizontal overflow of ${overflow}px`);
 
-  // The hero typewriter is the canary for viewport-margin bugs: it starts only
-  // a cursor wide, so a negative horizontal inset stops it ever triggering.
   await page.evaluate(() => window.scrollTo(0, 0));
-  await page.waitForTimeout(3000);
   const tagline = await page.evaluate(
-    () =>
-      document.querySelector("#hero p.text-magenta span[aria-hidden]")
-        ?.textContent ?? "",
+    () => document.querySelector("#hero h1 + p")?.textContent ?? "",
   );
   if (!tagline.includes("AUTONOMOUS SYSTEMS"))
-    note(`${width}px: hero typewriter did not complete (got "${tagline}")`);
+    note(`${width}px: hero tagline missing (got "${tagline}")`);
+
+  const heroPaths = await page.evaluate(
+    () => document.querySelectorAll("#hero-paths a").length,
+  );
+  if (heroPaths < 3) note(`${width}px: hero audience paths missing`);
 
   const missing = await page.evaluate(() =>
     [
       "hero",
-      "about",
-      "experience",
-      "capabilities",
-      "projects",
-      "arsenal",
-      "research",
-      "awards",
+      "profile-proof",
+      "selected-projects",
+      "credibility",
       "contact",
     ].filter((id) => !document.getElementById(id)),
   );
@@ -161,10 +157,10 @@ for (const width of WIDTHS) {
     note(`reduced motion: hydration mismatch -> ${hydrationWarnings[0].slice(0, 120)}`);
 
   const state = await page.evaluate(() => {
-    const tagline = document.querySelector("p.label-mono.text-magenta");
-    const counters = [...document.querySelectorAll("#about p.font-mono")].map((n) =>
-      n.textContent?.trim(),
-    );
+    const tagline = document.querySelector("#hero h1 + p");
+    const counters = [
+      ...document.querySelectorAll("#profile-proof p.font-mono"),
+    ].map((n) => n.textContent?.trim());
     const heroOpacity = getComputedStyle(
       document.querySelector("#hero h1"),
     ).opacity;
@@ -189,4 +185,7 @@ await browser.close();
 
 console.log("\n=== QA RESULT ===");
 if (problems.length === 0) console.log("no problems found");
-else problems.forEach((p) => console.log(`  ! ${p}`));
+else {
+  problems.forEach((p) => console.log(`  ! ${p}`));
+  process.exitCode = 1;
+}

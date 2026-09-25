@@ -31,6 +31,9 @@ export const stackGroups = [
     id: "platforms-simulation",
     label: "Platforms & Simulation",
     items: [
+      "ROS",
+      "ROS 2",
+      "Model Context Protocol (MCP)",
       "Isaac Sim",
       "Isaac Lab",
       "Gazebo",

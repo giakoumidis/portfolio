@@ -5,4 +5,4 @@ export const siteTitle =
   "Nikolaos Giakoumidis — Robotics, AI & Autonomous Systems";
 
 export const siteDescription =
-  "Commercializing AI and robotics built on more than a decade of research infrastructure, experimental engineering, and field deployment. Commercial Lead for AI and Robotics at NYU Abu Dhabi's CAIR.";
+  "Nikolaos Giakoumidis: robotics engineer, researcher, and technical leader. Autonomous systems, advanced research facilities, and AI commercialization at NYU Abu Dhabi.";

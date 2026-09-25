@@ -404,9 +404,9 @@ export const taxonomyTerms: TaxonomyTerm[] = [
   },
   {
     slug: "commercialized",
-    label: "Commercialized / Translated",
+    label: "Research Translation",
     facet: "contribution",
-    aliases: ["Research translation", "Industry translation"],
+    aliases: ["Commercialized / Translated", "Industry translation"],
   },
   {
     slug: "electronics-design",

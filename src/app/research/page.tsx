@@ -5,7 +5,7 @@ import AwardCard from "@/components/ui/AwardCard";
 import HudCard from "@/components/ui/HudCard";
 import NeonButton from "@/components/ui/NeonButton";
 import { awards } from "@/content/awards";
-import { profile } from "@/content/profile";
+import { currentResearch, profile } from "@/content/profile";
 import {
   featuredPublicationTitles,
   patent,
@@ -20,7 +20,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Research — Nikolaos Giakoumidis",
   description:
-    "Publications, patents, research themes, and awards — connected to projects and laboratories.",
+    "Research in cooperative robotics, perception, human–robot interaction, and autonomous inspection, with publications and intellectual property.",
   path: "/research",
 });
 
@@ -150,9 +150,42 @@ export default async function ResearchPage({ searchParams }: PageProps) {
       </h1>
       <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
       <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-        Publications and intellectual property — linked to projects and
-        laboratories. Awards live on the Profile page with full media.
+        My research connects cooperative robotics, perception, and human–robot
+        interaction with the engineering of experimental systems. I develop
+        robot-agent frameworks for industrial inspection and study how robots
+        with different capabilities can coordinate. My publication record spans
+        autonomous navigation, UAV perception, teleoperation, assistive robotics,
+        and cooperative exploration.
       </p>
+
+      <section id="current-research" className="mt-10 scroll-mt-24" aria-labelledby="current-research-heading">
+        <h2 id="current-research-heading" className="font-display text-lg uppercase text-text">
+          Current work & research direction
+        </h2>
+        <div className="mt-5 space-y-6">
+          {currentResearch.map((item) => (
+            <article key={item.title} className="max-w-3xl border-l border-cyan/40 pl-5">
+              <h3 className="text-base text-text">{item.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-text-dim">
+                {item.description}
+              </p>
+              {"href" in item && item.href && (
+                <p className="mt-4">
+                  <Link
+                    href={item.href}
+                    className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                  >
+                    {"linkLabel" in item && item.linkLabel
+                      ? item.linkLabel
+                      : "Read the project"}{" "}
+                    →
+                  </Link>
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
 
       <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border border-grid-dim bg-bg-raised/20 p-5">
         <p className="label-mono text-text-dim">

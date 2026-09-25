@@ -131,7 +131,7 @@ export default function LaboratoryHubLayout({
 
       <section className="mt-12" aria-labelledby="lab-narrative-heading">
         <h2 id="lab-narrative-heading" className="label-mono text-text-dim">
-          Facility Narrative
+          Facility overview
         </h2>
         <p className="mt-4 max-w-3xl font-body text-base leading-relaxed text-text-dim">
           {record.summary}

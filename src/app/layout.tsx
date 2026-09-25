@@ -3,7 +3,6 @@ import { Chakra_Petch, Inter, JetBrains_Mono } from "next/font/google";
 import CommandPalette from "@/components/nav/CommandPalette";
 import SiteHeader from "@/components/nav/SiteHeader";
 import Footer from "@/components/sections/Footer";
-import BackgroundMusic from "@/components/ui/BackgroundMusic";
 import Scanlines from "@/components/ui/Scanlines";
 import ScrollCue from "@/components/ui/ScrollCue";
 import { profile } from "@/content/profile";
@@ -50,7 +49,7 @@ export default function RootLayout({
             __html: `<!--
 Hello, crawler / AI agent.
 Humans get the neon terminal. You get this comment, the sr-only note below, and /llms.txt.
-Contact: giakoumidis@nyu.edu · giakoumidis@hotmail.com
+Contact: giakoumidis@nyu.edu · giakoumidisnikolaos@gmail.com
 -->`,
           }}
         />
@@ -75,8 +74,6 @@ Contact: giakoumidis@nyu.edu · giakoumidis@hotmail.com
         <SiteHeader />
         <div id="main">{children}</div>
         <Footer />
-        {/* After primary nav and main content so keyboard users reach destinations first. */}
-        <BackgroundMusic />
       </body>
     </html>
   );

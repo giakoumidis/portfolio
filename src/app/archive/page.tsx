@@ -15,7 +15,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Archive — Nikolaos Giakoumidis",
   description:
-    "Field records, exhibitions, media, documents, and evidence linked to projects and laboratories.",
+    "Photographs, demonstrations, and records of robotics fieldwork, laboratory development, and industry engagement by Nikolaos Giakoumidis.",
   path: "/archive",
 });
 
@@ -254,9 +254,9 @@ export default async function ArchivePage({ searchParams }: PageProps) {
       </h1>
       <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
       <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-        Field records, exhibitions, media, documents, and evidence — the
-        documentary layer of the portfolio, not deprecated material. Each record
-        links back to the projects and laboratories it substantiates.
+        Inside the work: field trials, laboratory builds, prototypes, and
+        public demonstrations. Explore photographs, videos, and documents
+        from the projects and collaborations across my career.
       </p>
 
       <div className="mt-10 border border-grid-dim bg-bg-raised/20 p-5 sm:p-6">

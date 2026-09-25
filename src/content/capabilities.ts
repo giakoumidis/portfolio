@@ -5,7 +5,7 @@ export const capabilities = [
     id: "embodied-physical-ai",
     title: "Embodied & Physical AI",
     blurb:
-      "Bringing learning-based intelligence onto real hardware, from deep reinforcement learning policies to LLM- and VLM-driven robot behaviour.",
+      "Developing model-agnostic robot-agent frameworks for natural-language inspection, alongside PhD research in cooperative autonomy and deep reinforcement learning.",
     tags: [
       "Embodied AI",
       "Physical AI",
@@ -13,6 +13,9 @@ export const capabilities = [
       "LLM/VLM workflows",
       "PyTorch",
       "Dockerized microservices",
+      "Robot-agent frameworks",
+      "ROS 2",
+      "Model Context Protocol (MCP)",
     ],
   },
   {
@@ -46,7 +49,7 @@ export const capabilities = [
     id: "sim2real-digital-twins",
     title: "Sim2Real & Digital Twins",
     blurb:
-      "Developing and validating robotic systems in simulation with synthetic data, then transferring them to physical deployment.",
+      "Using simulation and physical experiments to develop and evaluate robotic systems, with tools including Gazebo, Isaac Sim, Isaac Lab, and MATLAB/Simulink.",
     tags: [
       "Isaac Sim",
       "Isaac Lab",

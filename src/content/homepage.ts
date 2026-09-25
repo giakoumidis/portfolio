@@ -3,8 +3,14 @@
  * PENDING OWNER REVIEW on flagship order, sixth project, metrics, teaser count.
  */
 
+import { profile } from "@/content/profile";
+
+/** Lead project — full-width treatment on the homepage and projects index. */
+export const featuredProjectSlug = "agentic-robotics-framework";
+
 /** Flagship project slugs in narrative order (homepage Selected Projects). */
 export const flagshipProjectSlugs = [
+  featuredProjectSlug,
   "etihad-rail-nyuad-collaboration",
   "rta-dubai-delivery-drone",
   "multiagent-construction-exploration",
@@ -13,17 +19,8 @@ export const flagshipProjectSlugs = [
   "etihad-rail-desert-environment-monitoring",
 ] as const;
 
-/** Collaboration / recognition strip on Profile & Proof. */
-export const collaborationStrip = [
-  "NYU Abu Dhabi",
-  "Etihad Rail",
-  "RTA Dubai World Challenge",
-  "Abu Dhabi Airports",
-] as const;
-
-/** Compact homepage profile paragraph (~50–80 words). */
-export const homepageProfileBlurb =
-  "Commercial Lead for AI and Robotics at NYU Abu Dhabi's CAIR. I commercialize embodied AI and multi-agent robotics built on more than a decade of research infrastructure, experimental engineering, and field deployment across the UAE — from shared laboratories that support 100+ researchers to award-winning systems and industry collaborations.";
+/** Homepage profile paragraph. Same copy as the profile page summary. */
+export const homepageProfileBlurb = profile.summary;
 
 /**
  * Archive teaser photo srcs (matched against archive records).

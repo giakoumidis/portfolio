@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 
+import BackgroundMusic from "@/components/ui/BackgroundMusic";
 import { openSearch } from "@/lib/search-events";
 
 type NavItem = {
@@ -41,11 +42,6 @@ const PRIMARY: NavItem[] = [
     label: "Profile",
     match: (p) => p === "/profile" || p.startsWith("/profile/"),
   },
-  {
-    href: "/map",
-    label: "Map",
-    match: (p) => p === "/map" || p.startsWith("/map/"),
-  },
 ];
 
 const linkClass = (active: boolean) =>
@@ -75,7 +71,7 @@ export default function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-grid-dim bg-bg/90 backdrop-blur-md">
+    <header className="relative sticky top-0 z-40 border-b border-grid-dim bg-bg/90 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:h-16 sm:px-6">
         <Link
           href="/"
@@ -127,6 +123,13 @@ export default function SiteHeader() {
             {menuOpen ? "Close" : "Menu"}
           </button>
         </div>
+      </div>
+
+      <div className="pointer-events-none absolute top-full left-4 z-50 origin-top-left scale-[0.8] pt-1 sm:left-6">
+        <BackgroundMusic
+          compact
+          className="pointer-events-auto w-[min(20vw,14rem)] min-w-[10.5rem]"
+        />
       </div>
 
       {menuOpen && (

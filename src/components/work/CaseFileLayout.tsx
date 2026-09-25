@@ -11,6 +11,7 @@ import SpokeNav from "@/components/work/SpokeNav";
 import SpokeScanBlock from "@/components/work/SpokeScanBlock";
 import SystemRecord from "@/components/work/SystemRecord";
 import type { ProjectCaseFile, SpokeNeighbor } from "@/lib/query";
+import { featuredProjectSlug } from "@/content/homepage";
 import { resolveSpokeChallenge, resolveSpokeOutcome } from "@/lib/spoke-copy";
 
 const ENVIRONMENT_LABEL: Record<string, string> = {
@@ -69,7 +70,7 @@ export default function CaseFileLayout({
 
       <header className="mt-8">
         <p className="label-mono text-cyan">
-          Case File
+          {record.slug === featuredProjectSlug ? "Flagship project" : "Case File"}
           {record.period.label && (
             <span className="ml-3 text-text-dim">{record.period.label}</span>
           )}
@@ -135,7 +136,7 @@ export default function CaseFileLayout({
 
       <section className="mt-12" aria-labelledby="narrative-heading">
         <h2 id="narrative-heading" className="label-mono text-text-dim">
-          Narrative
+          Project overview
         </h2>
         <p className="mt-4 max-w-3xl font-body text-base leading-relaxed text-text-dim">
           {record.summary}

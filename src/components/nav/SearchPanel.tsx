@@ -125,14 +125,18 @@ export default function SearchPanel({
     node?.scrollIntoView({ block: "nearest" });
   }, [safeIndex, results.length]);
 
-  // Drop a facet that no longer matches the typed query.
-  useEffect(() => {
-    if (category === "all" || !searching) return;
-    if (!availableCategories.includes(category)) {
+  function updateQuery(nextQuery: string) {
+    const nextTrimmed = nextQuery.trim();
+    setQuery(nextQuery);
+    if (
+      category !== "all" &&
+      nextTrimmed &&
+      !matchingCategories(nextTrimmed).includes(category)
+    ) {
       setCategory("all");
-      setActiveIndex(0);
     }
-  }, [availableCategories, category, searching]);
+    setActiveIndex(0);
+  }
 
   function activate(entry: SearchEntry) {
     activateSearchEntry(entry, (href) => router.push(href));
@@ -222,8 +226,7 @@ export default function SearchPanel({
                 : undefined
             }
             onChange={(event) => {
-              setQuery(event.target.value);
-              setActiveIndex(0);
+              updateQuery(event.target.value);
             }}
             onKeyDown={onKeyDown}
             className="min-w-0 flex-1 bg-transparent font-mono text-sm text-text outline-none placeholder:text-text-dim/50"
@@ -287,8 +290,7 @@ export default function SearchPanel({
                   key={suggestion}
                   type="button"
                   onClick={() => {
-                    setQuery(suggestion);
-                    setActiveIndex(0);
+                    updateQuery(suggestion);
                     inputRef.current?.focus();
                   }}
                   className="label-mono border border-grid-dim px-3 py-1.5 text-text-dim transition-all duration-200 hover:border-cyan/50 hover:text-cyan"

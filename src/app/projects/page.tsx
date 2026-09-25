@@ -15,7 +15,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Projects — Nikolaos Giakoumidis",
   description:
-    "Faceted index of projects and engagements — filter by domain, application, contribution, outcome, environment, platform, and method.",
+    "Robotics, sensing, and automation projects by Nikolaos Giakoumidis, with personal contributions, engineering decisions, and research outcomes.",
   path: "/projects",
 });
 
@@ -25,7 +25,7 @@ type PageProps = {
 
 export default async function WorkIndexPage({ searchParams }: PageProps) {
   const raw = await searchParams;
-  const { filters, unknown, canonicalQuery } = parseWorkSearchParams(raw);
+  const { filters, unknown } = parseWorkSearchParams(raw);
   const filtered = hasActiveWorkFilters(filters);
   const items = filtered ? filterWork(filters) : getCuratedWork();
   const options = getWorkFilterOptions();
@@ -42,14 +42,12 @@ export default async function WorkIndexPage({ searchParams }: PageProps) {
         </h1>
         <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
         <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-          Case files and engagements with explicit contribution, typed
-          relationships to laboratories, and evidence-backed outcomes. Without
-          filters, the index opens on a curated default — flagship projects
-          first, then the rest by year. Filters are shareable via the URL
-          {canonicalQuery ? ` (?${canonicalQuery})` : ""}.
+          Robotic systems, sensing platforms, and custom automation developed
+          through research and industry collaboration. Each project explains
+          the challenge, my contribution, and what the work demonstrated.
         </p>
 
-        <div className="mt-10 border border-grid-dim bg-bg-raised/20 p-5 sm:p-6">
+        <div className="mt-10 border border-grid-dim bg-bg-raised/20 px-5 py-4 sm:px-6">
           <WorkFilters
             options={options}
             filters={filters}

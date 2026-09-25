@@ -42,7 +42,7 @@ export default function CredibilityLayer() {
       <div className="section-shell space-y-16 lg:space-y-20">
         <div>
           <SectionHeading
-            index="04"
+            index="03"
             title="Laboratories & Evidence"
             headingId="credibility-heading"
             kicker="Infrastructure · research · archive"
@@ -72,7 +72,7 @@ export default function CredibilityLayer() {
                         {lab.summary.split(/(?<=[.!?])\s/)[0]}
                       </p>
                       <p className="mt-3 font-body text-sm text-text">
-                        <span className="label-mono text-cyan">Contribution · </span>
+                        <span className="label-mono text-cyan">My contribution · </span>
                         {lab.contributionSummary.split(/(?<=[.!?])\s/)[0]}
                       </p>
                       <p className="mt-auto pt-4">
@@ -80,7 +80,7 @@ export default function CredibilityLayer() {
                           href={`/laboratories/${lab.slug}`}
                           className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                         >
-                          Laboratory page →
+                          Explore laboratory →
                         </Link>
                       </p>
                     </div>
@@ -146,7 +146,7 @@ export default function CredibilityLayer() {
                 href="/research"
                 className="label-mono text-text-dim transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
               >
-                Full research hub →
+                Publications & research →
               </Link>
             </div>
           </div>

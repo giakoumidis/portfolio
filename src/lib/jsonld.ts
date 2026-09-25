@@ -1,7 +1,7 @@
-import { profile } from "@/content/profile";
+import { profile, professionalCapabilities } from "@/content/profile";
 import type { ProjectRecord } from "@/lib/types";
 import type { Publication } from "@/lib/types";
-import { siteDescription, siteUrl } from "@/lib/site";
+import { siteUrl } from "@/lib/site";
 
 export function personJsonLd() {
   return {
@@ -9,7 +9,7 @@ export function personJsonLd() {
     "@type": "Person",
     name: profile.name,
     jobTitle: profile.currentRole.title,
-    description: siteDescription,
+    description: profile.summary,
     email: [`mailto:${profile.nyuEmail}`, `mailto:${profile.email}`],
     url: siteUrl,
     address: {
@@ -22,7 +22,6 @@ export function personJsonLd() {
       name: "New York University Abu Dhabi",
     },
     alumniOf: [
-      { "@type": "CollegeOrUniversity", name: "University of the Aegean" },
       { "@type": "CollegeOrUniversity", name: "University of West Attica" },
     ],
     knowsAbout: [
@@ -32,6 +31,13 @@ export function personJsonLd() {
       "Multi-Agent Systems",
       "Computer Vision",
       "Lab Automation",
+      "Custom Electronics and Embedded Systems",
+      "Scientific Instrumentation",
+      "Photonics and RF Characterization Infrastructure",
+      "Simulation and Experimental Validation",
+      "ROS 2",
+      "Model Context Protocol (MCP)",
+      ...professionalCapabilities.map((capability) => capability.title),
     ],
     sameAs: Object.values(profile.links),
   };
@@ -64,7 +70,7 @@ export function creativeWorkJsonLd(record: ProjectRecord) {
     name: record.title,
     description: record.contributionSummary,
     url: `${siteUrl}/projects/${record.slug}`,
-    author: {
+    contributor: {
       "@type": "Person",
       name: profile.name,
       url: siteUrl,

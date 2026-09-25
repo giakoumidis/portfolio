@@ -14,7 +14,7 @@ export const careerEras: CareerEra[] = [
     label: "Early robotics research & autonomous systems",
     years: "2009–2012",
     summary:
-      "Research internships, teaching robotics, and defense R&D on small UAS — culminating in NYUAD's first robotics laboratory and BSc thesis work on GPS-guided autonomous flight.",
+      "Developed a foundation in autonomous flight, robot teleoperation, and aerial–ground cooperation through research internships, small-UAS R&D, and a BSc thesis on GPS navigation. Taught robotics and helped establish NYUAD's first robotics laboratory.",
     relatedExperienceIds: [
       "uaeu-research-intern",
       "experimental-primary-school-athens-teacher",
@@ -33,7 +33,7 @@ export const careerEras: CareerEra[] = [
     label: "Electronics, instrumentation & laboratory creation",
     years: "2012–2017",
     summary:
-      "Established NYUAD's Electronics and Advanced Manufacturing workshops, co-built shared research platforms, and delivered scientific instrumentation across photonics, HTS, and robotics.",
+      "Established NYUAD's Electronics Workshop and co-established its Advanced Manufacturing Workshop. Built custom electronics, automated research instruments, and robotic systems, translating experimental requirements into working hardware and software.",
     relatedExperienceIds: [
       "nyuad-irml-research-assistant",
       "nyuad-electronics-engineer",
@@ -48,10 +48,10 @@ export const careerEras: CareerEra[] = [
   },
   {
     id: "research-infrastructure",
-    label: "Research infrastructure & multidisciplinary enablement",
+    label: "Research infrastructure & systems leadership",
     years: "2017–2025",
     summary:
-      "Expanded and operated key NYUAD laboratories — Kinesis, photonics, HTS — supporting 100+ researchers while co-developing aerial robotics, construction automation, and perception systems.",
+      "Led the creation of Kinesis and the expansion and operation of shared research platforms across robotics, photonics, and laboratory automation. Supported 100+ research and technical users while contributing to aerial robotics, construction automation, and perception research.",
     relatedExperienceIds: ["nyuad-ctp-research-instrumentation-specialist"],
     relatedWorkSlugs: [
       "rta-dubai-delivery-drone",
@@ -71,7 +71,7 @@ export const careerEras: CareerEra[] = [
     label: "AI & robotics commercialization",
     years: "2025–present",
     summary:
-      "Commercial Lead at CAIR — translating embodied AI and autonomous systems research into industry collaborations, proposals, and field deployments across transport, logistics, and infrastructure.",
+      "Lead CAIR's commercialization and industry engagement, connecting AI and robotics research with industrial needs across transport, logistics, and infrastructure. Develop technical proposals, partnerships, and pilot opportunities while continuing hands-on research in robot-agent frameworks and cooperative autonomy.",
     relatedExperienceIds: ["nyuad-cair-commercial-lead"],
     relatedWorkSlugs: [
       "etihad-rail-nyuad-collaboration",

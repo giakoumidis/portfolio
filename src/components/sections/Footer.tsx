@@ -4,7 +4,6 @@ import { profile, socialLinks } from "@/content/profile";
 import { AUDIO_TRACK, audioLicenseCredit } from "@/lib/audio";
 
 const NAVIGATE = [
-  { href: "/map", label: "Map" },
   { href: "/projects", label: "Projects" },
   { href: "/laboratories", label: "Laboratories" },
   { href: "/research", label: "Research" },

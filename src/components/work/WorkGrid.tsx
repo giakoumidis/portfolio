@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import RecordCardHero from "@/components/ui/RecordCardHero";
 import TaxonomyChip from "@/components/work/TaxonomyChip";
+import { featuredProjectSlug } from "@/content/homepage";
 import { taxonomyLabel } from "@/content/taxonomy";
 import type { ProjectRecord } from "@/lib/types";
 
@@ -50,13 +51,25 @@ export default function WorkGrid({ items }: WorkGridProps) {
           })) ?? []),
         ].slice(0, 3);
 
+        const featured = item.slug === featuredProjectSlug;
+
         return (
-          <li key={item.slug}>
-            <article className="flex h-full flex-col overflow-hidden border border-grid-dim bg-bg-raised/30 transition-colors hover:border-cyan/40">
+          <li key={item.slug} className={featured ? "sm:col-span-2" : undefined}>
+            <article
+              className={`flex h-full flex-col overflow-hidden bg-bg-raised/30 transition-colors ${
+                featured
+                  ? "border border-cyan/70 shadow-[0_0_32px_rgb(0_240_255_/_0.12)] hover:border-cyan"
+                  : "border border-grid-dim hover:border-cyan/40"
+              }`}
+            >
               <RecordCardHero video={item.video} images={item.images} />
               <div className="flex flex-1 flex-col p-5">
                 <p className="label-mono text-text-dim">
-                  Case File
+                  {featured ? (
+                    <span className="text-cyan">Flagship</span>
+                  ) : (
+                    "Case File"
+                  )}
                   {item.period.label && (
                     <span className="ml-3">{item.period.label}</span>
                   )}

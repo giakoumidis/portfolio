@@ -10,11 +10,11 @@ export const infrastructureRecords: InfrastructureRecord[] = [
     challenge:
       "NYU Abu Dhabi lacked a shared, reconfigurable robotics arena where drones, arms, motion capture, and immersive systems could be tested under one roof.",
     summary:
-      "Led the end-to-end creation of Kinesis, NYU Abu Dhabi's shared robotics and motion research platform — from user requirements and multidisciplinary design through procurement, construction supervision, hands-on systems integration, commissioning, and operation. A 17 × 6.4 × 8 m reconfigurable arena of adaptable trusses and safety nets, paired with a researcher workspace, built to serve drones, industrial robots, motion capture, AI, and immersive-systems research across the university.",
+      "Kinesis is NYU Abu Dhabi’s shared platform for robotics and motion research. I led its creation from faculty requirements and facility design through procurement, construction supervision, systems integration, commissioning, and operation. Its reconfigurable arena and researcher workspace bring drones, industrial arms, motion capture, and immersive systems into one experimental facility.",
     contributionSummary:
-      "Conceived, designed, procured, commissioned, and operated Kinesis as a shared university research platform — owning requirements, facility design, systems integration, and ongoing institutional demonstrations.",
+      "Led Kinesis from concept to operation, taking responsibility for facility design, procurement, construction supervision, systems integration, and commissioning.",
     outcomeSummary:
-      "Delivered and operated Kinesis — a 17 × 6.4 × 8 m netted arena and researcher workspace reported 100% operational by May 2019.",
+      "Delivered a 17 × 6.4 × 8 m netted arena and researcher workspace, reported fully operational by May 2019, and operated it for research and institutional demonstrations.",
     highlights: [
       "Owned the full delivery chain: gathered faculty and user requirements, produced truss, electrical, network, furniture, and safety designs, directed procurement, supervised installations, and personally integrated networking, automated lighting, sound, and compute — reported 100% operational by May 2019.",
       "Arena engineered for reconfigurable motion experiments: Vicon motion-capture tracking, color- and intensity-controllable lighting, removable protective flooring, 2 kW sound and projection, and high-speed wired and wireless networking.",
@@ -80,11 +80,11 @@ export const infrastructureRecords: InfrastructureRecord[] = [
     challenge:
       "High-speed optical and RF research required an integrated characterization facility from faculty concept through sustained shared operation.",
     summary:
-      "Helped establish NYU Abu Dhabi's Photonics Core Technology Platform from faculty concept to sustained shared operation — translating high-speed optical and RF research requirements into an integrated characterization facility spanning tunable lasers, BER testing, arbitrary waveform generation, coherent and vector signal analysis, lightwave component analysis to 67 GHz, microscopy, and polarization and spectral measurement, then stewarding its procurement, commissioning, expansion, and lifecycle.",
+      "An integrated optical and RF characterization facility supporting photonics research at NYU Abu Dhabi. Working with Prof. Mahmoud Rasras, I translated research requirements into equipment plans and coordinated procurement, commissioning, and expansion. The facility combines high-speed signal generation and analysis, optical testing, microscopy, and spectral and polarization measurement, with lightwave component analysis to 67 GHz.",
     contributionSummary:
-      "Co-developed the equipment architecture, commissioned the characterization facility, and stewarded seven years of operation, expansion, and research enablement — acknowledged across multiple photonics publications.",
+      "Co-developed the equipment architecture, commissioned the facility, and managed seven years of operation and expansion supporting photonics experiments.",
     outcomeSummary:
-      "Commissioned and stewarded seven years of photonics CTP operation, explicitly acknowledged across six peer-reviewed papers (2021–2024).",
+      "Sustained a shared characterization facility over seven years, with my technical contributions explicitly acknowledged in six photonics papers from 2021 to 2024.",
     highlights: [
       "Developed the equipment architecture with Prof. Mahmoud Rasras: model-level capital plans and staged priority scenarios for a photonics/RF option set evaluated at ~AED 12.77M, backed by vendor benchmarking visits to research laboratories in France and Germany.",
       "Coordinated installation and commissioning end to end — optical tables and Leica M205A microscopy, UPS-backed power, networked TCP/IP instrument control, Keysight BERT/AWG vendor training, Lightwave Component Analyzer calibration, and VSA software integration.",
@@ -159,15 +159,15 @@ export const infrastructureRecords: InfrastructureRecord[] = [
     slug: "nyuad-hts-platform",
     title: "High-Throughput Screening Platform",
     org: "NYU Abu Dhabi · CGSB × Core Technology Platforms",
-    period: { startYear: 2013, endYear: 2025, label: "2013–2025" },
+    period: { startYear: 2013, endYear: 2022, label: "2013–2022" },
     challenge:
-      "Large-scale chemical and functional genomics screening needed dependable robotic automation beyond a static instrument stack.",
+      "Integrate laboratory robots and scientific instruments into dependable workflows for large-scale biological screening.",
     summary:
-      "Automated high-throughput screening platform developed through a partnership between the Center for Genomics and Systems Biology’s Chemical and Functional Genomics Lab and NYU Abu Dhabi Core Technology Platforms — integrating robotic liquid handling, incubation, imaging, plate handling, and data acquisition so researchers can run large-scale assays across chemical genomics, functional genomics, bioactive discovery, toxicity, cell biology, and whole-organism screening.",
+      "A shared automation platform for chemical and functional genomics screening, developed through the Chemical and Functional Genomics Lab and NYUAD Core Technology Platforms. I was responsible for the automation and systems-engineering work: coordinating robotic plate handling, liquid handling, incubation, imaging, and data acquisition so scientific protocols could run as integrated workflows.",
     contributionSummary:
-      "Owned the automation and systems-engineering layer for the HTS platform within Core Technology Platforms — Thermo Fisher Momentum workflow programming, FANUC robot configuration, instrument synchronization, fault recovery, vendor coordination, and long-term lifecycle stewardship so scientific workflows stayed reliable in shared use.",
+      "Engineered and maintained the platform’s automation: Thermo Fisher Momentum workflows, FANUC configuration, instrument synchronization, fault recovery, and vendor coordination.",
     outcomeSummary:
-      "Kept the joint CGSB × CTP high-throughput screening platform available through Momentum workflows, FANUC integration, and long-term lifecycle stewardship.",
+      "Supported biological screening through 2022 with integrated robotic workflows, instrument maintenance, and operational support for the joint CGSB–CTP platform.",
     highlights: [
       "Built as a joint research system: the Chemical and Functional Genomics Lab defined biological screening objectives and assay workflows, while CTP delivered the robotics, automation, instrumentation, and lifecycle-engineering layer that made those workflows dependable shared infrastructure.",
       "Scientific applications spanned mammalian cells and whole organisms (microbes, worms, zebrafish) — small-molecule and drug-library screening, RNAi and CRISPR functional genomics, high-content cellular imaging, phenotypic profiling, anthelmintic and antimicrobial discovery, toxicity analysis, and natural-product screening.",

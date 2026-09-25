@@ -9,7 +9,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Laboratories — Nikolaos Giakoumidis",
   description:
-    "Laboratories and research facilities established, commissioned, or operated — with connected work generated from typed relationships.",
+    "Building and operating research capabilities across robotics, photonics, and laboratory automation at NYU Abu Dhabi.",
   path: "/laboratories",
 });
 
@@ -27,8 +27,12 @@ export default function LaboratoriesIndexPage() {
         </h1>
         <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
         <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-          Laboratories and platforms as first-class hubs. Connected projects are
-          generated from typed relationships — not folder trees.
+          Building and operating research facilities requires technical leadership
+          across scientific requirements, facility design, equipment strategy,
+          procurement, systems integration, and commissioning. These laboratories
+          document my responsibilities across that process at NYU Abu Dhabi,
+          including the creation of Kinesis and the development of photonics
+          and high-throughput screening infrastructure.
         </p>
 
         <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -68,7 +72,7 @@ export default function LaboratoriesIndexPage() {
                       href={`/laboratories/${item.slug}`}
                       className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                     >
-                      Open hub →
+                      Explore laboratory →
                     </Link>
                   </p>
                 </div>

@@ -4,7 +4,7 @@ import Reveal from "@/components/ui/Reveal";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import SectionHeading from "@/components/ui/SectionHeading";
 import TaxonomyChip from "@/components/work/TaxonomyChip";
-import { flagshipProjectSlugs } from "@/content/homepage";
+import { featuredProjectSlug, flagshipProjectSlugs } from "@/content/homepage";
 import { taxonomyLabel } from "@/content/taxonomy";
 import { getProject } from "@/lib/query";
 
@@ -27,10 +27,10 @@ export default function SelectedWork() {
     >
       <div className="section-shell">
         <SectionHeading
-          index="03"
+          index="02"
           title="Selected Projects"
           headingId="selected-projects-heading"
-          kicker="Flagship case files"
+          kicker="Systems built · research applied"
         />
 
         <ul className="mt-4 grid gap-6 lg:grid-cols-2">
@@ -60,9 +60,22 @@ export default function SelectedWork() {
               })),
             ].slice(0, 4);
 
+            const featured = project.slug === featuredProjectSlug;
+
             return (
-              <Reveal as="li" key={project.slug} delay={(index % 2) * 0.06}>
-                <article className="flex h-full flex-col border border-grid-dim bg-bg-raised/20">
+              <Reveal
+                as="li"
+                key={project.slug}
+                delay={(index % 2) * 0.06}
+                className={featured ? "lg:col-span-2" : undefined}
+              >
+                <article
+                  className={`flex h-full flex-col bg-bg-raised/20 ${
+                    featured
+                      ? "border border-cyan/70 shadow-[0_0_32px_rgb(0_240_255_/_0.12)]"
+                      : "border border-grid-dim"
+                  }`}
+                >
                   {image && (
                     <RoboPhoto
                       src={image.src}
@@ -75,6 +88,9 @@ export default function SelectedWork() {
                   )}
                   <div className="flex flex-1 flex-col p-5 sm:p-6">
                     <p className="label-mono text-text-dim">
+                      {featured && (
+                        <span className="mr-3 text-cyan">Flagship</span>
+                      )}
                       {taxonomyLabel(project.facets.domains[0])}
                       {project.period.label && (
                         <span className="ml-3">{project.period.label}</span>
@@ -115,7 +131,7 @@ export default function SelectedWork() {
                         href={`/projects/${project.slug}`}
                         className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                       >
-                        Open case file →
+                        Explore project →
                       </Link>
                     </p>
                   </div>

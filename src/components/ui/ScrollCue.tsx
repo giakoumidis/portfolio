@@ -1,15 +1,20 @@
 "use client";
 
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const BOTTOM_THRESHOLD_PX = 48;
+const PROFILE_HREF = "/#profile-proof";
 
 /**
  * Fixed scroll affordance — always on-screen like the volume control.
- * Flips to an end-of-page cue (and scrolls back to top on click) at the bottom.
+ * On the way down it invites a visit to the profile; at the bottom it returns to the top.
  */
 export default function ScrollCue() {
+  const pathname = usePathname() ?? "/";
+  const router = useRouter();
   const [atBottom, setAtBottom] = useState(false);
+  const onHome = pathname === "/";
 
   useEffect(() => {
     const update = () => {
@@ -31,18 +36,22 @@ export default function ScrollCue() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const knowMore = () => {
+    if (onHome) {
+      document.getElementById("profile-proof")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    router.push(PROFILE_HREF);
+  };
+
   return (
     <button
       type="button"
-      onClick={atBottom ? goTop : undefined}
-      tabIndex={atBottom ? 0 : -1}
-      aria-hidden={!atBottom}
-      aria-label={atBottom ? "Back to top" : undefined}
-      className={`scroll-cue label-mono pointer-events-none fixed bottom-4 left-1/2 z-40 -translate-x-1/2 text-center text-text-dim lg:bottom-6 ${
-        atBottom ? "pointer-events-auto cursor-pointer hover:text-cyan" : ""
-      }`}
+      onClick={atBottom ? goTop : knowMore}
+      aria-label={atBottom ? "Back to top" : "Know more about Nikolaos"}
+      className="scroll-cue label-mono pointer-events-auto fixed bottom-4 left-1/2 z-40 max-w-[calc(100%-8rem)] -translate-x-1/2 cursor-pointer text-center text-text-dim hover:text-cyan lg:bottom-6"
     >
-      <p>{atBottom ? "End" : "Scroll"}</p>
+      <p>{atBottom ? "End" : "Know more about Nikolaos"}</p>
       <svg
         viewBox="0 0 16 16"
         className={`mx-auto mt-2 h-4 w-4 transition-transform duration-300 ${
