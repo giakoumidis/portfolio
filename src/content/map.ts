@@ -64,7 +64,7 @@ export const mapPaths: MapPath[] = [
     summary:
       "Engineering depth, responsibility for research facilities, and experience connecting technical teams with industry.",
     recommendations: [
-      { label: "Experience & leadership", href: "/profile" },
+      { label: "Experience & leadership", href: "/resume" },
       { label: "Laboratories", href: "/laboratories" },
       {
         label: "RTA delivery drone",

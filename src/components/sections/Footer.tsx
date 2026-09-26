@@ -8,7 +8,7 @@ const NAVIGATE = [
   { href: "/laboratories", label: "Laboratories" },
   { href: "/research", label: "Research" },
   { href: "/archive", label: "Archive" },
-  { href: "/profile", label: "Profile" },
+  { href: "/resume", label: "Resume" },
   { href: "/cv.pdf", label: "CV", download: true },
 ];
 
@@ -28,7 +28,7 @@ export default function Footer() {
                   download={item.download || undefined}
                   className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                 >
-                  {item.label}
+                  {item.download ? item.label : `${item.label}/`}
                 </Link>
               </li>
             ))}

@@ -14,7 +14,7 @@ export type SectionMeta = {
 /** Homepage blocks — left rail, IntersectionObserver, and search section entries. */
 export const sections: SectionMeta[] = [
   { id: "hero", label: "Home", index: "00", href: "/" },
-  { id: "profile-proof", label: "Profile", index: "01", href: "/profile" },
+  { id: "profile-proof", label: "Biography", index: "01" },
   { id: "selected-projects", label: "Projects", index: "02", href: "/projects" },
   {
     id: "credibility",

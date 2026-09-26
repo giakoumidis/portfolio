@@ -70,7 +70,10 @@ export default function CaseFileLayout({
 
       <header className="mt-8">
         <p className="label-mono text-cyan">
-          {record.slug === featuredProjectSlug ? "Flagship project" : "Case File"}
+          Projects/
+          {record.slug === featuredProjectSlug && (
+            <span className="ml-3 text-text-dim">Flagship</span>
+          )}
           {record.period.label && (
             <span className="ml-3 text-text-dim">{record.period.label}</span>
           )}

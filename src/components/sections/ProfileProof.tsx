@@ -15,7 +15,7 @@ export default function ProfileProof() {
       <div className="section-shell">
         <SectionHeading
           index="01"
-          title="Profile"
+          title="Biography"
           headingId="profile-proof-heading"
           kicker="Engineering depth · technical leadership"
         />
@@ -40,7 +40,7 @@ export default function ProfileProof() {
 
           <Reveal delay={0.12} className="mt-8">
             <Link
-              href="/profile"
+              href="/resume"
               className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
             >
               Experience & background →

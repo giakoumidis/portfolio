@@ -123,7 +123,7 @@ function EducationEntry({ item }: { item: Education }) {
       <Node accent="violet" lit={lit} />
 
       <div className="lg:pr-8 lg:text-right">
-        <p className="label-mono text-violet">{item.period}</p>
+        <p className="label-mono whitespace-pre-line text-violet">{item.period}</p>
       </div>
 
       <div className="mt-3 lg:mt-0 lg:pl-8">
@@ -144,10 +144,12 @@ function EducationEntry({ item }: { item: Education }) {
 function GroupHeader({
   title,
   meta,
+  note,
   accent = "cyan",
 }: {
   title: string;
   meta?: string;
+  note?: string;
   accent?: "cyan" | "violet";
 }) {
   return (
@@ -156,6 +158,7 @@ function GroupHeader({
       <div className="hidden lg:block" />
       <div className="lg:pl-8">
         <h3 className="text-lg text-text md:text-xl">{title}</h3>
+        {note && <p className="label-mono mt-1 text-text-dim">{note}</p>}
         {meta && <p className="label-mono mt-1 text-text-dim">{meta}</p>}
       </div>
     </div>
@@ -194,6 +197,7 @@ export function CareerTimeline() {
           <div key={group.org}>
             <GroupHeader
               title={group.org}
+              note={group.roles.find((role) => role.note)?.note}
               meta={
                 group.roles.length > 1
                   ? `${group.period} · ${group.roles.length} roles`
@@ -222,7 +226,7 @@ export function CareerTimeline() {
 }
 
 type TimelineProps = {
-  /** Omit homepage section chrome when embedding on /profile. */
+  /** Omit homepage section chrome when embedding on /resume. */
   embedded?: boolean;
 };
 

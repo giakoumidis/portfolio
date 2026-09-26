@@ -131,12 +131,12 @@ function buildIndex(): SearchEntry[] {
       ),
     },
     {
-      id: "section:profile-hub",
-      title: "Profile",
+      id: "section:resume",
+      title: "Resume",
       blurb: "Career narrative and CV",
       category: "section",
-      href: "/profile",
-      haystack: joinHaystack("profile", "career", "cv", "experience"),
+      href: "/resume",
+      haystack: joinHaystack("resume", "profile", "career", "cv", "experience"),
     },
     {
       id: "section:projects-index",
@@ -232,11 +232,12 @@ function buildIndex(): SearchEntry[] {
       title: role.title,
       blurb: [role.org, role.unit, role.period].filter(Boolean).join(" · "),
       category: "role",
-      href: "/profile",
+      href: "/resume",
       haystack: joinHaystack(
         role.title,
         role.org,
         role.unit,
+        role.note,
         role.location,
         role.period,
         ...role.highlights,
@@ -248,9 +249,9 @@ function buildIndex(): SearchEntry[] {
     entries.push({
       id: `education:${item.id}`,
       title: item.degree,
-      blurb: [item.institution, item.period].filter(Boolean).join(" · "),
+      blurb: [item.institution, item.period.replace(/\s+/g, " ")].filter(Boolean).join(" · "),
       category: "education",
-      href: "/profile",
+      href: "/resume",
       haystack: joinHaystack(
         item.degree,
         item.institution,
@@ -313,7 +314,7 @@ function buildIndex(): SearchEntry[] {
         .filter(Boolean)
         .join(" · "),
       category: "award",
-      href: `/profile#${award.id}`,
+      href: `/resume#${award.id}`,
       haystack: joinHaystack(
         award.placement,
         award.event,
@@ -332,7 +333,7 @@ function buildIndex(): SearchEntry[] {
         .filter(Boolean)
         .join(" · "),
       category: "certification",
-      href: "/profile",
+      href: "/resume",
       haystack: joinHaystack(
         certification.name,
         certification.issuer,
@@ -350,7 +351,7 @@ function buildIndex(): SearchEntry[] {
         .filter(Boolean)
         .join(" · "),
       category: "exhibition",
-      href: "/profile",
+      href: "/resume",
       haystack: joinHaystack(
         exhibition.name,
         exhibition.role,
@@ -422,7 +423,7 @@ function buildIndex(): SearchEntry[] {
       .filter(Boolean)
       .join(" · "),
     category: "contact",
-    href: "/profile",
+    href: "/resume",
     haystack: joinHaystack(
       profile.name,
       profile.tagline,

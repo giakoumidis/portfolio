@@ -19,9 +19,7 @@ export default function LaboratoriesIndexPage() {
   return (
     <RouteChrome active="laboratories">
       <div className="section-shell py-16 lg:py-24">
-        <p className="label-mono text-cyan">
-          02 <span className="text-text-dim">{"//"} Laboratories</span>
-        </p>
+        <p className="label-mono text-cyan">Laboratories/</p>
         <h1 className="mt-3 text-[clamp(1.6rem,3.5vw,2.5rem)] text-text">
           Laboratories
         </h1>

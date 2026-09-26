@@ -49,6 +49,8 @@ export type Role = {
   title: string;
   org: string;
   unit?: string;
+  /** Shown under the employer heading, outside the role bullet list. */
+  note?: string;
   location?: string;
   period: string;
   current?: boolean;

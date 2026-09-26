@@ -77,7 +77,7 @@ export default function LaboratoryHubLayout({
 
       <header className="mt-8">
         <p className="label-mono text-cyan">
-          Laboratory
+          Laboratories/
           {record.period.label && (
             <span className="ml-3 text-text-dim">{record.period.label}</span>
           )}

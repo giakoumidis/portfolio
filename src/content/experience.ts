@@ -64,11 +64,11 @@ export const experience = [
     title: "R&D Engineer",
     org: "Hellenic Armed Forces",
     unit: "Dept. of Advanced Defense Systems",
+    note: "Mandatory national service in Greece",
     location: "Greece",
     period: "2011–2012",
     highlights: [
       "Conducted R&D on small unmanned aerial systems, including fixed-wing and multirotor platforms.",
-      "Completed during mandatory National Service in Greece.",
     ],
   },
   {
@@ -113,7 +113,7 @@ export const education = [
     degree: "PhD Candidate",
     institution: "University of the Aegean",
     location: "Greece",
-    period: "2023–Present",
+    period: "2023–\nExpected\ncompletion\nJanuary 2027",
     detail:
       "PhD research focused on autonomous cooperative robotic systems, embodied AI, and deep reinforcement learning.",
   },

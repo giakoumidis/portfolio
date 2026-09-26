@@ -44,6 +44,11 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+      {
+        source: "/profile",
+        destination: "/resume",
+        permanent: true,
+      },
     ];
   },
 };

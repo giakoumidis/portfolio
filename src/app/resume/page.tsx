@@ -11,18 +11,16 @@ import { profile, professionalCapabilities } from "@/content/profile";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Profile — Nikolaos Giakoumidis",
+  title: "Resume — Nikolaos Giakoumidis",
   description:
     "Nikolaos Giakoumidis: 15+ years in robotics engineering, research infrastructure, and industry collaboration. Experience, education, and recognition.",
-  path: "/profile",
+  path: "/resume",
 });
 
-export default function ProfilePage() {
+export default function ResumePage() {
   return (
     <main className="section-shell py-16 lg:py-24">
-      <p className="label-mono text-cyan">
-        Profile <span className="text-text-dim">{"//"} Engineering & leadership</span>
-      </p>
+      <p className="label-mono text-cyan">Resume/</p>
       <h1 className="mt-3 text-[clamp(1.6rem,3.5vw,2.5rem)] text-text">
         {profile.name}
       </h1>
@@ -36,10 +34,6 @@ export default function ProfilePage() {
         <p className="mt-4 max-w-3xl font-body text-sm leading-relaxed text-text-dim">
           {profile.summary}
         </p>
-        <p className="mt-4 label-mono text-magenta">
-          {profile.currentRole.title}
-          <span className="mt-1 block text-text-dim">{profile.currentRole.org}</span>
-        </p>
       </section>
 
       <section id="experience-education" className="mt-16 scroll-mt-24" aria-labelledby="experience-education-heading">
@@ -49,10 +43,6 @@ export default function ProfilePage() {
         >
           Experience & education
         </h2>
-        <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
-          Engineering, research, and leadership experience, supported by continued
-          study in cooperative autonomous systems.
-        </p>
         <div className="mt-10">
           <Timeline embedded />
         </div>
@@ -90,15 +80,27 @@ export default function ProfilePage() {
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-text-dim">
                   {capability.description}
                 </p>
-                <ul className="mt-5 space-y-2 border-t border-grid-dim pt-4">
-                  {capability.links.map((link) => (
-                    <li key={link.href}>
-                      <Link href={link.href} className="label-mono text-sm text-cyan hover:underline">
-                        {link.label} →
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                <div className="mt-5 border-t border-grid-dim pt-4">
+                  <p className="label-mono text-text-dim">Related work</p>
+                  <ul className="mt-3 flex flex-col gap-2">
+                    {capability.links.map((link) => (
+                      <li key={link.href}>
+                        <Link
+                          href={link.href}
+                          className="group/link flex items-center justify-between gap-3 border border-cyan/40 bg-cyan/5 px-3 py-2.5 font-body text-sm leading-snug text-text normal-case tracking-normal transition-colors hover:border-cyan hover:bg-cyan/15 hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                        >
+                          <span>{link.label}</span>
+                          <span
+                            aria-hidden="true"
+                            className="shrink-0 text-cyan transition-transform duration-200 group-hover/link:translate-x-0.5"
+                          >
+                            →
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </HudCard>
             </li>
           ))}
@@ -120,17 +122,37 @@ export default function ProfilePage() {
                       href={exhibition.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="transition-colors hover:text-cyan"
+                      className="group/link flex items-center justify-between gap-3 border border-cyan/40 bg-cyan/5 px-3 py-2.5 font-body text-sm font-normal leading-snug text-text normal-case tracking-normal transition-colors hover:border-cyan hover:bg-cyan/15 hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                     >
-                      {exhibition.name}
+                      <span>{exhibition.name}</span>
+                      <span
+                        aria-hidden="true"
+                        className="shrink-0 text-cyan transition-transform duration-200 group-hover/link:translate-x-0.5"
+                      >
+                        →
+                      </span>
                     </a>
                   ) : (
                     exhibition.name
                   )}
                 </h3>
-                <p className="mt-2 text-sm text-text-dim">{exhibition.role}</p>
                 {exhibition.location && (
-                  <p className="label-mono mt-4 text-text-dim">
+                  <p className="label-mono mt-4 flex items-center gap-2 text-text-dim">
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-3.5 w-3.5 shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.75"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"
+                      />
+                      <circle cx="12" cy="10" r="2.25" />
+                    </svg>
                     {exhibition.location}
                   </p>
                 )}

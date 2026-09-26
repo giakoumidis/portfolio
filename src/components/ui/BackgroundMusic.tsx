@@ -1173,7 +1173,7 @@ export default function BackgroundMusic({
         )}
       </div>
 
-      {/* Track credits preview — opens below the bar under NG//. */}
+      {/* Track credits preview — opens below the bar under Home/. */}
       <div
         className={
           previewOpen

@@ -165,9 +165,7 @@ export default async function ResearchPage({ searchParams }: PageProps) {
           __html: JSON.stringify(scholarlyArticleListJsonLd(sorted)),
         }}
       />
-      <p className="label-mono text-cyan">
-        Research <span className="text-text-dim">{"//"} Outputs & IP</span>
-      </p>
+      <p className="label-mono text-cyan">Research/</p>
       <h1 className="mt-3 text-[clamp(1.6rem,3.5vw,2.5rem)] text-text">
         Research
       </h1>

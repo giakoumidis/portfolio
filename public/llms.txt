@@ -52,7 +52,7 @@ His longer-term research direction is heterogeneous embodied collective intellig
 - Laboratories are first-class infrastructure hubs; projects connect only when a lab materially enabled the work
 - Research outputs (publications / IP) substantiate projects and labs
 - Archive is the documentary evidence layer (field records, exhibitions, media, documents) — not deprecated material
-- Profile holds experience and education, plus recognition (including first-prize awards)
+- Resume holds experience and education, plus recognition (including first-prize awards)
 
 ## Durable counts
 
@@ -74,10 +74,10 @@ His longer-term research direction is heterogeneous embodied collective intellig
 - /laboratories/[slug] — Laboratory detail
 - /research — Research focus, publications, and publication acknowledgements
 - /archive — Documentary evidence (photos, exhibitions, awards, media)
-- /profile — Professional summary, evidence-linked expertise, career history, education, and recognition
+- /resume — Professional summary, evidence-linked expertise, career history, education, and recognition
 - /cv.pdf — Downloadable CV
 
-Legacy redirects: /infrastructure → /laboratories; /photos → /archive; /work → /projects.
+Legacy redirects: /infrastructure → /laboratories; /photos → /archive; /work → /projects; /profile → /resume.
 
 ## Contact
 

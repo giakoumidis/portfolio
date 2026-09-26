@@ -714,6 +714,8 @@ export const workRecords: ProjectRecord[] = [
     title: "Drone Inspection of Abu Dhabi International Airport",
     org: "NYU Abu Dhabi · with Abu Dhabi Airports (ADAC)",
     period: { startYear: 2019, label: "2019" },
+    cardHook:
+      "An NYUAD industry collaboration with Abu Dhabi Airports on drone inspection of the terminal roof at Abu Dhabi International Airport, using aerial manipulation where human access is hazardous.",
     challenge:
       "Investigate contact inspection of an airport terminal roof whose geometry makes human access hazardous.",
     summary:
@@ -751,8 +753,8 @@ export const workRecords: ProjectRecord[] = [
     ],
     facets: {
       domains: [
-        "aerial-ground-underwater-robotics",
         "industry-engagement",
+        "aerial-ground-underwater-robotics",
       ],
       contributions: ["supported", "system-integration"],
       applications: ["industrial-inspection"],
@@ -781,7 +783,7 @@ export const workRecords: ProjectRecord[] = [
         caption: "EXHIBITION — INSPECTION DRONE",
       },
     ],
-    status: "needs-review",
+    status: "published",
   },
   {
     type: "project",

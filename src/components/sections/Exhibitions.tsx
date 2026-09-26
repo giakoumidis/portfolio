@@ -50,21 +50,38 @@ export default function Exhibitions() {
                           href={exhibition.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="transition-colors hover:text-cyan"
+                          className="group/link flex items-center justify-between gap-3 border border-cyan/40 bg-cyan/5 px-3 py-2.5 font-body text-sm font-normal leading-snug text-text normal-case tracking-normal transition-colors hover:border-cyan hover:bg-cyan/15 hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                         >
-                          {exhibition.name}
+                          <span>{exhibition.name}</span>
+                          <span
+                            aria-hidden="true"
+                            className="shrink-0 text-cyan transition-transform duration-200 group-hover/link:translate-x-0.5"
+                          >
+                            →
+                          </span>
                         </a>
                       ) : (
                         exhibition.name
                       )}
                     </h3>
 
-                    <p className="mt-3 text-sm text-text-dim">
-                      {exhibition.role}
-                    </p>
-
                     {exhibition.location && (
-                      <p className="label-mono mt-auto pt-6 text-text-dim">
+                      <p className="label-mono mt-auto flex items-center gap-2 pt-6 text-text-dim">
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-3.5 w-3.5 shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.75"
+                          aria-hidden="true"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"
+                          />
+                          <circle cx="12" cy="10" r="2.25" />
+                        </svg>
                         {exhibition.location}
                       </p>
                     )}

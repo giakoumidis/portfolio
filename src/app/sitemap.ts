@@ -38,7 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/profile`,
+      url: `${siteUrl}/resume`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.85,

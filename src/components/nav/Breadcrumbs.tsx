@@ -14,22 +14,22 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
 
   return (
     <nav aria-label="Breadcrumb" className="label-mono text-text-dim">
-      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
+      <ol className="flex flex-wrap items-center gap-x-3 gap-y-1">
         {items.map((item, index) => {
           const last = index === items.length - 1;
           return (
             <li key={`${item.label}-${index}`} className="flex items-center gap-2">
-              {index > 0 && <span aria-hidden>/</span>}
               {item.href && !last ? (
                 <Link
                   href={item.href}
                   className="hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                 >
-                  {item.label}
+                  {item.label}/
                 </Link>
               ) : (
                 <span className={last ? "text-text" : undefined} aria-current={last ? "page" : undefined}>
                   {item.label}
+                  {!last && "/"}
                 </span>
               )}
             </li>

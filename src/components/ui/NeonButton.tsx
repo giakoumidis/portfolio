@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 type Variant = "cyan" | "magenta" | "orange" | "pink";
@@ -60,6 +61,16 @@ export default function NeonButton({
   const classes = `label-mono inline-flex items-center justify-center gap-2 border px-5 py-3 transition-all duration-200 ${APPEARANCE[appearance][variant]} ${className}`;
 
   if (href) {
+    const inApp = !download && !external && (href.startsWith("/") || href.startsWith("#"));
+
+    if (inApp) {
+      return (
+        <Link href={href} className={classes}>
+          {children}
+        </Link>
+      );
+    }
+
     return (
       <a
         href={href}

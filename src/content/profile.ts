@@ -81,7 +81,7 @@ export const professionalCapabilities = [
       "Translate scientific requirements into facility designs, equipment strategies, procurement decisions, and commissioned research platforms. Led Kinesis from concept to operation and stewarded US$9M+ in assets across shared facilities serving 100+ faculty, researchers, students, and technical staff. Responsibilities include vendor coordination, safety, maintenance strategy, technical training, and student supervision.",
     links: [
       { label: "Kinesis facility delivery", href: "/laboratories/kinesis-ctp-laboratory" },
-      { label: "Experience & education", href: "/profile#experience-education" },
+      { label: "Experience & education", href: "/resume#experience-education" },
     ],
   },
   {
@@ -91,6 +91,7 @@ export const professionalCapabilities = [
     links: [
       { label: "Etihad Rail collaboration", href: "/projects/etihad-rail-nyuad-collaboration" },
       { label: "Rail sensing pilot", href: "/projects/etihad-rail-desert-environment-monitoring" },
+      { label: "Airport inspection drone", href: "/projects/nyuad-adac-airport-inspection-drone" },
     ],
   },
 ] as const;

@@ -38,14 +38,14 @@ export default function ScrollCue() {
       tabIndex={atBottom ? 0 : -1}
       aria-hidden={!atBottom}
       aria-label={atBottom ? "Back to top" : undefined}
-      className={`label-mono pointer-events-none fixed bottom-4 left-1/2 z-40 -translate-x-1/2 text-center text-text-dim lg:bottom-6 ${
+      className={`label-mono pointer-events-none fixed bottom-4 left-1/2 z-40 -translate-x-1/2 border border-grid-dim bg-bg/50 px-4 py-2 text-center text-text-dim lg:bottom-6 ${
         atBottom ? "pointer-events-auto cursor-pointer hover:text-cyan" : ""
       }`}
     >
-      <p>{atBottom ? "End" : "Scroll"}</p>
+      <p className="opacity-80">{atBottom ? "End" : "Scroll"}</p>
       <svg
         viewBox="0 0 16 16"
-        className={`mx-auto mt-2 h-4 w-4 transition-transform duration-300 ${
+        className={`mx-auto mt-2 h-4 w-4 opacity-50 transition-transform duration-300 ${
           atBottom ? "rotate-180" : ""
         }`}
         fill="none"

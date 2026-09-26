@@ -8,7 +8,14 @@ import { profile } from "@/content/profile";
 /** Lead project — full-width treatment on the homepage and projects index. */
 export const featuredProjectSlug = "agentic-robotics-framework";
 
-/** Flagship project slugs in narrative order (homepage Selected Projects). */
+/** Homepage Selected Projects, in display order. */
+export const selectedProjectSlugs = [
+  featuredProjectSlug,
+  "etihad-rail-nyuad-collaboration",
+  "eye-gaze-wheelchair",
+] as const;
+
+/** Pinned first on the projects index, in narrative order. */
 export const flagshipProjectSlugs = [
   featuredProjectSlug,
   "etihad-rail-nyuad-collaboration",
@@ -17,6 +24,7 @@ export const flagshipProjectSlugs = [
   "eye-gaze-wheelchair",
   "rgb-t-uav-detection-tracking",
   "etihad-rail-desert-environment-monitoring",
+  "nyuad-adac-airport-inspection-drone",
 ] as const;
 
 /** Homepage profile paragraph. Same copy as the profile page summary. */

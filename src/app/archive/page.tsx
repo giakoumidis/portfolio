@@ -243,12 +243,7 @@ export default async function ArchivePage({ searchParams }: PageProps) {
 
   return (
     <main className="section-shell py-16 lg:py-24">
-      <p className="label-mono text-cyan">
-        Archive{" "}
-        <span className="text-text-dim">
-          {"//"} Field records, exhibitions, media, documents, and evidence
-        </span>
-      </p>
+      <p className="label-mono text-cyan">Archive/</p>
       <h1 className="mt-3 text-[clamp(1.6rem,3.5vw,2.5rem)] text-text">
         Archive
       </h1>

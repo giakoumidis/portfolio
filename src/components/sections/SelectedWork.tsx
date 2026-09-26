@@ -1,12 +1,14 @@
 import Link from "next/link";
 
+import HudCard from "@/components/ui/HudCard";
+import NeonButton from "@/components/ui/NeonButton";
 import Reveal from "@/components/ui/Reveal";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import SectionHeading from "@/components/ui/SectionHeading";
 import TaxonomyChip from "@/components/work/TaxonomyChip";
-import { featuredProjectSlug, flagshipProjectSlugs } from "@/content/homepage";
+import { featuredProjectSlug, selectedProjectSlugs } from "@/content/homepage";
 import { taxonomyLabel } from "@/content/taxonomy";
-import { getProject } from "@/lib/query";
+import { getAllWork, getProject } from "@/lib/query";
 
 function completeFirstSentence(text: string): string {
   const trimmed = text.trim();
@@ -15,9 +17,10 @@ function completeFirstSentence(text: string): string {
 }
 
 export default function SelectedWork() {
-  const projects = flagshipProjectSlugs
+  const projects = selectedProjectSlugs
     .map((slug) => getProject(slug))
     .filter((project): project is NonNullable<typeof project> => Boolean(project));
+  const projectCount = getAllWork().length;
 
   return (
     <section
@@ -141,14 +144,30 @@ export default function SelectedWork() {
           })}
         </ul>
 
-        <p className="mt-10">
-          <Link
-            href="/projects"
-            className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+        <Reveal className="mt-12">
+          <HudCard
+            accent="cyan"
+            className="flex flex-col items-stretch gap-6 border-cyan/45 bg-cyan/[0.05] px-6 py-7 shadow-[0_0_36px_rgb(0_240_255_/_0.1)] sm:flex-row sm:items-center sm:justify-between sm:px-8"
           >
-            View all projects →
-          </Link>
-        </p>
+            <div>
+              <p className="label-mono text-cyan">Full project index</p>
+              <p className="mt-2 font-display text-xl uppercase text-text">
+                {projectCount} systems on record
+              </p>
+              <p className="mt-2 max-w-lg font-body text-sm leading-relaxed text-text-dim">
+                Field robots, sensing payloads, and research instruments beyond
+                these three.
+              </p>
+            </div>
+            <NeonButton
+              href="/projects"
+              appearance="solid"
+              className="w-full shrink-0 px-7 py-4 sm:w-auto"
+            >
+              Explore all projects →
+            </NeonButton>
+          </HudCard>
+        </Reveal>
       </div>
     </section>
   );

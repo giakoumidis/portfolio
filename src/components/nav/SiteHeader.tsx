@@ -38,9 +38,9 @@ const PRIMARY: NavItem[] = [
     match: (p) => p === "/archive" || p.startsWith("/archive/"),
   },
   {
-    href: "/profile",
-    label: "Profile",
-    match: (p) => p === "/profile" || p.startsWith("/profile/"),
+    href: "/resume",
+    label: "Resume",
+    match: (p) => p === "/resume" || p.startsWith("/resume/"),
   },
 ];
 
@@ -78,7 +78,7 @@ export default function SiteHeader() {
           className="label-mono shrink-0 text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
           aria-label="Home — Nikolaos Giakoumidis"
         >
-          NG//
+          Home/
         </Link>
 
         <nav
@@ -94,8 +94,8 @@ export default function SiteHeader() {
                 className={linkClass(active)}
                 aria-current={active ? "page" : undefined}
               >
-                <span className="lg:hidden">{item.shortLabel ?? item.label}</span>
-                <span className="hidden lg:inline">{item.label}</span>
+                <span className="lg:hidden">{item.shortLabel ?? item.label}/</span>
+                <span className="hidden lg:inline">{item.label}/</span>
               </Link>
             );
           })}
@@ -148,7 +148,7 @@ export default function SiteHeader() {
                       }`}
                       aria-current={active ? "page" : undefined}
                     >
-                      {item.label}
+                      {item.label}/
                     </Link>
                   </li>
                 );
@@ -169,7 +169,7 @@ export default function SiteHeader() {
                   onClick={closeMenu}
                   className="label-mono block px-2 py-2.5 text-text-dim transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                 >
-                  Contact
+                  Contact/
                 </Link>
               </li>
             </ul>
