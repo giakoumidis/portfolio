@@ -306,6 +306,13 @@
   }
 }
 
+/* Homepage only: the rail label "Laboratories" is wider than the default gutter. */
+@media (min-width: 1024px) {
+  .home-rail .section-shell {
+    padding-left: max(1.5rem, calc(19rem - max(0px, (100vw - 72rem) / 2)));
+  }
+}
+
 /* ============================================================
    Robo-photo — true-colour project photographs.
    ============================================================ */

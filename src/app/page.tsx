@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <HudRail />
-      <main>
+      <main className="home-rail">
         <Hero />
         <ProfileProof />
         <SelectedWork />

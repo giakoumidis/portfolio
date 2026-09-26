@@ -1,16 +1,27 @@
 import { acknowledgedPublications } from "@/content/acknowledgements";
+import { getArchiveRecords } from "@/content/archive";
 import { awards, certifications } from "@/content/awards";
 import { capabilities } from "@/content/capabilities";
 import { education, experience } from "@/content/experience";
 import { exhibitions } from "@/content/exhibitions";
-import { getFieldPhotos } from "@/content/field-photos";
-import { laboratories } from "@/content/laboratories";
+import { infrastructureRecords } from "@/content/infrastructure";
 import { posts } from "@/content/posts";
-import { profile } from "@/content/profile";
-import { projects } from "@/content/projects";
+import { currentResearch, profile } from "@/content/profile";
 import { publications } from "@/content/publications";
+import {
+  getResearchOutput,
+  researchOutputs,
+} from "@/content/research-outputs";
 import { stackGroups } from "@/content/stack";
+import {
+  getTaxonomyByFacet,
+  getTaxonomyTerm,
+  resolveTaxonomyAlias,
+  taxonomyLabel,
+} from "@/content/taxonomy";
+import { workRecords } from "@/content/work";
 import { sections } from "@/lib/sections";
+import type { TaxonomyTerm } from "@/lib/types";
 
 export type SearchCategory =
   | "section"
@@ -85,18 +96,132 @@ function homeHash(id: string): string {
   return `/#${id}`;
 }
 
+function titleKey(title: string): string {
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+function paperSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 64);
+}
+
+function termText(slugs: readonly string[] | undefined): string[] {
+  const text: string[] = [];
+  for (const slug of slugs ?? []) {
+    const term = getTaxonomyTerm(slug);
+    text.push(slug, taxonomyLabel(slug));
+    if (term?.description) text.push(term.description);
+    if (term?.aliases) text.push(...term.aliases);
+  }
+  return text;
+}
+
+const listedWork = workRecords.filter((record) => record.status !== "draft");
+const listedLabs = infrastructureRecords.filter(
+  (record) => record.status !== "draft",
+);
+
+/** Send a taxonomy term to the index that actually contains it. */
+function taxonomyHref(term: TaxonomyTerm): string {
+  const slug = term.slug;
+
+  const projectHit = listedWork.some((project) => {
+    const facets = project.facets;
+    const values =
+      term.facet === "domain"
+        ? facets.domains
+        : term.facet === "application"
+          ? facets.applications
+          : term.facet === "platform"
+            ? facets.platforms
+            : term.facet === "method"
+              ? facets.methods
+              : term.facet === "outcome"
+                ? facets.outcomes
+                : facets.contributions;
+    return values?.includes(slug) ?? false;
+  });
+
+  if (
+    projectHit &&
+    (term.facet === "domain" ||
+      term.facet === "application" ||
+      term.facet === "platform" ||
+      term.facet === "method" ||
+      term.facet === "outcome" ||
+      term.facet === "contribution")
+  ) {
+    return `/projects?${term.facet}=${slug}`;
+  }
+
+  const labs = listedLabs.filter(
+    (lab) =>
+      lab.domains.includes(slug) ||
+      lab.inventory?.includes(slug) ||
+      lab.contributions.includes(slug),
+  );
+  if (labs.length === 1) return `/laboratories/${labs[0].slug}`;
+  if (labs.length > 1) return "/laboratories";
+  return "/projects";
+}
+
+function toolHref(label: string): string {
+  const slug = resolveTaxonomyAlias(label);
+  const term = slug ? getTaxonomyTerm(slug) : undefined;
+  return term ? taxonomyHref(term) : "/projects";
+}
+
 function buildIndex(): SearchEntry[] {
   const entries: SearchEntry[] = [];
-  const fieldPhotos = getFieldPhotos();
+  const archiveRecords = getArchiveRecords();
+  const seenPapers = new Set<string>();
+
+  function addPaper(entry: SearchEntry) {
+    const key = titleKey(entry.title);
+    if (!key || seenPapers.has(key)) return;
+    seenPapers.add(key);
+    entries.push(entry);
+  }
 
   for (const section of sections) {
+    const archiveText =
+      section.id === "archive"
+        ? archiveRecords.flatMap((record) => [
+            record.title,
+            record.caption,
+            record.description,
+            record.alt,
+            record.institution,
+            record.projectTitle,
+            record.laboratoryTitle,
+            record.archiveType,
+          ])
+        : [];
+
     entries.push({
       id: `section:${section.id}`,
       title: section.label,
-      blurb: `Open ${section.label}`,
+      blurb:
+        section.id === "archive"
+          ? "Field photography and documentary records"
+          : `Open ${section.label}`,
       category: "section",
       href: section.href ?? homeHash(section.id),
-      haystack: joinHaystack(section.label, section.id, section.index),
+      haystack: joinHaystack(
+        section.label,
+        section.id,
+        section.index,
+        section.id === "selected-projects"
+          ? "work index case files filters"
+          : undefined,
+        section.id === "laboratories"
+          ? "labs infrastructure kinesis photonics hts"
+          : undefined,
+        ...archiveText,
+      ),
     });
   }
 
@@ -111,23 +236,8 @@ function buildIndex(): SearchEntry[] {
         "research",
         "publications",
         "acknowledgements",
-      ),
-    },
-    {
-      id: "section:archive-hub",
-      title: "Archive",
-      blurb: "Documentary evidence and field photography",
-      category: "section",
-      href: "/archive",
-      haystack: joinHaystack(
-        "archive",
-        "photos",
-        "field log",
-        ...fieldPhotos.flatMap((photo) => [
-          photo.caption,
-          photo.location ?? "",
-          photo.alt,
-        ]),
+        "papers",
+        ...currentResearch.flatMap((item) => [item.title, item.description]),
       ),
     },
     {
@@ -138,90 +248,122 @@ function buildIndex(): SearchEntry[] {
       href: "/resume",
       haystack: joinHaystack("resume", "profile", "career", "cv", "experience"),
     },
-    {
-      id: "section:projects-index",
-      title: "Projects",
-      blurb: "Faceted project and engagement index",
-      category: "section",
-      href: "/projects",
-      haystack: joinHaystack(
-        "projects",
-        "work index",
-        "case files",
-        "filters",
-      ),
-    },
-    {
-      id: "section:laboratories-index",
-      title: "Laboratories",
-      blurb: "Laboratory and facility hubs",
-      category: "section",
-      href: "/laboratories",
-      haystack: joinHaystack(
-        "laboratories",
-        "labs",
-        "infrastructure",
-        "kinesis",
-        "photonics",
-        "hts",
-      ),
-    },
   );
 
-  for (const project of projects) {
+  for (const item of currentResearch) {
+    const slug = titleKey(item.title).slice(0, 48);
     entries.push({
-      id: `project:${project.id}`,
+      id: `section:research:${slug}`,
+      title: item.title,
+      blurb: "Current research",
+      category: "section",
+      href: "href" in item && item.href ? item.href : "/research",
+      haystack: joinHaystack(item.title, item.description, "research", "phd"),
+    });
+  }
+
+  for (const project of listedWork) {
+    entries.push({
+      id: `project:${project.slug}`,
       title: project.title,
-      blurb: [project.domainLabel, project.org, project.period]
+      blurb: [
+        taxonomyLabel(project.facets.domains[0]),
+        project.org,
+        project.period.label,
+      ]
         .filter(Boolean)
         .join(" · "),
       category: "project",
-      href: `/projects/${project.id}`,
+      href: `/projects/${project.slug}`,
       haystack: joinHaystack(
         project.title,
+        project.cardHook,
+        project.challenge,
         project.summary,
-        project.domainId,
-        project.domainLabel,
+        project.contributionSummary,
+        project.outcomeSummary,
         project.org,
-        project.period,
-        ...project.tags,
-        ...project.highlights,
+        project.period.label,
+        ...termText(project.facets.domains),
+        ...termText(project.facets.applications),
+        ...termText(project.facets.platforms),
+        ...termText(project.facets.methods),
+        ...termText(project.facets.outcomes),
+        ...termText(project.facets.contributions),
+        ...(project.highlights ?? []),
+        ...project.credits.flatMap((credit) => [
+          credit.name,
+          credit.role,
+          credit.org,
+        ]),
+        ...(project.evidence ?? []).flatMap((item) => [
+          item.title,
+          item.note,
+          item.date,
+        ]),
+        ...(project.images ?? []).flatMap((image) => [
+          image.alt,
+          image.caption,
+        ]),
       ),
     });
   }
 
-  for (const lab of laboratories) {
+  for (const lab of listedLabs) {
     entries.push({
-      id: `laboratory:${lab.id}`,
+      id: `laboratory:${lab.slug}`,
       title: lab.title,
-      blurb: [lab.domainLabel, lab.org, lab.period].filter(Boolean).join(" · "),
+      blurb: [taxonomyLabel(lab.domains[0]), lab.org, lab.period.label]
+        .filter(Boolean)
+        .join(" · "),
       category: "laboratory",
-      href: `/laboratories/${lab.id}`,
+      href: `/laboratories/${lab.slug}`,
       haystack: joinHaystack(
         lab.title,
+        lab.challenge,
         lab.summary,
-        lab.domainId,
-        lab.domainLabel,
-        ...(lab.domainIds ?? []),
+        lab.contributionSummary,
+        lab.outcomeSummary,
         lab.org,
-        lab.period,
-        ...lab.tags,
-        ...lab.highlights,
+        lab.period.label,
+        ...termText(lab.domains),
+        ...termText(lab.contributions),
+        ...termText(lab.inventory),
+        ...(lab.highlights ?? []),
+        ...(lab.credits ?? []).flatMap((credit) => [
+          credit.name,
+          credit.role,
+          credit.org,
+        ]),
+        ...(lab.evidence ?? []).flatMap((item) => [
+          item.title,
+          item.note,
+          item.date,
+        ]),
+        ...(lab.images ?? []).flatMap((image) => [image.alt, image.caption]),
       ),
     });
   }
 
-  for (const capability of capabilities) {
+  const capabilityById = new Map(
+    capabilities.map((capability) => [capability.id, capability]),
+  );
+
+  for (const term of getTaxonomyByFacet("domain")) {
+    const capability = capabilityById.get(term.slug);
     entries.push({
-      id: `domain:${capability.id}`,
-      title: capability.title,
-      blurb: capability.blurb,
+      id: `domain:${term.slug}`,
+      title: term.label,
+      blurb: capability?.blurb ?? term.description ?? "Project domain",
       category: "domain",
-      href: `/projects?domain=${capability.id}`,
+      href: taxonomyHref(term),
       haystack: joinHaystack(
-        capability.title,
-        capability.blurb,
-        ...capability.tags,
+        term.label,
+        term.slug,
+        term.description,
+        capability?.blurb,
+        ...(term.aliases ?? []),
+        ...(capability?.tags ?? []),
       ),
     });
   }
@@ -262,14 +404,25 @@ function buildIndex(): SearchEntry[] {
     });
   }
 
+  for (const publication of publications) {
+    addPaper({
+      id: `publication:${paperSlug(publication.title)}`,
+      title: publication.title,
+      blurb: `${publication.venue} · ${publication.year}`,
+      category: "publication",
+      href: publication.link,
+      haystack: joinHaystack(
+        publication.title,
+        publication.authors,
+        publication.venue,
+        publication.year,
+      ),
+    });
+  }
+
   for (const publication of acknowledgedPublications) {
-    const slug = publication.title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "")
-      .slice(0, 64);
-    entries.push({
-      id: `acknowledgement:${slug}`,
+    addPaper({
+      id: `acknowledgement:${paperSlug(publication.title)}`,
       title: publication.title,
       blurb: `Acknowledged · ${publication.venue} · ${publication.year}`,
       category: "publication",
@@ -285,25 +438,75 @@ function buildIndex(): SearchEntry[] {
     });
   }
 
-  for (const publication of publications) {
-    const slug = publication.title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "")
-      .slice(0, 64);
-    entries.push({
-      id: `publication:${slug}`,
-      title: publication.title,
-      blurb: `${publication.venue} · ${publication.year}`,
+  for (const output of researchOutputs) {
+    if (output.status === "draft") continue;
+    addPaper({
+      id: `publication:${output.slug}`,
+      title: output.title,
+      blurb: `${output.venue} · ${output.year}`,
       category: "publication",
-      href: publication.link,
+      href: output.url,
       haystack: joinHaystack(
-        publication.title,
-        publication.authors,
-        publication.venue,
-        publication.year,
+        output.title,
+        output.authors,
+        output.venue,
+        output.year,
+        "research",
       ),
     });
+  }
+
+  for (const project of listedWork) {
+    for (const item of project.evidence ?? []) {
+      if (item.type !== "publication" || !item.title) continue;
+      const linked =
+        item.target?.type === "research-output"
+          ? getResearchOutput(item.target.slug)
+          : undefined;
+      addPaper({
+        id: `publication:evidence:${project.slug}:${paperSlug(item.title)}`,
+        title: item.title,
+        blurb:
+          [item.note, item.date].filter(Boolean).join(" · ") || project.title,
+        category: "publication",
+        href: item.url ?? linked?.url ?? `/projects/${project.slug}`,
+        haystack: joinHaystack(
+          item.title,
+          item.note,
+          item.date,
+          linked?.venue,
+          linked?.authors,
+          project.title,
+          "publication",
+        ),
+      });
+    }
+  }
+
+  for (const lab of listedLabs) {
+    for (const item of lab.evidence ?? []) {
+      if (item.type !== "publication" || !item.title) continue;
+      const linked =
+        item.target?.type === "research-output"
+          ? getResearchOutput(item.target.slug)
+          : undefined;
+      addPaper({
+        id: `publication:evidence:${lab.slug}:${paperSlug(item.title)}`,
+        title: item.title,
+        blurb: [item.note, item.date].filter(Boolean).join(" · ") || lab.title,
+        category: "publication",
+        href: item.url ?? linked?.url ?? `/laboratories/${lab.slug}`,
+        haystack: joinHaystack(
+          item.title,
+          item.note,
+          item.date,
+          linked?.venue,
+          linked?.authors,
+          lab.title,
+          "publication",
+        ),
+      });
+    }
   }
 
   for (const award of awards) {
@@ -380,7 +583,7 @@ function buildIndex(): SearchEntry[] {
         title: item,
         blurb: group.label,
         category: "tool",
-        href: "/projects",
+        href: toolHref(item),
         haystack: joinHaystack(item, group.label),
       });
     }

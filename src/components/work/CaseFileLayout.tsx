@@ -198,7 +198,7 @@ export default function CaseFileLayout({
       {(evidence.length > 0 || record.evidencePending) && (
         <section className="mt-12" aria-labelledby="evidence-heading">
           <h2 id="evidence-heading" className="label-mono text-text-dim">
-            Evidence
+            Publications & media
           </h2>
           <EvidenceList items={evidence} pending={record.evidencePending} />
         </section>

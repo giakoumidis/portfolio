@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { sections } from "@/lib/sections";
 
 /**
- * Homepage-only left section rail. Tracks the six current homepage blocks.
+ * Homepage-only left section rail. Tracks the current homepage blocks.
  * Mobile navigation stays on SiteHeader — this rail is desktop-only so the
  * sticky global header is not duplicated.
  */
@@ -72,7 +72,7 @@ export default function HudRail() {
               />
             </span>
             <span
-              className={`label-mono w-28 text-left transition-all duration-200 ${
+              className={`label-mono whitespace-nowrap text-left transition-all duration-200 ${
                 active
                   ? "text-cyan opacity-100"
                   : "text-text-dim opacity-35 group-hover:text-text group-hover:opacity-80"

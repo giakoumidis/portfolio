@@ -17,10 +17,11 @@ export const sections: SectionMeta[] = [
   { id: "profile-proof", label: "Biography", index: "01" },
   { id: "selected-projects", label: "Projects", index: "02", href: "/projects" },
   {
-    id: "credibility",
-    label: "Evidence",
+    id: "laboratories",
+    label: "Laboratories",
     index: "03",
     href: "/laboratories",
   },
-  { id: "contact", label: "Contact", index: "04", href: "/#contact" },
+  { id: "archive", label: "Archive", index: "04", href: "/archive" },
+  { id: "contact", label: "Contact", index: "05", href: "/#contact" },
 ];

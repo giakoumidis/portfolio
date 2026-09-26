@@ -1,7 +1,8 @@
 import { infrastructureRecords } from "../src/content/infrastructure";
 import { researchOutputs } from "../src/content/research-outputs";
-import { taxonomyTerms } from "../src/content/taxonomy";
+import { getTaxonomyByFacet, taxonomyTerms } from "../src/content/taxonomy";
 import { workRecords } from "../src/content/work";
+import { searchEntries, searchIndex } from "../src/lib/search";
 import {
   APPROVED_RELATION_TYPES,
   ENVIRONMENT_RELATION_TYPES,
@@ -349,6 +350,67 @@ function validateResearchOutput(record: ResearchOutputRecord) {
 for (const project of workRecords) validateProject(project);
 for (const infra of infrastructureRecords) validateInfrastructure(infra);
 for (const output of researchOutputs) validateResearchOutput(output);
+
+const searchIds = new Set<string>();
+for (const entry of searchIndex) {
+  if (searchIds.has(entry.id)) {
+    fail(`Duplicate search id ${entry.id}`, { entity: entry.id, field: "id" });
+  }
+  searchIds.add(entry.id);
+  if (!entry.href.trim() || !entry.title.trim()) {
+    fail("Search entry missing title or href", {
+      entity: entry.id,
+      field: "href",
+    });
+  }
+}
+
+for (const project of workRecords) {
+  if (project.status === "draft") continue;
+  const entry = searchIndex.find((item) => item.id === `project:${project.slug}`);
+  if (!entry || entry.href !== `/projects/${project.slug}`) {
+    fail("Published project missing from search", {
+      entity: `project:${project.slug}`,
+      field: "search",
+    });
+  }
+}
+
+for (const lab of infrastructureRecords) {
+  if (lab.status === "draft") continue;
+  const entry = searchIndex.find((item) => item.id === `laboratory:${lab.slug}`);
+  if (!entry || entry.href !== `/laboratories/${lab.slug}`) {
+    fail("Laboratory missing from search", {
+      entity: `laboratory:${lab.slug}`,
+      field: "search",
+    });
+  }
+}
+
+for (const term of getTaxonomyByFacet("domain")) {
+  const entry = searchIndex.find((item) => item.id === `domain:${term.slug}`);
+  if (!entry) {
+    fail("Domain missing from search", {
+      entity: `domain:${term.slug}`,
+      field: "search",
+    });
+  }
+}
+
+for (const query of [
+  "ribbon",
+  "kinesis",
+  "wheelchair",
+  "CAIR",
+  "PyTorch",
+  "genomics",
+  "Spot",
+  "zero-training",
+]) {
+  if (searchEntries(query, 5).length === 0) {
+    fail(`Search returned no hits for “${query}”`, { field: "search" });
+  }
+}
 
 if (issues.length > 0) {
   console.error("\nCONTENT VALIDATION FAILED\n");

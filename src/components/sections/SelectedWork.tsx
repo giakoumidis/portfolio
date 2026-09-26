@@ -4,7 +4,6 @@ import ActionLink from "@/components/ui/ActionLink";
 import Reveal from "@/components/ui/Reveal";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import SectionHeading from "@/components/ui/SectionHeading";
-import TaxonomyChip from "@/components/work/TaxonomyChip";
 import { featuredProjectSlug, selectedProjectSlugs } from "@/content/homepage";
 import { taxonomyLabel } from "@/content/taxonomy";
 import { getAllWork, getProject } from "@/lib/query";
@@ -30,7 +29,7 @@ export default function SelectedWork() {
       <div className="section-shell">
         <SectionHeading
           index="02"
-          title="Selected Projects"
+          title="Projects"
           headingId="selected-projects-heading"
           kicker="Systems built · research applied"
         />
@@ -41,27 +40,6 @@ export default function SelectedWork() {
             const hook =
               project.cardHook?.trim() ||
               completeFirstSentence(project.summary);
-            const facetChips = [
-              ...(project.facets.domains ?? []).slice(0, 1).map((slug) => ({
-                slug,
-                label: taxonomyLabel(slug),
-                href: `/projects?domain=${slug}`,
-                prefix: "DOMAIN",
-              })),
-              ...(project.facets.applications ?? []).slice(0, 1).map((slug) => ({
-                slug,
-                label: taxonomyLabel(slug),
-                href: `/projects?application=${slug}`,
-                prefix: "APP",
-              })),
-              ...(project.facets.outcomes ?? []).slice(0, 2).map((slug) => ({
-                slug,
-                label: taxonomyLabel(slug),
-                href: `/projects?outcome=${slug}`,
-                prefix: "OUTCOME",
-              })),
-            ].slice(0, 4);
-
             const featured = project.slug === featuredProjectSlug;
 
             return (
@@ -109,25 +87,6 @@ export default function SelectedWork() {
                     <p className="mt-3 font-body text-sm leading-relaxed text-text-dim">
                       {hook}
                     </p>
-                    <p className="mt-4 font-body text-sm text-text">
-                      <span className="label-mono text-cyan">
-                        My contribution ·{" "}
-                      </span>
-                      {project.contributionSummary.trim()}
-                    </p>
-                    {facetChips.length > 0 && (
-                      <ul className="mt-4 flex flex-wrap gap-2">
-                        {facetChips.map((chip) => (
-                          <li key={`${chip.prefix}-${chip.slug}`}>
-                            <TaxonomyChip
-                              label={chip.label}
-                              href={chip.href}
-                              prefix={chip.prefix}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                    )}
                     <p className="mt-auto pt-5">
                       <ActionLink href={`/projects/${project.slug}`}>
                         Explore project

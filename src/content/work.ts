@@ -97,6 +97,169 @@ export const workRecords: ProjectRecord[] = [
   },
   {
     type: "project",
+    slug: "mobius-tethered-uav-power",
+    title: "MOBIUS Tethered UAV Power System",
+    org: "NYU Abu Dhabi · CAIR with University of Patras",
+    period: { startYear: 2026, label: "2026–" },
+    cardHook:
+      "A tethered UAV platform I built for persistent observation: hybrid high-voltage power from University of Patras electronics, a fiber optical-communications architecture I designed, and monitoring software that records the full electrical and flight path.",
+    challenge:
+      "Keep a UAV aloft for long-duration observation by combining high-voltage tether power with an onboard battery for peak load and tether-side redundancy, while carrying a secure fiber data link and recording the complete power path during bench and flight tests.",
+    summary:
+      "MOBIUS is a tethered aerial platform that delivers 400–800 V DC and fiber-optic communications through a 120 m hybrid tether to an airborne UAV power station (UAVoPoS). I built the UAV, designed the optical communications architecture over the tether fiber, consulted on the overall system design, and designed the monitoring software — the Integrated Experiment Console that merges the BK Precision ground supply, airborne converter telemetry, and MAVLink aircraft state into one synchronized 10 Hz record. University of Patras designed the Vicor-based converter and ideal-diode battery interface. Bench work reached about 1.75 kW from the tether-side converter and about 2.5 kW in hybrid operation. The manuscript is under review at IEEE Access.",
+    contributionSummary:
+      "Built the UAV, designed the optical communications architecture, consulted on the overall system design, co-authored the manuscript, and designed the monitoring software that synchronizes multi-source logging and supervised power-supply control.",
+    outcomeSummary:
+      "A working tethered UAV with fiber communications, two UAVoPoS voltage-range prototypes, bench hybrid-power validation, flight demonstrations, and a monitoring console. The paper is under review at IEEE Access.",
+    highlights: [
+      "I built the UAV airframes used for the low-power quadrotor and large coaxial-octarotor flight demonstrations that carry the UAVoPoS and hybrid tether.",
+      "I designed the optical communications architecture that uses the tether’s single-mode fiber for an EMI-resistant ground–air data link alongside the 400–800 V DC power conductors.",
+      "I consulted on the overall MOBIUS architecture — ground supply, tether, airborne converter, battery assist, and aircraft integration — with University of Patras as the power-electronics partner.",
+      "Ground BK Precision PVS10005 supplies 400–800 V DC through a 120 m Linden SPE-7155 tether to a Vicor BCM4414 fixed-ratio converter. Two UAVoPoS prototypes cover 400–700 V and 500–800 V; a LiPo joins the bus through an ideal-diode MOSFET for Mode 2 peak support and redundancy.",
+      "University of Patras delivered the power electronics, STM32 firmware, schematics, and PCB package. NYUAD Machine Shop fabricated the HV/LV busbars and QS8 connector brackets.",
+      "I designed the monitoring software — the Integrated Experiment Console (v0.3.0) — a local web dashboard that joins PVS SCPI, firmware UART, and read-only MAVLink into a 10 Hz CSV with source age, derived tether loss and efficiency, virtual devices, and CSV replay.",
+      "The console’s software safety layer provides diagnostics, arming, and a narrowly scoped LAND request. It is research instrumentation, not a hardwired E-stop or certified flight controller.",
+      "Bench tests reported about 1.75 kW converter output and about 2.5 kW hybrid load, with flight validation on the platforms I built.",
+    ],
+    credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Co-author · UAV build, optical communications, design consult, monitoring software",
+        org: "NYU Abu Dhabi · CAIR",
+      },
+      {
+        name: "Anthony Tzes",
+        role: "Senior academic lead",
+        org: "NYU Abu Dhabi · CAIR",
+      },
+      {
+        name: "Nikolaos Evangeliou",
+        role: "Co-author · Flight and integration support",
+        org: "NYU Abu Dhabi · RISC",
+      },
+      {
+        name: "Emmanuel C. Tatakis",
+        role: "University of Patras lead",
+        org: "University of Patras",
+      },
+      {
+        name: "Georgios A. Salagiannis",
+        role: "Corresponding author · Power-electronics design",
+        org: "University of Patras",
+      },
+      {
+        name: "Laboratory of Electromechanical Energy Conversion",
+        role: "Power-electronics development partner",
+        org: "University of Patras",
+      },
+      {
+        name: "NYUAD Machine Shop",
+        role: "Busbars and QS8 brackets",
+        org: "NYU Abu Dhabi",
+      },
+    ],
+    facets: {
+      domains: [
+        "aerial-ground-underwater-robotics",
+        "electronics-embedded-systems",
+        "telecommunications-edge-computing",
+        "lab-automation-instrumentation",
+      ],
+      contributions: [
+        "conceived",
+        "co-authored",
+        "designed",
+        "built",
+        "system-integration",
+        "experimental-development",
+      ],
+      platforms: ["uav-platform"],
+      outcomes: ["deployed-prototype"],
+    },
+    evidence: [
+      {
+        type: "photograph",
+        title: "Integrated Experiment Console live telemetry overview",
+      },
+      {
+        type: "photograph",
+        title: "GoPoS–tether–UAVoPoS–battery architecture schematic",
+      },
+      {
+        type: "photograph",
+        title: "MOBIUS OnBoard UAVoPoS PCB with Vicor heatsink",
+      },
+      {
+        type: "photograph",
+        title: "Enclosed 800 V UAVoPoS prototype",
+      },
+      {
+        type: "photograph",
+        title: "Open UAVoPoS assembly with cooling fans",
+      },
+      {
+        type: "photograph",
+        title: "UAVoPoS cooling airflow CAD",
+      },
+      {
+        type: "photograph",
+        title: "Low-power quadrotor flight demonstration",
+      },
+      {
+        type: "publication",
+        title:
+          "Compact and Redundant Power System for UAVs Combining Power-over-Tether and Battery",
+        note: "IEEE Access, under review",
+        date: "2026",
+      },
+    ],
+    images: [
+      {
+        src: "/images/projects/mobius-console-overview.jpg",
+        alt: "MOBIUS Fieldline experiment console showing live power telemetry, source panels, and safety supervisor status",
+        caption: "EXPERIMENT CONSOLE — LIVE TELEMETRY",
+      },
+      {
+        src: "/images/projects/mobius-console-routing.jpg",
+        alt: "MOBIUS Fieldline console power-routing view with ground source, converter, battery, and aircraft load",
+        caption: "CONSOLE — POWER ROUTING VIEW",
+      },
+      {
+        src: "/images/projects/mobius-power-architecture.jpg",
+        alt: "Schematic of the MOBIUS power path from ground power station through the tether to the UAV converter, battery MOSFET, and load",
+        caption: "POWER PATH — GOPOS TO UAV BUS",
+      },
+      {
+        src: "/images/projects/mobius-uavopos-pcb.jpg",
+        alt: "Top view of the MOBIUS OnBoard UAVoPoS printed circuit board with aluminum heatsink, fan headers, and high-voltage terminals",
+        caption: "UAVOPOS PCB — MOBIUS ONBOARD",
+        orientation: "portrait",
+      },
+      {
+        src: "/images/projects/mobius-uavopos-enclosure.jpg",
+        alt: "Green 3D-printed UAVoPoS enclosure labeled 800 V with cooling fans and high-current terminals visible",
+        caption: "UAVOPOS ENCLOSURE — 800 V VARIANT",
+      },
+      {
+        src: "/images/projects/mobius-uavopos-open.jpg",
+        alt: "Open MOBIUS OnBoard V1 assembly showing the PCB, aluminum heatsink, and three lid-mounted cooling fans",
+        caption: "UAVOPOS OPEN — FANS & HEATSINK",
+      },
+      {
+        src: "/images/projects/mobius-cooling-cad.jpg",
+        alt: "CAD rendering of the UAVoPoS enclosure with three fans and red airflow arrows over the Vicor heatsink",
+        caption: "COOLING CAD — AIRFLOW PATH",
+      },
+      {
+        src: "/images/projects/mobius-quadrotor-flight.jpg",
+        alt: "Low-power quadrotor hovering outdoors during a MOBIUS tethered power flight demonstration",
+        caption: "FLIGHT DEMO — LOW-POWER QUADROTOR",
+      },
+    ],
+    status: "published",
+  },
+  {
+    type: "project",
     slug: "etihad-rail-nyuad-collaboration",
     title: "Etihad Rail × NYUAD AI & Robotics Collaboration",
     org: "NYU Abu Dhabi · CAIR with Etihad Rail",
@@ -124,6 +287,11 @@ export const workRecords: ProjectRecord[] = [
         org: "NYU Abu Dhabi · CAIR",
       },
       {
+        name: "Nikolaos Evangeliou",
+        role: "Research Scientist",
+        org: "NYU Abu Dhabi · CAIR",
+      },
+      {
         name: "Etihad Rail",
         role: "Industry partner",
       },
@@ -131,11 +299,6 @@ export const workRecords: ProjectRecord[] = [
         name: "Center for Artificial Intelligence and Robotics (CAIR)",
         role: "Research partner",
         org: "NYU Abu Dhabi",
-      },
-      {
-        name: "Anthony Tzes",
-        role: "Principal Investigator",
-        org: "NYU Abu Dhabi · CAIR",
       },
     ],
     facets: {
@@ -611,25 +774,9 @@ export const workRecords: ProjectRecord[] = [
     },
     images: [
       {
-        src: "/images/projects/ribbon-curler-sample-layout.jpg",
-        alt: "Laboratory workbench covered with pink ribbon curl samples arranged by test condition under a task light",
-        caption: "LAB BENCH — FULL SAMPLE CAMPAIGN",
-      },
-      {
-        src: "/images/projects/ribbon-curler-curl-conditions.jpg",
-        alt: "Drawer tray of pink ribbon curls with handwritten notes for weight, speed, width, and fixture geometry",
-        caption: "CURL SAMPLES — BY TEST CONDITION",
-      },
-      {
         src: "/images/projects/ribbon-curler-mounting-angles.jpg",
         alt: "Annotated sheets comparing left and right blade mounting angles with corresponding ribbon curl samples",
         caption: "MOUNTING ANGLE — LEFT VS RIGHT",
-        orientation: "portrait",
-      },
-      {
-        src: "/images/projects/ribbon-curler-speed-response.jpg",
-        alt: "Ribbon curl samples arranged by pull speed from 1 mm/s to 150 mm/s showing increasing spiral radius",
-        caption: "SPEED SWEEP — SPIRAL RESPONSE",
         orientation: "portrait",
       },
       {
@@ -804,7 +951,7 @@ export const workRecords: ProjectRecord[] = [
     highlights: [
       "Thread opens with airborne PTZ visual tracking and relative visual localization for cooperative UAS, then layers computationally efficient RGB-thermal detection so thermal cues pull small drones out of clutter while RGB refines boxes at frame rate.",
       "Deep-learning evader pursuit and a Siamese adaptive transformer tracker extend the same arena stack to agile targets; relative spherical-visual localization closes the loop for multi-UAV cooperative localization.",
-      "Flagship RGB-T detection and tracking demo integrated and flight-tested inside NYUAD's netted Kinesis arena with pan-tilt-zoom camera coverage — evidence spans six peer-reviewed outputs plus the live arena video.",
+      "Flagship RGB-T detection and tracking demo integrated and flight-tested inside NYUAD's netted Kinesis arena with pan-tilt-zoom camera coverage — the programme includes six peer-reviewed outputs plus the live arena video.",
     ],
     credits: [
       {

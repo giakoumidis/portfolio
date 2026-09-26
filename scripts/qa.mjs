@@ -60,7 +60,8 @@ for (const width of WIDTHS) {
       "hero",
       "profile-proof",
       "selected-projects",
-      "credibility",
+      "laboratories",
+      "archive",
       "contact",
     ].filter((id) => !document.getElementById(id)),
   );

@@ -44,6 +44,7 @@ export const professionalCapabilities = [
     links: [
       { label: "Hybrid robotic platform", href: "/projects/hybrid-ground-air-water-vehicle" },
       { label: "Delivery drone", href: "/projects/rta-dubai-delivery-drone" },
+      { label: "MOBIUS tethered UAV", href: "/projects/mobius-tethered-uav-power" },
     ],
   },
   {

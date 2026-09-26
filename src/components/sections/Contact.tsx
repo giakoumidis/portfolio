@@ -97,7 +97,7 @@ export default function Contact() {
     >
       <div className="section-shell">
         <SectionHeading
-          index="04"
+          index="05"
           title="Contact"
           headingId="contact-heading"
           kicker="Engineering · leadership · collaboration"

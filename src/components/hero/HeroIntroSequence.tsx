@@ -4,8 +4,8 @@ import { useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "@/content/profile";
 
-const SPEED_MS = 35;
-const LINE_PAUSE_MS = 280;
+const SPEED_MS = 23;
+const LINE_PAUSE_MS = 187;
 const LINE_COUNT = 4;
 
 type HeroIntroSequenceProps = {

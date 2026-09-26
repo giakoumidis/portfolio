@@ -23,7 +23,7 @@ export default function EvidenceList({ items, pending }: EvidenceListProps) {
   if (pending && items.length === 0) {
     return (
       <p className="mt-4 font-body text-sm text-text-dim">
-        Evidence pending — structured artifacts will be linked here.
+        Links will be added here.
       </p>
     );
   }
@@ -39,7 +39,7 @@ export default function EvidenceList({ items, pending }: EvidenceListProps) {
         const source = item.resolved
           ? item.resolved.venue
           : item.note;
-        const proves =
+        const detail =
           item.note && item.resolved
             ? item.note
             : !item.resolved
@@ -79,10 +79,8 @@ export default function EvidenceList({ items, pending }: EvidenceListProps) {
                 Source · {source}
               </p>
             )}
-            {proves && proves !== source && (
-              <p className="mt-2 font-body text-sm text-text-dim">
-                Proves · {proves}
-              </p>
+            {detail && detail !== source && (
+              <p className="mt-2 font-body text-sm text-text-dim">{detail}</p>
             )}
           </li>
         );

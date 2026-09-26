@@ -3,84 +3,104 @@ import Reveal from "@/components/ui/Reveal";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { archiveTeaserSrcs } from "@/content/homepage";
-import { getArchiveTeasers } from "@/content/archive";
+import { getArchiveRecords, getArchiveTeasers } from "@/content/archive";
 import { getAllInfrastructure } from "@/lib/query";
 
-const PRIMARY_LAB_SLUGS = [
-  "kinesis-ctp-laboratory",
-  "photonics-ctp-laboratory",
-  "nyuad-hts-platform",
-] as const;
+const FEATURED_LAB_SLUG = "kinesis-ctp-laboratory";
 
 export default function CredibilityLayer() {
-  const labs = getAllInfrastructure().filter((lab) =>
-    (PRIMARY_LAB_SLUGS as readonly string[]).includes(lab.slug),
-  );
+  const labs = getAllInfrastructure();
+  const lab = labs.find((item) => item.slug === FEATURED_LAB_SLUG);
   const teasers = getArchiveTeasers([...archiveTeaserSrcs]);
+  const archiveCount = getArchiveRecords().length;
+  const image = lab?.images?.[0];
 
   return (
-    <section
-      id="credibility"
-      aria-labelledby="credibility-heading"
-      className="scroll-mt-20"
-    >
-      <div className="section-shell space-y-16 lg:space-y-20">
-        <div>
+    <>
+      <section
+        id="laboratories"
+        aria-labelledby="laboratories-heading"
+        className="scroll-mt-20"
+      >
+        <div className="section-shell">
           <SectionHeading
             index="03"
-            title="Laboratories & Evidence"
-            headingId="credibility-heading"
-            kicker="Infrastructure · archive"
+            title="Laboratories"
+            headingId="laboratories-heading"
+            kicker="Facilities built & operated"
           />
 
-          <ul className="mt-8 grid gap-5 lg:grid-cols-3">
-            {labs.map((lab, index) => {
-              const image = lab.images?.[0];
-              return (
-                <Reveal as="li" key={lab.slug} delay={index * 0.05}>
-                  <article className="flex h-full flex-col border border-grid-dim bg-bg-raised/20">
-                    {image && (
-                      <RoboPhoto
-                        src={image.src}
-                        alt={image.alt}
-                        caption={image.caption}
-                        aspect="aspect-[3/2]"
-                        sizes="(max-width: 1024px) 100vw, 30vw"
-                        className="border-0 border-b border-grid-dim"
-                      />
-                    )}
-                    <div className="flex flex-1 flex-col p-5">
-                      <h3 className="font-display text-base uppercase text-text">
-                        {lab.title}
-                      </h3>
-                      <p className="mt-3 font-body text-sm leading-relaxed text-text-dim">
-                        {lab.summary.split(/(?<=[.!?])\s/)[0]}
-                      </p>
-                      <p className="mt-3 font-body text-sm text-text">
-                        <span className="label-mono text-cyan">My contribution · </span>
-                        {lab.contributionSummary.split(/(?<=[.!?])\s/)[0]}
-                      </p>
-                      <p className="mt-auto pt-4">
-                        <ActionLink href={`/laboratories/${lab.slug}`}>
-                          Explore laboratory
-                        </ActionLink>
-                      </p>
-                    </div>
-                  </article>
-                </Reveal>
-              );
-            })}
-          </ul>
-          <p className="mt-6">
-            <ActionLink href="/laboratories">Explore all laboratories</ActionLink>
-          </p>
-        </div>
+          {lab && (
+            <Reveal>
+              <article className="grid border border-grid-dim bg-bg-raised/20 lg:grid-cols-2">
+                {image && (
+                  <RoboPhoto
+                    src={image.src}
+                    alt={image.alt}
+                    caption={image.caption}
+                    aspect="aspect-[3/2]"
+                    sizes="(max-width: 1024px) 100vw, 36rem"
+                    className="border-0 border-b border-grid-dim lg:border-r lg:border-b-0"
+                  />
+                )}
+                <div className="flex flex-col p-5 sm:p-6">
+                  <h3 className="font-display text-base uppercase text-text">
+                    {lab.title}
+                  </h3>
+                  <p className="mt-3 font-body text-sm leading-relaxed text-text-dim">
+                    {lab.summary.split(/(?<=[.!?])\s/)[0]}
+                  </p>
+                  <p className="mt-3 font-body text-sm text-text">
+                    <span className="label-mono text-cyan">
+                      My contribution ·{" "}
+                    </span>
+                    {lab.contributionSummary.split(/(?<=[.!?])\s/)[0]}
+                  </p>
+                  <p className="mt-auto pt-5">
+                    <ActionLink href={`/laboratories/${lab.slug}`}>
+                      Explore laboratory
+                    </ActionLink>
+                  </p>
+                </div>
+              </article>
+            </Reveal>
+          )}
 
-        <div>
-          <p className="label-mono text-cyan">From the Archive</p>
-          <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
+          <Reveal className="mt-12">
+            <div className="flex flex-col items-start gap-4 border-t border-grid-dim pt-8 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="label-mono text-text-dim">
+                  <span className="text-cyan">{labs.length}</span> laboratories on
+                  record
+                </p>
+                <p className="mt-2 max-w-lg font-body text-sm leading-relaxed text-text-dim">
+                  Robotics, photonics, and high-throughput screening
+                  infrastructure at NYU Abu Dhabi.
+                </p>
+              </div>
+              <ActionLink href="/laboratories" className="shrink-0">
+                Explore all laboratories
+              </ActionLink>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section
+        id="archive"
+        aria-labelledby="archive-heading"
+        className="scroll-mt-20"
+      >
+        <div className="section-shell">
+          <SectionHeading
+            index="04"
+            title="Archive"
+            headingId="archive-heading"
+            kicker="Field records · exhibitions · media"
+          />
+          <p className="max-w-2xl font-body text-sm text-text-dim">
             Field deployments, laboratory construction, exhibitions, awards, and
-            research evidence.
+            published work.
           </p>
           <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             {teasers.map((item, index) => (
@@ -101,11 +121,26 @@ export default function CredibilityLayer() {
               </Reveal>
             ))}
           </ul>
-          <p className="mt-6">
-            <ActionLink href="/archive">Explore the Archive</ActionLink>
-          </p>
+
+          <Reveal className="mt-12">
+            <div className="flex flex-col items-start gap-4 border-t border-grid-dim pt-8 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="label-mono text-text-dim">
+                  <span className="text-cyan">{archiveCount}</span> records in the
+                  archive
+                </p>
+                <p className="mt-2 max-w-lg font-body text-sm leading-relaxed text-text-dim">
+                  Photographs, demonstrations, and documents beyond this teaser
+                  strip.
+                </p>
+              </div>
+              <ActionLink href="/archive" className="shrink-0">
+                Explore the Archive
+              </ActionLink>
+            </div>
+          </Reveal>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

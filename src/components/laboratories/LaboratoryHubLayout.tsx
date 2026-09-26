@@ -267,7 +267,7 @@ export default function LaboratoryHubLayout({
         archiveEvidence.length > 0) && (
         <section className="mt-12" aria-labelledby="lab-evidence-heading">
           <h2 id="lab-evidence-heading" className="label-mono text-text-dim">
-            Publications & Evidence
+            Publications & media
           </h2>
 
           {publicationEvidence.length > 0 && (
