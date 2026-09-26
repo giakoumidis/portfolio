@@ -11,7 +11,6 @@ import {
 import { awards } from "@/content/awards";
 import { currentResearch, profile } from "@/content/profile";
 import {
-  featuredPublicationTitles,
   patent,
   publications,
   scholarProfileUrl,
@@ -63,7 +62,6 @@ function sortPublications(
 
 type PublicationRowProps = {
   publication: Publication;
-  featured?: boolean;
   last?: boolean;
 };
 
@@ -100,19 +98,14 @@ function AcknowledgementRow({
   );
 }
 
-function PublicationRow({ publication, featured, last }: PublicationRowProps) {
+function PublicationRow({ publication, last }: PublicationRowProps) {
   return (
-    <div
-      className={`flex gap-4 py-5 ${last ? "" : "border-b border-grid-dim"} ${featured ? "border-l-2 border-l-cyan/60 pl-4" : ""}`}
-    >
+    <div className={`flex gap-4 py-5 ${last ? "" : "border-b border-grid-dim"}`}>
       <span className="label-mono h-fit w-16 shrink-0 border border-cyan/40 px-2 py-1 text-center text-cyan">
         {publication.year}
       </span>
 
       <div className="min-w-0">
-        {featured && (
-          <p className="label-mono mb-2 text-cyan">Featured</p>
-        )}
         <a
           href={publication.link}
           target="_blank"
@@ -167,9 +160,6 @@ export default async function ResearchPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const sort = params.sort === "citations" ? "citations" : "year";
   const sorted = sortPublications(publications, sort);
-  const featuredSet = new Set(featuredPublicationTitles);
-  const featured = sorted.filter((p) => featuredSet.has(p.title));
-  const rest = sorted.filter((p) => !featuredSet.has(p.title));
 
   return (
     <main className="section-shell py-16 lg:py-24">
@@ -263,39 +253,45 @@ export default async function ResearchPage({ searchParams }: PageProps) {
           </div>
         </div>
 
-        {featured.length > 0 && (
-          <div className="mt-8">
-            <p className="label-mono text-text-dim">Highlighted outputs</p>
-            <div className="mt-4 border border-grid-dim bg-bg-raised/20 p-4 sm:p-6">
-              {featured.map((publication, i) => (
-                <PublicationRow
-                  key={publication.title}
-                  publication={publication}
-                  featured
-                  last={i === featured.length - 1 && rest.length === 0}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {rest.length > 0 && (
-          <div className="mt-8">
-            {featured.length > 0 && (
-              <p className="label-mono text-text-dim">Full list</p>
-            )}
-            <div className={featured.length > 0 ? "mt-4" : ""}>
-              {rest.map((publication, i) => (
-                <PublicationRow
-                  key={publication.title}
-                  publication={publication}
-                  last={i === rest.length - 1}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+        <div className="mt-4">
+          {sorted.map((publication, i) => (
+            <PublicationRow
+              key={publication.title}
+              publication={publication}
+              last={i === sorted.length - 1}
+            />
+          ))}
+        </div>
       </div>
+
+      <section
+        id="acknowledgements"
+        className="mt-16 scroll-mt-24"
+        aria-labelledby="acknowledgements-heading"
+      >
+        <h2
+          id="acknowledgements-heading"
+          className="font-display text-lg uppercase text-text"
+        >
+          Acknowledged publications
+        </h2>
+        <p className="mt-4 max-w-3xl font-body text-sm leading-relaxed text-text-dim">
+          {acknowledgementIntro}
+        </p>
+        <p className="label-mono mt-6 text-text-dim">
+          <span className="text-cyan">{acknowledgedPublications.length}</span>{" "}
+          publications
+        </p>
+        <div className="mt-4">
+          {acknowledgedPublications.map((publication, i) => (
+            <AcknowledgementRow
+              key={publication.link}
+              publication={publication}
+              last={i === acknowledgedPublications.length - 1}
+            />
+          ))}
+        </div>
+      </section>
 
       <div className="mt-14">
         <HudCard accent="amber" className="p-6">
@@ -333,35 +329,6 @@ export default async function ResearchPage({ searchParams }: PageProps) {
             </li>
           ))}
         </ul>
-      </section>
-
-      <section
-        id="acknowledgements"
-        className="mt-20 scroll-mt-24"
-        aria-labelledby="acknowledgements-heading"
-      >
-        <h2
-          id="acknowledgements-heading"
-          className="font-display text-lg uppercase text-text"
-        >
-          Acknowledged publications
-        </h2>
-        <p className="mt-4 max-w-3xl font-body text-sm leading-relaxed text-text-dim">
-          {acknowledgementIntro}
-        </p>
-        <p className="label-mono mt-6 text-text-dim">
-          <span className="text-cyan">{acknowledgedPublications.length}</span>{" "}
-          publications
-        </p>
-        <div className="mt-4">
-          {acknowledgedPublications.map((publication, i) => (
-            <AcknowledgementRow
-              key={publication.link}
-              publication={publication}
-              last={i === acknowledgedPublications.length - 1}
-            />
-          ))}
-        </div>
       </section>
     </main>
   );
