@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import ActionLink from "@/components/ui/ActionLink";
 import RecordCardHero from "@/components/ui/RecordCardHero";
 import RouteChrome from "@/components/work/RouteChrome";
 import { getAllInfrastructure } from "@/lib/query";
@@ -66,12 +67,9 @@ export default function LaboratoriesIndexPage() {
                     {item.contributionSummary}
                   </p>
                   <p className="mt-5">
-                    <Link
-                      href={`/laboratories/${item.slug}`}
-                      className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-                    >
-                      Explore laboratory →
-                    </Link>
+                    <ActionLink href={`/laboratories/${item.slug}`}>
+                      Explore laboratory
+                    </ActionLink>
                   </p>
                 </div>
               </article>

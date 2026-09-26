@@ -1,4 +1,4 @@
-import Link from "next/link";
+import ActionLink from "@/components/ui/ActionLink";
 
 type TaxonomyChipProps = {
   label: string;
@@ -15,12 +15,9 @@ export default function TaxonomyChip({
   className = "",
 }: TaxonomyChipProps) {
   return (
-    <Link
-      href={href}
-      className={`label-mono inline-flex items-center gap-2 border border-grid-dim px-2 py-1 text-text-dim transition-colors duration-200 hover:border-cyan/50 hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${className}`}
-    >
+    <ActionLink href={href} variant="chip" className={className}>
       {prefix && <span className="text-cyan/70">{prefix}</span>}
       <span>{label}</span>
-    </Link>
+    </ActionLink>
   );
 }

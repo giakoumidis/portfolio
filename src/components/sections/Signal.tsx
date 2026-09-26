@@ -1,4 +1,5 @@
 import HudCard from "@/components/ui/HudCard";
+import ActionLink from "@/components/ui/ActionLink";
 import NeonButton from "@/components/ui/NeonButton";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -32,24 +33,21 @@ export default function Signal() {
 
                   <div className="mt-5 flex flex-wrap gap-2">
                     {post.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="label-mono border border-grid-dim px-2 py-1 text-text-dim"
-                      >
+                      <span key={tag} className="keyword">
                         #{tag}
                       </span>
                     ))}
                   </div>
 
-                  <a
-                    href={post.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Read on LinkedIn: ${post.title}`}
-                    className="label-mono mt-auto pt-6 text-cyan transition-colors duration-200 hover:underline hover:underline-offset-4"
-                  >
-                    Read on LinkedIn →
-                  </a>
+                  <div className="mt-auto pt-6">
+                    <ActionLink
+                      href={post.url}
+                      external
+                      aria-label={`Read on LinkedIn: ${post.title}`}
+                    >
+                      Read on LinkedIn
+                    </ActionLink>
+                  </div>
                 </div>
               </HudCard>
             </Reveal>

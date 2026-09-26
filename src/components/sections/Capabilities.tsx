@@ -1,4 +1,5 @@
 import HudCard, { type Accent } from "@/components/ui/HudCard";
+import ActionLink from "@/components/ui/ActionLink";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { capabilities } from "@/content/capabilities";
@@ -35,7 +36,7 @@ function relatedHref(
   if (hasLab) {
     return {
       href: `/?domain=${domainId}#laboratories`,
-      label: "View related laboratories →",
+      label: "View related laboratories",
     };
   }
   const hasWork = getAllWork().some((item) =>
@@ -44,7 +45,7 @@ function relatedHref(
   if (hasWork) {
     return {
       href: `/projects?domain=${domainId}`,
-      label: "View related work →",
+      label: "View related work",
     };
   }
   return null;
@@ -89,22 +90,18 @@ export default function Capabilities() {
 
                     <div className="mt-5 flex flex-wrap gap-2">
                       {capability.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="label-mono border border-grid-dim px-2 py-1 text-text-dim"
-                        >
+                        <span key={tag} className="keyword">
                           {tag}
                         </span>
                       ))}
                     </div>
 
                     {related && (
-                      <a
-                        href={related.href}
-                        className={`label-mono mt-auto pt-6 transition-colors duration-200 hover:underline hover:underline-offset-4 ${ACCENT_TEXT[accent]}`}
-                      >
-                        {related.label}
-                      </a>
+                      <div className="mt-auto pt-6">
+                        <ActionLink href={related.href}>
+                          {related.label}
+                        </ActionLink>
+                      </div>
                     )}
                   </HudCard>
                 </div>

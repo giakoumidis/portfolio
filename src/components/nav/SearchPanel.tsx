@@ -18,6 +18,7 @@ import {
   type SearchCategory,
   type SearchEntry,
 } from "@/lib/search";
+import { CHIP_BASE, CHIP_OFF, CHIP_ON } from "@/components/ui/ActionLink";
 
 const CATEGORY_TINT: Record<SearchEntry["category"], string> = {
   section: "text-text-dim border-grid-dim",
@@ -253,10 +254,8 @@ export default function SearchPanel({
             type="button"
             onClick={() => selectCategory("all")}
             aria-pressed={category === "all"}
-            className={`label-mono border px-3 py-1.5 transition-all duration-200 ${
-              category === "all"
-                ? "border-cyan/60 bg-cyan/10 text-cyan"
-                : "border-grid-dim text-text-dim hover:border-cyan/50 hover:text-cyan"
+            className={`${CHIP_BASE} cursor-pointer ${
+              category === "all" ? CHIP_ON : CHIP_OFF
             }`}
           >
             All
@@ -269,10 +268,8 @@ export default function SearchPanel({
                 type="button"
                 onClick={() => selectCategory(facet)}
                 aria-pressed={selected}
-                className={`label-mono border px-3 py-1.5 transition-all duration-200 ${
-                  selected
-                    ? "border-cyan/60 bg-cyan/10 text-cyan"
-                    : "border-grid-dim text-text-dim hover:border-cyan/50 hover:text-cyan"
+                className={`${CHIP_BASE} cursor-pointer ${
+                  selected ? CHIP_ON : CHIP_OFF
                 }`}
               >
                 {categoryLabel(facet)}
@@ -293,7 +290,7 @@ export default function SearchPanel({
                     updateQuery(suggestion);
                     inputRef.current?.focus();
                   }}
-                  className="label-mono border border-grid-dim px-3 py-1.5 text-text-dim transition-all duration-200 hover:border-cyan/50 hover:text-cyan"
+                  className={`${CHIP_BASE} cursor-pointer ${CHIP_OFF}`}
                 >
                   {suggestion}
                 </button>

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import Timeline from "@/components/sections/Timeline";
+import ActionLink from "@/components/ui/ActionLink";
 import AwardCard from "@/components/ui/AwardCard";
 import CertThumb from "@/components/ui/CertThumb";
 import HudCard from "@/components/ui/HudCard";
+import NeonButton from "@/components/ui/NeonButton";
 import { awards, certifications } from "@/content/awards";
 import { exhibitions } from "@/content/exhibitions";
 import { profile, professionalCapabilities } from "@/content/profile";
@@ -85,18 +86,9 @@ export default function ResumePage() {
                   <ul className="mt-3 flex flex-col gap-2">
                     {capability.links.map((link) => (
                       <li key={link.href}>
-                        <Link
-                          href={link.href}
-                          className="group/link flex items-center justify-between gap-3 border border-cyan/40 bg-cyan/5 px-3 py-2.5 font-body text-sm leading-snug text-text normal-case tracking-normal transition-colors hover:border-cyan hover:bg-cyan/15 hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-                        >
-                          <span>{link.label}</span>
-                          <span
-                            aria-hidden="true"
-                            className="shrink-0 text-cyan transition-transform duration-200 group-hover/link:translate-x-0.5"
-                          >
-                            →
-                          </span>
-                        </Link>
+                        <ActionLink href={link.href} variant="row">
+                          {link.label}
+                        </ActionLink>
                       </li>
                     ))}
                   </ul>
@@ -118,20 +110,9 @@ export default function ResumePage() {
                 </p>
                 <h3 className="mt-3 text-base text-text">
                   {exhibition.link ? (
-                    <a
-                      href={exhibition.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group/link flex items-center justify-between gap-3 border border-cyan/40 bg-cyan/5 px-3 py-2.5 font-body text-sm font-normal leading-snug text-text normal-case tracking-normal transition-colors hover:border-cyan hover:bg-cyan/15 hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-                    >
-                      <span>{exhibition.name}</span>
-                      <span
-                        aria-hidden="true"
-                        className="shrink-0 text-cyan transition-transform duration-200 group-hover/link:translate-x-0.5"
-                      >
-                        →
-                      </span>
-                    </a>
+                    <ActionLink href={exhibition.link} external variant="row">
+                      {exhibition.name}
+                    </ActionLink>
                   ) : (
                     exhibition.name
                   )}
@@ -201,19 +182,12 @@ export default function ResumePage() {
       <section className="mt-16 border border-grid-dim bg-bg-raised/20 p-6">
         <h2 className="font-display text-lg uppercase text-text">Documents</h2>
         <div className="mt-6 flex flex-wrap gap-4">
-          <Link
-            href="/cv.pdf"
-            download
-            className="label-mono border border-cyan/50 px-5 py-3 text-cyan transition-all hover:bg-cyan/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-          >
+          <NeonButton href="/cv.pdf" download>
             Download CV →
-          </Link>
-          <Link
-            href="/#contact"
-            className="label-mono border border-grid-dim px-5 py-3 text-text-dim transition-all hover:border-cyan/40 hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-          >
+          </NeonButton>
+          <NeonButton href="/#contact" appearance="ghost">
             Contact →
-          </Link>
+          </NeonButton>
         </div>
       </section>
     </main>

@@ -247,10 +247,7 @@ export default function ProjectCards({
 
                   <div className="mt-6 flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="label-mono border border-grid-dim px-2 py-1 text-text-dim"
-                      >
+                      <span key={tag} className="keyword">
                         {tag}
                       </span>
                     ))}

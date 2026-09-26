@@ -1,4 +1,5 @@
 import HudCard from "@/components/ui/HudCard";
+import ActionLink from "@/components/ui/ActionLink";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
@@ -46,20 +47,9 @@ export default function Exhibitions() {
 
                     <h3 className="mt-4 text-base text-text">
                       {exhibition.link ? (
-                        <a
-                          href={exhibition.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group/link flex items-center justify-between gap-3 border border-cyan/40 bg-cyan/5 px-3 py-2.5 font-body text-sm font-normal leading-snug text-text normal-case tracking-normal transition-colors hover:border-cyan hover:bg-cyan/15 hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-                        >
-                          <span>{exhibition.name}</span>
-                          <span
-                            aria-hidden="true"
-                            className="shrink-0 text-cyan transition-transform duration-200 group-hover/link:translate-x-0.5"
-                          >
-                            →
-                          </span>
-                        </a>
+                        <ActionLink href={exhibition.link} external variant="row">
+                          {exhibition.name}
+                        </ActionLink>
                       ) : (
                         exhibition.name
                       )}

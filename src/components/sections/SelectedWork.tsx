@@ -1,7 +1,6 @@
 import Link from "next/link";
 
-import HudCard from "@/components/ui/HudCard";
-import NeonButton from "@/components/ui/NeonButton";
+import ActionLink from "@/components/ui/ActionLink";
 import Reveal from "@/components/ui/Reveal";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -130,12 +129,9 @@ export default function SelectedWork() {
                       </ul>
                     )}
                     <p className="mt-auto pt-5">
-                      <Link
-                        href={`/projects/${project.slug}`}
-                        className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-                      >
-                        Explore project →
-                      </Link>
+                      <ActionLink href={`/projects/${project.slug}`}>
+                        Explore project
+                      </ActionLink>
                     </p>
                   </div>
                 </article>
@@ -145,28 +141,21 @@ export default function SelectedWork() {
         </ul>
 
         <Reveal className="mt-12">
-          <HudCard
-            accent="cyan"
-            className="flex flex-col items-stretch gap-6 border-cyan/45 bg-cyan/[0.05] px-6 py-7 shadow-[0_0_36px_rgb(0_240_255_/_0.1)] sm:flex-row sm:items-center sm:justify-between sm:px-8"
-          >
+          <div className="flex flex-col items-start gap-4 border-t border-grid-dim pt-8 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="label-mono text-cyan">Full project index</p>
-              <p className="mt-2 font-display text-xl uppercase text-text">
-                {projectCount} systems on record
+              <p className="label-mono text-text-dim">
+                <span className="text-cyan">{projectCount}</span> systems on
+                record
               </p>
               <p className="mt-2 max-w-lg font-body text-sm leading-relaxed text-text-dim">
                 Field robots, sensing payloads, and research instruments beyond
                 these three.
               </p>
             </div>
-            <NeonButton
-              href="/projects"
-              appearance="solid"
-              className="w-full shrink-0 px-7 py-4 sm:w-auto"
-            >
-              Explore all projects →
-            </NeonButton>
-          </HudCard>
+            <ActionLink href="/projects" className="shrink-0">
+              Explore all projects
+            </ActionLink>
+          </div>
         </Reveal>
       </div>
     </section>

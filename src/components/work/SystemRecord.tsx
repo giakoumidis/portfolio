@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import ActionLink from "@/components/ui/ActionLink";
 import TaxonomyChip from "@/components/work/TaxonomyChip";
 import type { ProjectCaseFile } from "@/lib/query";
 
@@ -94,16 +93,16 @@ export default function SystemRecord({ caseFile }: SystemRecordProps) {
         </Row>
         <Row label="Laboratory">
           {environments.map(({ record: infra, relationType }) => (
-            <Link
+            <ActionLink
               key={infra.slug}
               href={`/laboratories/${infra.slug}`}
-              className="label-mono border border-grid-dim px-2 py-1 text-text-dim transition-colors hover:border-cyan/50 hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+              variant="chip"
             >
               <span className="text-cyan/70">
                 {RELATION_LABEL[relationType] ?? relationType}
               </span>{" "}
               {infra.title}
-            </Link>
+            </ActionLink>
           ))}
         </Row>
         <Row label="Platforms">

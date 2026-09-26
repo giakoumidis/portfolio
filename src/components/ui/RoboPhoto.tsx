@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useState } from "react";
 
+import ActionLink from "@/components/ui/ActionLink";
 import PhotoLightbox, {
   type LightboxPhoto,
 } from "@/components/ui/PhotoLightbox";
@@ -117,16 +118,11 @@ export default function RoboPhoto({
               </p>
             )}
             {link && (
-              /*
-                Native anchor (not next/link): leaving the WebGL homepage via
-                client navigation races Three.js / media cleanup.
-              */
-              <a
-                href={link.href}
-                className="label-mono mt-2 inline-block text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-              >
-                {link.label} →
-              </a>
+              <div className="mt-2">
+                <ActionLink href={link.href} native>
+                  {link.label}
+                </ActionLink>
+              </div>
             )}
           </figcaption>
         )}

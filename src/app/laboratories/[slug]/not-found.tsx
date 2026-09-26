@@ -1,4 +1,4 @@
-import Link from "next/link";
+import NeonButton from "@/components/ui/NeonButton";
 
 export default function NotFound() {
   return (
@@ -8,12 +8,9 @@ export default function NotFound() {
       <p className="mt-3 max-w-md font-body text-sm text-text-dim">
         This laboratory hub does not exist in the knowledge system.
       </p>
-      <Link
-        href="/laboratories"
-        className="label-mono mt-8 border border-cyan/50 px-5 py-3 text-cyan transition-colors hover:bg-cyan/10"
-      >
-        Laboratories index →
-      </Link>
+      <div className="mt-8">
+        <NeonButton href="/laboratories">Laboratories index →</NeonButton>
+      </div>
     </div>
   );
 }

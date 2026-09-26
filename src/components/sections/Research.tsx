@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { CHIP_BASE } from "@/components/ui/ActionLink";
 import NeonButton from "@/components/ui/NeonButton";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -141,7 +142,7 @@ export default function Research() {
             type="button"
             aria-expanded={showAll}
             onClick={() => setShowAll((open) => !open)}
-            className="label-mono border border-grid-dim px-4 py-2 text-text-dim transition-all duration-200 hover:panel-glow-cyan hover:text-cyan"
+            className={`${CHIP_BASE} cursor-pointer border-cyan/40 bg-cyan/5 text-text-dim transition-all duration-200 hover:border-cyan hover:bg-cyan/15 hover:text-cyan`}
           >
             {showAll
               ? "Show fewer"

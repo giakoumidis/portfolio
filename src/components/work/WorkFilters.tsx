@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { CHIP_BASE, CHIP_OFF, CHIP_ON } from "@/components/ui/ActionLink";
 import type { FilterOption, WorkFilterParams } from "@/lib/query";
 import {
   toggleWorkFilterHref,
@@ -39,11 +40,7 @@ const FACET_META: Array<{
   { key: "methods", label: "Technology" },
 ];
 
-const CHIP =
-  "label-mono inline-block border px-3 py-1.5 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan";
-const CHIP_ON = "border-cyan/60 bg-cyan/10 text-cyan";
-const CHIP_OFF =
-  "border-grid-dim text-text-dim hover:border-grid hover:text-text";
+const CHIP = CHIP_BASE;
 
 export default function WorkFilters({
   options,

@@ -4,17 +4,12 @@ import { useMemo } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import ProjectCards from "@/components/sections/ProjectCards";
+import { CHIP_BASE, CHIP_OFF, CHIP_ON } from "@/components/ui/ActionLink";
 import Reveal from "@/components/ui/Reveal";
 import { taxonomyLabel } from "@/content/taxonomy";
 import type { Project } from "@/lib/types";
 
 const ALL = "all";
-
-const FILTER_BASE =
-  "label-mono cursor-pointer border px-4 py-2 transition-all duration-200";
-const FILTER_ACTIVE = "panel-glow-cyan border-cyan/60 bg-cyan/10 text-cyan";
-const FILTER_IDLE =
-  "border-grid-dim text-text-dim hover:border-grid hover:text-text";
 
 type FilteredProjectCardsProps = {
   items: Project[];
@@ -98,7 +93,7 @@ export default function FilteredProjectCards({
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setDomain(domain.id)}
-                    className={`${FILTER_BASE} ${selected ? FILTER_ACTIVE : FILTER_IDLE}`}
+                    className={`${CHIP_BASE} cursor-pointer ${selected ? CHIP_ON : CHIP_OFF}`}
                   >
                     {domain.label}
                   </button>

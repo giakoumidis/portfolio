@@ -1,4 +1,4 @@
-import Link from "next/link";
+import NeonButton from "@/components/ui/NeonButton";
 
 export default function NotFound() {
   return (
@@ -10,18 +10,10 @@ export default function NotFound() {
         system.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-4">
-        <Link
-          href="/projects"
-          className="label-mono border border-cyan/50 px-5 py-3 text-cyan transition-colors hover:bg-cyan/10"
-        >
-          Projects →
-        </Link>
-        <Link
-          href="/laboratories"
-          className="label-mono border border-grid-dim px-5 py-3 text-text-dim transition-colors hover:border-grid hover:text-text"
-        >
+        <NeonButton href="/projects">Projects →</NeonButton>
+        <NeonButton href="/laboratories" appearance="ghost">
           Laboratories →
-        </Link>
+        </NeonButton>
       </div>
     </div>
   );

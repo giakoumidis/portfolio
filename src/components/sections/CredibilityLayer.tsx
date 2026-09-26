@@ -1,17 +1,9 @@
-import Link from "next/link";
-
+import ActionLink from "@/components/ui/ActionLink";
 import Reveal from "@/components/ui/Reveal";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { archiveTeaserSrcs } from "@/content/homepage";
 import { getArchiveTeasers } from "@/content/archive";
-import { awards } from "@/content/awards";
-import {
-  featuredPublicationTitles,
-  publications,
-  scholarProfileUrl,
-  durableCitationLabel,
-} from "@/content/publications";
 import { getAllInfrastructure } from "@/lib/query";
 
 const PRIMARY_LAB_SLUGS = [
@@ -23,12 +15,6 @@ const PRIMARY_LAB_SLUGS = [
 export default function CredibilityLayer() {
   const labs = getAllInfrastructure().filter((lab) =>
     (PRIMARY_LAB_SLUGS as readonly string[]).includes(lab.slug),
-  );
-  const featured = publications.filter((publication) =>
-    featuredPublicationTitles.includes(publication.title),
-  ).slice(0, 2);
-  const firstPrizes = awards.filter((award) =>
-    award.placement.toLowerCase().includes("first"),
   );
   const teasers = getArchiveTeasers([...archiveTeaserSrcs]);
 
@@ -44,7 +30,7 @@ export default function CredibilityLayer() {
             index="03"
             title="Laboratories & Evidence"
             headingId="credibility-heading"
-            kicker="Infrastructure · research · archive"
+            kicker="Infrastructure · archive"
           />
 
           <ul className="mt-8 grid gap-5 lg:grid-cols-3">
@@ -75,12 +61,9 @@ export default function CredibilityLayer() {
                         {lab.contributionSummary.split(/(?<=[.!?])\s/)[0]}
                       </p>
                       <p className="mt-auto pt-4">
-                        <Link
-                          href={`/laboratories/${lab.slug}`}
-                          className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-                        >
-                          Explore laboratory →
-                        </Link>
+                        <ActionLink href={`/laboratories/${lab.slug}`}>
+                          Explore laboratory
+                        </ActionLink>
                       </p>
                     </div>
                   </article>
@@ -89,64 +72,9 @@ export default function CredibilityLayer() {
             })}
           </ul>
           <p className="mt-6">
-            <Link
-              href="/laboratories"
-              className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-            >
-              Explore all laboratories →
-            </Link>
+            <ActionLink href="/laboratories">Explore all laboratories</ActionLink>
           </p>
         </div>
-
-        <Reveal>
-          <div className="border border-grid-dim bg-bg-raised/20 p-5 sm:p-6">
-            <p className="label-mono text-cyan">Research & awards</p>
-            <div className="mt-4 flex flex-wrap gap-x-8 gap-y-2">
-              <p className="label-mono text-text-dim">
-                <span className="text-cyan">{publications.length}</span> publications
-              </p>
-              <p className="label-mono text-text-dim">
-                <span className="text-cyan">{durableCitationLabel}</span> citations
-              </p>
-              <p className="label-mono text-text-dim">
-                <span className="text-cyan">{firstPrizes.length}</span> first-prize awards
-              </p>
-            </div>
-            <ul className="mt-5 space-y-3">
-              {featured.map((publication) => (
-                <li key={publication.title}>
-                  <a
-                    href={publication.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-body text-sm text-text transition-colors hover:text-cyan"
-                  >
-                    {publication.title}
-                  </a>
-                  <span className="label-mono ml-2 text-text-dim">
-                    {publication.year}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-5 flex flex-wrap gap-4">
-              <a
-                href={scholarProfileUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-              >
-                Google Scholar →
-              </a>
-              <Link
-                href="/research"
-                className="label-mono text-text-dim transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-              >
-                Publications & research →
-              </Link>
-            </div>
-          </div>
-        </Reveal>
 
         <div>
           <p className="label-mono text-cyan">From the Archive</p>
@@ -174,12 +102,7 @@ export default function CredibilityLayer() {
             ))}
           </ul>
           <p className="mt-6">
-            <Link
-              href="/archive"
-              className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-            >
-              Explore the Archive →
-            </Link>
+            <ActionLink href="/archive">Explore the Archive</ActionLink>
           </p>
         </div>
       </div>

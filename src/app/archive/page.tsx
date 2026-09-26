@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 
+import ActionLink, {
+  CHIP_BASE,
+  CHIP_OFF,
+  CHIP_ON,
+} from "@/components/ui/ActionLink";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import {
   ARCHIVE_TYPES,
@@ -86,10 +91,8 @@ function ArchiveFilters({
           key={type}
           href={archiveHref(type)}
           aria-current={activeType === type ? "true" : undefined}
-          className={`label-mono border px-3 py-1.5 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
-            activeType === type
-              ? "border-cyan bg-cyan/10 text-cyan"
-              : "border-grid-dim text-text-dim hover:border-cyan/40 hover:text-cyan"
+          className={`${CHIP_BASE} ${
+            activeType === type ? CHIP_ON : CHIP_OFF
           }`}
         >
           {FILTER_LABELS[type]}
@@ -118,12 +121,9 @@ function ArchiveGrid({
         <p className="font-body text-text-dim">
           No archive records match this filter.
         </p>
-        <Link
-          href="/archive"
-          className="label-mono mt-4 inline-block text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-        >
-          Show all →
-        </Link>
+        <div className="mt-4">
+          <ActionLink href="/archive">Show all</ActionLink>
+        </div>
       </div>
     );
   }
@@ -175,26 +175,19 @@ function ArchiveGrid({
                   {FILTER_LABELS[record.archiveType]}
                 </p>
                 {(record.projectHref || record.laboratoryHref) && (
-                  <p className="label-mono text-xs">
+                  <p className="mt-2 flex flex-wrap gap-2">
                     {record.projectHref && (
-                      <Link
-                        href={record.projectHref}
-                        className="text-cyan transition-colors hover:text-text"
-                      >
-                        {record.projectTitle} →
-                      </Link>
+                      <ActionLink href={record.projectHref} variant="chip">
+                        {record.projectTitle}
+                      </ActionLink>
                     )}
                     {record.laboratoryHref && (
-                      <Link
-                        href={record.laboratoryHref}
-                        className="text-cyan transition-colors hover:text-text"
-                      >
-                        {record.laboratoryTitle} →
-                      </Link>
+                      <ActionLink href={record.laboratoryHref} variant="chip">
+                        {record.laboratoryTitle}
+                      </ActionLink>
                     )}
                   </p>
-                )}
-              </div>
+                )}              </div>
             </li>
           );
         })}
@@ -208,7 +201,7 @@ function ArchiveGrid({
           {page > 1 && (
             <Link
               href={archiveHref(activeType, page - 1)}
-              className="label-mono border border-grid-dim px-4 py-2 text-text-dim transition-colors hover:border-cyan/40 hover:text-cyan"
+              className={`${CHIP_BASE} ${CHIP_OFF}`}
             >
               ← Previous
             </Link>
@@ -219,7 +212,7 @@ function ArchiveGrid({
           {page < totalPages && (
             <Link
               href={archiveHref(activeType, page + 1)}
-              className="label-mono border border-grid-dim px-4 py-2 text-text-dim transition-colors hover:border-cyan/40 hover:text-cyan"
+              className={`${CHIP_BASE} ${CHIP_OFF}`}
             >
               Load more →
             </Link>

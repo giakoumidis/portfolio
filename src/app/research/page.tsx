@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import ActionLink, {
+  CHIP_BASE,
+  CHIP_OFF,
+  CHIP_ON,
+} from "@/components/ui/ActionLink";
 import NeonButton from "@/components/ui/NeonButton";
 import {
   acknowledgementIntro,
@@ -141,11 +146,7 @@ function SortLink({
     <Link
       href={href}
       aria-current={active ? "true" : undefined}
-      className={`label-mono border px-3 py-1.5 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
-        active
-          ? "border-cyan bg-cyan/10 text-cyan"
-          : "border-grid-dim text-text-dim hover:border-cyan/40 hover:text-cyan"
-      }`}
+      className={`${CHIP_BASE} ${active ? CHIP_ON : CHIP_OFF}`}
     >
       {label}
     </Link>
@@ -192,15 +193,11 @@ export default async function ResearchPage({ searchParams }: PageProps) {
               </p>
               {"href" in item && item.href && (
                 <p className="mt-4">
-                  <Link
-                    href={item.href}
-                    className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-                  >
+                  <ActionLink href={item.href}>
                     {"linkLabel" in item && item.linkLabel
                       ? item.linkLabel
-                      : "Read the project"}{" "}
-                    →
-                  </Link>
+                      : "Read the project"}
+                  </ActionLink>
                 </p>
               )}
             </article>
@@ -215,14 +212,9 @@ export default async function ResearchPage({ searchParams }: PageProps) {
         <p className="label-mono text-text-dim">
           <span className="text-cyan">{durableCitationLabel}</span> citations
         </p>
-        <a
-          href={profile.links.scholar}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-        >
-          Google Scholar →
-        </a>
+        <ActionLink href={profile.links.scholar} external>
+          Google Scholar
+        </ActionLink>
       </div>
 
       <div className="mt-12">

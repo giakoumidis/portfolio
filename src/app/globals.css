@@ -275,6 +275,22 @@
   text-transform: uppercase;
 }
 
+/* Static keyword / tag — dim chrome, no hover affordance */
+@utility keyword {
+  font-family: var(--font-mono);
+  font-size: calc(0.72rem * 1.21);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-grid-dim);
+  padding-inline: 0.5rem;
+  padding-block: 0.25rem;
+  color: var(--color-text-dim);
+}
+
 /* Shared section rhythm */
 @utility section-shell {
   width: 100%;

@@ -10,6 +10,8 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
+import ActionLink from "@/components/ui/ActionLink";
+
 export type LightboxPhoto = {
   src: string;
   alt: string;
@@ -252,12 +254,11 @@ export default function PhotoLightbox({
               <p className="mt-1.5 text-sm leading-snug">{current.description}</p>
             )}
           {current.link && (
-            <a
-              href={current.link.href}
-              className="label-mono mt-2 inline-block text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-            >
-              {current.link.label} →
-            </a>
+            <div className="mt-2">
+              <ActionLink href={current.link.href} native>
+                {current.link.label}
+              </ActionLink>
+            </div>
           )}
           {canNavigate && (
             <p className="label-mono mt-2 text-[10px] text-text-dim/80">

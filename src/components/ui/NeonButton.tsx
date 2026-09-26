@@ -5,21 +5,19 @@ type Variant = "cyan" | "magenta" | "orange" | "pink";
 type Appearance = "solid" | "outline" | "ghost";
 
 const OUTLINE: Record<Variant, string> = {
-  cyan: "border-cyan/50 text-cyan hover:panel-glow-cyan hover:bg-cyan/10",
+  cyan: "border-cyan/40 bg-cyan/5 text-text hover:border-cyan hover:bg-cyan/15 hover:text-cyan",
   magenta:
-    "border-magenta/50 text-magenta hover:panel-glow-magenta hover:bg-magenta/10",
+    "border-magenta/40 bg-magenta/5 text-text hover:border-magenta hover:bg-magenta/15 hover:text-magenta",
   orange:
-    "border-orange/50 text-orange hover:panel-glow-orange hover:bg-orange/10",
-  pink: "border-pink/50 text-pink hover:panel-glow-pink hover:bg-pink/10",
+    "border-orange/40 bg-orange/5 text-text hover:border-orange hover:bg-orange/15 hover:text-orange",
+  pink: "border-pink/40 bg-pink/5 text-text hover:border-pink hover:bg-pink/15 hover:text-pink",
 };
 
 const SOLID: Record<Variant, string> = {
-  cyan: "border-cyan bg-cyan text-bg hover:bg-cyan/90 hover:panel-glow-cyan",
-  magenta:
-    "border-magenta bg-magenta text-bg hover:bg-magenta/90 hover:panel-glow-magenta",
-  orange:
-    "border-orange bg-orange text-bg hover:bg-orange/90 hover:panel-glow-orange",
-  pink: "border-pink bg-pink text-bg hover:bg-pink/90 hover:panel-glow-pink",
+  cyan: "border-cyan bg-cyan text-bg hover:bg-cyan/90",
+  magenta: "border-magenta bg-magenta text-bg hover:bg-magenta/90",
+  orange: "border-orange bg-orange text-bg hover:bg-orange/90",
+  pink: "border-pink bg-pink text-bg hover:bg-pink/90",
 };
 
 const GHOST: Record<Variant, string> = {
@@ -36,6 +34,9 @@ const APPEARANCE: Record<Appearance, Record<Variant, string>> = {
   outline: OUTLINE,
   ghost: GHOST,
 };
+
+const FOCUS =
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan";
 
 type NeonButtonProps = {
   children: ReactNode;
@@ -58,10 +59,11 @@ export default function NeonButton({
   onClick,
   className = "",
 }: NeonButtonProps) {
-  const classes = `label-mono inline-flex items-center justify-center gap-2 border px-5 py-3 transition-all duration-200 ${APPEARANCE[appearance][variant]} ${className}`;
+  const classes = `label-mono inline-flex items-center justify-center gap-2 border px-5 py-3 transition-colors duration-200 ${FOCUS} ${APPEARANCE[appearance][variant]} ${className}`;
 
   if (href) {
-    const inApp = !download && !external && (href.startsWith("/") || href.startsWith("#"));
+    const inApp =
+      !download && !external && (href.startsWith("/") || href.startsWith("#"));
 
     if (inApp) {
       return (

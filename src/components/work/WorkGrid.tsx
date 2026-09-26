@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import ActionLink from "@/components/ui/ActionLink";
 import RecordCardHero from "@/components/ui/RecordCardHero";
 import TaxonomyChip from "@/components/work/TaxonomyChip";
 import { featuredProjectSlug } from "@/content/homepage";
@@ -17,12 +18,9 @@ export default function WorkGrid({ items }: WorkGridProps) {
         <p className="font-body text-text-dim">
           No projects match these filters.
         </p>
-        <Link
-          href="/projects"
-          className="label-mono mt-4 inline-block text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-        >
-          Clear filters →
-        </Link>
+        <div className="mt-4">
+          <ActionLink href="/projects">Clear filters</ActionLink>
+        </div>
       </div>
     );
   }
