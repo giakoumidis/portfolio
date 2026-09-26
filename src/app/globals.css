@@ -291,23 +291,13 @@
 }
 
 /* ============================================================
-   Robo-photo — retro duotone treatment for real project photos.
-   The colour image is always in the DOM; the filter + tint fake a
-   cyan/magenta duotone that lifts on hover to reveal the original.
+   Robo-photo — true-colour project photographs.
    ============================================================ */
 .robo-photo-img {
-  filter: grayscale(0.9) contrast(1.08) brightness(0.78) sepia(0.32)
-    hue-rotate(175deg) saturate(2.2);
-  transition: filter 0.5s var(--ease-reveal);
   /* Soften casual save / drag of the thumbnails themselves. */
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
-}
-
-.robo-photo:hover .robo-photo-img,
-.robo-photo:focus-within .robo-photo-img {
-  filter: none;
 }
 
 .robo-photo-shield {
@@ -316,61 +306,6 @@
   z-index: 1;
   /* Transparent hit target so the <img> never receives right-click / drag. */
   background: transparent;
-}
-
-.robo-photo-tint {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background: linear-gradient(
-    160deg,
-    rgb(0 240 255 / 0.16),
-    rgb(139 92 255 / 0.1) 38%,
-    transparent 52%,
-    rgb(255 106 0 / 0.14) 78%,
-    rgb(255 43 214 / 0.2)
-  );
-  mix-blend-mode: screen;
-  transition: opacity 0.5s var(--ease-reveal);
-}
-
-.robo-photo:hover .robo-photo-tint,
-.robo-photo:focus-within .robo-photo-tint {
-  opacity: 0;
-}
-
-.robo-photo-scanlines {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    rgb(0 0 0 / 0.18) 0px,
-    rgb(0 0 0 / 0.18) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-}
-
-@keyframes profile-photo-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.profile-photo-in {
-  animation: profile-photo-in 0.45s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .profile-photo-in {
-    animation: none;
-  }
 }
 
 /* ============================================================
@@ -509,26 +444,12 @@
   }
 }
 
-@keyframes scroll-cue-pulse {
-  0%,
-  100% {
-    opacity: 0.22;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
 .animate-blink {
   animation: blink 1.05s steps(1, end) infinite;
 }
 
 .animate-bob {
   animation: bob 2s var(--ease-reveal) infinite;
-}
-
-.scroll-cue {
-  animation: scroll-cue-pulse 2.4s var(--ease-reveal) infinite;
 }
 
 /* Glitch/RGB-split heading: two coloured copies sliced on top of the text */
@@ -559,7 +480,6 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-blink,
   .animate-bob,
-  .scroll-cue,
   .glitch[data-glitch="on"]::before,
   .glitch[data-glitch="on"]::after {
     animation: none;
