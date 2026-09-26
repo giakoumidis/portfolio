@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import AwardCard from "@/components/ui/AwardCard";
 import NeonButton from "@/components/ui/NeonButton";
 import {
   acknowledgementIntro,
   acknowledgedPublications,
 } from "@/content/acknowledgements";
-import { awards } from "@/content/awards";
 import { currentResearch, profile } from "@/content/profile";
 import {
   publications,
@@ -293,27 +291,6 @@ export default async function ResearchPage({ searchParams }: PageProps) {
           Full list → Google Scholar
         </NeonButton>
       </div>
-
-      <section id="awards" className="mt-20 scroll-mt-24">
-        <h2 className="font-display text-lg uppercase text-text">Awards</h2>
-        <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
-          First-prize competition wins. Full certificates and detail on{" "}
-          <Link
-            href="/profile#awards"
-            className="text-cyan transition-colors hover:text-text"
-          >
-            Profile → Awards
-          </Link>
-          .
-        </p>
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2">
-          {awards.map((award) => (
-            <li key={award.id}>
-              <AwardCard award={award} />
-            </li>
-          ))}
-        </ul>
-      </section>
     </main>
   );
 }

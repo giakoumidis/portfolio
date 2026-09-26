@@ -104,7 +104,7 @@ function buildIndex(): SearchEntry[] {
     {
       id: "section:research-hub",
       title: "Research",
-      blurb: "Publications, acknowledgements, and awards",
+      blurb: "Publications and acknowledgements",
       category: "section",
       href: "/research",
       haystack: joinHaystack(

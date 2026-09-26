@@ -72,7 +72,7 @@ His longer-term research direction is heterogeneous embodied collective intellig
 - /projects/[slug] — Individual case file
 - /laboratories — Laboratory hubs
 - /laboratories/[slug] — Laboratory detail
-- /research — Research focus, publications, awards, and publication acknowledgements
+- /research — Research focus, publications, and publication acknowledgements
 - /archive — Documentary evidence (photos, exhibitions, awards, media)
 - /profile — Professional summary, evidence-linked expertise, career history, education, and recognition
 - /cv.pdf — Downloadable CV
