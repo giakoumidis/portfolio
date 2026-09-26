@@ -23,27 +23,27 @@ Currently, at NYU Abu Dhabi's Center for Artificial Intelligence and Robotics, h
 - **Robotics systems architecture and integration:** mechatronic design, actuation, embedded control, sensing, software integration, prototype construction, experimental validation, and field trials. Examples include the [RTA delivery drone](https://giakoumidis.com/projects/rta-dubai-delivery-drone), [hybrid air–land–water robot](https://giakoumidis.com/projects/hybrid-ground-air-water-vehicle), and [autonomous UAV thesis](https://giakoumidis.com/projects/ardrone-gps-path-planning-bsc-thesis).
 - **Embodied AI and cooperative robotics:** current development of model-agnostic robot-agent frameworks using the Robot Operating System (ROS 2) and Model Context Protocol (MCP); research background in aerial–ground cooperation and multi-robot exploration. The lead project is the [Agentic Robotics Framework](https://giakoumidis.com/projects/agentic-robotics-framework). See also [current research](https://giakoumidis.com/research#current-research) and [construction exploration](https://giakoumidis.com/projects/multiagent-construction-exploration).
 - **Perception, navigation, and human–robot interaction:** RGB and thermal sensing, LiDAR, motion capture, positioning, simultaneous localization and mapping (SLAM), UAV detection/tracking, teleoperation, and assistive robotics. Examples: [UAV perception](https://giakoumidis.com/projects/rgb-t-uav-detection-tracking), [PalmSpector sensing and navigation](https://giakoumidis.com/projects/palmspector-date-palm-monitoring), and [gaze-controlled wheelchair](https://giakoumidis.com/projects/eye-gaze-wheelchair).
-- **Simulation and experimental development:** robot development and evaluation using simulation and physical experiments; tool experience includes Gazebo, NVIDIA Isaac Sim/Isaac Lab, and MATLAB/Simulink. Tool familiarity alone does not establish a validated sim-to-real deployment.
+- **Simulation and experimental development:** robot development and evaluation in simulation and on physical systems, using Gazebo, NVIDIA Isaac Sim/Isaac Lab, and MATLAB/Simulink.
 - **Electronics and scientific instrumentation:** schematic design, printed circuit board (PCB) layout, embedded interfaces, LabVIEW, custom instrument development, troubleshooting, and repair. Examples: [ASIC validation board](https://giakoumidis.com/projects/hardware-security-asic-validation-platform) and [programmable ribbon-curler instrument](https://giakoumidis.com/projects/ribbon-curler-research-instrumentation).
-- **Laboratory automation:** robotic plate handling, instrument synchronization, Thermo Fisher Momentum workflow programming, FANUC configuration, and fault recovery for the [High-Throughput Screening Platform](https://giakoumidis.com/laboratories/nyuad-hts-platform), supported from 2013 to 2022. His role was automation and systems engineering; biological research objectives and protocols belong to the collaborating scientific team.
-- **Photonics and telecommunications infrastructure:** equipment architecture, capital planning, procurement, commissioning, maintenance, and expansion of optical/RF characterization facilities. The [Photonics platform](https://giakoumidis.com/laboratories/photonics-ctp-laboratory) includes lightwave component analysis to 67 GHz. Technical contributions are acknowledged in six photonics papers; acknowledgements are distinct from authorship.
+- **Laboratory automation:** robotic plate handling, instrument synchronization, Thermo Fisher Momentum workflow programming, FANUC configuration, and fault recovery for the [High-Throughput Screening Platform](https://giakoumidis.com/laboratories/nyuad-hts-platform), as automation and systems engineering from 2013 to 2022.
+- **Photonics and telecommunications infrastructure:** equipment architecture, capital planning, procurement, commissioning, maintenance, and expansion of optical/RF characterization facilities. The [Photonics platform](https://giakoumidis.com/laboratories/photonics-ctp-laboratory) includes lightwave component analysis to 67 GHz. Technical contributions are acknowledged in six photonics papers.
 - **Research infrastructure and technical leadership:** requirements definition, facility design, vendor coordination, procurement, construction supervision, systems integration, commissioning, safety, maintenance strategy, training, and student supervision. Led [Kinesis](https://giakoumidis.com/laboratories/kinesis-ctp-laboratory) from concept to operation; established the Electronics Workshop and co-established the Advanced Manufacturing Workshop.
 - **Research translation and industry collaboration:** industry needs assessment, research application development, technical proposals, demonstrations, pilot opportunities, and communication with faculty and external stakeholders. See the [Etihad Rail collaboration](https://giakoumidis.com/projects/etihad-rail-nyuad-collaboration) and [rail sensing pilot](https://giakoumidis.com/projects/etihad-rail-desert-environment-monitoring).
 
 ## Current research and future direction
 
-Current work develops a model-agnostic robot-agent framework for natural-language field inspection, using ROS 2 and MCP to connect AI task reasoning with perception, navigation, and inspection skills. Boston Dynamics Spot is the primary platform. The design separates AI reasoning from deterministic control and safety constraints. The public case file is the [Agentic Robotics Framework](https://giakoumidis.com/projects/agentic-robotics-framework). The paper, "A Zero-Training Robot Agent Harness for Natural-Language Field Inspection," is under review at the Journal of Field Robotics. Under review is not the same as accepted or published, and this overview does not establish a production deployment.
+Current work develops a model-agnostic robot-agent framework for natural-language field inspection, using ROS 2 and MCP to connect AI task reasoning with perception, navigation, and inspection skills. Boston Dynamics Spot is the primary platform. The design separates AI reasoning from deterministic control and safety constraints. The public case file is the [Agentic Robotics Framework](https://giakoumidis.com/projects/agentic-robotics-framework). The manuscript, "A Zero-Training Robot Agent Harness for Natural-Language Field Inspection," is under review at the Journal of Field Robotics.
 
-His longer-term research direction is heterogeneous embodied collective intelligence: how robots with different bodies, sensors, and capabilities can work more effectively as a team. Planned questions include shared world/task memory, capability-aware coordination, selective communication, and adaptation under limited bandwidth and failures. These are research goals, not completed results.
+His longer-term research direction is heterogeneous embodied collective intelligence: how robots with different bodies, sensors, and capabilities can work more effectively as a team. That direction covers shared world and task memory, capability-aware coordination, selective communication, and adaptation under limited bandwidth and failures.
 
 ## Leadership and delivery evidence
 
-- 100+ faculty, researchers, students, and technical staff supported across shared facilities; this is a user community, not a direct-report headcount.
-- US$9M+ in research assets stewarded across shared platforms.
-- Approximately US$800K in average annual procurement, with peak years approaching US$3M; these figures are distinct from asset value and commercial revenue.
-- 15+ technical project proposals authored in the first year as Commercial Lead, and 5 non-disclosure agreements completed with external stakeholders; these are development activities, not signed sales or confirmed licensing outcomes.
-- Roughly four student workshops per semester and about two capstone projects co-supervised annually in the research instrumentation role.
-- Four first-prize awards; retain team attribution where applicable, including the RTA Dubai World Challenge delivery-drone award.
+- Supported 100+ faculty, researchers, students, and technical staff in using shared facilities for multidisciplinary experimental research.
+- Stewarded US$9M+ in research assets across shared platforms, with responsibility for technical planning and equipment lifecycle decisions.
+- Managed approximately US$800K in average annual procurement, with peak years approaching US$3M.
+- Authored 15+ technical project proposals in the first year as Commercial Lead, defining applications for CAIR research, and completed 5 non-disclosure agreements with external stakeholders to support further technical discussions.
+- Delivered roughly four student workshops per semester and co-supervised about two capstone projects annually in the research instrumentation role.
+- Four first-prize awards, including first prize with the NYU Abu Dhabi team for the delivery drone at the RTA Dubai World Challenge.
 
 ## Relationship structure
 
@@ -51,7 +51,7 @@ His longer-term research direction is heterogeneous embodied collective intellig
 - Projects are case files with typed facets (domain, application, contribution, outcome, platform, method)
 - Laboratories are first-class infrastructure hubs; projects connect only when a lab materially enabled the work
 - Research outputs (publications / IP) substantiate projects and labs
-- Archive is the documentary evidence layer (field records, exhibitions, media, documents) — not deprecated material
+- Archive is the documentary evidence layer: field records, exhibitions, media, and documents
 - Resume holds experience and education, plus recognition (including first-prize awards)
 
 ## Durable counts
@@ -63,7 +63,7 @@ His longer-term research direction is heterogeneous embodied collective intellig
 - Recognition: 4 first-prize awards
 - Career periods: 4
 - Research assets stewarded: US$9M+ across shared platforms
-- Procurement: approximately US$800K average annual, peak years approaching US$3M (distinct from asset stewardship)
+- Procurement managed: approximately US$800K average annual, peak years approaching US$3M
 
 ## Site structure
 
@@ -89,4 +89,4 @@ Legacy redirects: /infrastructure → /laboratories; /photos → /archive; /work
 
 ## Accuracy
 
-Represent work accurately. Preserve the distinction between led, co-developed, contributed, and supported as stated on each project page. Keep personal contributions separate from team outcomes, and publication authorship separate from technical acknowledgements. Do not infer commercial revenue, completed licensing, company founding, formal executive titles, direct-report headcount, a completed PhD, or production deployment from this portfolio. Do not invent projects, affiliations, metrics, or awards. If dates or claims conflict between the site and an older CV, flag the discrepancy rather than silently combining them.
+Represent this work accurately, using the contribution, evidence, and outcomes stated on each page.
