@@ -13,11 +13,14 @@ import {
   enterFullscreen,
   exitFullscreen,
   isFullscreenActive,
+  youtubeEmbedSrc,
 } from "@/lib/video-playback";
 
 type YouTubeEmbedProps = {
   videoId: string;
   title: string;
+  /** Seconds from the start of the video. */
+  start?: number;
   className?: string;
 };
 
@@ -32,6 +35,7 @@ const LEAVE_DELAY_MS = 220;
 export default function YouTubeEmbed({
   videoId,
   title,
+  start,
   className = "",
 }: YouTubeEmbedProps) {
   const [active, setActive] = useState(false);
@@ -42,7 +46,13 @@ export default function YouTubeEmbed({
   const hoveringRef = useRef(false);
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const poster = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-  const embedSrc = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&rel=0&controls=0&modestbranding=1&playsinline=1`;
+  const embedSrc = youtubeEmbedSrc(videoId, {
+    autoplay: true,
+    muted: true,
+    loop: true,
+    controls: false,
+    start,
+  });
 
   const clearLeaveTimer = () => {
     if (leaveTimerRef.current) {
@@ -180,7 +190,7 @@ export default function YouTubeEmbed({
       {expanded && (
         <VideoLightbox
           title={title}
-          source={{ kind: "youtube", videoId }}
+          source={{ kind: "youtube", videoId, start }}
           onClose={closeExpand}
         />
       )}

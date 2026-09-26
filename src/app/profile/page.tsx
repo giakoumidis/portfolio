@@ -6,10 +6,8 @@ import AwardCard from "@/components/ui/AwardCard";
 import CertThumb from "@/components/ui/CertThumb";
 import HudCard from "@/components/ui/HudCard";
 import { awards, certifications } from "@/content/awards";
-import { careerEras } from "@/content/career-eras";
 import { exhibitions } from "@/content/exhibitions";
 import { profile, professionalCapabilities } from "@/content/profile";
-import { getInfrastructure, getProject } from "@/lib/query";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -44,6 +42,37 @@ export default function ProfilePage() {
         </p>
       </section>
 
+      <section id="experience-education" className="mt-16 scroll-mt-24" aria-labelledby="experience-education-heading">
+        <h2
+          id="experience-education-heading"
+          className="font-display text-lg uppercase text-text"
+        >
+          Experience & education
+        </h2>
+        <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
+          Engineering, research, and leadership experience, supported by continued
+          study in cooperative autonomous systems.
+        </p>
+        <div className="mt-10">
+          <Timeline embedded />
+        </div>
+      </section>
+
+      <section id="awards" className="mt-16 scroll-mt-24">
+        <h2 className="font-display text-lg uppercase text-text">Awards</h2>
+        <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
+          Recognition for robotics design and competition performance, with
+          demonstrations and award records.
+        </p>
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2">
+          {awards.map((award) => (
+            <li key={award.id}>
+              <AwardCard award={award} detailed />
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section id="expertise" className="mt-16 scroll-mt-24" aria-labelledby="expertise-heading">
         <h2 id="expertise-heading" className="font-display text-lg uppercase text-text">
           Engineering & leadership expertise
@@ -71,93 +100,6 @@ export default function ProfilePage() {
                   ))}
                 </ul>
               </HudCard>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-16">
-        <h2 className="font-display text-lg uppercase text-text">
-          Career trajectory
-        </h2>
-        <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
-          From developing robotic systems to establishing research facilities
-          and leading industry engagement, each stage builds on direct engineering experience.
-        </p>
-
-        <ul className="mt-8 grid gap-5 lg:grid-cols-2">
-          {careerEras.map((era) => (
-            <li key={era.id}>
-              <HudCard accent="cyan" className="flex h-full flex-col p-6">
-                <p className="label-mono text-cyan">{era.years}</p>
-                <h3 className="mt-3 text-base text-text">{era.label}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-text-dim">
-                  {era.summary}
-                </p>
-
-                {(era.relatedWorkSlugs.length > 0 ||
-                  (era.relatedLabSlugs?.length ?? 0) > 0) && (
-                  <div className="mt-5 space-y-2 border-t border-grid-dim pt-4">
-                    {era.relatedWorkSlugs.slice(0, 3).map((slug) => {
-                      const project = getProject(slug);
-                      if (!project) return null;
-                      return (
-                        <Link
-                          key={slug}
-                          href={`/projects/${slug}`}
-                          className="label-mono block text-sm text-text-dim transition-colors hover:text-cyan"
-                        >
-                          {project.title} →
-                        </Link>
-                      );
-                    })}
-                    {era.relatedLabSlugs?.map((slug) => {
-                      const lab = getInfrastructure(slug);
-                      if (!lab) return null;
-                      return (
-                        <Link
-                          key={slug}
-                          href={`/laboratories/${slug}`}
-                          className="label-mono block text-sm text-text-dim transition-colors hover:text-cyan"
-                        >
-                          {lab.title} →
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
-              </HudCard>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section id="experience-education" className="mt-16 scroll-mt-24" aria-labelledby="experience-education-heading">
-        <h2
-          id="experience-education-heading"
-          className="font-display text-lg uppercase text-text"
-        >
-          Experience & education
-        </h2>
-        <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
-          Engineering, research, and leadership experience, supported by continued
-          study in cooperative autonomous systems.
-        </p>
-        <div className="mt-10">
-          <Timeline embedded />
-        </div>
-      </section>
-
-      <section id="awards" className="mt-16 scroll-mt-24">
-        <h2 className="font-display text-lg uppercase text-text">Awards</h2>
-        <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
-          Recognition for robotics design and competition performance, with
-          demonstrations and award records.
-        </p>
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2">
-          {awards.map((award) => (
-            <li key={award.id}>
-              <AwardCard award={award} detailed />
             </li>
           ))}
         </ul>

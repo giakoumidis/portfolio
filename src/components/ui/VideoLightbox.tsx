@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
 import { notifyVideoPlay, notifyVideoStop } from "@/lib/media-events";
+import { youtubeEmbedSrc } from "@/lib/video-playback";
 
 type LocalSource = {
   kind: "local";
@@ -14,6 +15,8 @@ type LocalSource = {
 type YouTubeSource = {
   kind: "youtube";
   videoId: string;
+  /** Seconds from the start of the video. */
+  start?: number;
 };
 
 type VideoLightboxProps = {
@@ -67,7 +70,10 @@ export default function VideoLightbox({
 
   const youtubeSrc =
     source.kind === "youtube"
-      ? `https://www.youtube-nocookie.com/embed/${source.videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`
+      ? youtubeEmbedSrc(source.videoId, {
+          autoplay: true,
+          start: source.start,
+        })
       : null;
 
   return createPortal(

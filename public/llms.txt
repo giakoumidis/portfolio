@@ -14,9 +14,9 @@ Professional overview for readers, search systems, and AI assistants. Use the li
 
 ## Professional profile
 
-Nikolaos Giakoumidis is an engineer, researcher, and technical leader driven by curiosity, a practical instinct to build, and a deep interest in how technology shapes the future. Across 15+ years in AI, Robotics, Electronics, and Automation, he has led engineering projects, established and managed research laboratories, and brought people, resources, and technologies together to turn ideas into working systems. His leadership approach draws on a broad understanding of engineering, research, operations, and commercial priorities, combining technical involvement, collaboration, and responsibility for delivery.
+Nikolaos Giakoumidis is an engineer, researcher, and technical leader driven by curiosity, a practical instinct to build, and a deep interest in how technology shapes the future. Across 15+ years of engineering in AI, Robotics, Electronics, and Automation, he has led engineering projects, established and managed research laboratories, and brought people, resources, and technologies together to turn ideas into working systems. His leadership approach draws on a broad understanding of engineering, research, operations, and commercial priorities, combining technical involvement, collaboration, responsibility for delivery, and teaching and mentoring.
 
-Currently, at NYU Abu Dhabi's Center for Artificial Intelligence and Robotics, he leads commercialization and industry engagement, working to understand real-world challenges and bring scientific teams and industry partners together to address them. His PhD research focuses on agentic robotics and physical AI: building the software frameworks, or harnesses, that connect AI models with physical systems, bringing together low-level sensing and control with high-level reasoning, planning, and coordination. This work extends from individual robots to the capabilities needed across buildings, production lines, and logistics hubs. His personal interests include aviation, design, fabrication, and how people interact with intelligent machines. He enjoys exploring unconventional ideas and sharing knowledge through teaching and mentoring. He cares deeply about AI's impact on humanity and wants to help shape a future in which it expands human capability, supports human agency, and creates meaningful benefits for society.
+Currently, at NYU Abu Dhabi's Center for Artificial Intelligence and Robotics, he leads commercialization and industry engagement, working to understand real-world challenges and bring scientific teams and industry partners together to address them. His PhD research focuses on agentic robotics and physical AI: developing software harnesses that connect AI models with physical systems, integrating low-level sensing and control with high-level reasoning, planning, and coordination. His aim is to make these capabilities applicable across industries and processes, from individual robots and machines to interconnected infrastructure and entire operational workflows. He cares deeply about AI's impact on humanity and wants to help shape a future in which it expands human capability, preserves our ability to make meaningful choices, and creates lasting benefits for society.
 
 ## Engineering and leadership expertise
 
@@ -52,13 +52,13 @@ His longer-term research direction is heterogeneous embodied collective intellig
 - Laboratories are first-class infrastructure hubs; projects connect only when a lab materially enabled the work
 - Research outputs (publications / IP) substantiate projects and labs
 - Archive is the documentary evidence layer (field records, exhibitions, media, documents) — not deprecated material
-- Profile holds four career periods plus recognition (including first-prize awards)
+- Profile holds experience and education, plus recognition (including first-prize awards)
 
 ## Durable counts
 
 - Projects: 16 published case files
 - Laboratories: 3 shared research platforms
-- Research: 30+ publications
+- Research: 30+ publications, plus 21 publications that acknowledge a contribution
 - Citations: 450+ (durable floor)
 - Recognition: 4 first-prize awards
 - Career periods: 4
@@ -72,7 +72,7 @@ His longer-term research direction is heterogeneous embodied collective intellig
 - /projects/[slug] — Individual case file
 - /laboratories — Laboratory hubs
 - /laboratories/[slug] — Laboratory detail
-- /research — Research focus, publications, and IP
+- /research — Research focus, publications, intellectual property, awards, and publication acknowledgements
 - /archive — Documentary evidence (photos, exhibitions, awards, media)
 - /profile — Professional summary, evidence-linked expertise, career history, education, and recognition
 - /cv.pdf — Downloadable CV

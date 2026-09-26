@@ -1,3 +1,4 @@
+import { acknowledgedPublications } from "@/content/acknowledgements";
 import { awards, certifications } from "@/content/awards";
 import { capabilities } from "@/content/capabilities";
 import { education, experience } from "@/content/experience";
@@ -103,12 +104,13 @@ function buildIndex(): SearchEntry[] {
     {
       id: "section:research-hub",
       title: "Research",
-      blurb: "Publications, IP, and awards",
+      blurb: "Publications, acknowledgements, IP, and awards",
       category: "section",
       href: "/research",
       haystack: joinHaystack(
         "research",
         "publications",
+        "acknowledgements",
         patent.title,
         patent.number,
         patent.note,
@@ -258,6 +260,29 @@ function buildIndex(): SearchEntry[] {
         item.location,
         item.period,
         item.detail,
+      ),
+    });
+  }
+
+  for (const publication of acknowledgedPublications) {
+    const slug = publication.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 64);
+    entries.push({
+      id: `acknowledgement:${slug}`,
+      title: publication.title,
+      blurb: `Acknowledged · ${publication.venue} · ${publication.year}`,
+      category: "publication",
+      href: publication.link,
+      haystack: joinHaystack(
+        publication.title,
+        publication.venue,
+        publication.year,
+        publication.contribution,
+        "acknowledgement",
+        "acknowledged",
       ),
     });
   }

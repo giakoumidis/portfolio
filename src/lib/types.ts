@@ -75,6 +75,8 @@ export type YouTubeVideo = {
   provider: "youtube";
   id: string;
   title: string;
+  /** Seconds from the start of the video. */
+  start?: number;
 };
 
 export type InstagramVideo = {
@@ -178,6 +180,17 @@ export type Publication = {
   year: string;
   citations: number;
   link: string;
+};
+
+/** Paper that credits a contribution in the acknowledgements. */
+export type AcknowledgedPublication = {
+  title: string;
+  venue: string;
+  year: string;
+  /** Canonical publication URL. */
+  link: string;
+  /** What the acknowledgement credits. */
+  contribution: string;
 };
 
 export type Patent = {

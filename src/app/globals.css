@@ -354,6 +354,25 @@
   );
 }
 
+@keyframes profile-photo-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.profile-photo-in {
+  animation: profile-photo-in 0.45s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-photo-in {
+    animation: none;
+  }
+}
+
 /* ============================================================
    Photo lightbox — protected full-viewport viewer
    ============================================================ */

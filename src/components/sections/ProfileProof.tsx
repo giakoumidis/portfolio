@@ -1,11 +1,15 @@
+import Link from "next/link";
+
+import ProfilePhotoCycle from "@/components/ui/ProfilePhotoCycle";
 import Reveal from "@/components/ui/Reveal";
-import RoboPhoto from "@/components/ui/RoboPhoto";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { homepageProfileBlurb } from "@/content/homepage";
 import { profile } from "@/content/profile";
-import Link from "next/link";
+import { getProfilePhotoGroups } from "@/lib/profile-photos";
 
 export default function ProfileProof() {
+  const photoGroups = getProfilePhotoGroups();
+
   return (
     <section
       id="profile-proof"
@@ -34,6 +38,10 @@ export default function ProfileProof() {
             <p className="max-w-[60ch] text-text-dim">{homepageProfileBlurb}</p>
           </Reveal>
 
+          <Reveal delay={0.2} className="mt-10">
+            <ProfilePhotoCycle groups={photoGroups} />
+          </Reveal>
+
           <Reveal delay={0.12} className="mt-8">
             <Link
               href="/profile"
@@ -41,19 +49,6 @@ export default function ProfileProof() {
             >
               Experience & background →
             </Link>
-          </Reveal>
-
-          <Reveal delay={0.2} className="mt-10">
-            <RoboPhoto
-              src="/images/about/kuka-teleop.jpg"
-              alt="Nikolaos Giakoumidis crouching beside a KUKA LBR robotic arm he is teleoperating in the NYUAD CTP labs"
-              tag="FIELD LOG"
-              caption="TELEOPERATING A KUKA LBR — NYUAD CTP LABS"
-              aspect="aspect-[3/2]"
-              sizes="(max-width: 1024px) 100vw, 36rem"
-              preload
-              className="max-w-xl border border-grid-dim"
-            />
           </Reveal>
         </div>
       </div>

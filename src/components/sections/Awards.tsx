@@ -91,6 +91,7 @@ export default function Awards() {
                     <YouTubeEmbed
                       videoId={award.video.id}
                       title={award.video.title}
+                      start={award.video.start}
                       className="border-0 border-t border-grid-dim"
                     />
                   )}

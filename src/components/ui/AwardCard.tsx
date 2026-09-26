@@ -25,6 +25,7 @@ export default function AwardCard({
         <YouTubeEmbed
           videoId={award.video.id}
           title={award.video.title}
+          start={award.video.start}
           className="border-0 border-b border-grid-dim"
         />
       )}

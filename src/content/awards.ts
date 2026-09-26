@@ -78,6 +78,13 @@ export const awards = [
     event: "Digital Week Robotics Competition",
     location: "Athens, Greece",
     year: "2008",
+    video: {
+      provider: "youtube",
+      id: "bXML9oNBy30",
+      start: 7 * 60 + 50,
+      title:
+        "Athens Digital Week 2008 — Robotics Competition (MEGA)",
+    },
   },
 ] satisfies Award[];
 

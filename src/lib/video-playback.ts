@@ -84,3 +84,32 @@ export async function exitFullscreen() {
     /* ignore */
   }
 }
+
+/** Privacy-enhanced YouTube embed URL, optionally starting at a timestamp. */
+export function youtubeEmbedSrc(
+  videoId: string,
+  options: {
+    autoplay?: boolean;
+    muted?: boolean;
+    loop?: boolean;
+    controls?: boolean;
+    start?: number;
+  } = {},
+) {
+  const params = new URLSearchParams({
+    rel: "0",
+    modestbranding: "1",
+    playsinline: "1",
+  });
+  if (options.autoplay) params.set("autoplay", "1");
+  if (options.muted) params.set("mute", "1");
+  if (options.loop) {
+    params.set("loop", "1");
+    params.set("playlist", videoId);
+  }
+  if (options.controls === false) params.set("controls", "0");
+  if (options.start && options.start > 0) {
+    params.set("start", String(Math.floor(options.start)));
+  }
+  return `https://www.youtube-nocookie.com/embed/${videoId}?${params}`;
+}

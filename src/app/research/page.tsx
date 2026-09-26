@@ -4,6 +4,10 @@ import Link from "next/link";
 import AwardCard from "@/components/ui/AwardCard";
 import HudCard from "@/components/ui/HudCard";
 import NeonButton from "@/components/ui/NeonButton";
+import {
+  acknowledgementIntro,
+  acknowledgedPublications,
+} from "@/content/acknowledgements";
 import { awards } from "@/content/awards";
 import { currentResearch, profile } from "@/content/profile";
 import {
@@ -14,13 +18,13 @@ import {
   durableCitationLabel,
 } from "@/content/publications";
 import { scholarlyArticleListJsonLd } from "@/lib/jsonld";
-import type { Publication } from "@/lib/types";
+import type { AcknowledgedPublication, Publication } from "@/lib/types";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Research — Nikolaos Giakoumidis",
   description:
-    "Research in cooperative robotics, perception, human–robot interaction, and autonomous inspection, with publications and intellectual property.",
+    "Research in cooperative robotics, perception, human–robot interaction, and autonomous inspection, with publications, acknowledged contributions, and intellectual property.",
   path: "/research",
 });
 
@@ -62,6 +66,39 @@ type PublicationRowProps = {
   featured?: boolean;
   last?: boolean;
 };
+
+function AcknowledgementRow({
+  publication,
+  last,
+}: {
+  publication: AcknowledgedPublication;
+  last?: boolean;
+}) {
+  return (
+    <div className={`flex gap-4 py-5 ${last ? "" : "border-b border-grid-dim"}`}>
+      <span className="label-mono h-fit w-16 shrink-0 border border-cyan/40 px-2 py-1 text-center text-cyan">
+        {publication.year}
+      </span>
+
+      <div className="min-w-0">
+        <a
+          href={publication.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-body font-medium text-text transition-colors duration-200 hover:text-cyan hover:underline hover:underline-offset-4"
+        >
+          {publication.title}
+        </a>
+
+        <p className="mt-1 text-sm text-text-dim">
+          <span className="italic">{publication.venue}</span>
+        </p>
+
+        <p className="mt-1 text-sm text-text-dim">{publication.contribution}</p>
+      </div>
+    </div>
+  );
+}
 
 function PublicationRow({ publication, featured, last }: PublicationRowProps) {
   return (
@@ -296,6 +333,35 @@ export default async function ResearchPage({ searchParams }: PageProps) {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section
+        id="acknowledgements"
+        className="mt-20 scroll-mt-24"
+        aria-labelledby="acknowledgements-heading"
+      >
+        <h2
+          id="acknowledgements-heading"
+          className="font-display text-lg uppercase text-text"
+        >
+          Acknowledged publications
+        </h2>
+        <p className="mt-4 max-w-3xl font-body text-sm leading-relaxed text-text-dim">
+          {acknowledgementIntro}
+        </p>
+        <p className="label-mono mt-6 text-text-dim">
+          <span className="text-cyan">{acknowledgedPublications.length}</span>{" "}
+          publications
+        </p>
+        <div className="mt-4">
+          {acknowledgedPublications.map((publication, i) => (
+            <AcknowledgementRow
+              key={publication.link}
+              publication={publication}
+              last={i === acknowledgedPublications.length - 1}
+            />
+          ))}
+        </div>
       </section>
     </main>
   );
