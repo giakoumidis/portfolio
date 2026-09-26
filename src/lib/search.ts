@@ -8,7 +8,7 @@ import { laboratories } from "@/content/laboratories";
 import { posts } from "@/content/posts";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
-import { patent, publications } from "@/content/publications";
+import { publications } from "@/content/publications";
 import { stackGroups } from "@/content/stack";
 import { sections } from "@/lib/sections";
 
@@ -104,16 +104,13 @@ function buildIndex(): SearchEntry[] {
     {
       id: "section:research-hub",
       title: "Research",
-      blurb: "Publications, acknowledgements, IP, and awards",
+      blurb: "Publications, acknowledgements, and awards",
       category: "section",
       href: "/research",
       haystack: joinHaystack(
         "research",
         "publications",
         "acknowledgements",
-        patent.title,
-        patent.number,
-        patent.note,
       ),
     },
     {
@@ -308,22 +305,6 @@ function buildIndex(): SearchEntry[] {
     });
   }
 
-  entries.push({
-    id: "publication:patent",
-    title: patent.title,
-    blurb: `Patent · ${patent.number}`,
-    category: "publication",
-    href: "/research",
-    haystack: joinHaystack(
-      patent.title,
-      patent.number,
-      patent.note,
-      "patent",
-      "ip",
-      "intellectual property",
-    ),
-  });
-
   for (const award of awards) {
     entries.push({
       id: `award:${award.id}`,
@@ -490,7 +471,6 @@ const SUGGESTIONS = [
   "wheelchair",
   "PyTorch",
   "kinesis",
-  "patent",
 ] as const;
 
 export const searchSuggestions: readonly string[] = SUGGESTIONS;

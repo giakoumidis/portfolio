@@ -2,13 +2,11 @@
 
 import { useState } from "react";
 
-import HudCard from "@/components/ui/HudCard";
 import NeonButton from "@/components/ui/NeonButton";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import {
   featuredPublicationTitles,
-  patent,
   publications,
   scholarProfileUrl,
   durableCitationLabel,
@@ -92,7 +90,7 @@ export default function Research() {
           index="07"
           title="Research"
           headingId="research-heading"
-          kicker="Publications & IP"
+          kicker="Publications"
         />
 
         <Reveal className="mb-10 flex flex-wrap items-center gap-x-8 gap-y-2">
@@ -150,19 +148,6 @@ export default function Research() {
               : `Show all ${publications.length} publications`}
           </button>
         </div>
-
-        <Reveal className="mt-14">
-          <HudCard accent="amber" className="p-6">
-            <p className="label-mono glow-amber">Patent</p>
-            <p className="mt-3 font-mono text-sm text-text-dim">
-              {patent.number}
-            </p>
-            <h3 className="mt-2 text-lg text-text">{patent.title}</h3>
-            {patent.note && (
-              <p className="mt-3 text-sm text-text-dim">{patent.note}</p>
-            )}
-          </HudCard>
-        </Reveal>
 
         <Reveal className="mt-10">
           <NeonButton href={scholarProfileUrl} external>

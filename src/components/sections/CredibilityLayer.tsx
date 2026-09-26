@@ -11,7 +11,6 @@ import {
   publications,
   scholarProfileUrl,
   durableCitationLabel,
-  patent,
 } from "@/content/publications";
 import { getAllInfrastructure } from "@/lib/query";
 
@@ -130,9 +129,6 @@ export default function CredibilityLayer() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 font-body text-sm text-text-dim">
-              IP: {patent.title} ({patent.number}). {patent.note}
-            </p>
             <div className="mt-5 flex flex-wrap gap-4">
               <a
                 href={scholarProfileUrl}

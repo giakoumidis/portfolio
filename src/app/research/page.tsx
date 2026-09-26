@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import AwardCard from "@/components/ui/AwardCard";
-import HudCard from "@/components/ui/HudCard";
 import NeonButton from "@/components/ui/NeonButton";
 import {
   acknowledgementIntro,
@@ -11,7 +10,6 @@ import {
 import { awards } from "@/content/awards";
 import { currentResearch, profile } from "@/content/profile";
 import {
-  patent,
   publications,
   scholarProfileUrl,
   durableCitationLabel,
@@ -23,7 +21,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Research — Nikolaos Giakoumidis",
   description:
-    "Research in cooperative robotics, perception, human–robot interaction, and autonomous inspection, with publications, acknowledged contributions, and intellectual property.",
+    "Research in cooperative robotics, perception, human–robot interaction, and autonomous inspection, with publications and acknowledged contributions.",
   path: "/research",
 });
 
@@ -221,9 +219,6 @@ export default async function ResearchPage({ searchParams }: PageProps) {
         <p className="label-mono text-text-dim">
           <span className="text-cyan">{durableCitationLabel}</span> citations
         </p>
-        <p className="label-mono text-text-dim">
-          Patent <span className="text-cyan">{patent.number}</span>
-        </p>
         <a
           href={profile.links.scholar}
           target="_blank"
@@ -292,17 +287,6 @@ export default async function ResearchPage({ searchParams }: PageProps) {
           ))}
         </div>
       </section>
-
-      <div className="mt-14">
-        <HudCard accent="amber" className="p-6">
-          <p className="label-mono glow-amber">Patent</p>
-          <p className="mt-3 font-mono text-sm text-text-dim">{patent.number}</p>
-          <h3 className="mt-2 text-lg text-text">{patent.title}</h3>
-          {patent.note && (
-            <p className="mt-3 text-sm text-text-dim">{patent.note}</p>
-          )}
-        </HudCard>
-      </div>
 
       <div className="mt-10">
         <NeonButton href={scholarProfileUrl} external>
