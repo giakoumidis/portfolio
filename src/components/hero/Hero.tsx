@@ -69,7 +69,7 @@ export default function Hero() {
     <section
       id="hero"
       aria-label="Introduction"
-      className="relative flex min-h-svh scroll-mt-20 items-center overflow-hidden"
+      className="relative flex min-h-[calc(100svh-3.5rem)] scroll-mt-20 flex-col justify-center overflow-hidden pt-20 pb-8 sm:min-h-[calc(100svh-4rem)] sm:pt-24 sm:pb-12"
     >
       <GridHorizon />
       <RobotStage />
@@ -102,7 +102,7 @@ export default function Hero() {
         ]}
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
+      <div className="home-copy relative z-10 mx-auto w-full max-w-6xl px-6">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

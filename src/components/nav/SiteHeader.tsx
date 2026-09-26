@@ -45,7 +45,7 @@ const PRIMARY: NavItem[] = [
 ];
 
 const linkClass = (active: boolean) =>
-  `label-mono px-2 py-1 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+  `label-mono px-1 py-1 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan lg:px-2 ${
     active ? "text-cyan" : "text-text-dim hover:text-text"
   }`;
 
@@ -83,7 +83,7 @@ export default function SiteHeader() {
 
         <nav
           aria-label="Primary"
-          className="ml-2 hidden min-w-0 flex-1 items-center gap-1 md:flex lg:gap-2"
+          className="ml-1 hidden min-w-0 flex-1 items-center gap-0 md:flex lg:ml-2 lg:gap-2"
         >
           {PRIMARY.map((item) => {
             const active = item.match(pathname);

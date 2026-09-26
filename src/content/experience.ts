@@ -113,7 +113,7 @@ export const education = [
     degree: "PhD Candidate",
     institution: "University of the Aegean",
     location: "Greece",
-    period: "2023–\nExpected\ncompletion\nJanuary 2027",
+    period: "2023–\nExpected\ncompletion\nJanuary\n2027",
     detail:
       "PhD research focused on autonomous cooperative robotic systems, embodied AI, and deep reinforcement learning.",
   },

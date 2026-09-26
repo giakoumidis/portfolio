@@ -107,9 +107,9 @@ export default function RoboPhoto({
         {hasCaption && (
           <figcaption className="border-t border-grid-dim bg-bg/60 px-3 py-2">
             {(tag || caption) && (
-              <p className="label-mono text-text-dim">
-                {tag && <span className="mr-2 text-cyan">{tag}</span>}
-                {caption}
+              <p className="label-mono min-w-0 text-text-dim">
+                {tag && <span className="mb-1 block text-cyan">{tag}</span>}
+                {caption && <span className="block wrap-break-word">{caption}</span>}
               </p>
             )}
             {description && (

@@ -1141,7 +1141,11 @@ export default function BackgroundMusic({
           )}
         </button>
 
-        <label className={`flex shrink-0 items-center ${compact ? "gap-1" : "gap-2"}`}>
+        <label
+          className={`relative flex shrink-0 items-center ${
+            compact ? "h-7 w-10" : "h-8 w-14 sm:w-20"
+          }`}
+        >
           <span className="sr-only">Volume</span>
           <input
             type="range"
@@ -1151,9 +1155,7 @@ export default function BackgroundMusic({
             value={muted ? 0 : volume}
             onChange={(event) => onVolumeInput(Number(event.target.value))}
             aria-valuetext={muted ? "Muted" : `${volume} percent`}
-            className={`audio-slider h-1 cursor-pointer appearance-none bg-transparent accent-cyan ${
-              compact ? "w-10" : "w-14 sm:w-20"
-            }`}
+            className="audio-slider absolute inset-x-0 top-1/2 h-1 w-full -translate-y-1/2 cursor-pointer appearance-none bg-transparent accent-cyan"
           />
         </label>
 

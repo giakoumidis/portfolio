@@ -50,12 +50,6 @@ export default function CredibilityLayer() {
                   <p className="mt-3 font-body text-sm leading-relaxed text-text-dim">
                     {lab.summary.split(/(?<=[.!?])\s/)[0]}
                   </p>
-                  <p className="mt-3 font-body text-sm text-text">
-                    <span className="label-mono text-cyan">
-                      My contribution ·{" "}
-                    </span>
-                    {lab.contributionSummary.split(/(?<=[.!?])\s/)[0]}
-                  </p>
                   <p className="mt-auto pt-5">
                     <ActionLink href={`/laboratories/${lab.slug}`}>
                       Explore laboratory

@@ -122,7 +122,7 @@ function EducationEntry({ item }: { item: Education }) {
     >
       <Node accent="violet" lit={lit} />
 
-      <div className="lg:pr-8 lg:text-right">
+      <div className="lg:pr-3 lg:text-right">
         <p className="label-mono whitespace-pre-line text-violet">{item.period}</p>
       </div>
 

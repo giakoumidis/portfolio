@@ -297,7 +297,7 @@ export default function SearchPanel({
               ))}
             </div>
 
-            <ul className="grid grid-cols-2 gap-3 border-t border-grid-dim pt-5 sm:grid-cols-3 lg:grid-cols-5">
+            <ul className="grid grid-cols-[repeat(auto-fill,minmax(9.5rem,1fr))] gap-3 border-t border-grid-dim pt-5">
               {searchIndexStats.map((stat) => (
                 <li key={stat.category}>
                   <button
@@ -305,7 +305,7 @@ export default function SearchPanel({
                     onClick={() => selectCategory(stat.category)}
                     className="w-full border border-grid-dim px-3 py-3 text-left transition-colors duration-200 hover:border-cyan/40 hover:bg-cyan/5"
                   >
-                    <span className="label-mono block text-text-dim">
+                    <span className="label-mono block whitespace-nowrap text-text-dim">
                       {stat.label}
                     </span>
                     <span className="mt-1 block font-mono text-lg text-cyan">
@@ -365,7 +365,7 @@ export default function SearchPanel({
               <ul
                 id={listId}
                 role="listbox"
-                className="flex max-h-[min(28rem,55vh)] flex-col overflow-y-auto"
+                className="grid max-h-[min(28rem,55vh)] grid-cols-[auto_minmax(0,1fr)] overflow-y-auto"
               >
                 {results.map((entry, index) => {
                   const selected = index === safeIndex;
@@ -377,6 +377,7 @@ export default function SearchPanel({
                       id={`${listId}-option-${index}`}
                       role="option"
                       aria-selected={selected}
+                      className="col-span-2 grid grid-cols-subgrid border-b border-grid-dim last:border-b-0"
                     >
                       <a
                         ref={(node) => {
@@ -398,20 +399,20 @@ export default function SearchPanel({
                             onNavigate?.();
                           }
                         }}
-                        className={`flex gap-4 border-b border-grid-dim px-3 py-4 transition-colors duration-150 last:border-b-0 ${
+                        className={`col-span-2 grid grid-cols-subgrid items-start gap-x-4 px-3 py-4 transition-colors duration-150 ${
                           selected
                             ? "bg-cyan/10 text-text"
                             : "text-text-dim hover:bg-cyan/5 hover:text-text"
                         }`}
                       >
                         <span
-                          className={`label-mono h-fit w-24 shrink-0 border px-2 py-1 text-center ${CATEGORY_TINT[entry.category]}`}
+                          className={`label-mono h-fit whitespace-nowrap border px-2 py-1 text-center ${CATEGORY_TINT[entry.category]}`}
                         >
                           {categoryLabel(entry.category)}
                         </span>
 
                         <span className="min-w-0">
-                          <span className="block font-body font-medium text-text">
+                          <span className="block font-body font-medium wrap-break-word text-text">
                             {entry.title}
                             {external && (
                               <span className="ml-2 label-mono text-text-dim">
@@ -419,7 +420,7 @@ export default function SearchPanel({
                               </span>
                             )}
                           </span>
-                          <span className="mt-1 block text-sm text-text-dim">
+                          <span className="mt-1 block text-sm wrap-break-word text-text-dim">
                             {entry.blurb}
                           </span>
                         </span>

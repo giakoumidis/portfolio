@@ -20,6 +20,7 @@ export const infrastructureRecords: InfrastructureRecord[] = [
       "Arena engineered for reconfigurable motion experiments: Vicon motion-capture tracking, color- and intensity-controllable lighting, removable protective flooring, 2 kW sound and projection, and high-speed wired and wireless networking.",
       "Workspace for eight researchers with GPU compute for simulation and machine learning, a dedicated safe LiPo charging station, and an equipment ecosystem spanning Vicon V16 cameras, a KUKA LBR iiwa collaborative arm, Aerotech stages, VR gear, and custom UAV platforms.",
       "Became an institutional showcase: hosted external delegations, NYUAD media productions, the \"Dreamers Who Do\" filming for the UAE Pavilion at Expo 2020, and Vice Chancellor's Office demonstrations still running in 2025.",
+      "Supported Dr. Merritt Moore's January 2023 robot fashion show: students costumed Boston Dynamics Spot platforms in the Kinesis arena on 20 January, and the performance ran in Dubai the next day.",
     ],
     domains: ["lab-automation-instrumentation"],
     contributions: [
@@ -63,6 +64,16 @@ export const infrastructureRecords: InfrastructureRecord[] = [
         src: "/images/projects/kinesis-workspace.jpg",
         alt: "The Kinesis workspace with researchers at workstations beneath equipment shelving, and two KUKA collaborative arms on turntables in the foreground",
         caption: "WORKSPACE — KUKA ARMS & RESEARCH BAYS",
+      },
+      {
+        src: "/images/projects/kinesis-fashion-show-wings.jpg",
+        alt: "Boston Dynamics Spot in a student swan costume of white tulle and feathered wings, with an LED strip along the body, prepared in the netted Kinesis arena on 20 January 2023 for Dr. Merritt Moore's robot fashion show",
+        caption: "FASHION SHOW — WINGED SPOT IN ARENA",
+      },
+      {
+        src: "/images/projects/kinesis-fashion-show-foil.jpg",
+        alt: "Boston Dynamics Spot wrapped in silver foil with whip antennas, a gold panel, and a black hood, photographed at Kinesis on 20 January 2023 ahead of Dr. Merritt Moore's robot fashion show in Dubai",
+        caption: "FASHION SHOW — SILVER ANTENNA COSTUME",
       },
     ],
     link: {

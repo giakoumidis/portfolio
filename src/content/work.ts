@@ -452,16 +452,16 @@ export const workRecords: ProjectRecord[] = [
     type: "project",
     slug: "etihad-rail-desert-environment-monitoring",
     title: "Digital Twin-Based Desert Environment Monitoring for Rail Tracks",
-    org: "NYU Abu Dhabi · SMART Lab with Etihad Rail",
+    org: "NYU Abu Dhabi · CAIR with Etihad Rail",
     period: { startYear: 2024, label: "2024" },
     cardHook:
       "A train-mounted LiDAR and camera pilot for Etihad Rail, collecting corridor data to investigate 3D environmental monitoring and support future maintenance planning under UAE field conditions.",
     challenge:
       "Collect rail-corridor data to investigate sand movement, water accumulation, and vegetation encroachment under UAE field conditions.",
     summary:
-      "A field pilot within the NYUAD–Etihad Rail collaboration, using rearward-facing LiDAR and cameras to capture the rail corridor. I supported the proposal and coordinated industry engagement and payload installation. The wider research concept uses these observations to reconstruct the track-side environment in 3D and investigate environmental change for maintenance planning.",
+      "A field pilot within the NYUAD–Etihad Rail collaboration, using rearward-facing LiDAR and cameras to capture the rail corridor. I designed the sensing system, and Nikolaos Evangeliou and I ran the field experiment. The wider research concept uses these observations to reconstruct the track-side environment in 3D and investigate environmental change for maintenance planning.",
     contributionSummary:
-      "Coordinated industry engagement and installation of the train-mounted LiDAR and camera payload, supporting the proposal and field sensing pilot.",
+      "Designed the train-mounted LiDAR and camera system and ran the field experiment with Nikolaos Evangeliou.",
     outcomeSummary:
       "Field-piloted a train-mounted sensing payload to collect corridor data for subsequent 3D environmental monitoring research.",
     highlights: [
@@ -473,22 +473,17 @@ export const workRecords: ProjectRecord[] = [
     credits: [
       {
         name: "Nikolaos Giakoumidis",
-        role: "Industry engagement · field sensing",
-        org: "NYU Abu Dhabi",
+        role: "System design · experiment",
+        org: "NYU Abu Dhabi · CAIR",
+      },
+      {
+        name: "Nikolaos Evangeliou",
+        role: "Research Scientist · experiment",
+        org: "NYU Abu Dhabi · CAIR",
       },
       {
         name: "Etihad Rail",
         role: "Industry partner",
-      },
-      {
-        name: "Borja García de Soto",
-        role: "Principal Investigator",
-        org: "NYU Abu Dhabi · SMART Lab",
-      },
-      {
-        name: "SMART Lab",
-        role: "Research partner",
-        org: "NYU Abu Dhabi",
       },
     ],
     facets: {
@@ -497,7 +492,7 @@ export const workRecords: ProjectRecord[] = [
         "sim2real-digital-twins",
         "industry-engagement",
       ],
-      contributions: ["supported", "field-testing", "commercialized"],
+      contributions: ["designed", "field-testing", "commercialized"],
       applications: ["rail-transport"],
       methods: ["sensor-fusion", "slam", "deep-learning"],
       outcomes: [

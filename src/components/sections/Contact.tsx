@@ -79,7 +79,7 @@ function ContactEmailRow({ email, id }: { email: string; id: string }) {
       <a
         id={id}
         href={`mailto:${email}`}
-        className="select-all text-cyan transition-colors duration-200 hover:underline hover:underline-offset-4"
+        className="min-w-0 break-all select-all text-cyan transition-colors duration-200 hover:underline hover:underline-offset-4"
       >
         {email}
       </a>

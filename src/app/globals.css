@@ -291,7 +291,7 @@
   color: var(--color-text-dim);
 }
 
-/* Shared section rhythm */
+/* Shared section rhythm. Horizontal inset matches the header and footer. */
 @utility section-shell {
   width: 100%;
   max-width: 72rem;
@@ -301,15 +301,26 @@
 
   @media (min-width: 1024px) {
     padding-block: 8rem;
-    /* Keeps content clear of the fixed left-side chapter rail (index + tick + label). */
-    padding-left: 11rem;
   }
 }
 
-/* Homepage only: the rail label "Laboratories" is wider than the default gutter. */
+/*
+  Homepage only. The chapter rail is fixed on the left, so hero copy and every
+  section share one left edge that clears the longest label ("Laboratories")
+  without the extra gutter that used to shove the column inward.
+*/
+.home-rail .section-shell {
+  padding-block: 4.5rem;
+}
+
 @media (min-width: 1024px) {
+  .home-rail .section-shell,
+  .home-rail .home-copy {
+    padding-left: max(1.5rem, calc(17.25rem - max(0px, (100vw - 72rem) / 2)));
+  }
+
   .home-rail .section-shell {
-    padding-left: max(1.5rem, calc(19rem - max(0px, (100vw - 72rem) / 2)));
+    padding-block: 5.5rem;
   }
 }
 
@@ -518,6 +529,7 @@
 .audio-slider {
   -webkit-appearance: none;
   appearance: none;
+  min-width: 0;
   height: 0.25rem;
   border-radius: 9999px;
   background: color-mix(in srgb, var(--color-grid) 80%, transparent);
@@ -597,6 +609,7 @@
 .audio-progress-input {
   -webkit-appearance: none;
   appearance: none;
+  min-width: 0;
   margin: 0;
   opacity: 0;
 }

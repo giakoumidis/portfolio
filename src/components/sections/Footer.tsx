@@ -18,7 +18,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-grid-dim">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 sm:grid-cols-2 lg:grid-cols-3">
-        <div>
+        <div className="min-w-0">
           <p className="label-mono text-text-dim">Navigate</p>
           <ul className="mt-4 flex flex-col gap-2">
             {NAVIGATE.map((item) => (
@@ -35,13 +35,13 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div>
+        <div className="min-w-0">
           <p className="label-mono text-text-dim">Connect</p>
           <ul className="mt-4 flex flex-col gap-2">
             <li>
               <a
                 href={`mailto:${profile.nyuEmail}`}
-                className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                className="label-mono block break-all text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
               >
                 {profile.nyuEmail}
               </a>
@@ -49,7 +49,7 @@ export default function Footer() {
             <li>
               <a
                 href={`mailto:${profile.email}`}
-                className="label-mono text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                className="label-mono block break-all text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
               >
                 {profile.email}
               </a>
@@ -69,7 +69,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="sm:col-span-2 lg:col-span-1">
+        <div className="min-w-0 sm:col-span-2 lg:col-span-1">
           <p className="label-mono text-text-dim">Credits</p>
           <p className="label-mono mt-4 text-text-dim">
             © {year} {profile.name}
