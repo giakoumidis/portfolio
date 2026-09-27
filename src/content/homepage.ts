@@ -38,7 +38,7 @@ export const homepageProfileBlurb = profile.summary;
 export const archiveTeaserSrcs = [
   "/images/field/global-rail-humanoid.jpg",
   "/images/field/kinesis-arena-aerial.jpg",
-  "/images/awards/rta-2021/delivery-octarotor-top.jpg",
+  "/images/awards/rta-2021/rta-academia-trophy.jpg",
   "/images/field/etihad-rail-booth-spots.jpg",
   "/images/field/dwc-modular-tricopter.jpg",
   "/images/field/cair-fleet-lineup.jpg",

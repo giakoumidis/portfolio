@@ -66,6 +66,11 @@ export const infrastructureRecords: InfrastructureRecord[] = [
         caption: "WORKSPACE — KUKA ARMS & RESEARCH BAYS",
       },
       {
+        src: "/images/projects/kinesis-research-bay.jpg",
+        alt: "The Kinesis laboratory under purple truss lighting, with multirotor drones on the workbenches, researcher desks, and equipment shelves along the wall",
+        caption: "KINESIS — RESEARCH WORKSPACE",
+      },
+      {
         src: "/images/projects/kinesis-fashion-show-wings.jpg",
         alt: "Boston Dynamics Spot in a student swan costume of white tulle and feathered wings, with an LED strip along the body, prepared in the netted Kinesis arena on 20 January 2023 for Dr. Merritt Moore's robot fashion show",
         caption: "FASHION SHOW — WINGED SPOT IN ARENA",

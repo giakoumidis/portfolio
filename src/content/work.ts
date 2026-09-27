@@ -2,7 +2,9 @@ import type { ProjectRecord } from "@/lib/types";
 
 /**
  * Partner-controlled imagery — publication rights checklist (owner confirm before launch):
- * - Etihad Rail depot / yard / locomotive Spot photos (`etihad-rail-depot-*`, rear-camera field installs)
+ * - Etihad Rail depot / yard / locomotive Spot photos (`etihad-rail-depot-*`, rear-camera field installs).
+ *   Owner added three stills on the collaboration page (locomotive inspection and rail locomotion).
+ *   The earlier `etihad-rail-depot-*` set and rear-camera installs stay omitted.
  * - Abu Dhabi Airports / ADAC facility material (currently video-only via NYUAD public channel).
  *   The exhibition-booth still is a public display photo, not restricted-site imagery.
  * Until confirmed, restricted-site stills are omitted from `images` arrays; public announcement
@@ -21,7 +23,7 @@ export const workRecords: ProjectRecord[] = [
     challenge:
       "Let facility operators command a field robot for inspection without specialist interfaces or task-specific model training.",
     summary:
-      "This is my current research system for natural-language field inspection. I designed and built a three-layer agent harness — interface, orchestration, and decision-and-skill — joined only by tool calls. Robot and sensor skills are independent Model Context Protocol servers, so a locally served open-weight model chooses actions from tool descriptions without fine-tuning. Every call is checked before it reaches the Boston Dynamics Spot SDK, and the model cannot clear an operator e-stop. The working stack accepts voice and text, keeps session memory, and drives Spot through navigation, vision, and thermal inspection skills. The paper is under review at the Journal of Field Robotics.",
+      "This is my current research system for natural-language field inspection. I designed and built a three-layer agent harness — interface, orchestration, and decision-and-skill — joined only by tool calls. Robot and sensor skills are independent Model Context Protocol servers, so a locally served open-weight model chooses actions from tool descriptions without fine-tuning. Every call is checked before it reaches the Boston Dynamics Spot SDK, and the model cannot clear an operator e-stop. The working stack accepts voice and text, keeps session memory, and drives Spot through navigation, vision, and thermal inspection skills. Two Spots with different payloads can split one mission: the arm robot opens a door or turns a valve, while the robot carrying LiDAR and an acoustic camera navigates and acquires the inspection data. The paper is under review at the Journal of Field Robotics.",
     contributionSummary:
       "Designed and built the agent harness, MCP skill servers, and orchestration that connect natural-language commands to Spot inspection skills.",
     outcomeSummary:
@@ -32,6 +34,7 @@ export const workRecords: ProjectRecord[] = [
       "Each tool server validates arguments before the Spot SDK runs them. The agent can request a stop; it cannot release an operator e-stop.",
       "Voice and text over Telegram, plus browser and webhook entry points, share one orchestration path and PostgreSQL session memory.",
       "The deployment runs on Spot with an arm and thermal payload, with on-robot perception and the language model served locally.",
+      "Two Spots carry different payloads and can cooperate on one mission. The arm robot opens a door or turns a valve. The robot with LiDAR and an acoustic camera handles navigation and data acquisition.",
     ],
     credits: [
       {
@@ -67,11 +70,31 @@ export const workRecords: ProjectRecord[] = [
     evidence: [
       {
         type: "photograph",
-        title: "Spot CAM panorama during an inspection pass",
+        title: "Spot CAM payload panorama during an inspection pass",
       },
       {
         type: "photograph",
-        title: "Spot PTZ view down an inspection aisle",
+        title: "Spot PTZ payload view down an inspection aisle",
+      },
+      {
+        type: "photograph",
+        title: "SV600 payload localizing frequencies",
+      },
+      {
+        type: "photograph",
+        title: "WIRIS Pro SC payload thermal frame",
+      },
+      {
+        type: "photograph",
+        title: "Thermal payload image from a data center inspection",
+      },
+      {
+        type: "photograph",
+        title: "Two Spots with arm and sensing payloads",
+      },
+      {
+        type: "photograph",
+        title: "Spot opening a door at Kinesis",
       },
       {
         type: "publication",
@@ -84,13 +107,38 @@ export const workRecords: ProjectRecord[] = [
     images: [
       {
         src: "/images/projects/agentic-spot-pano.jpg",
-        alt: "Spot's panoramic camera looking down a server aisle, with the robot's sensor arm in the foreground and a tripod camera ahead",
-        caption: "SPOT CAM — INSPECTION PASS",
+        alt: "Spot CAM payload panorama looking down a server aisle, with the robot's sensor arm in the foreground and a tripod camera ahead",
+        caption: "PAYLOAD — SPOT CAM PASS",
       },
       {
         src: "/images/projects/agentic-spot-aisle.jpg",
-        alt: "Spot PTZ view down a server aisle with inspection objects on the raised floor",
-        caption: "SPOT PTZ — AISLE VIEW",
+        alt: "Spot PTZ payload view down a server aisle with inspection objects on the raised floor",
+        caption: "PAYLOAD — SPOT PTZ AISLE",
+      },
+      {
+        src: "/images/projects/agentic-sv600-sound.jpg",
+        alt: "Fluke SV600 payload acoustic image of a vehicle side, with a 30.25 dB sound-pressure hotspot at the front wheel and a spectrum localized between about 18 and 22 kHz",
+        caption: "PAYLOAD — SV600 FREQUENCIES",
+      },
+      {
+        src: "/images/projects/agentic-wiris-thermal.jpg",
+        alt: "Workswell WIRIS Pro SC payload radiometric thermal view of a dark interior, with a hot object close to the lens and warmer equipment along the left side",
+        caption: "PAYLOAD — WIRIS THERMAL",
+      },
+      {
+        src: "/images/projects/agentic-datacenter-thermal.jpg",
+        alt: "Thermal payload image from a data center inspection showing two people, with readings of 17.25 °C minimum, 34.85 °C maximum, and 24.95 °C",
+        caption: "PAYLOAD — DATA CENTER THERMAL",
+      },
+      {
+        src: "/images/projects/agentic-spot-pair.jpg",
+        alt: "Two Boston Dynamics Spot robots in a workshop. The robot on the left carries a LiDAR and acoustic-camera payload. The robot on the right carries a manipulator arm. A person stands between them.",
+        caption: "TWO SPOTS — COOPERATIVE PAYLOADS",
+      },
+      {
+        src: "/images/projects/agentic-spot-door.jpg",
+        alt: "Boston Dynamics Spot with a manipulator arm gripping a door handle in the Kinesis laboratory, beside a workbench and parts cabinets",
+        caption: "KINESIS — SPOT OPENS THE DOOR",
       },
     ],
     status: "published",
@@ -277,6 +325,7 @@ export const workRecords: ProjectRecord[] = [
     highlights: [
       "Connected research capabilities with the practical requirements of depot inspection through laboratory visits and field trials.",
       "Operated Spot around locomotives in an active depot to collect multimodal inspection data.",
+      "Trials covered locomotive visual inspection and locomotion testing on the rail infrastructure, including ballast and track walking at the depot.",
       "Combined technical demonstrations, stakeholder engagement, and hands-on fieldwork within the Etihad Rail–CAIR collaboration.",
       "Collected data for further analysis, with predictive maintenance as a research application to develop and validate.",
     ],
@@ -324,6 +373,18 @@ export const workRecords: ProjectRecord[] = [
         title:
           "Spot collecting multimodal locomotive data at the Etihad Rail depot for predictive maintenance",
       },
+      {
+        type: "photograph",
+        title: "Spot locomotion test on ballast beside a freight wagon",
+      },
+      {
+        type: "photograph",
+        title: "Spot locomotion test on the depot rails",
+      },
+      {
+        type: "photograph",
+        title: "Spot visual inspection beside an Etihad Rail locomotive",
+      },
     ],
     video: {
       provider: "instagram",
@@ -331,13 +392,27 @@ export const workRecords: ProjectRecord[] = [
       title: "Etihad Rail × NYUAD AI and robotics collaboration",
       poster: "/images/projects/etihad-rail-nyuad.jpg",
     },
-    // PENDING PUBLICATION RIGHTS — depot/yard stills omitted until Etihad Rail permission confirmed.
-    // Files retained on disk: etihad-rail-depot-spot-{train,tracks,yard}.jpg
+    // Earlier depot set still withheld: etihad-rail-depot-spot-{train,tracks,yard}.jpg
     images: [
       {
         src: "/images/projects/etihad-rail-nyuad.jpg",
         alt: "Public collaboration imagery for the Etihad Rail × NYUAD AI and robotics partnership",
         caption: "ETIHAD RAIL × NYUAD — PUBLIC COLLAB",
+      },
+      {
+        src: "/images/projects/etihad-rail-locomotive-inspection.jpg",
+        alt: "Boston Dynamics Spot beside an Etihad Rail passenger locomotive inside the maintenance shed during visual inspection",
+        caption: "INSPECTION — LOCOMOTIVE SIDE",
+      },
+      {
+        src: "/images/projects/etihad-rail-locomotion-ballast.jpg",
+        alt: "Boston Dynamics Spot on the ballast beside an Etihad Rail freight wagon during locomotion testing",
+        caption: "LOCOMOTION — BALLAST BY WAGON",
+      },
+      {
+        src: "/images/projects/etihad-rail-locomotion-rails.jpg",
+        alt: "Boston Dynamics Spot standing on the rails in front of the Etihad Rail depot during locomotion testing",
+        caption: "LOCOMOTION — ON THE DEPOT RAILS",
       },
     ],
     imagesOnIndex: false,
@@ -412,6 +487,10 @@ export const workRecords: ProjectRecord[] = [
       },
       {
         type: "photograph",
+        title: "1st Prize trophy, Local Academia",
+      },
+      {
+        type: "photograph",
         title: "Delivery octarotor — top view",
       },
       {
@@ -427,9 +506,14 @@ export const workRecords: ProjectRecord[] = [
       src: "/videos/awards/rta-2021/drone-delivery.mp4",
       title:
         "Delivery drone — RTA Dubai World Challenge for Self-Driving Transport",
-      poster: "/images/awards/rta-2021/delivery-drone-nyuad.jpg",
+      poster: "/images/awards/rta-2021/rta-academia-trophy.jpg",
     },
     images: [
+      {
+        src: "/images/awards/rta-2021/rta-academia-trophy.jpg",
+        alt: "Illuminated ring trophy for 1st Prize Drone, Local Academia, at the RTA competition, with the delivery octarotor behind it",
+        caption: "1ST PRIZE — LOCAL ACADEMIA",
+      },
       {
         src: "/images/awards/rta-2021/delivery-octarotor-top.jpg",
         alt: "Top-down view of the delivery octarotor drone with eight rotors arranged around a central payload bay",
@@ -544,7 +628,7 @@ export const workRecords: ProjectRecord[] = [
     challenge:
       "Continue robotic mapping and data collection when obstacles prevent a single robot from completing the task.",
     summary:
-      "A cooperative robotic system for 3D digitization and data collection in construction environments. One robot explores and maps the space, coordinating with another to address obstacles and drawing on human teleoperation when needed. The work investigates how complementary robot capabilities and human assistance can keep a data-collection task progressing.",
+      "A cooperative robotic system for 3D digitization and data collection in construction environments. One robot explores and maps the space, coordinating with another to address obstacles and drawing on human teleoperation when needed. The work investigates how complementary robot capabilities and human assistance can keep a data-collection task progressing. The field deployment was at SeaWorld Abu Dhabi, where the team used the robots for construction monitoring in collaboration with the APEC contractor.",
     contributionSummary:
       "Contributed to the cooperative exploration system and co-authored the Journal of Field Robotics paper on construction-site data collection.",
     // PENDING OWNER REVIEW
@@ -554,6 +638,7 @@ export const workRecords: ProjectRecord[] = [
       "Demonstrates autonomous exploration paired with agent-to-agent coordination so the team can keep mapping after an obstacle blocks the path.",
       "Human-in-the-loop teleoperation backs the autonomous stack when remote support is required to finish the mission.",
       "Published in the Journal of Field Robotics as an application of multiagent robotic systems and exploration algorithms to construction-site data collection.",
+      "Field deployment at SeaWorld Abu Dhabi with the APEC contractor. The site photo shows the full field team and the robots used for construction monitoring: two Spot platforms and a wheeled sensing robot.",
     ],
     credits: [
       {
@@ -571,11 +656,16 @@ export const workRecords: ProjectRecord[] = [
         role: "Principal Investigator",
         org: "NYU Abu Dhabi · SMART Lab",
       },
+      {
+        name: "APEC",
+        role: "Contractor at SeaWorld Abu Dhabi",
+      },
     ],
     facets: {
       domains: ["multi-agent-robotic-systems"],
       contributions: ["experimental-development", "co-authored"],
       applications: ["construction"],
+      platforms: ["boston-dynamics-spot", "ugv-platform"],
       methods: ["exploration-algorithms", "shared-autonomy"],
       outcomes: ["peer-reviewed-publication"],
     },
@@ -592,12 +682,23 @@ export const workRecords: ProjectRecord[] = [
         title: "Multi-agent robotic system: An example for data collection",
         url: "https://www.youtube.com/watch?v=i-83iW9gd5Q",
       },
+      {
+        type: "photograph",
+        title: "Field team and robots at SeaWorld Abu Dhabi",
+      },
     ],
     video: {
       provider: "youtube",
       id: "i-83iW9gd5Q",
       title: "Multi-agent robotic system: An example for data collection",
     },
+    images: [
+      {
+        src: "/images/projects/multiagent-seaworld-team.jpg",
+        alt: "The field team in hard hats and high-visibility vests at the SeaWorld Abu Dhabi construction site, with two Boston Dynamics Spot robots and a wheeled sensing robot",
+        caption: "SEAWORLD — FIELD TEAM & ROBOTS",
+      },
+    ],
     status: "needs-review",
   },
   {

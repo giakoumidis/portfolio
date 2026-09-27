@@ -12,6 +12,14 @@ import type { FieldPhoto } from "@/lib/types";
  */
 const standaloneFieldPhotos: FieldPhoto[] = [
   {
+    src: "/images/field/nyuad-thermal-survey.jpg",
+    alt: "Nikolaos Giakoumidis on a rooftop with a drone controller while a multirotor hovers above the NYU Abu Dhabi campus during a building thermal survey",
+    caption: "THERMAL SURVEY — NYUAD CAMPUS",
+    description:
+      "Building thermal survey at the New York University Abu Dhabi campus. Nikolaos Giakoumidis flies the multirotor from the rooftop.",
+    location: "NYU ABU DHABI CAMPUS",
+  },
+  {
     src: "/images/field/kinesis-arena-aerial.jpg",
     alt: "Aerial view of the Kinesis arena floor with a Spot quadruped, a heavy-lift hexacopter, and ground robots staged between truss columns",
     caption: "ARENA OVERWATCH — MIXED FLEET STAGED",

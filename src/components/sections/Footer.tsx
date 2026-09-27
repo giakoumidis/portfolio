@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { profile, socialLinks } from "@/content/profile";
-import { AUDIO_TRACK, audioLicenseCredit } from "@/lib/audio";
 
 const NAVIGATE = [
   { href: "/projects", label: "Projects" },
@@ -73,14 +72,6 @@ export default function Footer() {
             >
               /llms.txt
             </Link>
-          </p>
-          <p className="mt-6 text-sm leading-relaxed text-text-dim">
-            Ambient audio:{" "}
-            <span className="text-text">{AUDIO_TRACK.title}</span>
-            {" — "}
-            {AUDIO_TRACK.artist}, from{" "}
-            <span className="text-text">{AUDIO_TRACK.album}</span>.
-            {audioLicenseCredit() && <> {audioLicenseCredit()}</>}
           </p>
         </div>
       </div>
