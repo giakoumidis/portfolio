@@ -109,7 +109,7 @@ export function scholarlyArticleListJsonLd(publications: Publication[]) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    itemListElement: publications.slice(0, 30).map((publication, index) => ({
+    itemListElement: publications.map((publication, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: scholarlyArticleJsonLd(publication),

@@ -4,6 +4,25 @@ import type { ResearchOutputRecord } from "@/lib/types";
 export const researchOutputs: ResearchOutputRecord[] = [
   {
     type: "research-output",
+    slug: "twc-2026-indoor-rcs-isac",
+    title:
+      "Indoor Statistical and Deterministic RCS Characterization for ISAC Channel Modeling",
+    venue:
+      "IEEE Transactions on Wireless Communications 25, 21337–21354",
+    year: "2026",
+    url: "https://doi.org/10.1109/TWC.2026.3718356",
+  },
+  {
+    type: "research-output",
+    slug: "arxiv-2025-rcs-isac",
+    title:
+      "Statistical and deterministic RCS characterization for ISAC channel modeling",
+    venue: "arXiv preprint arXiv:2502.11540",
+    year: "2025",
+    url: "https://arxiv.org/abs/2502.11540",
+  },
+  {
+    type: "research-output",
     slug: "jfr-2024-multiagent-construction",
     title:
       "Multiagent robotic systems and exploration algorithms: Applications for data collection in construction sites",

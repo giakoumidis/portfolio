@@ -280,6 +280,17 @@ export const publications = [
   },
   {
     title:
+      "Indoor Statistical and Deterministic RCS Characterization for ISAC Channel Modeling",
+    authors:
+      "AW Azim, A Bazzi, R Bomfin, N Giakoumidis, TS Rappaport, M Chafii",
+    venue:
+      "IEEE Transactions on Wireless Communications 25, 21337-21354",
+    year: "2026",
+    citations: 0,
+    link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=HmOOogwAAAAJ&citation_for_view=HmOOogwAAAAJ:4TOpqqG69KYC",
+  },
+  {
+    title:
       "Immersive Social Interaction with VR and LLM-Assisted Humanoids",
     authors: "N Pudasaini, GCR Bethala, N Giakoumidis, A Tzes, Y Fang",
     venue: "Preprint",

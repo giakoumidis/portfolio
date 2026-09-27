@@ -1183,6 +1183,125 @@ export const workRecords: ProjectRecord[] = [
   },
   {
     type: "project",
+    slug: "isac-rcs-measurement-campaign",
+    title: "ISAC Radar Cross-Section Campaign",
+    org: "NYU Abu Dhabi · CAIR · NYU WIRELESS · Nokia",
+    period: { startYear: 2025, endYear: 2026, label: "2025–2026" },
+    cardHook:
+      "Co-authored a 25–28 GHz radar cross-section campaign in the Kinesis arena, characterizing a UAV, a robotic arm, and a quadruped for 3GPP Release 19 ISAC channel modeling with NYU WIRELESS and Nokia.",
+    challenge:
+      "Integrated sensing and communication channel models need measured radar cross sections of indoor targets, including robots in motion, rather than simulated values alone.",
+    summary:
+      "A 25–28 GHz radar cross-section measurement campaign in the Kinesis arena, run with NYU WIRELESS and Nokia. The bistatic testbed characterized a mid-size UAV, a robotic arm executing motions, and a quadruped moving laterally and longitudinally. Goodness-of-fit tests found lognormal and gamma distributions the best models for these targets. The results were submitted to 3GPP RAN1 as TDOC R1-2502052 for Release 19 ISAC channel modeling and published in IEEE Transactions on Wireless Communications.",
+    contributionSummary:
+      "Co-authored the study and supported the Kinesis campaign, including the arena and the robotic targets used for the 25–28 GHz measurements.",
+    outcomeSummary:
+      "Published in IEEE Transactions on Wireless Communications in 2026, after submission to 3GPP RAN1 as TDOC R1-2502052.",
+    highlights: [
+      "The testbed covers 25–28 GHz in quasi-monostatic and bistatic geometries, with bistatic angles of 20°, 40°, and 60°, inside the Kinesis arena (5 × 15 × 8.5 m).",
+      "Targets include a mid-size UAV, a robotic arm executing motions, and a quadruped performing lateral and longitudinal movements.",
+      "Measured radar cross sections fit lognormal and gamma distributions, the forms used in 3GPP ISAC channel-modeling contributions.",
+      "NYU Abu Dhabi and Nokia submitted the campaign to 3GPP RAN1 as TDOC R1-2502052 for Release 19 ISAC channel modeling.",
+    ],
+    credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Co-author",
+        org: "NYU Abu Dhabi · CAIR",
+      },
+      {
+        name: "Marwa Chafii",
+        role: "Co-author",
+        org: "NYU Abu Dhabi · NYU WIRELESS",
+      },
+      {
+        name: "Ali Waqar Azim",
+        role: "Co-author",
+        org: "University of Glasgow",
+      },
+      {
+        name: "Ahmad Bazzi",
+        role: "Co-author",
+        org: "NYU Abu Dhabi · NYU WIRELESS",
+      },
+      {
+        name: "Roberto Bomfin",
+        role: "Co-author",
+        org: "NYU Abu Dhabi",
+      },
+      {
+        name: "Theodore S. Rappaport",
+        role: "Co-author",
+        org: "NYU WIRELESS",
+      },
+      {
+        name: "Nokia",
+        role: "Industry partner",
+      },
+    ],
+    facets: {
+      domains: ["perception-sensing", "telecommunications-edge-computing"],
+      contributions: ["co-authored", "experimental-development", "supported"],
+      platforms: [
+        "uav-platform",
+        "industrial-manipulator",
+        "boston-dynamics-spot",
+      ],
+      outcomes: ["peer-reviewed-publication", "industry-collaboration"],
+    },
+    relations: [
+      {
+        type: "tested-in",
+        target: {
+          type: "infrastructure",
+          slug: "kinesis-ctp-laboratory",
+        },
+      },
+    ],
+    evidence: [
+      {
+        type: "publication",
+        target: {
+          type: "research-output",
+          slug: "twc-2026-indoor-rcs-isac",
+        },
+      },
+      {
+        type: "publication",
+        target: {
+          type: "research-output",
+          slug: "arxiv-2025-rcs-isac",
+        },
+      },
+      {
+        type: "field-post",
+        title: "RCS measurement campaign — NYU Abu Dhabi and Nokia",
+        url: "https://www.linkedin.com/posts/marwa-chafii-04a94644_happy-to-share-that-our-results-from-the-activity-7368276212558835712-wnKR",
+        date: "2025",
+        note: "Marwa Chafii’s note on the campaign photos, the 3GPP RAN1 submission R1-2502052, and the NYU Abu Dhabi–Nokia collaboration.",
+      },
+    ],
+    images: [
+      {
+        src: "/images/projects/kinesis-rcs-bistatic.jpg",
+        alt: "Kinesis arena marked with transmitter, target, and receiver positions and the distances between them for bistatic radar cross-section measurements",
+        caption: "RCS SETUP — TRANSMITTER AND RECEIVER",
+      },
+      {
+        src: "/images/projects/kinesis-rcs-arm.jpg",
+        alt: "Collaborative robot arm on a circular base in the netted Kinesis arena during the 25–28 GHz radar cross-section measurement campaign",
+        caption: "RCS CAMPAIGN — ARM IN THE ARENA",
+      },
+      {
+        src: "/images/projects/kinesis-rcs-quadruped.jpg",
+        alt: "Yellow quadruped robot standing on a black case in the Kinesis arena, used as a moving target in the radar cross-section measurement campaign",
+        caption: "RCS CAMPAIGN — QUADRUPED TARGET",
+      },
+    ],
+    status: "published",
+  },
+  {
+    type: "project",
     slug: "hybrid-ground-air-water-vehicle",
     title: "Hybrid Ground–Air–Water Autonomous Vehicle",
     org: "NYU Abu Dhabi · Kinesis Lab / CTP · RISC Lab · ACCESS",
