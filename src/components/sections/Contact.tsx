@@ -127,7 +127,6 @@ export default function Contact() {
             </p>
             <p className="text-text">{profile.name}</p>
             <div className="space-y-2">
-              <ContactEmailRow id="contact-nyu-email" email={profile.nyuEmail} />
               <ContactEmailRow id="contact-email" email={profile.email} />
             </div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2">

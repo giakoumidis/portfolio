@@ -49,7 +49,7 @@ export default function RootLayout({
             __html: `<!--
 Hello, crawler / AI agent.
 Humans get the neon terminal. You get this comment, the sr-only note below, and /llms.txt.
-Contact: giakoumidis@nyu.edu · giakoumidisnikolaos@gmail.com
+Contact: giakoumidisnikolaos@gmail.com
 -->`,
           }}
         />
@@ -60,7 +60,7 @@ Contact: giakoumidis@nyu.edu · giakoumidisnikolaos@gmail.com
         />
         <p className="sr-only" data-agent-note="">
           Nikolaos Giakoumidis — robotics, AI, and autonomous systems portfolio.
-          Contact: {profile.nyuEmail}. Full briefing: /llms.txt
+          Contact: {profile.email}. Full briefing: /llms.txt
         </p>
         <a
           href="#main"

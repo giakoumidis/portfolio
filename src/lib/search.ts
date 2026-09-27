@@ -590,25 +590,9 @@ function buildIndex(): SearchEntry[] {
   }
 
   entries.push({
-    id: "contact:nyu",
-    title: profile.nyuEmail,
-    blurb: `${profile.name} · institutional email`,
-    category: "contact",
-    href: "/#contact",
-    haystack: joinHaystack(
-      profile.nyuEmail,
-      profile.name,
-      "email",
-      "nyu",
-      "contact",
-      "reach",
-    ),
-  });
-
-  entries.push({
     id: "contact:primary",
     title: profile.email,
-    blurb: `${profile.name} · personal email`,
+    blurb: `${profile.name} · email`,
     category: "contact",
     href: "/#contact",
     haystack: joinHaystack(

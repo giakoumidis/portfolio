@@ -30,8 +30,6 @@ export type Profile = {
   tagline: string;
   location: string;
   email: string;
-  /** Institutional / NYU address shown alongside the personal email. */
-  nyuEmail: string;
   summary: string;
   positioning: string;
   currentRole: CurrentRole;

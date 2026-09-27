@@ -1,92 +1,124 @@
 # Nikolaos Giakoumidis
 
-Professional overview for readers, search systems, and AI assistants. Use the linked project and laboratory pages for contribution details and supporting evidence.
+> Engineer, researcher and technical leader in AI, robotics, electronics and automation. Leads commercialization and industry engagement at NYU Abu Dhabi's Center for Artificial Intelligence and Robotics (CAIR), alongside hands-on research in agentic robotics and physical AI.
 
-## Identity
+Last updated: 2026-09-27
+
+This file introduces Nikolaos Giakoumidis and guides readers and AI assistants to his professional experience, projects, laboratories and research. Follow the linked pages for specific contributions and supporting evidence.
+
+## Identity and professional profile
 
 - Name: Nikolaos Giakoumidis
-- Role: Commercial Lead – AI and Robotics
-- Organization: NYU Abu Dhabi, Center for Artificial Intelligence and Robotics (CAIR)
-- Location: Abu Dhabi, UAE
-- Positioning: Engineering physical AI. Connecting research and industry. Extending what people can do with intelligent machines.
-- Site: https://giakoumidis.com
-- CV: https://giakoumidis.com/cv.pdf
+- Professional focus: AI, Robotics and Automation | Engineering, Research and Technical Leadership
+- Current role: Commercial Lead – AI and Robotics, NYU Abu Dhabi, Center for Artificial Intelligence and Robotics (CAIR)
+- Location: Abu Dhabi, United Arab Emirates
+- Website: https://giakoumidis.com
+- Professional experience and education: https://giakoumidis.com/resume
+- Downloadable CV: https://giakoumidis.com/cv.pdf
 
-## Professional profile
+Nikolaos has 15+ years of experience spanning engineering, research and technical leadership. He has led engineering projects, established and managed research laboratories, and brought people, resources and technologies together to turn ideas into working systems. His experience combines hands-on development with responsibility for system architecture, integration, procurement planning, operations and multidisciplinary collaboration.
 
-Nikolaos Giakoumidis is an engineer, researcher, and technical leader driven by curiosity, a practical instinct to build, and a deep interest in how technology shapes the future. Across 15+ years of engineering in AI, Robotics, Electronics, and Automation, he has led engineering projects, established and managed research laboratories, and brought people, resources, and technologies together to turn ideas into working systems. His leadership approach draws on a broad understanding of engineering, research, operations, and commercial priorities, combining technical involvement, collaboration, responsibility for delivery, and teaching and mentoring.
+A substantial part of his career has involved enabling the research of others: translating experimental requirements into custom instruments, equipment configurations, integrated systems and working research methods. Collaboration with researchers across different scientific fields has developed a broad scientific perspective and the ability to translate unfamiliar problems into practical engineering solutions. His technical contributions and infrastructure support are recognized in publications and acknowledgements across multiple research domains.
 
-Currently, at NYU Abu Dhabi's Center for Artificial Intelligence and Robotics, he leads commercialization and industry engagement, working to understand real-world challenges and bring scientific teams and industry partners together to address them. His PhD research focuses on agentic robotics and physical AI: developing software harnesses that connect AI models with physical systems, integrating low-level sensing and control with high-level reasoning, planning, and coordination. His aim is to make these capabilities applicable across industries and processes, from individual robots and machines to interconnected infrastructure and entire operational workflows. He cares deeply about AI's impact on humanity and wants to help shape a future in which it expands human capability, preserves our ability to make meaningful choices, and creates lasting benefits for society.
+At CAIR, he connects faculty and research teams with industry and government partners, identifies practical needs, assesses technical feasibility and develops proposals for applications of AI, robotics and autonomous systems. His current role builds on his engineering and research experience, including laboratory establishment, systems integration, experimental development and field trials.
+
+His PhD research focuses on autonomous cooperative robotic agents, agentic robotics and physical AI. He develops software harnesses that connect AI models with sensing, control, reasoning, planning and coordination in physical systems. He is interested in extending these capabilities from individual robots to interconnected infrastructure and operational workflows, while preserving meaningful human oversight.
 
 ## Engineering and leadership expertise
 
-- **Robotics systems architecture and integration:** mechatronic design, actuation, embedded control, sensing, software integration, prototype construction, experimental validation, and field trials. Examples include the [RTA delivery drone](https://giakoumidis.com/projects/rta-dubai-delivery-drone), [hybrid air–land–water robot](https://giakoumidis.com/projects/hybrid-ground-air-water-vehicle), and [autonomous UAV thesis](https://giakoumidis.com/projects/ardrone-gps-path-planning-bsc-thesis).
-- **Embodied AI and cooperative robotics:** current development of model-agnostic robot-agent frameworks using the Robot Operating System (ROS 2) and Model Context Protocol (MCP); research background in aerial–ground cooperation and multi-robot exploration. The lead project is the [Agentic Robotics Framework](https://giakoumidis.com/projects/agentic-robotics-framework). See also [current research](https://giakoumidis.com/research#current-research) and [construction exploration](https://giakoumidis.com/projects/multiagent-construction-exploration).
-- **Perception, navigation, and human–robot interaction:** RGB and thermal sensing, LiDAR, motion capture, positioning, simultaneous localization and mapping (SLAM), UAV detection/tracking, teleoperation, and assistive robotics. Examples: [UAV perception](https://giakoumidis.com/projects/rgb-t-uav-detection-tracking), [PalmSpector sensing and navigation](https://giakoumidis.com/projects/palmspector-date-palm-monitoring), and [gaze-controlled wheelchair](https://giakoumidis.com/projects/eye-gaze-wheelchair).
-- **Simulation and experimental development:** robot development and evaluation in simulation and on physical systems, using Gazebo, NVIDIA Isaac Sim/Isaac Lab, and MATLAB/Simulink.
-- **Electronics and scientific instrumentation:** schematic design, printed circuit board (PCB) layout, embedded interfaces, LabVIEW, custom instrument development, troubleshooting, and repair. Examples: [ASIC validation board](https://giakoumidis.com/projects/hardware-security-asic-validation-platform) and [programmable ribbon-curler instrument](https://giakoumidis.com/projects/ribbon-curler-research-instrumentation).
-- **Laboratory automation:** robotic plate handling, instrument synchronization, Thermo Fisher Momentum workflow programming, FANUC configuration, and fault recovery for the [High-Throughput Screening Platform](https://giakoumidis.com/laboratories/nyuad-hts-platform), as automation and systems engineering from 2013 to 2022.
-- **Photonics and telecommunications infrastructure:** equipment architecture, capital planning, procurement, commissioning, maintenance, and expansion of optical/RF characterization facilities. The [Photonics platform](https://giakoumidis.com/laboratories/photonics-ctp-laboratory) includes lightwave component analysis to 67 GHz. Technical contributions are acknowledged in six photonics papers.
-- **Research infrastructure and technical leadership:** requirements definition, facility design, vendor coordination, procurement, construction supervision, systems integration, commissioning, safety, maintenance strategy, training, and student supervision. Led [Kinesis](https://giakoumidis.com/laboratories/kinesis-ctp-laboratory) from concept to operation; established the Electronics Workshop and co-established the Advanced Manufacturing Workshop.
-- **Research translation and industry collaboration:** industry needs assessment, research application development, technical proposals, demonstrations, pilot opportunities, and communication with faculty and external stakeholders. See the [Etihad Rail collaboration](https://giakoumidis.com/projects/etihad-rail-nyuad-collaboration) and [rail sensing pilot](https://giakoumidis.com/projects/etihad-rail-desert-environment-monitoring).
+- **Robotics systems architecture and integration:** mechatronic design, actuation, embedded control, sensing, software integration, prototype construction, experimental validation and field trials. Examples: [RTA delivery drone](https://giakoumidis.com/projects/rta-dubai-delivery-drone), [hybrid air–land–water robot](https://giakoumidis.com/projects/hybrid-ground-air-water-vehicle) and [autonomous UAV thesis](https://giakoumidis.com/projects/ardrone-gps-path-planning-bsc-thesis).
+- **Agentic AI and cooperative robotics:** designed and built a model-agnostic robot agent harness, MCP skill servers and orchestration for natural-language industrial inspection, connecting AI reasoning with robot sensing and actions within a deterministic safety boundary. Related research includes aerial–ground cooperation and multi-robot exploration. See the [Agentic Robotics Framework](https://giakoumidis.com/projects/agentic-robotics-framework) and [multiagent construction exploration](https://giakoumidis.com/projects/multiagent-construction-exploration).
+- **Perception, navigation and human–robot interaction:** RGB and thermal sensing, LiDAR, motion capture, positioning, simultaneous localization and mapping (SLAM), UAV detection and tracking, teleoperation and assistive robotics. Examples: [UAV perception](https://giakoumidis.com/projects/rgb-t-uav-detection-tracking), [PalmSpector sensing and navigation](https://giakoumidis.com/projects/palmspector-date-palm-monitoring) and [gaze-controlled wheelchair](https://giakoumidis.com/projects/eye-gaze-wheelchair).
+- **Electronics and scientific instrumentation:** schematic design, printed circuit board (PCB) layout, embedded interfaces, LabVIEW, custom instrument development, troubleshooting and repair, including systems without vendor support. Examples: [ASIC validation board](https://giakoumidis.com/projects/hardware-security-asic-validation-platform) and [programmable ribbon-curler instrument](https://giakoumidis.com/projects/ribbon-curler-research-instrumentation).
+- **Laboratory automation:** Thermo Fisher Momentum workflow programming, FANUC configuration, robotic plate handling, instrument synchronization and fault recovery. See the [High-Throughput Screening Platform](https://giakoumidis.com/laboratories/nyuad-hts-platform), supported through automation and systems engineering from 2013 to 2022.
+- **Photonics and telecommunications infrastructure:** co-development, commissioning, operation and expansion of optical and RF characterization facilities, including equipment architecture, procurement planning and maintenance. See the [Photonics CTP Laboratory](https://giakoumidis.com/laboratories/photonics-ctp-laboratory).
+- **Research infrastructure and technical leadership:** facility design, construction supervision, system architecture, integration and commissioning, equipment strategy, vendor selection and procurement planning, workflow design, safety procedures, and repair-versus-replacement decisions. Led [Kinesis](https://giakoumidis.com/laboratories/kinesis-ctp-laboratory) from concept to operation; established the Electronics Workshop and co-established the Advanced Manufacturing Workshop.
+- **Research translation and industry engagement:** industry needs discovery, technical feasibility assessment, proposal development, demonstrations, pilot opportunities and stakeholder communication. Examples: [Etihad Rail collaboration](https://giakoumidis.com/projects/etihad-rail-nyuad-collaboration) and [rail sensing pilot](https://giakoumidis.com/projects/etihad-rail-desert-environment-monitoring).
+- **Teaching and mentoring:** user training, engineering workshops, student supervision and guidance in system integration and experimental methods.
 
 ## Current research and future direction
 
-Current work develops a model-agnostic robot-agent framework for natural-language field inspection, using ROS 2 and MCP to connect AI task reasoning with perception, navigation, and inspection skills. Boston Dynamics Spot is the primary platform. The design separates AI reasoning from deterministic control and safety constraints. The public case file is the [Agentic Robotics Framework](https://giakoumidis.com/projects/agentic-robotics-framework). The manuscript, "A Zero-Training Robot Agent Harness for Natural-Language Field Inspection," is under review at the Journal of Field Robotics.
+Current work develops a model-agnostic robot agent harness for natural-language field inspection. It uses the Robot Operating System (ROS 2) and Model Context Protocol (MCP) to connect AI task reasoning with perception, navigation and inspection skills. Boston Dynamics Spot is the primary platform. The architecture separates AI reasoning from deterministic control and safety constraints.
 
-His longer-term research direction is heterogeneous embodied collective intelligence: how robots with different bodies, sensors, and capabilities can work more effectively as a team. That direction covers shared world and task memory, capability-aware coordination, selective communication, and adaptation under limited bandwidth and failures.
+The associated manuscript is titled "A Zero-Training Robot Agent Harness for Natural-Language Field Inspection." See the [project case file](https://giakoumidis.com/projects/agentic-robotics-framework) and [research page](https://giakoumidis.com/research#current-research) for results and publication updates.
 
-## Leadership and delivery evidence
+His longer-term research direction is heterogeneous embodied collective intelligence: enabling robots with different bodies, sensors and capabilities to work effectively as a team. Research interests include shared world and task memory, capability-aware coordination, selective communication and adaptation under limited bandwidth and failures. This is a research direction; individual project pages describe demonstrated capabilities.
 
-- Supported 100+ faculty, researchers, students, and technical staff in using shared facilities for multidisciplinary experimental research.
-- Stewarded US$9M+ in research assets across shared platforms, with responsibility for technical planning and equipment lifecycle decisions.
-- Managed approximately US$800K in average annual procurement, with peak years approaching US$3M.
-- Authored 15+ technical project proposals in the first year as Commercial Lead, defining applications for CAIR research, and completed 5 non-disclosure agreements with external stakeholders to support further technical discussions.
-- Delivered roughly four student workshops per semester and co-supervised about two capstone projects annually in the research instrumentation role.
-- Four first-prize awards, including first prize with the NYU Abu Dhabi team for the delivery drone at the RTA Dubai World Challenge.
+## Technical tools and platforms
 
-## Relationship structure
+- Programming and engineering: Python, C++, C, MATLAB, LabVIEW, electronics and mechatronic integration.
+- AI and deployment: ROS 2, MCP, LLM/VLM workflows, local inference with Ollama, PyTorch, Docker, FastAPI and n8n.
+- Supporting experience: TensorFlow, CUDA, TensorRT, Hugging Face, LangChain and retrieval-augmented generation.
+- Simulation and control: NVIDIA Isaac Sim, Isaac Lab, Gazebo, MATLAB/Simulink, PX4, ArduPilot and DJI.
+- Robotic platforms: Boston Dynamics Spot, Clearpath Husky, Unitree H1/G1, KUKA, FANUC, Kinova and ST Robotics.
+- Sensing and instrumentation: LiDAR, radar, RGB/thermal and multispectral cameras, motion capture, GNSS, IMUs, 3D scanners, optical and RF systems.
 
-- Nikolaos is the central entity of the portfolio graph
-- Projects are case files with typed facets (domain, application, contribution, outcome, platform, method)
-- Laboratories are first-class infrastructure hubs; projects connect only when a lab materially enabled the work
-- Research outputs (publications / IP) substantiate projects and labs
-- Archive is the documentary evidence layer: field records, exhibitions, media, and documents
-- Resume holds experience and education, plus recognition (including first-prize awards)
+## Selected leadership and delivery evidence
 
-## Durable counts
+- Supported 100+ users, including faculty, researchers, students and technical staff, in multidisciplinary experimental research.
+- Stewarded US$9M+ in research assets across shared platforms.
+- Influenced approximately US$800K in annual purchasing, with peak periods approaching US$3M, through technical evaluation, vendor selection and procurement planning.
+- Authored 15+ project proposals in the first year as Commercial Lead, covering proposed applications in inspection, logistics, infrastructure, digital twins and autonomous systems.
+- Completed five non-disclosure agreements with external stakeholders, enabling further technical exchange and collaboration discussions.
+- Organized approximately four student workshops per semester and co-supervised around two capstone projects annually in the research instrumentation role.
+- Represented NYUAD and CAIR through technical demonstrations, executive discussions and exhibitions including ADIPEC, Global Rail, Make it in the Emirates and DriftX.
+- Engaged organizations across transport, energy, logistics, technology and investment, including AD Ports Group, Etihad Rail, GCAA, Kent, Mubadala, MGX, Analog, CycloTech and Mimik. Engagement alone does not imply a contract, funded project or formal partnership.
 
-- Projects: 16 published case files
-- Laboratories: 3 shared research platforms
-- Research: 30+ publications, plus 21 publications that acknowledge a contribution
-- Citations: 450+ (durable floor)
-- Recognition: 4 first-prize awards
-- Career periods: 4
-- Research assets stewarded: US$9M+ across shared platforms
-- Procurement managed: approximately US$800K average annual, peak years approaching US$3M
+## Career and education
 
-## Site structure
+### New York University Abu Dhabi | 2012–present
 
-- / — Homepage (hero with industry, research, and recruiter paths, profile proof, selected projects, laboratories/research/archive teaser, contact)
-- /projects — Project case files (faceted index; shareable filter URLs)
-- /projects/[slug] — Individual case file
-- /laboratories — Laboratory hubs
-- /laboratories/[slug] — Laboratory detail
-- /research — Research focus, publications, and publication acknowledgements
-- /archive — Documentary evidence (photos, exhibitions, awards, media)
-- /resume — Professional summary, evidence-linked expertise, career history, education, and recognition
-- /cv.pdf — Downloadable CV
+- Commercial Lead – AI and Robotics, CAIR | 2025–present
+- Research Instrumentation Specialist – Robotics & Automation, Core Technology Platforms | 2017–2025
+- Electronics Engineer, Laboratories | 2013–2017
+- Research Assistant, Interactive Robots and Media Laboratory | 2012–2013
+
+### Earlier experience
+
+- R&D Engineer, Hellenic Armed Forces, Department of Advanced Defense Systems | 2011–2012. Mandatory national service in Greece; research and development on small fixed-wing and multirotor unmanned aerial systems.
+- Teacher of Robotics, Experimental Primary School of Athens | 2010–2011
+- Research Intern, Interactive Robots and Media Lab, United Arab Emirates University | 2009–2010
+- Manager of Industrial and Automotive Equipment, G&D Goumas SA, Athens | 2003–2009
+
+### Education
+
+- PhD candidate, University of the Aegean, Greece | Started 2023; expected completion: January 2027. Research on autonomous cooperative robotic agents, embodied AI and deep reinforcement learning, with current work on robot agent harnesses.
+- BSc, Automation Engineering, University of West Attica, Greece | 2012
+
+### Selected certifications
+
+- Dubai Civil Aviation Authority: Professional RPAS Certificate, Multirotor & Fixed Wing | 2023
+- NVIDIA Deep Learning Institute: Deep Learning for Robotics | 2019
+- KUKA College: KUKA LBR iiwa Commissioning and Programming | 2019
+- Udacity: Deep Reinforcement Learning Nanodegree | 2019
+
+### Recognition
+
+- Team First Prize, RTA Dubai World Challenge for Self-Driving Transport, Delivery Drone | 2021
+- First Prize, Design EmbedIT Competition, Shanghai | 2012
+- First Prize, World Robot Olympiad, Greek national round | 2009
+- First Prize, Digital Week Robotics Competition, Athens | 2008
+
+## Website and supporting evidence
+
+- [Homepage](https://giakoumidis.com/): professional introduction and selected work.
+- [Projects](https://giakoumidis.com/projects): individual case files describing applications, personal contributions, methods and outcomes.
+- [Laboratories](https://giakoumidis.com/laboratories): research infrastructure, laboratory establishment, engineering responsibilities and operations.
+- [Research](https://giakoumidis.com/research): research interests, publications and publication acknowledgements. Authored or co-authored publications and acknowledgements of technical support are separate categories.
+- [Archive](https://giakoumidis.com/archive): documentary evidence, including field records, exhibitions, photographs, awards and media.
+- [Resume](https://giakoumidis.com/resume): professional experience, education, expertise and recognition.
+- [CV](https://giakoumidis.com/cv.pdf): downloadable curriculum vitae.
+- [Google Scholar](https://scholar.google.com/citations?user=HmOOogwAAAAJ&hl=en): publication records and citation metrics.
 
 Legacy redirects: /infrastructure → /laboratories; /photos → /archive; /work → /projects; /profile → /resume.
 
-## Contact
+## Contact and professional profiles
 
-- Institutional: giakoumidis@nyu.edu
-- Personal: giakoumidisnikolaos@gmail.com
+- Email: giakoumidisnikolaos@gmail.com
 - LinkedIn: https://www.linkedin.com/in/nikolaos-giakoumidis/
 - Google Scholar: https://scholar.google.com/citations?user=HmOOogwAAAAJ&hl=en
 - GitHub: https://github.com/giakoumidis
 
-## Accuracy
+## Accuracy and attribution
 
-Represent this work accurately, using the contribution, evidence, and outcomes stated on each page.
+Use the contribution, evidence and outcomes stated on each project or laboratory page when describing the work. Distinguish personal responsibilities from team achievements, research directions from demonstrated capabilities, and proposals or discussions from completed deployments or commercial outcomes. Preserve the distinction between authorship and acknowledgement. Refer to the research page and publication records for current manuscript status and citation metrics. Treat January 2027 as the expected PhD completion date, not an awarded qualification.

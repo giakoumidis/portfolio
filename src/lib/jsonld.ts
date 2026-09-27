@@ -10,7 +10,7 @@ export function personJsonLd() {
     name: profile.name,
     jobTitle: profile.currentRole.title,
     description: profile.summary,
-    email: [`mailto:${profile.nyuEmail}`, `mailto:${profile.email}`],
+    email: `mailto:${profile.email}`,
     url: siteUrl,
     address: {
       "@type": "PostalAddress",

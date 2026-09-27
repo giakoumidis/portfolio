@@ -40,14 +40,6 @@ export default function Footer() {
           <ul className="mt-4 flex flex-col gap-2">
             <li>
               <a
-                href={`mailto:${profile.nyuEmail}`}
-                className="label-mono block break-all text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-              >
-                {profile.nyuEmail}
-              </a>
-            </li>
-            <li>
-              <a
                 href={`mailto:${profile.email}`}
                 className="label-mono block break-all text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
               >
