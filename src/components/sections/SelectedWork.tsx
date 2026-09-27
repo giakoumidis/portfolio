@@ -50,11 +50,7 @@ export default function SelectedWork() {
                 className={featured ? "lg:col-span-2" : undefined}
               >
                 <article
-                  className={`flex h-full flex-col bg-bg-raised/20 ${
-                    featured
-                      ? "border border-cyan/70 shadow-[0_0_32px_rgb(0_240_255_/_0.12)]"
-                      : "border border-grid-dim"
-                  }`}
+                  className="flex h-full flex-col border border-grid-dim bg-bg-raised/20 transition-[border-color,box-shadow] duration-200 hover:border-cyan/70 hover:shadow-[0_0_32px_rgb(0_240_255_/_0.12)] focus-within:border-cyan/70 focus-within:shadow-[0_0_32px_rgb(0_240_255_/_0.12)]"
                 >
                   {image && (
                     <RoboPhoto
