@@ -162,7 +162,7 @@ function ArchiveGrid({
                     : "aspect-[3/2]"
                 }
                 sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-                className="h-full border border-grid-dim"
+                className="border border-grid-dim"
                 gallery={gallery}
                 galleryIndex={i}
               />

@@ -7,6 +7,7 @@ import ActionLink from "@/components/ui/ActionLink";
 import PhotoLightbox, {
   type LightboxPhoto,
 } from "@/components/ui/PhotoLightbox";
+import { imageDimensions } from "@/lib/image-dimensions";
 
 type RoboPhotoProps = {
   src: string;
@@ -21,7 +22,10 @@ type RoboPhotoProps = {
     href: string;
     label: string;
   };
-  /** Aspect class applied to the image frame, e.g. "aspect-[4/5]". */
+  /**
+   * Placeholder frame before intrinsic size is known.
+   * Once dimensions resolve, the photo uses its real ratio.
+   */
   aspect?: string;
   sizes?: string;
   preload?: boolean;
@@ -54,10 +58,26 @@ export default function RoboPhoto({
   galleryIndex,
 }: RoboPhotoProps) {
   const [open, setOpen] = useState(false);
+  const [measured, setMeasured] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
   const close = useCallback(() => setOpen(false), []);
   const openViewer = useCallback(() => setOpen(true), []);
   const tick = "absolute h-2.5 w-2.5 border-cyan opacity-70 z-10";
   const hasCaption = Boolean(tag || caption || description || link);
+  const known = imageDimensions[src];
+  const dims = known ?? measured;
+  const onMeasure = useCallback(
+    (event: { currentTarget: HTMLImageElement }) => {
+      if (known) return;
+      const { naturalWidth, naturalHeight } = event.currentTarget;
+      if (naturalWidth > 0 && naturalHeight > 0) {
+        setMeasured({ width: naturalWidth, height: naturalHeight });
+      }
+    },
+    [known],
+  );
 
   return (
     <>
@@ -68,17 +88,22 @@ export default function RoboPhoto({
           type="button"
           onClick={openViewer}
           aria-label={`Enlarge photo: ${alt}`}
-          className={`robo-photo-trigger group relative block w-full cursor-zoom-in text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${aspect}`}
+          className={`robo-photo-trigger group relative block w-full cursor-zoom-in text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+            dims ? "" : aspect
+          }`}
           onContextMenu={(event) => event.preventDefault()}
         >
           <Image
             src={src}
             alt={alt}
-            fill
+            width={dims?.width ?? 3}
+            height={dims?.height ?? 2}
             sizes={sizes}
             preload={preload}
             draggable={false}
-            className="robo-photo-img object-cover"
+            className="robo-photo-img block h-auto w-full object-contain"
+            style={{ width: "100%", height: "auto" }}
+            onLoad={onMeasure}
             onDragStart={(event) => event.preventDefault()}
           />
           {/* Blocks direct interaction with the underlying <img>. */}

@@ -122,15 +122,10 @@ export default function ProjectCards({
                             alt={image.alt}
                             tag={`FIG.0${n + 1}`}
                             caption={image.caption}
-                            aspect={
-                              image.orientation === "portrait"
-                                ? "flex-1 min-h-96"
-                                : "flex-1 min-h-64"
-                            }
                             sizes="(min-width: 1024px) 50vw, 100vw"
-                            className={`flex-1 ${
+                            className={
                               n > 0 ? "border-t border-grid-dim" : ""
-                            }`}
+                            }
                             gallery={photoGallery}
                             galleryIndex={n}
                           />

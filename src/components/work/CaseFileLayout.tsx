@@ -57,6 +57,8 @@ export default function CaseFileLayout({
       : undefined;
 
   const hasRelated = environments.length > 0 || related.length > 0;
+  /** Photographs stay on the photo frames and in the archive, not in this list. */
+  const listedEvidence = evidence.filter((item) => item.type !== "photograph");
 
   return (
     <article className="section-shell py-16 lg:py-24">
@@ -195,13 +197,57 @@ export default function CaseFileLayout({
         </ul>
       </section>
 
-      {(evidence.length > 0 || record.evidencePending) && (
+      {(listedEvidence.length > 0 ||
+        (record.evidencePending && evidence.length === 0)) && (
         <section className="mt-12" aria-labelledby="evidence-heading">
           <h2 id="evidence-heading" className="label-mono text-text-dim">
             Publications & media
           </h2>
-          <EvidenceList items={evidence} pending={record.evidencePending} />
+          <EvidenceList
+            items={listedEvidence}
+            pending={record.evidencePending}
+          />
         </section>
+      )}
+
+      {images && images.length > 0 && (
+        <section className="mt-12" aria-labelledby="photos-heading">
+          <h2 id="photos-heading" className="label-mono text-text-dim">
+            Additional Media
+          </h2>
+          <div
+            className={`mt-4 grid gap-4 ${
+              images.length > 1 ? "lg:grid-cols-2" : ""
+            }`}
+          >
+            {images.map((image, i) => (
+              <RoboPhoto
+                key={image.src}
+                src={image.src}
+                alt={image.alt}
+                caption={image.caption}
+                aspect={
+                  image.orientation === "portrait" ? "min-h-96" : "min-h-64"
+                }
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                gallery={photoGallery}
+                galleryIndex={i}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {record.link && (
+        <div className="mt-12">
+          <NeonButton
+            href={record.link.href}
+            download={record.link.download}
+            external={!record.link.download}
+          >
+            {record.link.label} →
+          </NeonButton>
+        </div>
       )}
 
       {hasRelated && (
@@ -255,48 +301,7 @@ export default function CaseFileLayout({
               </ul>
             </div>
           )}
-
         </section>
-      )}
-
-      {images && images.length > 0 && (
-        <section className="mt-12" aria-labelledby="photos-heading">
-          <h2 id="photos-heading" className="label-mono text-text-dim">
-            Additional Media
-          </h2>
-          <div
-            className={`mt-4 grid gap-4 ${
-              images.length > 1 ? "lg:grid-cols-2" : ""
-            }`}
-          >
-            {images.map((image, i) => (
-              <RoboPhoto
-                key={image.src}
-                src={image.src}
-                alt={image.alt}
-                caption={image.caption}
-                aspect={
-                  image.orientation === "portrait" ? "min-h-96" : "min-h-64"
-                }
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                gallery={photoGallery}
-                galleryIndex={i}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {record.link && (
-        <div className="mt-12">
-          <NeonButton
-            href={record.link.href}
-            download={record.link.download}
-            external={!record.link.download}
-          >
-            {record.link.label} →
-          </NeonButton>
-        </div>
       )}
 
       <SpokeNav basePath="/projects" prev={prev} next={next} />
