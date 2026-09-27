@@ -395,9 +395,9 @@ export const workRecords: ProjectRecord[] = [
     // Earlier depot set still withheld: etihad-rail-depot-spot-{train,tracks,yard}.jpg
     images: [
       {
-        src: "/images/projects/etihad-rail-nyuad.jpg",
-        alt: "Public collaboration imagery for the Etihad Rail × NYUAD AI and robotics partnership",
-        caption: "ETIHAD RAIL × NYUAD — PUBLIC COLLAB",
+        src: "/images/projects/etihad-rail-locomotion-rails.jpg",
+        alt: "Boston Dynamics Spot standing on the rails in front of the Etihad Rail depot during locomotion testing",
+        caption: "LOCOMOTION — ON THE DEPOT RAILS",
       },
       {
         src: "/images/projects/etihad-rail-locomotive-inspection.jpg",
@@ -410,9 +410,9 @@ export const workRecords: ProjectRecord[] = [
         caption: "LOCOMOTION — BALLAST BY WAGON",
       },
       {
-        src: "/images/projects/etihad-rail-locomotion-rails.jpg",
-        alt: "Boston Dynamics Spot standing on the rails in front of the Etihad Rail depot during locomotion testing",
-        caption: "LOCOMOTION — ON THE DEPOT RAILS",
+        src: "/images/projects/etihad-rail-nyuad.jpg",
+        alt: "Public collaboration imagery for the Etihad Rail × NYUAD AI and robotics partnership",
+        caption: "ETIHAD RAIL × NYUAD — PUBLIC COLLAB",
       },
     ],
     imagesOnIndex: false,
@@ -1188,13 +1188,13 @@ export const workRecords: ProjectRecord[] = [
     org: "NYU Abu Dhabi · CAIR · NYU WIRELESS · Nokia",
     period: { startYear: 2025, endYear: 2026, label: "2025–2026" },
     cardHook:
-      "Co-authored a 25–28 GHz radar cross-section campaign in the Kinesis arena, characterizing a UAV, a robotic arm, and a quadruped for 3GPP Release 19 ISAC channel modeling with NYU WIRELESS and Nokia.",
+      "Co-authored a 25–28 GHz RF electronics campaign for telecommunications channel modeling, measuring radar cross sections of indoor targets in Kinesis with NYU WIRELESS and Nokia for 3GPP Release 19.",
     challenge:
       "Integrated sensing and communication channel models need measured radar cross sections of indoor targets, including robots in motion, rather than simulated values alone.",
     summary:
-      "A 25–28 GHz radar cross-section measurement campaign in the Kinesis arena, run with NYU WIRELESS and Nokia. The bistatic testbed characterized a mid-size UAV, a robotic arm executing motions, and a quadruped moving laterally and longitudinally. Goodness-of-fit tests found lognormal and gamma distributions the best models for these targets. The results were submitted to 3GPP RAN1 as TDOC R1-2502052 for Release 19 ISAC channel modeling and published in IEEE Transactions on Wireless Communications.",
+      "A telecommunications and RF electronics study: 25–28 GHz radar cross-section measurements in the Kinesis arena, with NYU WIRELESS and Nokia. The bistatic RF testbed characterized a mid-size UAV, a robotic arm executing motions, and a quadruped moving laterally and longitudinally. Goodness-of-fit tests found lognormal and gamma distributions the best models for these targets. The results were submitted to 3GPP RAN1 as TDOC R1-2502052 for Release 19 ISAC channel modeling and published in IEEE Transactions on Wireless Communications.",
     contributionSummary:
-      "Co-authored the study and supported the Kinesis campaign, including the arena and the robotic targets used for the 25–28 GHz measurements.",
+      "Co-authored the RF electronics study and supported the 25–28 GHz measurement campaign in Kinesis, including the arena and the robotic targets.",
     outcomeSummary:
       "Published in IEEE Transactions on Wireless Communications in 2026, after submission to 3GPP RAN1 as TDOC R1-2502052.",
     highlights: [
@@ -1240,13 +1240,8 @@ export const workRecords: ProjectRecord[] = [
       },
     ],
     facets: {
-      domains: ["perception-sensing", "telecommunications-edge-computing"],
+      domains: ["telecommunications-rf-electronics"],
       contributions: ["co-authored", "experimental-development", "supported"],
-      platforms: [
-        "uav-platform",
-        "industrial-manipulator",
-        "boston-dynamics-spot",
-      ],
       outcomes: ["peer-reviewed-publication", "industry-collaboration"],
     },
     relations: [

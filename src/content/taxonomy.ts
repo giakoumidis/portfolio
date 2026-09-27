@@ -84,6 +84,14 @@ export const taxonomyTerms: TaxonomyTerm[] = [
     aliases: ["Photonics", "Telecommunications"],
   },
   {
+    slug: "telecommunications-rf-electronics",
+    label: "Telecommunications & RF Electronics",
+    facet: "domain",
+    description:
+      "Millimeter-wave measurements, radar cross-section characterization, and RF electronics for wireless systems.",
+    aliases: ["RF electronics", "RF", "mmWave", "Telecommunications and RF"],
+  },
+  {
     slug: "electronics-embedded-systems",
     label: "Electronics & Embedded Systems",
     facet: "domain",
