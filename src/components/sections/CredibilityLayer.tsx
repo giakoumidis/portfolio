@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import ActionLink from "@/components/ui/ActionLink";
 import HudCard from "@/components/ui/HudCard";
 import Reveal from "@/components/ui/Reveal";
@@ -6,6 +8,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { getArchiveRecords, getArchiveTeasers } from "@/content/archive";
 import { archiveTeaserSrcs } from "@/content/homepage";
 import { getOutreachByAudience, outreachAudiences } from "@/content/outreach";
+import { taxonomyLabel } from "@/content/taxonomy";
 import { getAllInfrastructure } from "@/lib/query";
 
 const FEATURED_LAB_SLUG = "kinesis-ctp-laboratory";
@@ -35,29 +38,46 @@ export default function CredibilityLayer() {
 
           {lab && (
             <Reveal>
-              <article className="grid border border-grid-dim bg-bg-raised/20 lg:grid-cols-2">
+              <article className="flex h-full flex-col border border-grid-dim bg-bg-raised/20 transition-[border-color,box-shadow] duration-200 hover:border-cyan/70 hover:shadow-[0_0_32px_rgb(0_240_255_/_0.12)] focus-within:border-cyan/70 focus-within:shadow-[0_0_32px_rgb(0_240_255_/_0.12)]">
                 {image && (
                   <RoboPhoto
                     src={image.src}
                     alt={image.alt}
                     caption={image.caption}
-                    aspect="aspect-[3/2]"
-                    sizes="(max-width: 1024px) 100vw, 36rem"
-                    className="border-0 border-b border-grid-dim lg:border-r lg:border-b-0"
+                    aspect="aspect-[16/10]"
+                    sizes="(max-width: 1024px) 100vw, 72rem"
+                    className="border-0 border-b border-grid-dim"
                   />
                 )}
-                <div className="flex flex-col p-5 sm:p-6">
-                  <h3 className="font-display text-base uppercase text-text">
-                    {lab.title}
+                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <p className="label-mono text-text-dim">
+                    <span className="mr-3 text-cyan">Laboratory</span>
+                    {taxonomyLabel(lab.domains[0])}
+                    {lab.period.label && (
+                      <span className="ml-3">{lab.period.label}</span>
+                    )}
+                  </p>
+                  <h3 className="mt-3 font-display text-lg uppercase text-text">
+                    <Link
+                      href={`/laboratories/${lab.slug}`}
+                      className="transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                    >
+                      {lab.title}
+                    </Link>
                   </h3>
                   <p className="mt-3 font-body text-sm leading-relaxed text-text-dim">
                     {lab.summary.split(/(?<=[.!?])\s/)[0]}
                   </p>
-                  <p className="mt-auto pt-5">
+                  <div className="mt-auto flex flex-wrap gap-3 pt-5">
                     <ActionLink href={`/laboratories/${lab.slug}`}>
                       Explore laboratory
                     </ActionLink>
-                  </p>
+                    {lab.link && (
+                      <ActionLink href={lab.link.href} external>
+                        {lab.link.label}
+                      </ActionLink>
+                    )}
+                  </div>
                 </div>
               </article>
             </Reveal>
@@ -95,11 +115,7 @@ export default function CredibilityLayer() {
             headingId="outreach-heading"
             kicker="Industry · society"
           />
-          <p className="max-w-2xl font-body text-sm text-text-dim">
-            Taking robotics and AI out of the laboratory, to industry and to
-            students and the public.
-          </p>
-          <ul className="mt-8 grid gap-5 sm:grid-cols-2">
+          <ul className="grid gap-5 sm:grid-cols-2">
             {outreachAudiences.map((audience, index) => (
               <Reveal as="li" key={audience.id} delay={index * 0.06}>
                 <HudCard accent="magenta" className="flex h-full flex-col p-6">

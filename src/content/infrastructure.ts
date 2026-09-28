@@ -321,17 +321,17 @@ export const infrastructureRecords: InfrastructureRecord[] = [
     slug: "advanced-manufacturing-electronics",
     title: "Advanced Manufacturing and Electronics",
     org: "NYU Abu Dhabi · Core Technology Platforms",
-    period: { startYear: 2013, endYear: 2025, label: "2013–2025" },
+    period: { startYear: 2013, endYear: 2017, label: "2013–2017" },
     challenge:
       "Research hardware needed an in-house path from design to metal and polymer parts and to printed circuit boards.",
     summary:
-      "NYU Abu Dhabi’s shared workshops for custom mechanical parts and printed-circuit fabrication. I co-developed Advanced Manufacturing and Electronics and ran the facility for several years, personally operating the industrial additive, cutting, inspection, and circuit-board machines used for research prototypes.",
+      "NYU Abu Dhabi’s shared workshops for custom mechanical parts and printed-circuit fabrication. I co-developed Advanced Manufacturing and Electronics and ran the facility until I handed it over in 2017, personally operating the industrial additive, cutting, inspection, and circuit-board machines used for research prototypes.",
     contributionSummary:
       "Co-developed the workshops and personally operated the EOS and Stratasys printers, waterjet, wire EDM, laser cutters, NSI CT scanner, and the in-house circuit-board line.",
     outcomeSummary:
-      "Gave NYUAD in-house prototyping for metal and polymer parts and printed circuit boards, and kept those machines in research use from 2013 through 2025.",
+      "Gave NYUAD in-house prototyping for metal and polymer parts and printed circuit boards, and handed the operating facility over in 2017.",
     highlights: [
-      "Established the Electronics Workshop and co-established the Advanced Manufacturing Workshop, then operated them as the Advanced Manufacturing and Electronics platform through 2025.",
+      "Established the Electronics Workshop and co-established the Advanced Manufacturing Workshop, operated them as the Advanced Manufacturing and Electronics platform, and handed the facility over in 2017.",
       "Personally operated EOS industrial 3D printers — selective laser sintering and SLA, and the EOSINT M 270 metal laser-sintering system — and Stratasys plastic printers. The EOS machines were advanced systems that took particular care to understand and run, including powder handling, inert process gas, and build parameters.",
       "Operated the cutting and inspection cell: waterjet, wire EDM, and laser cutters, and a North Star Imaging (NSI) computed-tomography scanner for non-destructive inspection of manufactured parts. The machining bay included a Haas VF-2SS vertical mill.",
       "Ran the electronics fabrication line: circuit-board plotter, through-hole plating system, board press, and reflow oven. In-house work on that line produced research boards, including the hardware-security ASIC validation platform.",

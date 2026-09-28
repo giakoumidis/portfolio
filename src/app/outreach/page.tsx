@@ -17,8 +17,6 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function OutreachPage() {
-  const industryCount = getOutreachByAudience("industry").length;
-
   return (
     <RouteChrome>
       <div className="section-shell py-16 lg:py-24">
@@ -55,24 +53,6 @@ export default function OutreachPage() {
             );
           })}
         </ul>
-
-        {industryCount > 0 && (
-          <div className="mt-12 flex flex-col items-start gap-4 border-t border-grid-dim pt-8 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="label-mono text-text-dim">
-                <span className="text-cyan">{industryCount}</span> industry
-                engagements on record
-              </p>
-              <p className="mt-2 max-w-lg font-body text-sm leading-relaxed text-text-dim">
-                Field work, demonstrations, proposals, visits, and showcases —
-                with proposals and visits labeled as such.
-              </p>
-            </div>
-            <ActionLink href="/outreach/industry" className="shrink-0">
-              Explore industry
-            </ActionLink>
-          </div>
-        )}
       </div>
     </RouteChrome>
   );

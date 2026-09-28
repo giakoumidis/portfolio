@@ -25,7 +25,7 @@ export const experience = [
     location: "Abu Dhabi, UAE",
     period: "2017–2025",
     highlights: [
-      "Established, expanded, and operated research facilities spanning robotics, photonics, high-throughput screening, electronics, and advanced manufacturing.",
+      "Established, expanded, and operated research facilities spanning robotics, photonics, and high-throughput screening.",
       "Led technical decisions across multiple laboratories, including system architecture, equipment strategy, vendor selection, workflow design, safety procedures, and repair-versus-replacement planning.",
       "Supported 100+ faculty, researchers, students, and technical staff in using shared facilities for multidisciplinary experimental research.",
       "Stewarded US$9M+ in shared research assets, with responsibility for technical planning and equipment lifecycle decisions. Managed approximately US$800K in average annual procurement, with peak years approaching US$3M, and reduced costs through strategic purchasing and in-house repair of high-value equipment.",
@@ -39,7 +39,7 @@ export const experience = [
     location: "Abu Dhabi, UAE",
     period: "2013–2017",
     highlights: [
-      "Established the Electronics Workshop and co-established the Advanced Manufacturing Workshop, giving NYUAD greater in-house capability in prototyping and scientific instrumentation.",
+      "Established the Electronics Workshop and co-established the Advanced Manufacturing Workshop, then handed Advanced Manufacturing and Electronics over in 2017.",
       "Helped plan and deliver the relocation of research laboratories from the Center for Science and Engineering to the Saadiyat campus.",
       "Supported faculty, researchers, and students across electronics, automation, robotics, and scientific instrumentation, including the High Throughput Screening Platform (HTS).",
       "Delivered in-house troubleshooting, maintenance, and repair of scientific equipment, improving operational continuity and cost efficiency.",

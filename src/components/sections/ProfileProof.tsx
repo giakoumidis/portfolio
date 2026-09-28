@@ -38,7 +38,7 @@ export default function ProfileProof() {
           </Reveal>
 
           <Reveal delay={0.12} className="mt-8">
-            <ActionLink href="/resume">Experience & background</ActionLink>
+            <ActionLink href="/resume">Explore resume</ActionLink>
           </Reveal>
         </div>
       </div>
