@@ -154,6 +154,7 @@ function ShowcaseFeature({
               key={photo.src}
               src={photo.src}
               alt={photo.alt}
+              caption={photos.length > 1 ? photo.caption : undefined}
               gallery={gallery}
               galleryIndex={index}
               sizes={
