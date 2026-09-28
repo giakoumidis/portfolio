@@ -5,6 +5,15 @@ import { capabilities } from "@/content/capabilities";
 import { education, experience } from "@/content/experience";
 import { exhibitions } from "@/content/exhibitions";
 import { infrastructureRecords } from "@/content/infrastructure";
+import {
+  getOutreachFor,
+  outreachAudiences,
+  outreachEntries,
+  outreachEntryHref,
+  outreachIntro,
+  resolveOutreachLinks,
+  societyIntro,
+} from "@/content/outreach";
 import { posts } from "@/content/posts";
 import { currentResearch, profile } from "@/content/profile";
 import { publications } from "@/content/publications";
@@ -27,6 +36,7 @@ export type SearchCategory =
   | "section"
   | "project"
   | "laboratory"
+  | "outreach"
   | "domain"
   | "role"
   | "education"
@@ -54,6 +64,7 @@ export type SearchEntry = {
 export const SEARCH_FILTER_CATEGORIES: readonly SearchCategory[] = [
   "project",
   "laboratory",
+  "outreach",
   "domain",
   "role",
   "publication",
@@ -68,6 +79,7 @@ const CATEGORY_LABEL: Record<SearchCategory, string> = {
   section: "Section",
   project: "Project",
   laboratory: "Laboratory",
+  outreach: "Outreach",
   domain: "Skill",
   role: "Role",
   education: "Education",
@@ -220,6 +232,17 @@ function buildIndex(): SearchEntry[] {
         section.id === "laboratories"
           ? "labs infrastructure kinesis photonics hts"
           : undefined,
+        section.id === "outreach"
+          ? joinHaystack(
+              outreachIntro,
+              societyIntro,
+              "industry society public engagement workshops demonstrations competitions inspiration next generation",
+              ...outreachAudiences.flatMap((audience) => [
+                audience.title,
+                audience.purpose,
+              ]),
+            )
+          : undefined,
         ...archiveText,
       ),
     });
@@ -249,6 +272,47 @@ function buildIndex(): SearchEntry[] {
       haystack: joinHaystack("resume", "profile", "career", "cv", "experience"),
     },
   );
+
+  for (const audience of outreachAudiences) {
+    entries.push({
+      id: `section:outreach:${audience.id}`,
+      title: `Outreach — ${audience.title}`,
+      blurb: audience.purpose,
+      category: "section",
+      href: `/outreach/${audience.id}`,
+      haystack: joinHaystack(
+        "outreach",
+        audience.id,
+        audience.title,
+        audience.purpose,
+        audience.id === "society" ? societyIntro : undefined,
+      ),
+    });
+  }
+
+  for (const entry of outreachEntries) {
+    entries.push({
+      id: `outreach:${entry.id}`,
+      title: entry.title,
+      blurb: [entry.standing, entry.year].filter(Boolean).join(" · "),
+      category: "outreach",
+      href: outreachEntryHref(entry),
+      haystack: joinHaystack(
+        entry.title,
+        entry.summary,
+        entry.form,
+        entry.standing,
+        entry.year,
+        entry.audience,
+        entry.band,
+        ...resolveOutreachLinks(entry).flatMap((link) => [
+          link.label,
+          link.href,
+        ]),
+        "outreach",
+      ),
+    });
+  }
 
   for (const item of currentResearch) {
     const slug = titleKey(item.title).slice(0, 48);
@@ -305,6 +369,12 @@ function buildIndex(): SearchEntry[] {
           image.alt,
           image.caption,
         ]),
+        ...getOutreachFor("project", project.slug).flatMap((entry) => [
+          entry.title,
+          entry.summary,
+          entry.standing,
+          "outreach",
+        ]),
       ),
     });
   }
@@ -341,6 +411,12 @@ function buildIndex(): SearchEntry[] {
           item.date,
         ]),
         ...(lab.images ?? []).flatMap((image) => [image.alt, image.caption]),
+        ...getOutreachFor("laboratory", lab.slug).flatMap((entry) => [
+          entry.title,
+          entry.summary,
+          entry.standing,
+          "outreach",
+        ]),
       ),
     });
   }
@@ -524,6 +600,7 @@ function buildIndex(): SearchEntry[] {
         award.detail,
         award.location,
         award.year,
+        award.outreachHref ? "outreach" : undefined,
       ),
     });
   }
@@ -554,13 +631,14 @@ function buildIndex(): SearchEntry[] {
         .filter(Boolean)
         .join(" · "),
       category: "exhibition",
-      href: "/resume",
+      href: exhibition.outreachHref ?? "/resume",
       haystack: joinHaystack(
         exhibition.name,
         exhibition.role,
         exhibition.location,
         exhibition.period,
         exhibition.year,
+        exhibition.outreachHref ? "outreach" : undefined,
       ),
     });
   }

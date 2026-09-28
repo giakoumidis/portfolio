@@ -71,6 +71,7 @@ export const professionalCapabilities = [
       "Design custom electronics and automate experimental workflows, including schematic capture, printed circuit board (PCB) layout, embedded interfaces, LabVIEW control, and robotic instrument integration. Experience includes ASIC test hardware, programmable research instruments, Thermo Fisher Momentum workflows, FANUC robots, and optical/RF characterization infrastructure for photonics research.",
     links: [
       { label: "Custom ASIC validation board", href: "/projects/hardware-security-asic-validation-platform" },
+      { label: "Advanced manufacturing & electronics", href: "/laboratories/advanced-manufacturing-electronics" },
       { label: "High-throughput screening automation", href: "/laboratories/nyuad-hts-platform" },
       { label: "Photonics platform", href: "/laboratories/photonics-ctp-laboratory" },
     ],
@@ -92,6 +93,7 @@ export const professionalCapabilities = [
       { label: "Etihad Rail collaboration", href: "/projects/etihad-rail-nyuad-collaboration" },
       { label: "Rail sensing pilot", href: "/projects/etihad-rail-desert-environment-monitoring" },
       { label: "Airport inspection drone", href: "/projects/nyuad-adac-airport-inspection-drone" },
+      { label: "Industry outreach", href: "/outreach/industry" },
     ],
   },
 ] as const;

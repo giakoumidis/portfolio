@@ -1,9 +1,11 @@
 import ActionLink from "@/components/ui/ActionLink";
+import HudCard from "@/components/ui/HudCard";
 import Reveal from "@/components/ui/Reveal";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { archiveTeaserSrcs } from "@/content/homepage";
 import { getArchiveRecords, getArchiveTeasers } from "@/content/archive";
+import { archiveTeaserSrcs } from "@/content/homepage";
+import { getOutreachByAudience, outreachAudiences } from "@/content/outreach";
 import { getAllInfrastructure } from "@/lib/query";
 
 const FEATURED_LAB_SLUG = "kinesis-ctp-laboratory";
@@ -14,6 +16,7 @@ export default function CredibilityLayer() {
   const teasers = getArchiveTeasers([...archiveTeaserSrcs]);
   const archiveCount = getArchiveRecords().length;
   const image = lab?.images?.[0];
+  const industryCount = getOutreachByAudience("industry").length;
 
   return (
     <>
@@ -68,12 +71,67 @@ export default function CredibilityLayer() {
                   record
                 </p>
                 <p className="mt-2 max-w-lg font-body text-sm leading-relaxed text-text-dim">
-                  Robotics, photonics, and high-throughput screening
-                  infrastructure at NYU Abu Dhabi.
+                  Robotics, photonics, advanced manufacturing, electronics, and
+                  high-throughput screening at NYU Abu Dhabi.
                 </p>
               </div>
               <ActionLink href="/laboratories" className="shrink-0">
                 Explore all laboratories
+              </ActionLink>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section
+        id="outreach"
+        aria-labelledby="outreach-heading"
+        className="scroll-mt-20"
+      >
+        <div className="section-shell">
+          <SectionHeading
+            index="04"
+            title="Outreach"
+            headingId="outreach-heading"
+            kicker="Industry · society"
+          />
+          <p className="max-w-2xl font-body text-sm text-text-dim">
+            Taking robotics and AI out of the laboratory, to industry and to
+            students and the public.
+          </p>
+          <ul className="mt-8 grid gap-5 sm:grid-cols-2">
+            {outreachAudiences.map((audience, index) => (
+              <Reveal as="li" key={audience.id} delay={index * 0.06}>
+                <HudCard accent="magenta" className="flex h-full flex-col p-6">
+                  <h3 className="font-display text-base uppercase text-text">
+                    {audience.title}
+                  </h3>
+                  <p className="mt-3 flex-1 font-body text-sm leading-relaxed text-text-dim">
+                    {audience.purpose}
+                  </p>
+                  <p className="mt-5">
+                    <ActionLink href={`/outreach/${audience.id}`}>
+                      Explore {audience.title.toLowerCase()}
+                    </ActionLink>
+                  </p>
+                </HudCard>
+              </Reveal>
+            ))}
+          </ul>
+          <Reveal className="mt-12">
+            <div className="flex flex-col items-start gap-4 border-t border-grid-dim pt-8 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="label-mono text-text-dim">
+                  <span className="text-cyan">{industryCount}</span> industry
+                  engagements on record
+                </p>
+                <p className="mt-2 max-w-lg font-body text-sm leading-relaxed text-text-dim">
+                  Industry engagement and public sessions that carry the work
+                  beyond the laboratory.
+                </p>
+              </div>
+              <ActionLink href="/outreach" className="shrink-0">
+                Explore Outreach
               </ActionLink>
             </div>
           </Reveal>
@@ -87,7 +145,7 @@ export default function CredibilityLayer() {
       >
         <div className="section-shell">
           <SectionHeading
-            index="04"
+            index="05"
             title="Archive"
             headingId="archive-heading"
             kicker="Field records · exhibitions · media"

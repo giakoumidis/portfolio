@@ -6,10 +6,13 @@ import NeonButton from "@/components/ui/NeonButton";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
 import InstagramMedia from "@/components/ui/InstagramMedia";
+import { RelatedOutreach } from "@/components/outreach/OutreachEntries";
 import EvidenceList from "@/components/work/EvidenceList";
 import SpokeNav from "@/components/work/SpokeNav";
 import SpokeScanBlock from "@/components/work/SpokeScanBlock";
 import SystemRecord from "@/components/work/SystemRecord";
+import { figureForImage, getArchiveBySrc } from "@/content/archive";
+import { getOutreachFor } from "@/content/outreach";
 import type { ProjectCaseFile, SpokeNeighbor } from "@/lib/query";
 import { featuredProjectSlug } from "@/content/homepage";
 import { resolveSpokeChallenge, resolveSpokeOutcome } from "@/lib/spoke-copy";
@@ -35,6 +38,7 @@ export default function CaseFileLayout({
   next = null,
 }: CaseFileLayoutProps) {
   const { record, evidence, related, environments } = caseFile;
+  const outreach = getOutreachFor("project", record.slug);
   const video = record.video;
   const images = record.images;
   const primaryLocalSrc =
@@ -47,12 +51,20 @@ export default function CaseFileLayout({
     if (item.url === primaryLocalSrc) return [];
     return [{ src: item.url, title: item.title }];
   });
+  const archiveBySrc = getArchiveBySrc();
+  const photoFigures = images?.map((image) =>
+    figureForImage(image, archiveBySrc, {
+      hideHref: `/projects/${record.slug}`,
+    }),
+  );
   const photoGallery =
-    images && images.length > 1
-      ? images.map((item) => ({
+    photoFigures && photoFigures.length > 1
+      ? photoFigures.map((item) => ({
           src: item.src,
           alt: item.alt,
           caption: item.caption,
+          description: item.description,
+          link: item.link,
         }))
       : undefined;
 
@@ -220,12 +232,14 @@ export default function CaseFileLayout({
               images.length > 1 ? "lg:grid-cols-2" : ""
             }`}
           >
-            {images.map((image, i) => (
+            {photoFigures?.map((image, i) => (
               <RoboPhoto
                 key={image.src}
                 src={image.src}
                 alt={image.alt}
                 caption={image.caption}
+                description={image.description}
+                link={image.link}
                 aspect={
                   image.orientation === "portrait" ? "min-h-96" : "min-h-64"
                 }
@@ -301,6 +315,18 @@ export default function CaseFileLayout({
               </ul>
             </div>
           )}
+        </section>
+      )}
+
+      {outreach.length > 0 && (
+        <section className="mt-12" aria-labelledby="outreach-heading">
+          <h2 id="outreach-heading" className="label-mono text-text-dim">
+            Outreach
+          </h2>
+          <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
+            Industry engagement recorded alongside this project.
+          </p>
+          <RelatedOutreach entries={outreach} />
         </section>
       )}
 

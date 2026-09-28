@@ -19,6 +19,7 @@ export const exhibitions = [
     period: "19–22 May",
     year: "2025",
     link: "https://www.miite.ae/",
+    outreachHref: "/outreach/industry#make-it-in-the-emirates",
   },
   {
     id: "global-rail-2025",
@@ -28,6 +29,7 @@ export const exhibitions = [
     period: "30 Sep – 2 Oct",
     year: "2025",
     link: "https://www.grtiec.com/",
+    outreachHref: "/outreach/industry#global-rail",
   },
   {
     id: "future-digital-twin-ai-2025",
@@ -46,6 +48,7 @@ export const exhibitions = [
     period: "2–5 November",
     year: "2025",
     link: "https://www.adipec.com/",
+    outreachHref: "/outreach/industry#adipec-2025",
   },
   {
     id: "driftx-2025",
@@ -55,6 +58,7 @@ export const exhibitions = [
     period: "10–12 November",
     year: "2025",
     link: "https://event.driftx.abudhabi/event/7a497dea-1939-4ec9-8a9e-2bed21873f34/Home",
+    outreachHref: "/outreach/industry#driftx-2025",
   },
   {
     id: "global-ai-show-2025",

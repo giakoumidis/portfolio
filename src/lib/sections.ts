@@ -22,6 +22,12 @@ export const sections: SectionMeta[] = [
     index: "03",
     href: "/laboratories",
   },
-  { id: "archive", label: "Archive", index: "04", href: "/archive" },
-  { id: "contact", label: "Contact", index: "05", href: "/#contact" },
+  {
+    id: "outreach",
+    label: "Outreach",
+    index: "04",
+    href: "/outreach",
+  },
+  { id: "archive", label: "Archive", index: "05", href: "/archive" },
+  { id: "contact", label: "Contact", index: "06", href: "/#contact" },
 ];

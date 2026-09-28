@@ -12,6 +12,7 @@ import {
   ARCHIVE_TYPES,
   filterArchiveRecords,
   getArchiveRecords,
+  photoFigure,
   type ArchiveRecord,
   type ArchiveType,
 } from "@/content/archive";
@@ -59,21 +60,8 @@ function parseType(raw?: string): ArchiveType | "all" {
 function buildGallery(records: ArchiveRecord[]) {
   if (records.length <= 1) return undefined;
   return records.map((record, i) => ({
-    src: record.src,
-    alt: record.alt,
+    ...photoFigure(record),
     tag: `LOG.${String(i + 1).padStart(3, "0")}`,
-    caption: record.institution
-      ? `${record.caption} — ${record.institution}`
-      : record.caption,
-    description: record.description ?? record.alt,
-    link: record.projectHref
-      ? { href: record.projectHref, label: record.projectTitle ?? "Project" }
-      : record.laboratoryHref
-        ? {
-            href: record.laboratoryHref,
-            label: record.laboratoryTitle ?? "Laboratory",
-          }
-        : undefined,
   }));
 }
 
@@ -134,28 +122,17 @@ function ArchiveGrid({
         {records.map((record, i) => {
           const globalIndex = (page - 1) * PAGE_SIZE + i;
           const logTag = `LOG.${String(globalIndex + 1).padStart(3, "0")}`;
-          const caption = record.institution
-            ? `${record.caption} — ${record.institution}`
-            : record.caption;
-
-          const link = record.projectHref
-            ? { href: record.projectHref, label: record.projectTitle ?? "Project" }
-            : record.laboratoryHref
-              ? {
-                  href: record.laboratoryHref,
-                  label: record.laboratoryTitle ?? "Laboratory",
-                }
-              : undefined;
+          const figure = photoFigure(record);
 
           return (
             <li key={record.id} className="flex flex-col">
               <RoboPhoto
-                src={record.src}
-                alt={record.alt}
+                src={figure.src}
+                alt={figure.alt}
                 tag={logTag}
-                caption={caption}
-                description={record.description ?? record.alt}
-                link={link}
+                caption={figure.caption}
+                description={figure.description}
+                link={figure.link}
                 aspect={
                   record.orientation === "portrait"
                     ? "aspect-[4/5]"
@@ -174,7 +151,9 @@ function ArchiveGrid({
                   {record.year && <span>{record.year} · </span>}
                   {FILTER_LABELS[record.archiveType]}
                 </p>
-                {(record.projectHref || record.laboratoryHref) && (
+                {(record.projectHref ||
+                  record.laboratoryHref ||
+                  record.outreachLinks?.length) && (
                   <p className="mt-2 flex flex-wrap gap-2">
                     {record.projectHref && (
                       <ActionLink href={record.projectHref} variant="chip">
@@ -186,8 +165,14 @@ function ArchiveGrid({
                         {record.laboratoryTitle}
                       </ActionLink>
                     )}
+                    {record.outreachLinks?.map((link) => (
+                      <ActionLink key={link.href} href={link.href} variant="chip">
+                        {link.title}
+                      </ActionLink>
+                    ))}
                   </p>
-                )}              </div>
+                )}
+              </div>
             </li>
           );
         })}

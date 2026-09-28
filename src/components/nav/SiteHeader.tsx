@@ -27,6 +27,11 @@ const PRIMARY: NavItem[] = [
     match: (p) => p === "/laboratories" || p.startsWith("/laboratories/"),
   },
   {
+    href: "/outreach",
+    label: "Outreach",
+    match: (p) => p === "/outreach" || p.startsWith("/outreach/"),
+  },
+  {
     href: "/research",
     label: "Research",
     match: (p) => p === "/research" || p.startsWith("/research/"),

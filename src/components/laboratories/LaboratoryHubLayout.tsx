@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import Breadcrumbs from "@/components/nav/Breadcrumbs";
+import { RelatedOutreach } from "@/components/outreach/OutreachEntries";
 import TaxonomyChip from "@/components/work/TaxonomyChip";
 import InstagramMedia from "@/components/ui/InstagramMedia";
 import LocalVideoPlayer from "@/components/ui/LocalVideoPlayer";
@@ -9,6 +10,8 @@ import RoboPhoto from "@/components/ui/RoboPhoto";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
 import SpokeNav from "@/components/work/SpokeNav";
 import SpokeScanBlock from "@/components/work/SpokeScanBlock";
+import { figureForImage, getArchiveBySrc } from "@/content/archive";
+import { getOutreachFor } from "@/content/outreach";
 import type { InfrastructureHub, SpokeNeighbor } from "@/lib/query";
 import { resolveSpokeChallenge, resolveSpokeOutcome } from "@/lib/spoke-copy";
 
@@ -40,14 +43,23 @@ export default function LaboratoryHubLayout({
     connectedWork,
     evidence,
   } = hub;
+  const outreach = getOutreachFor("laboratory", record.slug);
   const video = record.video;
   const images = record.images;
+  const archiveBySrc = getArchiveBySrc();
+  const photoFigures = images?.map((image) =>
+    figureForImage(image, archiveBySrc, {
+      hideHref: `/laboratories/${record.slug}`,
+    }),
+  );
   const photoGallery =
-    images && images.length > 1
-      ? images.map((item) => ({
+    photoFigures && photoFigures.length > 1
+      ? photoFigures.map((item) => ({
           src: item.src,
           alt: item.alt,
           caption: item.caption,
+          description: item.description,
+          link: item.link,
         }))
       : undefined;
 
@@ -262,6 +274,19 @@ export default function LaboratoryHubLayout({
         </section>
       )}
 
+      {outreach.length > 0 && (
+        <section className="mt-12" aria-labelledby="lab-outreach-heading">
+          <h2 id="lab-outreach-heading" className="label-mono text-text-dim">
+            Outreach
+          </h2>
+          <p className="mt-2 max-w-2xl font-body text-sm text-text-dim">
+            Visits, demonstrations, and coordination recorded at this
+            laboratory.
+          </p>
+          <RelatedOutreach entries={outreach} />
+        </section>
+      )}
+
       {(otherEvidence.length > 0 ||
         publicationEvidence.length > 0 ||
         archiveEvidence.length > 0) && (
@@ -407,12 +432,14 @@ export default function LaboratoryHubLayout({
               images.length > 1 ? "lg:grid-cols-2" : ""
             }`}
           >
-            {images.map((image, i) => (
+            {photoFigures?.map((image, i) => (
               <RoboPhoto
                 key={image.src}
                 src={image.src}
                 alt={image.alt}
                 caption={image.caption}
+                description={image.description}
+                link={image.link}
                 aspect={
                   image.orientation === "portrait" ? "min-h-96" : "min-h-64"
                 }

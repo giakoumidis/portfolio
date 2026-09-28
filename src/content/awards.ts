@@ -44,6 +44,7 @@ export const awards = [
       year: "2022",
       link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=HmOOogwAAAAJ&citation_for_view=HmOOogwAAAAJ:hqOjcs7Dif8C",
     },
+    outreachHref: "/outreach/industry#rta-dubai-world-challenge",
   },
   {
     id: "design-embedit-2012",

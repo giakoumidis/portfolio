@@ -5,6 +5,7 @@ import { profile, socialLinks } from "@/content/profile";
 const NAVIGATE = [
   { href: "/projects", label: "Projects" },
   { href: "/laboratories", label: "Laboratories" },
+  { href: "/outreach", label: "Outreach" },
   { href: "/research", label: "Research" },
   { href: "/archive", label: "Archive" },
   { href: "/resume", label: "Resume" },

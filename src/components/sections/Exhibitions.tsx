@@ -55,6 +55,13 @@ export default function Exhibitions() {
                       )}
                     </h3>
 
+                    {exhibition.outreachHref && (
+                      <p className="mt-4">
+                        <ActionLink href={exhibition.outreachHref}>
+                          Outreach record
+                        </ActionLink>
+                      </p>
+                    )}
                     {exhibition.location && (
                       <p className="label-mono mt-auto flex items-center gap-2 pt-6 text-text-dim">
                         <svg

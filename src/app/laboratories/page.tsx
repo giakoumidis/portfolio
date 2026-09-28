@@ -10,7 +10,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Laboratories — Nikolaos Giakoumidis",
   description:
-    "Building and operating research capabilities across robotics, photonics, and laboratory automation at NYU Abu Dhabi.",
+    "Building and operating research capabilities across robotics, photonics, advanced manufacturing, electronics, and laboratory automation at NYU Abu Dhabi.",
   path: "/laboratories",
 });
 
@@ -30,8 +30,8 @@ export default function LaboratoriesIndexPage() {
           across scientific requirements, facility design, equipment strategy,
           procurement, systems integration, and commissioning. These laboratories
           document my responsibilities across that process at NYU Abu Dhabi,
-          including the creation of Kinesis and the development of photonics
-          and high-throughput screening infrastructure.
+          including Kinesis, the Photonics laboratory, the high-throughput
+          screening platform, and Advanced Manufacturing and Electronics.
         </p>
 
         <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

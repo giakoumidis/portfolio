@@ -1,3 +1,4 @@
+import ActionLink from "@/components/ui/ActionLink";
 import CertThumb from "@/components/ui/CertThumb";
 import LocalVideoPlayer from "@/components/ui/LocalVideoPlayer";
 import NeonButton from "@/components/ui/NeonButton";
@@ -82,6 +83,12 @@ export default function AwardCard({
               </li>
             ))}
           </ul>
+        )}
+
+        {detailed && award.outreachHref && (
+          <p className="mt-4">
+            <ActionLink href={award.outreachHref}>Outreach record</ActionLink>
+          </p>
         )}
 
         {detailed && award.paper && (

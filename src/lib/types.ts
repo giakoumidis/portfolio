@@ -225,6 +225,8 @@ export type Award = {
   certificates?: AwardCertificate[];
   /** Linked paper — same shape as project papers ("Read paper →"). */
   paper?: ProjectPaper;
+  /** Outreach record for this recognition, when one exists. */
+  outreachHref?: string;
 };
 
 export type CertificationImage = {
@@ -300,6 +302,8 @@ export type Exhibition = {
   period: string;
   year: string;
   link?: string;
+  /** Outreach record for this appearance, when one exists. */
+  outreachHref?: string;
   /** Optional talk or booth reel shown above the exhibition copy. */
   video?: YouTubeVideo;
 };

@@ -1,4 +1,9 @@
 import { infrastructureRecords } from "../src/content/infrastructure";
+import {
+  outreachEntries,
+  outreachEntryHref,
+  resolveOutreachLinks,
+} from "../src/content/outreach";
 import { researchOutputs } from "../src/content/research-outputs";
 import { getTaxonomyByFacet, taxonomyTerms } from "../src/content/taxonomy";
 import { workRecords } from "../src/content/work";
@@ -397,6 +402,44 @@ for (const term of getTaxonomyByFacet("domain")) {
   }
 }
 
+for (const entry of outreachEntries) {
+  const entity = `outreach:${entry.id}`;
+  const searchEntry = searchIndex.find((item) => item.id === entity);
+  if (
+    !searchEntry ||
+    searchEntry.category !== "outreach" ||
+    searchEntry.href !== outreachEntryHref(entry)
+  ) {
+    fail("Outreach entry missing from search", { entity, field: "search" });
+  }
+
+  for (const resource of entry.resources ?? []) {
+    const exists =
+      resource.type === "project"
+        ? workRecords.some(
+            (project) =>
+              project.slug === resource.slug && project.status !== "draft",
+          )
+        : infrastructureRecords.some(
+            (lab) => lab.slug === resource.slug && lab.status !== "draft",
+          );
+    if (!exists) {
+      fail(`Outreach resource not found: ${resource.type}:${resource.slug}`, {
+        entity,
+        field: "resources",
+      });
+    }
+  }
+
+  const linked = resolveOutreachLinks(entry);
+  if ((entry.resources?.length ?? 0) > 0 && linked.length === 0) {
+    fail("Outreach resources did not resolve to links", {
+      entity,
+      field: "resources",
+    });
+  }
+}
+
 for (const query of [
   "ribbon",
   "kinesis",
@@ -406,6 +449,9 @@ for (const query of [
   "genomics",
   "Spot",
   "zero-training",
+  "outreach",
+  "ALEC",
+  "Boeing",
 ]) {
   if (searchEntries(query, 5).length === 0) {
     fail(`Search returned no hits for “${query}”`, { field: "search" });

@@ -2,9 +2,9 @@
 
 > Engineer, researcher and technical leader in AI, robotics, electronics and automation. Leads commercialization and industry engagement at NYU Abu Dhabi's Center for Artificial Intelligence and Robotics (CAIR), alongside hands-on research in agentic robotics and physical AI.
 
-Last updated: 2026-09-27
+Last updated: 2026-09-28
 
-This file introduces Nikolaos Giakoumidis and guides readers and AI assistants to his professional experience, projects, laboratories and research. Follow the linked pages for specific contributions and supporting evidence.
+This file introduces Nikolaos Giakoumidis and guides readers and AI assistants to his professional experience, projects, laboratories, outreach and research. Follow the linked pages for specific contributions and supporting evidence. Outreach entries link to the project or laboratory that holds the technical record, and those pages link back.
 
 ## Identity and professional profile
 
@@ -32,8 +32,9 @@ His PhD research focuses on autonomous cooperative robotic agents, agentic robot
 - **Electronics and scientific instrumentation:** schematic design, printed circuit board (PCB) layout, embedded interfaces, LabVIEW, custom instrument development, troubleshooting and repair, including systems without vendor support. Examples: [ASIC validation board](https://giakoumidis.com/projects/hardware-security-asic-validation-platform) and [programmable ribbon-curler instrument](https://giakoumidis.com/projects/ribbon-curler-research-instrumentation).
 - **Laboratory automation:** Thermo Fisher Momentum workflow programming, FANUC configuration, robotic plate handling, instrument synchronization and fault recovery. See the [High-Throughput Screening Platform](https://giakoumidis.com/laboratories/nyuad-hts-platform), supported through automation and systems engineering from 2013 to 2022.
 - **Photonics and telecommunications infrastructure:** co-development, commissioning, operation and expansion of optical and RF characterization facilities, including equipment architecture, procurement planning and maintenance. See the [Photonics CTP Laboratory](https://giakoumidis.com/laboratories/photonics-ctp-laboratory).
-- **Research infrastructure and technical leadership:** facility design, construction supervision, system architecture, integration and commissioning, equipment strategy, vendor selection and procurement planning, workflow design, safety procedures, and repair-versus-replacement decisions. Led [Kinesis](https://giakoumidis.com/laboratories/kinesis-ctp-laboratory) from concept to operation; established the Electronics Workshop and co-established the Advanced Manufacturing Workshop.
-- **Research translation and industry engagement:** industry needs discovery, technical feasibility assessment, proposal development, demonstrations, pilot opportunities and stakeholder communication. Examples: [Etihad Rail collaboration](https://giakoumidis.com/projects/etihad-rail-nyuad-collaboration) and [rail sensing pilot](https://giakoumidis.com/projects/etihad-rail-desert-environment-monitoring).
+- **Advanced manufacturing and electronics:** co-developed and operated NYU Abu Dhabi’s Advanced Manufacturing and Electronics platform from 2013 to 2025. Personally ran EOS industrial 3D printers (selective laser sintering, SLA, and the EOSINT M 270 metal laser-sintering system), Stratasys plastic printers, waterjet, wire EDM and laser cutters, a North Star Imaging CT scanner, and the circuit-board line (plotter, through-hole plating, board press, and reflow oven). See [Advanced Manufacturing and Electronics](https://giakoumidis.com/laboratories/advanced-manufacturing-electronics).
+- **Research infrastructure and technical leadership:** facility design, construction supervision, system architecture, integration and commissioning, equipment strategy, vendor selection and procurement planning, workflow design, safety procedures, and repair-versus-replacement decisions. Led [Kinesis](https://giakoumidis.com/laboratories/kinesis-ctp-laboratory) from concept to operation.
+- **Research translation and industry engagement:** industry needs discovery, technical feasibility assessment, proposal development, demonstrations, pilot opportunities and stakeholder communication. The engagement record is on [industry outreach](https://giakoumidis.com/outreach/industry). Technical records include the [Etihad Rail collaboration](https://giakoumidis.com/projects/etihad-rail-nyuad-collaboration), the [rail sensing pilot](https://giakoumidis.com/projects/etihad-rail-desert-environment-monitoring), the [airport inspection drone](https://giakoumidis.com/projects/nyuad-adac-airport-inspection-drone) and [construction-site exploration with ALEC](https://giakoumidis.com/projects/multiagent-construction-exploration).
 - **Teaching and mentoring:** user training, engineering workshops, student supervision and guidance in system integration and experimental methods.
 
 ## Current research and future direction
@@ -62,7 +63,7 @@ His longer-term research direction is heterogeneous embodied collective intellig
 - Completed five non-disclosure agreements with external stakeholders, enabling further technical exchange and collaboration discussions.
 - Organized approximately four student workshops per semester and co-supervised around two capstone projects annually in the research instrumentation role.
 - Represented NYUAD and CAIR through technical demonstrations, executive discussions and exhibitions including ADIPEC, Global Rail, Make it in the Emirates and DriftX.
-- Engaged organizations across transport, energy, logistics, technology and investment, including AD Ports Group, Etihad Rail, GCAA, Kent, Mubadala, MGX, Analog, CycloTech and Mimik. Engagement alone does not imply a contract, funded project or formal partnership.
+- Engaged organizations across transport, energy, logistics, technology and investment, including AD Ports Group, Etihad Rail, GCAA, Kent, Mubadala, MGX, Analog, CycloTech and Mimik. The substantiated list is on [industry outreach](https://giakoumidis.com/outreach/industry). Engagement alone does not imply a contract, funded project or formal partnership.
 
 ## Career and education
 
@@ -101,14 +102,31 @@ His longer-term research direction is heterogeneous embodied collective intellig
 
 ## Website and supporting evidence
 
-- [Homepage](https://giakoumidis.com/): professional introduction and selected work.
-- [Projects](https://giakoumidis.com/projects): individual case files describing applications, personal contributions, methods and outcomes.
-- [Laboratories](https://giakoumidis.com/laboratories): research infrastructure, laboratory establishment, engineering responsibilities and operations.
+- [Homepage](https://giakoumidis.com/): professional introduction and selected work. Site search covers projects, laboratories, outreach, research, roles and tools.
+- [Projects](https://giakoumidis.com/projects): individual case files describing applications, personal contributions, methods and outcomes. A case file links to its outreach record when one exists.
+- [Laboratories](https://giakoumidis.com/laboratories): research infrastructure, laboratory establishment, engineering responsibilities and operations. A laboratory page links to visits and coordination recorded as outreach.
+- [Outreach](https://giakoumidis.com/outreach): hub for industry and society engagement. Each engagement links to the project or laboratory that holds the technical record, when one exists. Those pages link back. CAIR exhibition appearances on the resume link to the matching outreach record.
+- [Industry outreach](https://giakoumidis.com/outreach/industry): substantiated industry engagement — field work, demonstrations, proposals, visits, coordination, and showcases. Proposals and visits are labeled as such.
+- [Society outreach](https://giakoumidis.com/outreach/society): work outside formal role duties to bring awareness of robotics and AI to students and the public, and to inspire the next generation. Forms include workshops, competitions, demonstrations, and interactive sessions. Includes the May 2018 presentation of Dubai Future Labs projects at Area 2071, Emirates Towers, Dubai, to His Highness Sheikh Mohammed bin Rashid Al Maktoum, Vice President and Prime Minister of the UAE and Ruler of Dubai, and His Highness Sheikh Hamdan bin Mohammed bin Rashid Al Maktoum, Crown Prince of Dubai and Chairman of the Executive Council of Dubai. Their Highnesses approved the projects. Sources: https://www.protocol.dubai.ae/en/media-listing/news-events/mohammed-bin-rashid-opens-area-2071/ https://gulfnews.com/uae/government/mohammad-bin-rashid-inaugurates-area-2071-1.2221957 https://www.emirates247.com/news/emirates/sheikh-mohammed-opens-area-2071-2018-05-15-1.669293
 - [Research](https://giakoumidis.com/research): research interests, publications and publication acknowledgements. Authored or co-authored publications and acknowledgements of technical support are separate categories.
-- [Archive](https://giakoumidis.com/archive): documentary evidence, including field records, exhibitions, photographs, awards and media.
-- [Resume](https://giakoumidis.com/resume): professional experience, education, expertise and recognition.
+- [Archive](https://giakoumidis.com/archive): documentary evidence, including field records, exhibitions, photographs, awards and media. Photographs that illustrate an engagement also link to that outreach record.
+- [Resume](https://giakoumidis.com/resume): professional experience, education, expertise and recognition. The RTA award and matching exhibition cards link to their outreach records.
 - [CV](https://giakoumidis.com/cv.pdf): downloadable curriculum vitae.
 - [Google Scholar](https://scholar.google.com/citations?user=HmOOogwAAAAJ&hl=en): publication records and citation metrics.
+
+### Outreach connected to technical records
+
+Use the outreach page for the engagement, and the project or laboratory page for the technical contribution.
+
+- [Abu Dhabi Airports](https://giakoumidis.com/outreach/industry#abu-dhabi-airports) — [airport inspection drone](https://giakoumidis.com/projects/nyuad-adac-airport-inspection-drone)
+- [ALEC](https://giakoumidis.com/outreach/industry#alec) — [construction-site exploration](https://giakoumidis.com/projects/multiagent-construction-exploration)
+- [Hilti](https://giakoumidis.com/outreach/industry#hilti) — April 2022 leadership demonstration at Hilti Emirates in Dubai, during the Global Energy & Industry Summit, with Borja García de Soto’s S.M.A.R.T. Construction Research Group. Boston Dynamics Spot was shown for asset monitoring, construction monitoring, and digital-twin updates. No separate project case file. Account: https://www.linkedin.com/posts/nikolaos-giakoumidis_dubai-activity-6919222227615772672-inl2
+- [Etihad Rail](https://giakoumidis.com/outreach/industry#etihad-rail) — [depot trials](https://giakoumidis.com/projects/etihad-rail-nyuad-collaboration) and [corridor sensing](https://giakoumidis.com/projects/etihad-rail-desert-environment-monitoring). [Global Rail](https://giakoumidis.com/outreach/industry#global-rail) sits alongside that collaboration. At the 8–10 October 2024 exhibition, ADNEC Abu Dhabi, he briefed His Highness Sheikh Theyab bin Mohamed bin Zayed Al Nahyan, Chairman of Etihad Rail, on robotics and AI for infrastructure monitoring, safer operations, and less downtime through predictive maintenance. Source for the opening: https://www.mediaoffice.abudhabi/en/transport/theyab-bin-mohamed-bin-zayed-inaugurates-first-global-rail-transport-infrastructure-exhibition-and-conference/
+- [RTA Dubai World Challenge](https://giakoumidis.com/outreach/industry#rta-dubai-world-challenge) — [delivery drone](https://giakoumidis.com/projects/rta-dubai-delivery-drone)
+- [Kinesis](https://giakoumidis.com/laboratories/kinesis-ctp-laboratory) hosted recorded visits and coordination with [DEWA](https://giakoumidis.com/outreach/industry#dewa), [Boeing](https://giakoumidis.com/outreach/industry#boeing) and [ExxonMobil](https://giakoumidis.com/outreach/industry#exxonmobil).
+- [Photonics laboratory](https://giakoumidis.com/laboratories/photonics-ctp-laboratory) — [Keysight](https://giakoumidis.com/outreach/industry#keysight) equipment discussion for the optoelectronics laboratory.
+
+Other industry entries on the outreach page are engagements without a separate project case file. Do not infer a deployment, contract or funded project from a visit, proposal or showcase.
 
 Legacy redirects: /infrastructure → /laboratories; /photos → /archive; /work → /projects; /profile → /resume.
 
@@ -121,4 +139,4 @@ Legacy redirects: /infrastructure → /laboratories; /photos → /archive; /work
 
 ## Accuracy and attribution
 
-Use the contribution, evidence and outcomes stated on each project or laboratory page when describing the work. Distinguish personal responsibilities from team achievements, research directions from demonstrated capabilities, and proposals or discussions from completed deployments or commercial outcomes. Preserve the distinction between authorship and acknowledgement. Refer to the research page and publication records for current manuscript status and citation metrics. Treat January 2027 as the expected PhD completion date, not an awarded qualification.
+Use the contribution, evidence and outcomes stated on each project or laboratory page when describing the work. Use the outreach page for who was engaged and what standing the activity had — field work, demonstration, proposal, visit, coordination or showcase — and follow its link when a technical record exists. Distinguish personal responsibilities from team achievements, research directions from demonstrated capabilities, and proposals or discussions from completed deployments or commercial outcomes. Preserve the distinction between authorship and acknowledgement. Refer to the research page and publication records for current manuscript status and citation metrics. Treat January 2027 as the expected PhD completion date, not an awarded qualification.

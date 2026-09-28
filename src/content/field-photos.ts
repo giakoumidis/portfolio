@@ -42,6 +42,10 @@ const standaloneFieldPhotos: FieldPhoto[] = [
     alt: "NYUAD team members with the delivery drone at the RTA competition test venue in Dubai",
     caption: "TEAM & DRONE — RTA TEST VENUE",
     location: "RTA DUBAI WORLD CHALLENGE · 2021",
+    project: {
+      title: "RTA Delivery Drone — Dubai World Challenge",
+      href: "/projects/rta-dubai-delivery-drone",
+    },
   },
   {
     src: "/images/awards/rta-2021/rta-test-venue.jpg",
@@ -72,6 +76,10 @@ const standaloneFieldPhotos: FieldPhoto[] = [
     alt: "Three Spot quadruped robots and the NYUAD team presenting rail robotics at the Etihad Rail booth",
     caption: "SPOT FLEET — RAIL ROBOTICS BOOTH",
     location: "ETIHAD RAIL × NYUAD",
+    project: {
+      title: "Etihad Rail × NYUAD AI & Robotics Collaboration",
+      href: "/projects/etihad-rail-nyuad-collaboration",
+    },
   },
 ];
 

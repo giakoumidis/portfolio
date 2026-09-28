@@ -104,6 +104,10 @@ export const infrastructureRecords: InfrastructureRecord[] = [
     highlights: [
       "Developed the equipment architecture with Prof. Mahmoud Rasras: model-level capital plans and staged priority scenarios for a photonics/RF option set evaluated at ~AED 12.77M, backed by vendor benchmarking visits to research laboratories in France and Germany.",
       "Coordinated installation and commissioning end to end — optical tables and Leica M205A microscopy, UPS-backed power, networked TCP/IP instrument control, Keysight BERT/AWG vendor training, Lightwave Component Analyzer calibration, and VSA software integration.",
+      "Designed and built an aerial bridge between the instrument rack and the main optical table during installation. Optical instruments stayed on the rack, off the table; the table was reserved for electrical equipment that had to sit close to the device under test.",
+      "Built a motion stage that carries the fully equipped microscope — optics, camera, and accessories — to within a few microns, so the silicon photonics device under test could stay fixed. Electrical probes and the fiber interface took hours to attach and align; moving the chip would have broken that setup. The first version used Aerotech stages. The later version used Thorlabs stages, with a LabVIEW interface and joystick control.",
+      "Worked with the full telecommunication and electronics set on this bench: lasers, optical and electrical power meters, polarizers, component analyzers, real-time and sampling oscilloscopes, arbitrary-waveform and signal generators, digitizers, a bit-error-ratio tester, optical and electrical spectrum analyzers, software-defined radio, E/O clock recovery, modulators, filters, optical and electrical amplifiers, antennas, transceivers, and a digital signal processor.",
+      "Those instruments are the measurement path in the papers that credit this laboratory. Tunable Keysight lasers (81600B sources in the O and C bands, and the 8164B lightwave system), N7744A and photodiode power meters, and fiber polarizers measured insertion loss and crosstalk of the dual-band two-mode multiplexer, with TE0 held 20 dB above TM0, and the laser-power sweeps on the InPSe microring that hold the resonance when source power changes. The plasmonic optical PUFs were checked on that same path for stability under power, temperature, and transverse-magnetic polarization. High-speed transmission used the bit-error-ratio tester, modulator, and amplifiers together: a Keysight M8045A pattern generator, a Thorlabs LN05S Mach–Zehnder modulator, an SHF S807C radio-frequency amplifier, and Thorlabs optical amplifiers put a 2³¹−1 pattern on a 1550 nm laser at 40 and 64 Gbit/s, and a Keysight Infiniium DCA-X 86100D sampling oscilloscope recorded the eyes after the mode multiplexer. The 60 Gbit/s diplexer paper is the same on-chip NRZ on-off-keying test, with open eyes at 1310 and 1550 nm. The waveguide InSe photodetector used an arbitrary waveform generator and a high-speed modulator for the sinusoid and the pseudorandom pattern, an optical spectrum analyzer for waveguide loss, an electrical spectrum analyzer for the radio-frequency response (3 dB at 85 MHz), an Agilent B1505A power-device analyzer for the current–voltage curves, and a high-speed oscilloscope for eyes up to 1 Gbit/s. The GaGeTe detectors were read under 1310 nm illumination for responsivity and with intensity-modulated light for a frequency response out to 100 MHz. Digitizers and the real-time oscilloscopes captured those waveforms. E/O clock recovery, filters, software-defined radio, antennas, transceivers, and the digital signal processor were the electrical timing, conditioning, and readout on that same bench, alongside the lightwave component analyzer calibrated to 67 GHz.",
       "Managed lifecycle stewardship across seven years: troubleshooting, calibration, instrument restoration, laser safety and EHS responsibility, access governance, and a 2022–2023 expansion adding three optical tables — sequenced around critical PhD-defense measurements and praised by faculty as \"meticulous and thorough\".",
       "Explicitly named in the acknowledgements of at least six peer-reviewed photonics journal papers (2021–2024) from Prof. Rasras’s group — Optics Express, Journal of Lightwave Technology, Advanced Photonics Research, and npj 2D Materials and Applications — for optical testing, instrumentation support, technical discussions, and experimental characterization in the Photonics Lab.",
       "Broader research enablement: CTP characterization acknowledged in a 2019 Journal of Applied Physics paper, capstone projects faculty said \"could not have been completed\" without CTP support, and demonstrations for the NYUAD Provost and the UAE Space Agency.",
@@ -153,14 +157,40 @@ export const infrastructureRecords: InfrastructureRecord[] = [
     ],
     images: [
       {
-        src: "/images/projects/photonics-optical-bench.jpg",
-        alt: "Photonics characterization bench with Thorlabs amplifiers, Keysight instruments, Leica microscope, and dense fiber cabling on a Newport optical table",
-        caption: "OPTICAL BENCH — MICROSCOPY & FIBER SETUP",
-      },
-      {
         src: "/images/projects/photonics-high-speed-bench.jpg",
         alt: "High-speed photonics test stack with Keysight arbitrary waveform generators, Infiniium oscilloscopes showing eye diagrams, and fiber and RF cabling on an optical breadboard",
         caption: "HIGH-SPEED BENCH — AWG & EYE DIAGRAM",
+      },
+      {
+        src: "/images/projects/photonics-from-scratch.jpg",
+        alt: "Empty photonics lab during commissioning, with stacked Keysight Technologies shipping cartons, loose cables, and a vacuum pump on the floor",
+        caption: "HOW YOU BUILD FROM SCRATCH",
+      },
+      {
+        src: "/images/projects/photonics-bench-build.jpg",
+        alt: "Keysight oscilloscopes, signal generators, and RF instruments staged on a perforated bench during photonics laboratory commissioning, with open cartons behind them",
+        caption: "INSTRUMENTS OUT OF THE BOX",
+      },
+      {
+        src: "/images/projects/photonics-aerial-bridge.jpg",
+        alt: "Nikolaos Giakoumidis during photonics laboratory installation, adjusting Keysight instruments in an aluminum rack topped by a Luna optical instrument, with a workstation and UPS beside the rack",
+        caption: "AERIAL BRIDGE — OPTICS OFF THE TABLE",
+        orientation: "portrait",
+      },
+      {
+        src: "/images/projects/photonics-lab-online.jpg",
+        alt: "Photonics laboratory taking shape, with a Newport SmartTable optical bench, stereo microscope, instrument racks, and aluminum shelving along the wall",
+        caption: "ROOM BECOMES A LABORATORY",
+      },
+      {
+        src: "/images/projects/photonics-microscope-stage.jpg",
+        alt: "Leica microscope on a Newport SmartTable UT2, carried by a custom motion stage, with electrical probe positioners and fiber aligned to a silicon photonics chip and the live device image on the monitor",
+        caption: "STAGE MOVES THE WHOLE MICROSCOPE",
+      },
+      {
+        src: "/images/projects/photonics-optical-bench.jpg",
+        alt: "Photonics characterization bench with Thorlabs amplifiers, Keysight instruments, Leica microscope, and dense fiber cabling on a Newport optical table",
+        caption: "OPTICAL BENCH — MICROSCOPY & FIBER SETUP",
       },
     ],
     relatedPapersLabel: "contribution",
@@ -284,6 +314,75 @@ export const infrastructureRecords: InfrastructureRecord[] = [
       },
     ],
     imagesOnIndex: false,
+    status: "published",
+  },
+  {
+    type: "infrastructure",
+    slug: "advanced-manufacturing-electronics",
+    title: "Advanced Manufacturing and Electronics",
+    org: "NYU Abu Dhabi · Core Technology Platforms",
+    period: { startYear: 2013, endYear: 2025, label: "2013–2025" },
+    challenge:
+      "Research hardware needed an in-house path from design to metal and polymer parts and to printed circuit boards.",
+    summary:
+      "NYU Abu Dhabi’s shared workshops for custom mechanical parts and printed-circuit fabrication. I co-developed Advanced Manufacturing and Electronics and ran the facility for several years, personally operating the industrial additive, cutting, inspection, and circuit-board machines used for research prototypes.",
+    contributionSummary:
+      "Co-developed the workshops and personally operated the EOS and Stratasys printers, waterjet, wire EDM, laser cutters, NSI CT scanner, and the in-house circuit-board line.",
+    outcomeSummary:
+      "Gave NYUAD in-house prototyping for metal and polymer parts and printed circuit boards, and kept those machines in research use from 2013 through 2025.",
+    highlights: [
+      "Established the Electronics Workshop and co-established the Advanced Manufacturing Workshop, then operated them as the Advanced Manufacturing and Electronics platform through 2025.",
+      "Personally operated EOS industrial 3D printers — selective laser sintering and SLA, and the EOSINT M 270 metal laser-sintering system — and Stratasys plastic printers. The EOS machines were advanced systems that took particular care to understand and run, including powder handling, inert process gas, and build parameters.",
+      "Operated the cutting and inspection cell: waterjet, wire EDM, and laser cutters, and a North Star Imaging (NSI) computed-tomography scanner for non-destructive inspection of manufactured parts. The machining bay included a Haas VF-2SS vertical mill.",
+      "Ran the electronics fabrication line: circuit-board plotter, through-hole plating system, board press, and reflow oven. In-house work on that line produced research boards, including the hardware-security ASIC validation platform.",
+    ],
+    credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Co-development & operation",
+        org: "NYU Abu Dhabi · Core Technology Platforms",
+      },
+      {
+        name: "Core Technology Platforms",
+        role: "Research infrastructure organization",
+        org: "NYU Abu Dhabi",
+      },
+    ],
+    domains: ["electronics-embedded-systems", "lab-automation-instrumentation"],
+    contributions: ["designed", "commissioned", "operated"],
+    evidence: [
+      {
+        type: "institutional-page",
+        title: "Advanced Manufacturing and Electronics CTP",
+        url: "https://nyuad.nyu.edu/en/research/facilities-and-support/core-technology-platforms/advanced-manufacturing-and-electronics.html",
+      },
+      {
+        type: "photograph",
+        title: "EOSINT M 270 and Haas VF-2SS on the shop floor",
+        note: "Advanced Manufacturing and Electronics, NYU Abu Dhabi",
+      },
+    ],
+    images: [
+      {
+        src: "/images/projects/ame-eosint-aisle.jpg",
+        alt: "Advanced Manufacturing shop aisle at NYU Abu Dhabi with an EOSINT M 270 metal laser-sintering system, an argon dewar, and machining equipment further down the floor",
+        caption: "EOSINT M 270 — METAL LASER SINTERING",
+      },
+      {
+        src: "/images/projects/ame-haas-vf2ss.jpg",
+        alt: "Haas VF-2SS vertical machining center with the enclosure open, flanked by tool cabinets and a workbench in the Advanced Manufacturing workshop",
+        caption: "HAAS VF-2SS — CNC MACHINING CELL",
+      },
+      {
+        src: "/images/projects/ame-shop-bench.jpg",
+        alt: "Shop-floor view of the EOSINT M 270 beside an argon supply, with a Haas machining center and a bench vise in the foreground",
+        caption: "SHOP FLOOR — ADDITIVE & MACHINING",
+      },
+    ],
+    link: {
+      label: "Official facility page",
+      href: "https://nyuad.nyu.edu/en/research/facilities-and-support/core-technology-platforms/advanced-manufacturing-and-electronics.html",
+    },
     status: "published",
   },
 ];

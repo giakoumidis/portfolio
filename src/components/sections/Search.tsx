@@ -22,8 +22,9 @@ export default function Search() {
 
         <Reveal className="mb-8 max-w-2xl">
           <p className="font-body text-base leading-relaxed text-text-dim">
-            Query the live portfolio index — projects, laboratories, research,
-            roles, stack, and contact — or open the same panel anywhere with{" "}
+            Query the live portfolio index — projects, laboratories, outreach,
+            research, roles, stack, and contact — or open the same panel
+            anywhere with{" "}
             <kbd className="label-mono text-cyan">⌘K</kbd> /{" "}
             <kbd className="label-mono text-cyan">/</kbd>.
           </p>

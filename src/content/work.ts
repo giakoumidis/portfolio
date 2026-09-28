@@ -158,9 +158,10 @@ export const workRecords: ProjectRecord[] = [
     contributionSummary:
       "Built the UAV, designed the optical communications architecture, consulted on the overall system design, co-authored the manuscript, and designed the monitoring software that synchronizes multi-source logging and supervised power-supply control.",
     outcomeSummary:
-      "A working tethered UAV with fiber communications, two UAVoPoS voltage-range prototypes, bench hybrid-power validation, flight demonstrations, and a monitoring console. The paper is under review at IEEE Access.",
+      "A working tethered UAV with fiber communications, continuous tether-powered flight at the NYUAD test field, two UAVoPoS voltage-range prototypes, bench hybrid-power validation, and a monitoring console. The paper is under review at IEEE Access.",
     highlights: [
       "I built the UAV airframes used for the low-power quadrotor and large coaxial-octarotor flight demonstrations that carry the UAVoPoS and hybrid tether.",
+      "Field tests at the NYUAD court demonstrated continuous flight powered through the tether, with the hybrid cable supplying high-voltage DC while the aircraft hovered under tether constraint.",
       "I designed the optical communications architecture that uses the tether’s single-mode fiber for an EMI-resistant ground–air data link alongside the 400–800 V DC power conductors.",
       "I consulted on the overall MOBIUS architecture — ground supply, tether, airborne converter, battery assist, and aircraft integration — with University of Patras as the power-electronics partner.",
       "Ground BK Precision PVS10005 supplies 400–800 V DC through a 120 m Linden SPE-7155 tether to a Vicor BCM4414 fixed-ratio converter. Two UAVoPoS prototypes cover 400–700 V and 500–800 V; a LiPo joins the bus through an ideal-diode MOSFET for Mode 2 peak support and redundancy.",
@@ -227,6 +228,11 @@ export const workRecords: ProjectRecord[] = [
     evidence: [
       {
         type: "photograph",
+        title:
+          "Continuous tether-powered hover at the NYUAD outdoor test field",
+      },
+      {
+        type: "photograph",
         title: "Integrated Experiment Console live telemetry overview",
       },
       {
@@ -262,6 +268,11 @@ export const workRecords: ProjectRecord[] = [
       },
     ],
     images: [
+      {
+        src: "/images/projects/mobius-tethered-field-flight.jpg",
+        alt: "Hexacopter hovering on the NYU Abu Dhabi outdoor court with the hybrid power-and-data tether hanging to the ground during a continuous tethered flight test",
+        caption: "FIELD TEST — CONTINUOUS TETHERED FLIGHT",
+      },
       {
         src: "/images/projects/mobius-console-overview.jpg",
         alt: "MOBIUS Fieldline experiment console showing live power telemetry, source panels, and safety supervisor status",
@@ -900,7 +911,7 @@ export const workRecords: ProjectRecord[] = [
     outcomeSummary:
       "Enabled physical testing of the locked processor: correct execution with a valid key and failure with an incorrect key.",
     highlights: [
-      "Eagle schematic, two-layer layout, and in-house fabrication on NYUAD Core Technology Platform equipment — two revisions to a reliable UART/DIP-switch test rig.",
+      "Eagle schematic, two-layer layout, and in-house fabrication in the Advanced Manufacturing and Electronics workshops — two revisions to a reliable UART/DIP-switch test rig.",
       "Validated locked processor silicon: correct execution with the valid key, failure with an incorrect one.",
     ],
     credits: [
@@ -931,6 +942,15 @@ export const workRecords: ProjectRecord[] = [
       methods: ["pcb-design"],
       outcomes: ["peer-reviewed-publication"],
     },
+    relations: [
+      {
+        type: "fabricated-through",
+        target: {
+          type: "infrastructure",
+          slug: "advanced-manufacturing-electronics",
+        },
+      },
+    ],
     evidence: [
       {
         type: "publication",
@@ -948,7 +968,6 @@ export const workRecords: ProjectRecord[] = [
         caption: "SOP-28 SOCKET — LOCKED PROCESSOR UNDER TEST",
       },
     ],
-    // Fabricated on NYUAD CTP electronics equipment — no separate Electronics Workshop entity in the graph.
     status: "needs-review",
   },
   {

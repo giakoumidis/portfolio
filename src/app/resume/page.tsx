@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import Timeline from "@/components/sections/Timeline";
 import ActionLink from "@/components/ui/ActionLink";
@@ -117,6 +118,13 @@ export default function ResumePage() {
                     exhibition.name
                   )}
                 </h3>
+                {exhibition.outreachHref && (
+                  <p className="mt-4">
+                    <ActionLink href={exhibition.outreachHref}>
+                      Outreach record
+                    </ActionLink>
+                  </p>
+                )}
                 {exhibition.location && (
                   <p className="label-mono mt-4 flex items-center gap-2 text-text-dim">
                     <svg
@@ -141,6 +149,16 @@ export default function ResumePage() {
             </li>
           ))}
         </ul>
+        <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
+          Industry engagement and society outreach are recorded on the{" "}
+          <Link
+            href="/outreach"
+            className="text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+          >
+            Outreach
+          </Link>{" "}
+          page.
+        </p>
       </section>
 
       <section className="mt-16">

@@ -24,6 +24,7 @@ const CATEGORY_TINT: Record<SearchEntry["category"], string> = {
   section: "text-text-dim border-grid-dim",
   project: "text-cyan border-cyan/40",
   laboratory: "text-magenta border-magenta/40",
+  outreach: "text-magenta border-magenta/40",
   domain: "text-orange border-orange/40",
   role: "text-blue border-blue/40",
   education: "text-violet border-violet/40",
