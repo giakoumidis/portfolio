@@ -2,6 +2,8 @@
  * Outreach — substantiated industry engagement, and society sessions.
  * The industry list is a working inventory of correspondence and activity,
  * with proposals and visits kept distinct from field work.
+ * Society entries are delivered sessions only. One photograph goes on `image`.
+ * Further photographs of a session belong in the archive.
  * `resources` ties an entry to the project or laboratory that holds the
  * technical record. Homepage cards, case files, laboratory hubs, and search
  * read from this file.
@@ -13,6 +15,9 @@ import { workRecords } from "@/content/work";
 export type OutreachAudience = "industry" | "society";
 
 export type OutreachBand = "selected" | "showcase" | "record";
+
+/** Society page section. Schools, university classes, then public sessions. */
+export type SocietyCluster = "schools" | "classes" | "public";
 
 export type OutreachForm =
   | "pilot"
@@ -54,7 +59,11 @@ export type OutreachEntry = {
   audience: OutreachAudience;
   /** Selected collaborations, public showcases, or the further record. */
   band: OutreachBand;
+  /** Society page section. Set on society entries. */
+  cluster?: SocietyCluster;
   year: string;
+  /** Where it happened. Society cards show this with the date, under the title. */
+  place?: string;
   form: OutreachForm;
   /** Short status shown on the card or row. */
   standing: string;
@@ -85,6 +94,27 @@ export const industryRecordNote =
 export const societyIntro =
   "This work sat outside my formal responsibilities. I take it on as a duty to society: to bring awareness of robotics and AI beyond the laboratory, and to inspire the next generation so younger people can meet these technologies and picture themselves building with them.";
 
+export const societyRecordNote =
+  "Each session here is one I hosted, delivered, or organised.";
+
+export const societyClusters = [
+  {
+    id: "schools" as const,
+    title: "Schools",
+    note: "Tours and workshops for school students.",
+  },
+  {
+    id: "classes" as const,
+    title: "University classes",
+    note: "Lectures and laboratory demonstrations for NYU Abu Dhabi courses, grouped by course.",
+  },
+  {
+    id: "public" as const,
+    title: "Public",
+    note: "Open houses, festivals, and demonstrations for a wider audience.",
+  },
+] as const;
+
 export const outreachAudiences = [
   {
     id: "industry" as const,
@@ -96,7 +126,7 @@ export const outreachAudiences = [
     id: "society" as const,
     title: "Society",
     purpose:
-      "Workshops, competitions, demonstrations, and interactive sessions with students and the public.",
+      "School visits, university class demonstrations, and public sessions.",
   },
 ] as const;
 
@@ -632,37 +662,164 @@ export const outreachEntries: OutreachEntry[] = [
     logo: "/images/logos/sanad.svg",
   },
   {
+    id: "al-mawakeb-school",
+    title: "Al Mawakeb School",
+    audience: "society",
+    band: "record",
+    cluster: "schools",
+    year: "September 2025",
+    place: "NYU Abu Dhabi",
+    form: "laboratory visit",
+    standing: "Hosted",
+    summary:
+      "Hosted the school’s robotics demonstration and a tour of the centre. The school followed up with student feedback and photographs.",
+  },
+  {
+    id: "science-and-photography",
+    title: "Science and Photography",
+    audience: "society",
+    band: "record",
+    cluster: "schools",
+    year: "November 2019",
+    place: "NYU Abu Dhabi",
+    form: "workshop",
+    standing: "Hosted",
+    summary:
+      "Gave time and laboratory access for a student photography session. The photographs were exhibited at The Cube, Arts Center.",
+  },
+  {
+    id: "abu-dhabi-high-school-tours",
+    title: "Abu Dhabi high-school tours",
+    audience: "society",
+    band: "record",
+    cluster: "schools",
+    year: "March 2016",
+    place: "NYU Abu Dhabi",
+    form: "laboratory visit",
+    standing: "Organised",
+    summary:
+      "Organised two laboratory tours for Abu Dhabi high-school students and coordinated the researchers who hosted them.",
+  },
+  {
+    id: "uae-high-school-tours",
+    title: "UAE high-school laboratory tours",
+    audience: "society",
+    band: "record",
+    cluster: "schools",
+    year: "April 2015",
+    place: "NYU Abu Dhabi",
+    form: "laboratory visit",
+    standing: "Hosted",
+    summary:
+      "Hosted high-school students in the laboratory during a research outreach programme.",
+  },
+  {
+    id: "robots-and-the-creative-process",
+    title: "Robots and the creative process",
+    audience: "society",
+    band: "record",
+    cluster: "classes",
+    year: "2023–2024",
+    place: "NYU Abu Dhabi",
+    form: "laboratory visit",
+    standing: "Hosted",
+    summary:
+      "Hosted Merritt Moore’s classes for tours and Spot demonstrations, including the robot’s dance, and advised on wearable robot controllers and ROS.",
+  },
+  {
+    id: "bioinspiration",
+    title: "Bioinspiration",
+    audience: "society",
+    band: "record",
+    cluster: "classes",
+    year: "2021–2023",
+    place: "NYU Abu Dhabi",
+    form: "demonstration",
+    standing: "Delivered",
+    summary:
+      "Delivered introductions to robotics and live demonstrations of bioinspired robots, including Spot, for classes taught by Rafael Song and Jeremy Teo.",
+  },
+  {
+    id: "interactive-media",
+    title: "Interactive media",
+    audience: "society",
+    band: "record",
+    cluster: "classes",
+    year: "2023",
+    place: "NYU Abu Dhabi",
+    form: "laboratory visit",
+    standing: "Hosted",
+    summary:
+      "Hosted Sara Niroobakhsh’s students for a laboratory tour and a talk on machines and robots, in support of their final projects.",
+  },
+  {
+    id: "biomechanics",
+    title: "Biomechanics",
+    audience: "society",
+    band: "record",
+    cluster: "classes",
+    year: "2022–2023",
+    place: "NYU Abu Dhabi",
+    form: "demonstration",
+    standing: "Delivered",
+    summary:
+      "Demonstrated motion capture and gait analysis in Kinesis for Jeremy Teo’s course, so students could connect the laboratory with their gait-analysis work.",
+  },
+  {
+    id: "autonomous-and-social-robots",
+    title: "Autonomous and Social Robots",
+    audience: "society",
+    band: "record",
+    cluster: "classes",
+    year: "2021–2022",
+    place: "NYU Abu Dhabi",
+    form: "demonstration",
+    standing: "Delivered",
+    summary:
+      "Delivered a lecture, hands-on demonstrations, and a Kinesis laboratory tour for Borja García de Soto’s course, and hosted the class again the following year.",
+  },
+  {
+    id: "our-learning-festival",
+    title: "Our Learning Festival",
+    audience: "society",
+    band: "record",
+    cluster: "public",
+    year: "April 2024",
+    place: "NYU Abu Dhabi",
+    form: "demonstration",
+    standing: "Operated",
+    summary:
+      "Operated Spot in the festival’s AI zone, coordinated the demonstration with a Unitree B1, and submitted the risk assessment that secured approval.",
+  },
+  {
+    id: "national-day-robot-parade",
+    title: "UAE National Day robot parade",
+    audience: "society",
+    band: "record",
+    cluster: "public",
+    year: "November 2023",
+    place: "NYU Abu Dhabi",
+    form: "demonstration",
+    standing: "Organised",
+    summary:
+      "Initiated and organised the parade: recruited participating laboratories, gathered the robot descriptions, and coordinated with the celebration organisers.",
+  },
+  {
     id: "dubai-future-labs",
     title: "Dubai Future Labs",
     audience: "society",
     band: "showcase",
-    year: "May 2018 · Dubai",
+    cluster: "public",
+    year: "May 2018",
+    place: "Area 2071, Dubai",
     form: "demonstration",
-    standing: "Projects approved",
+    standing: "Briefing",
     summary:
       "Presented Dubai Future Labs projects at Area 2071, Emirates Towers, to His Highness Sheikh Mohammed bin Rashid Al Maktoum, Vice President and Prime Minister of the UAE and Ruler of Dubai, and His Highness Sheikh Hamdan bin Mohammed bin Rashid Al Maktoum, Crown Prince of Dubai and Chairman of the Executive Council of Dubai. Their Highnesses approved the projects.",
     image: {
       src: "/images/outreach/dubai-future-labs-briefing-1.jpg",
       alt: "Drone airframes and design sketches on the briefing table at Dubai Future Labs, with cameras in front and the visiting party beyond the glass",
     },
-    images: [
-      {
-        src: "/images/outreach/dubai-future-labs-briefing-1.jpg",
-        alt: "Drone airframes and design sketches on the briefing table at Dubai Future Labs, with cameras in front and the visiting party beyond the glass",
-      },
-      {
-        src: "/images/outreach/dubai-future-labs-briefing-2.jpg",
-        alt: "A guest examines a small component above the drone hardware during the Dubai Future Labs briefing",
-      },
-      {
-        src: "/images/outreach/dubai-future-labs-briefing-3.jpg",
-        alt: "Wider view of the Dubai Future Labs briefing at Area 2071, with drone hardware on the table and the visiting party in the laboratory",
-      },
-      {
-        src: "/images/outreach/dubai-future-labs-briefing-4.jpg",
-        alt: "Briefing table at Dubai Future Labs, with drone frames, sketches, and a small component held above the hardware",
-      },
-    ],
     links: [
       {
         href: "https://www.protocol.dubai.ae/en/media-listing/news-events/mohammed-bin-rashid-opens-area-2071/",
@@ -680,6 +837,19 @@ export const outreachEntries: OutreachEntry[] = [
         external: true,
       },
     ],
+  },
+  {
+    id: "innovation-week-open-house",
+    title: "Innovation Week open house",
+    audience: "society",
+    band: "record",
+    cluster: "public",
+    year: "November 2015",
+    place: "NYU Abu Dhabi",
+    form: "laboratory visit",
+    standing: "Organised",
+    summary:
+      "Co-planned the Engineering Research Building tours for NYU Abu Dhabi’s open house, covering fabrication, electronics, 3D printing, and research projects.",
   },
 ];
 

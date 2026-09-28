@@ -81,6 +81,42 @@ const standaloneFieldPhotos: FieldPhoto[] = [
       href: "/projects/etihad-rail-nyuad-collaboration",
     },
   },
+  {
+    src: "/images/outreach/dubai-future-labs-briefing-2.jpg",
+    alt: "A guest examines a small component above the drone hardware during the Dubai Future Labs briefing",
+    caption: "GUEST AT THE BRIEFING TABLE",
+    description:
+      "A guest examines a small component above the drone hardware during the Dubai Future Labs briefing at Area 2071.",
+    location: "AREA 2071 · DUBAI · 2018",
+    outreach: {
+      title: "Dubai Future Labs",
+      href: "/outreach/society#dubai-future-labs",
+    },
+  },
+  {
+    src: "/images/outreach/dubai-future-labs-briefing-3.jpg",
+    alt: "Wider view of the Dubai Future Labs briefing at Area 2071, with drone hardware on the table and the visiting party in the laboratory",
+    caption: "BRIEFING FLOOR — AREA 2071",
+    description:
+      "Wider view of the Dubai Future Labs briefing at Area 2071, with drone hardware on the table and the visiting party in the laboratory.",
+    location: "AREA 2071 · DUBAI · 2018",
+    outreach: {
+      title: "Dubai Future Labs",
+      href: "/outreach/society#dubai-future-labs",
+    },
+  },
+  {
+    src: "/images/outreach/dubai-future-labs-briefing-4.jpg",
+    alt: "Briefing table at Dubai Future Labs, with drone frames, sketches, and a small component held above the hardware",
+    caption: "DRONE FRAMES ON THE TABLE",
+    description:
+      "Briefing table at Dubai Future Labs, with drone frames, sketches, and a small component held above the hardware.",
+    location: "AREA 2071 · DUBAI · 2018",
+    outreach: {
+      title: "Dubai Future Labs",
+      href: "/outreach/society#dubai-future-labs",
+    },
+  },
 ];
 
 /**

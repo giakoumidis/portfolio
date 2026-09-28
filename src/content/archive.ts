@@ -100,6 +100,9 @@ function fieldPhotoToArchiveRecord(
     projectTitle: isLab ? undefined : photo.project?.title,
     laboratoryHref: isLab ? photo.project?.href : undefined,
     laboratoryTitle: isLab ? photo.project?.title : undefined,
+    outreachLinks: photo.outreach
+      ? [{ href: photo.outreach.href, title: photo.outreach.title }]
+      : undefined,
   };
 }
 

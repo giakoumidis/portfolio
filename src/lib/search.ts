@@ -300,7 +300,12 @@ function buildIndex(): SearchEntry[] {
     entries.push({
       id: `outreach:${entry.id}`,
       title: entry.title,
-      blurb: [entry.standing, entry.year].filter(Boolean).join(" · "),
+      blurb: (entry.place
+        ? [entry.place, entry.year]
+        : [entry.standing, entry.year]
+      )
+        .filter(Boolean)
+        .join(" · "),
       category: "outreach",
       href: outreachEntryHref(entry),
       haystack: joinHaystack(
@@ -309,8 +314,10 @@ function buildIndex(): SearchEntry[] {
         entry.form,
         entry.standing,
         entry.year,
+        entry.place,
         entry.audience,
         entry.band,
+        entry.cluster,
         ...resolveOutreachLinks(entry).flatMap((link) => [
           link.label,
           link.href,

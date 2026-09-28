@@ -5,12 +5,10 @@ import { SocietyRecord } from "@/components/outreach/OutreachEntries";
 import RouteChrome from "@/components/work/RouteChrome";
 import {
   getOutreachByAudience,
-  outreachAudiences,
   societyIntro,
+  societyRecordNote,
 } from "@/content/outreach";
 import { buildPageMetadata } from "@/lib/seo";
-
-const audience = outreachAudiences.find((item) => item.id === "society")!;
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Society Outreach — Nikolaos Giakoumidis",
@@ -41,7 +39,7 @@ export default function SocietyOutreachPage() {
           {societyIntro}
         </p>
         <p className="mt-4 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-          {audience.purpose}
+          {societyRecordNote}
         </p>
         {entries.length > 0 && (
           <p className="label-mono mt-4 text-text-dim">

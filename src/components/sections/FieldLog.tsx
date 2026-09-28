@@ -22,7 +22,12 @@ export default function FieldLog() {
                   href: photo.project.href,
                   label: photo.project.title,
                 }
-              : undefined,
+              : photo.outreach
+                ? {
+                    href: photo.outreach.href,
+                    label: photo.outreach.title,
+                  }
+                : undefined,
           };
         })
       : undefined;
@@ -57,7 +62,12 @@ export default function FieldLog() {
                           href: photo.project.href,
                           label: photo.project.title,
                         }
-                      : undefined
+                      : photo.outreach
+                        ? {
+                            href: photo.outreach.href,
+                            label: photo.outreach.title,
+                          }
+                        : undefined
                   }
                   aspect={
                     photo.orientation === "portrait"

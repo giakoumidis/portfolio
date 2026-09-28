@@ -8,6 +8,7 @@ import {
   industryRecordNote,
   outreachEntryHref,
   resolveOutreachLinks,
+  societyClusters,
   type OutreachEntry,
   type OutreachImage,
 } from "@/content/outreach";
@@ -249,44 +250,30 @@ function entryPhotos(entry: OutreachEntry): OutreachImage[] {
   return entry.image ? [entry.image] : [];
 }
 
-function SocietyFeature({ entry }: { entry: OutreachEntry }) {
-  const photos = entryPhotos(entry);
-  const gallery = photos.map((photo) => ({
-    src: photo.src,
-    alt: photo.alt,
-    caption: photo.caption,
-  }));
+/** Same card as industry selections: one photograph, then the record. */
+function SocietyCard({ entry }: { entry: OutreachEntry }) {
+  const meta = [entry.place, entry.year].filter(Boolean).join(" · ");
 
   return (
-    <HudCard accent="cyan" className="overflow-hidden">
-      <div className="grid lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
-        <div className="grid grid-cols-2 gap-px bg-grid-dim">
-          {photos.map((photo, index) => (
-            <RoboPhoto
-              key={photo.src}
-              src={photo.src}
-              alt={photo.alt}
-              gallery={gallery}
-              galleryIndex={index}
-              sizes="(max-width: 1024px) 50vw, 28rem"
-              className="bg-bg"
-            />
-          ))}
-        </div>
-        <div className="flex flex-col justify-center p-5 sm:p-6">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <OrgLogo entry={entry} />
-            <p className="label-mono text-text-dim">{entry.standing}</p>
-            <p className="label-mono text-cyan">{entry.year}</p>
-          </div>
-          <h3 className="mt-3 font-display text-base uppercase text-text">
-            {entry.title}
-          </h3>
-          <p className="mt-3 font-body text-sm leading-relaxed text-text-dim">
-            {entry.summary}
-          </p>
-          <EntryLinks entry={entry} />
-        </div>
+    <HudCard accent="cyan" className="flex h-full flex-col overflow-hidden">
+      {entry.image && (
+        <RoboPhoto
+          src={entry.image.src}
+          alt={entry.image.alt}
+          caption={entry.image.caption}
+          sizes="(max-width: 1024px) 100vw, 36rem"
+          className="border-0 border-b border-grid-dim"
+        />
+      )}
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="font-display text-base uppercase text-text">
+          {entry.title}
+        </h3>
+        {meta && <p className="label-mono mt-2 text-cyan">{meta}</p>}
+        <p className="mt-3 flex-1 font-body text-sm leading-relaxed text-text-dim">
+          {entry.summary}
+        </p>
+        <EntryLinks entry={entry} />
       </div>
     </HudCard>
   );
@@ -294,29 +281,34 @@ function SocietyFeature({ entry }: { entry: OutreachEntry }) {
 
 export function SocietyRecord({ entries }: { entries: OutreachEntry[] }) {
   if (entries.length === 0) return null;
-  const featured = entries.filter((entry) => entryPhotos(entry).length > 1);
-  const rest = entries.filter((entry) => entryPhotos(entry).length <= 1);
 
   return (
-    <div className="mt-8 space-y-8">
-      {featured.length > 0 && (
-        <ul className="space-y-5">
-          {featured.map((entry) => (
-            <li key={entry.id} id={entry.id} className="scroll-mt-24">
-              <SocietyFeature entry={entry} />
-            </li>
-          ))}
-        </ul>
-      )}
-      {rest.length > 0 && (
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {rest.map((entry) => (
-            <li key={entry.id} id={entry.id} className="scroll-mt-24">
-              <SelectedCard entry={entry} />
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="mt-12 space-y-16">
+      {societyClusters.map((cluster) => {
+        const group = entries.filter((entry) => entry.cluster === cluster.id);
+        if (group.length === 0) return null;
+
+        return (
+          <section key={cluster.id} aria-labelledby={`society-${cluster.id}`}>
+            <h2
+              id={`society-${cluster.id}`}
+              className="scroll-mt-24 font-display text-base uppercase text-text"
+            >
+              {cluster.title}
+            </h2>
+            <p className="mt-2 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
+              {cluster.note}
+            </p>
+            <ul className="mt-6 grid gap-5 lg:grid-cols-2">
+              {group.map((entry) => (
+                <li key={entry.id} id={entry.id} className="scroll-mt-24">
+                  <SocietyCard entry={entry} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })}
     </div>
   );
 }

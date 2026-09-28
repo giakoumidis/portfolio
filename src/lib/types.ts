@@ -289,6 +289,8 @@ export type FieldPhoto = {
   location?: string;
   /** Case file or lab hub this photo belongs to, when available. */
   project?: FieldPhotoProject;
+  /** Outreach record this photograph belongs to, when it is not a project. */
+  outreach?: FieldPhotoProject;
   /** Drives the crop in the gallery grid; defaults to landscape. */
   orientation?: "landscape" | "portrait";
 };
