@@ -628,7 +628,7 @@ export const workRecords: ProjectRecord[] = [
     challenge:
       "Continue robotic mapping and data collection when obstacles prevent a single robot from completing the task.",
     summary:
-      "A cooperative robotic system for 3D digitization and data collection in construction environments. One robot explores and maps the space, coordinating with another to address obstacles and drawing on human teleoperation when needed. The work investigates how complementary robot capabilities and human assistance can keep a data-collection task progressing. The field deployment was at SeaWorld Abu Dhabi, where the team used the robots for construction monitoring in collaboration with the APEC contractor.",
+      "A cooperative robotic system for 3D digitization and data collection in construction environments. One robot explores and maps the space, coordinating with another to address obstacles and drawing on human teleoperation when needed. The work investigates how complementary robot capabilities and human assistance can keep a data-collection task progressing. The field deployment was at SeaWorld Abu Dhabi, where the team used the robots for construction monitoring in collaboration with the ALEC contractor.",
     contributionSummary:
       "Contributed to the cooperative exploration system and co-authored the Journal of Field Robotics paper on construction-site data collection.",
     // PENDING OWNER REVIEW
@@ -638,7 +638,7 @@ export const workRecords: ProjectRecord[] = [
       "Demonstrates autonomous exploration paired with agent-to-agent coordination so the team can keep mapping after an obstacle blocks the path.",
       "Human-in-the-loop teleoperation backs the autonomous stack when remote support is required to finish the mission.",
       "Published in the Journal of Field Robotics as an application of multiagent robotic systems and exploration algorithms to construction-site data collection.",
-      "Field deployment at SeaWorld Abu Dhabi with the APEC contractor. The site photo shows the full field team and the robots used for construction monitoring: two Spot platforms and a wheeled sensing robot.",
+      "Field deployment at SeaWorld Abu Dhabi with the ALEC contractor. The site photo shows the full field team and the robots used for construction monitoring: two Spot platforms and a wheeled sensing robot.",
     ],
     credits: [
       {
@@ -657,7 +657,7 @@ export const workRecords: ProjectRecord[] = [
         org: "NYU Abu Dhabi · SMART Lab",
       },
       {
-        name: "APEC",
+        name: "ALEC",
         role: "Contractor at SeaWorld Abu Dhabi",
       },
     ],
