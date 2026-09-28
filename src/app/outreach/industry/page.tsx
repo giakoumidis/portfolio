@@ -5,6 +5,7 @@ import { IndustryRecord } from "@/components/outreach/OutreachEntries";
 import RouteChrome from "@/components/work/RouteChrome";
 import {
   getOutreachByAudience,
+  industryIntro,
   outreachAudiences,
 } from "@/content/outreach";
 import { buildPageMetadata } from "@/lib/seo";
@@ -37,6 +38,9 @@ export default function IndustryOutreachPage() {
         </h1>
         <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
         <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
+          {industryIntro}
+        </p>
+        <p className="mt-4 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
           {audience.purpose}
         </p>
         <p className="label-mono mt-4 text-text-dim">

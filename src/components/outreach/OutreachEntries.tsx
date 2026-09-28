@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import ActionLink from "@/components/ui/ActionLink";
@@ -13,39 +12,32 @@ import {
   type OutreachImage,
 } from "@/content/outreach";
 
-function OrgLogo({ entry }: { entry: OutreachEntry }) {
+function OrgLogo({
+  entry,
+  large = false,
+}: {
+  entry: OutreachEntry;
+  large?: boolean;
+}) {
   if (!entry.logo) return null;
   const plate =
     entry.logoSurface === "dark"
       ? "border border-grid-dim bg-bg"
       : "bg-white";
+  const size = large ? "h-14 w-28" : "h-10 w-[4.75rem]";
+  const mark = large ? "max-h-9" : "max-h-7";
   return (
     <span
-      className={`flex h-10 w-[4.75rem] shrink-0 items-center justify-center px-1.5 ${plate}`}
+      className={`flex shrink-0 items-center justify-center px-2 ${size} ${plate}`}
     >
       {/* Official marks include SVG wordmarks, which next/image does not serve. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={entry.logo}
         alt=""
-        className="max-h-7 max-w-full object-contain"
+        className={`${mark} max-w-full object-contain`}
       />
     </span>
-  );
-}
-
-function PhotoThumb({ entry }: { entry: OutreachEntry }) {
-  if (!entry.image) return null;
-  return (
-    <div className="relative h-14 w-[4.5rem] shrink-0 overflow-hidden border border-grid-dim sm:h-20 sm:w-28">
-      <Image
-        src={entry.image.src}
-        alt={entry.image.alt}
-        fill
-        sizes="112px"
-        className="object-cover"
-      />
-    </div>
   );
 }
 
@@ -119,27 +111,16 @@ export function SelectedCard({ entry }: { entry: OutreachEntry }) {
   );
 }
 
-export function RecordRow({ entry }: { entry: OutreachEntry }) {
+function EngagementMark({ entry }: { entry: OutreachEntry }) {
   return (
     <li
       id={entry.id}
-      className="scroll-mt-24 border-b border-grid-dim py-5 last:border-b-0"
+      className="scroll-mt-24 flex min-h-32 flex-col items-center justify-center gap-3 border border-grid-dim bg-bg-raised/20 px-3 py-5 text-center"
     >
-      <div className="flex items-start gap-4">
-        <OrgLogo entry={entry} />
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-            <h3 className="font-body font-medium text-text">{entry.title}</h3>
-            <p className="label-mono text-cyan">{entry.year}</p>
-          </div>
-          <p className="label-mono mt-1 text-text-dim">{entry.standing}</p>
-          <p className="mt-2 max-w-3xl font-body text-sm leading-relaxed text-text-dim">
-            {entry.summary}
-          </p>
-          <EntryLinks entry={entry} />
-        </div>
-        <PhotoThumb entry={entry} />
-      </div>
+      <OrgLogo entry={entry} large />
+      <h3 className="font-body text-sm font-medium leading-snug text-text">
+        {entry.title}
+      </h3>
     </li>
   );
 }
@@ -201,10 +182,10 @@ export function IndustryRecord() {
   const featuredShowcases = showcases.filter(
     (entry) => (entry.images?.length ?? 0) > 0,
   );
-  const showcaseRows = showcases.filter(
-    (entry) => (entry.images?.length ?? 0) === 0,
-  );
-  const record = getOutreachBand("industry", "record");
+  const roster = [
+    ...showcases.filter((entry) => (entry.images?.length ?? 0) === 0),
+    ...getOutreachBand("industry", "record"),
+  ];
 
   return (
     <div className="mt-10 space-y-14">
@@ -244,13 +225,6 @@ export function IndustryRecord() {
             ))}
           </ul>
         )}
-        {showcaseRows.length > 0 && (
-          <ul className="mt-2">
-            {showcaseRows.map((entry) => (
-              <RecordRow key={entry.id} entry={entry} />
-            ))}
-          </ul>
-        )}
       </div>
 
       <div>
@@ -258,11 +232,11 @@ export function IndustryRecord() {
           id="industry-record"
           className="scroll-mt-24 font-display text-base uppercase text-text"
         >
-          Further engagements
+          Engagement record
         </h3>
-        <ul className="mt-2">
-          {record.map((entry) => (
-            <RecordRow key={entry.id} entry={entry} />
+        <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {roster.map((entry) => (
+            <EngagementMark key={entry.id} entry={entry} />
           ))}
         </ul>
       </div>

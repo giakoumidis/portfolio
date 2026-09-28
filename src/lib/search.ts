@@ -10,6 +10,7 @@ import {
   outreachAudiences,
   outreachEntries,
   outreachEntryHref,
+  industryIntro,
   outreachIntro,
   resolveOutreachLinks,
   societyIntro,
@@ -235,6 +236,7 @@ function buildIndex(): SearchEntry[] {
         section.id === "outreach"
           ? joinHaystack(
               outreachIntro,
+              industryIntro,
               societyIntro,
               "industry society public engagement workshops demonstrations competitions inspiration next generation",
               ...outreachAudiences.flatMap((audience) => [
@@ -285,7 +287,11 @@ function buildIndex(): SearchEntry[] {
         audience.id,
         audience.title,
         audience.purpose,
-        audience.id === "society" ? societyIntro : undefined,
+        audience.id === "society"
+          ? societyIntro
+          : audience.id === "industry"
+            ? industryIntro
+            : undefined,
       ),
     });
   }

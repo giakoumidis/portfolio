@@ -76,6 +76,9 @@ export type OutreachEntry = {
 export const outreachIntro =
   "A record of robotics and AI carried outside the laboratory: to industry partners, and to students and the public. Industry entries are limited to activity I can substantiate.";
 
+export const industryIntro =
+  "To build technology that matters, I need to understand the world in which it will be used. I spend time with industry and government partners at their sites, in workshops, and in the laboratory, learning about their operations, constraints, and unmet needs. I then connect what I learn with researchers and engineering teams, so that questions, prototypes, and collaborations stay grounded in real applications. This exchange also informs my own work in physical AI and robotics. My aim is to help ideas move from research into use, and to bring what we learn in the field back to the university, strengthening the connection between academia and industry in Abu Dhabi.";
+
 export const industryRecordNote =
   "Selected collaborations are the clearest technical contributions. Proposals and visits are labeled as such.";
 
@@ -101,6 +104,7 @@ export const outreachEntries: OutreachEntry[] = [
   {
     id: "abu-dhabi-airports",
     title: "Abu Dhabi Airports",
+    logo: "/images/logos/abu-dhabi-airports.png",
     audience: "industry",
     band: "selected",
     year: "2019–2020",
@@ -233,6 +237,7 @@ export const outreachEntries: OutreachEntry[] = [
   {
     id: "analog",
     title: "Analog",
+    logo: "/images/logos/analog.png",
     audience: "industry",
     band: "selected",
     year: "2026",
@@ -279,6 +284,7 @@ export const outreachEntries: OutreachEntry[] = [
   {
     id: "global-rail",
     title: "Global Rail",
+    logo: "/images/logos/global-rail.png",
     audience: "industry",
     band: "showcase",
     year: "2024–2025",
@@ -328,6 +334,7 @@ export const outreachEntries: OutreachEntry[] = [
   {
     id: "adipec-2025",
     title: "ADIPEC",
+    logo: "/images/logos/adipec.png",
     audience: "industry",
     band: "showcase",
     year: "2025",
@@ -338,6 +345,7 @@ export const outreachEntries: OutreachEntry[] = [
   {
     id: "driftx-2025",
     title: "DRIFTx",
+    logo: "/images/logos/driftx.png",
     audience: "industry",
     band: "showcase",
     year: "November 2025",
@@ -360,6 +368,7 @@ export const outreachEntries: OutreachEntry[] = [
   {
     id: "keysight",
     title: "Keysight Technologies",
+    logo: "/images/logos/keysight.png",
     audience: "industry",
     band: "record",
     year: "January 2018",
@@ -407,18 +416,12 @@ export const outreachEntries: OutreachEntry[] = [
     form: "laboratory visit",
     standing: "Visit",
     summary: "Coordinated a visit to the drone laboratory.",
-    resources: [
-      {
-        type: "laboratory",
-        slug: "kinesis-ctp-laboratory",
-        label: "Kinesis",
-      },
-    ],
     logo: "/images/logos/exxonmobil.svg",
   },
   {
     id: "dubai-future-foundation",
     title: "Dubai Future Foundation",
+    logo: "/images/logos/dubai-future-foundation.png",
     audience: "industry",
     band: "record",
     year: "January 2020",
@@ -429,6 +432,7 @@ export const outreachEntries: OutreachEntry[] = [
   {
     id: "dewa",
     title: "DEWA",
+    logo: "/images/logos/dewa.png",
     audience: "industry",
     band: "record",
     year: "2021–2022 · 2024",
@@ -436,17 +440,11 @@ export const outreachEntries: OutreachEntry[] = [
     standing: "Coordination",
     summary:
       "Shared a technical presentation and supported a later visit to Kinesis.",
-    resources: [
-      {
-        type: "laboratory",
-        slug: "kinesis-ctp-laboratory",
-        label: "Kinesis",
-      },
-    ],
   },
   {
     id: "civil-defence-academy",
     title: "Civil Defence Academy",
+    logo: "/images/logos/civil-defence.png",
     audience: "industry",
     band: "record",
     year: "March 2022",
@@ -469,6 +467,7 @@ export const outreachEntries: OutreachEntry[] = [
   {
     id: "aldar",
     title: "ALDAR",
+    logo: "/images/logos/aldar.png",
     audience: "industry",
     band: "record",
     year: "October 2022",
@@ -496,18 +495,12 @@ export const outreachEntries: OutreachEntry[] = [
     form: "laboratory visit",
     standing: "Visit",
     summary: "Hosted Boeing at Kinesis for a discussion on robotics.",
-    resources: [
-      {
-        type: "laboratory",
-        slug: "kinesis-ctp-laboratory",
-        label: "Kinesis",
-      },
-    ],
     logo: "/images/logos/boeing.svg",
   },
   {
     id: "sdf",
     title: "SDF",
+    logo: "/images/logos/sdf.png",
     audience: "industry",
     band: "record",
     year: "October 2024",
@@ -518,6 +511,7 @@ export const outreachEntries: OutreachEntry[] = [
   {
     id: "dubai-police",
     title: "Dubai Police",
+    logo: "/images/logos/dubai-police.png",
     audience: "industry",
     band: "record",
     year: "2024–2025",
@@ -573,6 +567,7 @@ export const outreachEntries: OutreachEntry[] = [
   {
     id: "tamkeen",
     title: "Tamkeen",
+    logo: "/images/logos/tamkeen.png",
     audience: "industry",
     band: "record",
     year: "2025–2026",
@@ -617,6 +612,7 @@ export const outreachEntries: OutreachEntry[] = [
   {
     id: "adia-lab",
     title: "ADIA Lab",
+    logo: "/images/logos/adia-lab.png",
     audience: "industry",
     band: "record",
     year: "May 2026",
