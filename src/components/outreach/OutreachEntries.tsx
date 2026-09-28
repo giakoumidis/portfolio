@@ -5,7 +5,6 @@ import HudCard from "@/components/ui/HudCard";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import {
   getOutreachBand,
-  industryRecordNote,
   outreachEntryHref,
   resolveOutreachLinks,
   societyClusters,
@@ -126,13 +125,21 @@ function EngagementMark({ entry }: { entry: OutreachEntry }) {
   );
 }
 
-function ShowcaseFeature({ entry }: { entry: OutreachEntry }) {
+function ShowcaseFeature({
+  entry,
+  titleFirst = false,
+}: {
+  entry: OutreachEntry;
+  /** Title, then place and date. Used for the society flagship. */
+  titleFirst?: boolean;
+}) {
   const photos = entryPhotos(entry);
   const gallery = photos.map((photo) => ({
     src: photo.src,
     alt: photo.alt,
     caption: photo.caption,
   }));
+  const placeLine = [entry.place, entry.year].filter(Boolean).join(" · ");
 
   return (
     <HudCard accent="cyan" className="overflow-hidden">
@@ -159,14 +166,27 @@ function ShowcaseFeature({ entry }: { entry: OutreachEntry }) {
           ))}
         </div>
         <div className="flex max-w-3xl flex-col justify-center p-5 sm:p-6">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <OrgLogo entry={entry} />
-            <p className="label-mono text-text-dim">{entry.standing}</p>
-            <p className="label-mono text-cyan">{entry.year}</p>
-          </div>
-          <h3 className="mt-3 font-display text-base uppercase text-text">
-            {entry.title}
-          </h3>
+          {titleFirst ? (
+            <>
+              <h3 className="font-display text-base uppercase text-text">
+                {entry.title}
+              </h3>
+              {placeLine && (
+                <p className="label-mono mt-2 text-cyan">{placeLine}</p>
+              )}
+            </>
+          ) : (
+            <>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                <OrgLogo entry={entry} />
+                <p className="label-mono text-text-dim">{entry.standing}</p>
+                <p className="label-mono text-cyan">{entry.year}</p>
+              </div>
+              <h3 className="mt-3 font-display text-base uppercase text-text">
+                {entry.title}
+              </h3>
+            </>
+          )}
           <p className="mt-3 font-body text-sm leading-relaxed text-text-dim">
             {entry.summary}
           </p>
@@ -180,9 +200,8 @@ function ShowcaseFeature({ entry }: { entry: OutreachEntry }) {
 export function IndustryRecord() {
   const selected = getOutreachBand("industry", "selected");
   const showcases = getOutreachBand("industry", "showcase");
-  const featuredShowcases = showcases.filter(
-    (entry) => (entry.images?.length ?? 0) > 0,
-  );
+  const lead = selected.find((entry) => entry.id === "global-rail");
+  const selectedCards = selected.filter((entry) => entry.id !== "global-rail");
   const roster = [
     ...showcases.filter((entry) => (entry.images?.length ?? 0) === 0),
     ...getOutreachBand("industry", "record"),
@@ -190,10 +209,6 @@ export function IndustryRecord() {
 
   return (
     <div className="mt-10 space-y-14">
-      <p className="max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-        {industryRecordNote}
-      </p>
-
       <div>
         <h3
           id="industry-selected"
@@ -201,31 +216,18 @@ export function IndustryRecord() {
         >
           Selected collaborations
         </h3>
+        {lead && (
+          <div id={lead.id} className="mt-6 scroll-mt-24">
+            <ShowcaseFeature entry={lead} />
+          </div>
+        )}
         <ul className="mt-6 grid gap-5 lg:grid-cols-2">
-          {selected.map((entry) => (
+          {selectedCards.map((entry) => (
             <li key={entry.id} id={entry.id} className="scroll-mt-24">
               <SelectedCard entry={entry} />
             </li>
           ))}
         </ul>
-      </div>
-
-      <div>
-        <h3
-          id="industry-showcases"
-          className="scroll-mt-24 font-display text-base uppercase text-text"
-        >
-          Showcases
-        </h3>
-        {featuredShowcases.length > 0 && (
-          <ul className="mt-6 space-y-5">
-            {featuredShowcases.map((entry) => (
-              <li key={entry.id} id={entry.id} className="scroll-mt-24">
-                <ShowcaseFeature entry={entry} />
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
 
       <div>
@@ -281,11 +283,18 @@ function SocietyCard({ entry }: { entry: OutreachEntry }) {
 
 export function SocietyRecord({ entries }: { entries: OutreachEntry[] }) {
   if (entries.length === 0) return null;
+  const lead = entries.filter((entry) => entry.band === "showcase");
+  const grouped = entries.filter((entry) => entry.band !== "showcase");
 
   return (
     <div className="mt-12 space-y-16">
+      {lead.map((entry) => (
+        <div key={entry.id} id={entry.id} className="scroll-mt-24">
+          <ShowcaseFeature entry={entry} titleFirst />
+        </div>
+      ))}
       {societyClusters.map((cluster) => {
-        const group = entries.filter((entry) => entry.cluster === cluster.id);
+        const group = grouped.filter((entry) => entry.cluster === cluster.id);
         if (group.length === 0) return null;
 
         return (

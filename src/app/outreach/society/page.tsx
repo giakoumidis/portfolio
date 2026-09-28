@@ -3,11 +3,7 @@ import Link from "next/link";
 
 import { SocietyRecord } from "@/components/outreach/OutreachEntries";
 import RouteChrome from "@/components/work/RouteChrome";
-import {
-  getOutreachByAudience,
-  societyIntro,
-  societyRecordNote,
-} from "@/content/outreach";
+import { getOutreachByAudience, societyIntro } from "@/content/outreach";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -38,14 +34,6 @@ export default function SocietyOutreachPage() {
         <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
           {societyIntro}
         </p>
-        <p className="mt-4 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-          {societyRecordNote}
-        </p>
-        {entries.length > 0 && (
-          <p className="label-mono mt-4 text-text-dim">
-            <span className="text-cyan">{entries.length}</span> on record
-          </p>
-        )}
         <SocietyRecord entries={entries} />
       </div>
     </RouteChrome>

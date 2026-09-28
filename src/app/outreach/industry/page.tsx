@@ -3,24 +3,16 @@ import Link from "next/link";
 
 import { IndustryRecord } from "@/components/outreach/OutreachEntries";
 import RouteChrome from "@/components/work/RouteChrome";
-import {
-  getOutreachByAudience,
-  industryIntro,
-  outreachAudiences,
-} from "@/content/outreach";
+import { industryIntro } from "@/content/outreach";
 import { buildPageMetadata } from "@/lib/seo";
-
-const audience = outreachAudiences.find((item) => item.id === "industry")!;
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Industry Outreach — Nikolaos Giakoumidis",
-  description: audience.purpose,
+  description: industryIntro,
   path: "/outreach/industry",
 });
 
 export default function IndustryOutreachPage() {
-  const count = getOutreachByAudience("industry").length;
-
   return (
     <RouteChrome>
       <div className="section-shell py-16 lg:py-24">
@@ -39,12 +31,6 @@ export default function IndustryOutreachPage() {
         <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
         <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
           {industryIntro}
-        </p>
-        <p className="mt-4 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-          {audience.purpose}
-        </p>
-        <p className="label-mono mt-4 text-text-dim">
-          <span className="text-cyan">{count}</span> on record
         </p>
         <IndustryRecord />
       </div>

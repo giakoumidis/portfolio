@@ -11,7 +11,6 @@ import {
   outreachEntries,
   outreachEntryHref,
   industryIntro,
-  outreachIntro,
   resolveOutreachLinks,
   societyIntro,
 } from "@/content/outreach";
@@ -234,8 +233,7 @@ function buildIndex(): SearchEntry[] {
           ? "labs infrastructure kinesis photonics hts"
           : undefined,
         section.id === "outreach"
-          ? joinHaystack(
-              outreachIntro,
+            ? joinHaystack(
               industryIntro,
               societyIntro,
               "industry society public engagement workshops demonstrations competitions inspiration next generation",

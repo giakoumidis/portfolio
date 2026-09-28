@@ -82,20 +82,11 @@ export type OutreachEntry = {
   images?: OutreachImage[];
 };
 
-export const outreachIntro =
-  "A record of robotics and AI carried outside the laboratory: to industry partners, and to students and the public. Industry entries are limited to activity I can substantiate.";
-
 export const industryIntro =
-  "To build technology that matters, I need to understand the world in which it will be used. I spend time with industry and government partners at their sites, in workshops, and in the laboratory, learning about their operations, constraints, and unmet needs. I then connect what I learn with researchers and engineering teams, so that questions, prototypes, and collaborations stay grounded in real applications. This exchange also informs my own work in physical AI and robotics. My aim is to help ideas move from research into use, and to bring what we learn in the field back to the university, strengthening the connection between academia and industry in Abu Dhabi.";
-
-export const industryRecordNote =
-  "Selected collaborations are the clearest technical contributions. Proposals and visits are labeled as such.";
+  "I work with industry and government partners at their sites, in workshops, and in the laboratory, learning their operations, constraints, and unmet needs. I bring those problems to researchers and engineering teams, and into my own work on physical AI and robotics, so ideas move from research into use.";
 
 export const societyIntro =
   "This work sat outside my formal responsibilities. I take it on as a duty to society: to bring awareness of robotics and AI beyond the laboratory, and to inspire the next generation so younger people can meet these technologies and picture themselves building with them.";
-
-export const societyRecordNote =
-  "Each session here is one I hosted, delivered, or organised.";
 
 export const societyClusters = [
   {
@@ -233,7 +224,7 @@ export const outreachEntries: OutreachEntry[] = [
     id: "ad-ports",
     title: "AD Ports",
     audience: "industry",
-    band: "selected",
+    band: "record",
     year: "2023–2026",
     form: "proposal",
     standing: "Proposals and visits",
@@ -245,7 +236,7 @@ export const outreachEntries: OutreachEntry[] = [
     id: "total-metis",
     title: "TOTAL",
     audience: "industry",
-    band: "selected",
+    band: "record",
     year: "2019–2020",
     form: "coordination",
     standing: "Collaboration setup",
@@ -257,7 +248,7 @@ export const outreachEntries: OutreachEntry[] = [
     id: "kent",
     title: "Kent",
     audience: "industry",
-    band: "selected",
+    band: "record",
     year: "2025",
     form: "laboratory visit",
     standing: "Research visit",
@@ -269,7 +260,7 @@ export const outreachEntries: OutreachEntry[] = [
     title: "Analog",
     logo: "/images/logos/analog.png",
     audience: "industry",
-    band: "selected",
+    band: "record",
     year: "2026",
     form: "proposal",
     standing: "Technical meeting",
@@ -280,7 +271,7 @@ export const outreachEntries: OutreachEntry[] = [
     id: "rox-motor",
     title: "ROX Motor",
     audience: "industry",
-    band: "selected",
+    band: "record",
     year: "2026",
     form: "laboratory visit",
     standing: "Research visit",
@@ -316,7 +307,7 @@ export const outreachEntries: OutreachEntry[] = [
     title: "Global Rail",
     logo: "/images/logos/global-rail.png",
     audience: "industry",
-    band: "showcase",
+    band: "selected",
     year: "2024–2025",
     form: "exhibition",
     standing: "Briefing and demonstrations",

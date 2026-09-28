@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import ActionLink from "@/components/ui/ActionLink";
 import HudCard from "@/components/ui/HudCard";
@@ -7,7 +6,6 @@ import RouteChrome from "@/components/work/RouteChrome";
 import {
   getOutreachByAudience,
   outreachAudiences,
-  outreachIntro,
 } from "@/content/outreach";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -29,26 +27,6 @@ export default function OutreachPage() {
           Outreach
         </h1>
         <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
-        <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-          {outreachIntro}
-        </p>
-        <p className="mt-4 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
-          Where a technical record exists, the engagement links to its{" "}
-          <Link
-            href="/projects"
-            className="text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-          >
-            project
-          </Link>{" "}
-          or{" "}
-          <Link
-            href="/laboratories"
-            className="text-cyan transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-          >
-            laboratory
-          </Link>
-          . Those pages link back here, and the same connections are in search.
-        </p>
 
         <ul className="mt-12 grid gap-5 sm:grid-cols-2">
           {outreachAudiences.map((audience) => {
