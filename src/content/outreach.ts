@@ -806,23 +806,11 @@ export const outreachEntries: OutreachEntry[] = [
     form: "demonstration",
     standing: "Briefing",
     summary:
-      "Presented Dubai Future Labs projects at Area 2071, Emirates Towers, to His Highness Sheikh Mohammed bin Rashid Al Maktoum, Vice President and Prime Minister of the UAE and Ruler of Dubai, and His Highness Sheikh Hamdan bin Mohammed bin Rashid Al Maktoum, Crown Prince of Dubai and Chairman of the Executive Council of Dubai. Their Highnesses approved the projects. During a visit by His Highness Sheikh Saud bin Saqr Al Qasimi, Supreme Council Member and Ruler of Ras Al Khaimah, presented how robotics and AI can increase productivity and minimise downtime and risk in the heavy industry of Ras Al Khaimah.",
+      "Presented Dubai Future Labs projects at Area 2071, Emirates Towers, to His Highness Sheikh Mohammed bin Rashid Al Maktoum, Vice President and Prime Minister of the UAE and Ruler of Dubai, and His Highness Sheikh Hamdan bin Mohammed bin Rashid Al Maktoum, Crown Prince of Dubai and Chairman of the Executive Council of Dubai. Their Highnesses approved the projects.",
     image: {
       src: "/images/outreach/dubai-future-labs-briefing-1.jpg",
       alt: "Drone airframes and design sketches on the briefing table at Dubai Future Labs, with cameras in front and the visiting party beyond the glass",
     },
-    images: [
-      {
-        src: "/images/outreach/dubai-future-labs-briefing-1.jpg",
-        alt: "Drone airframes and design sketches on the briefing table at Dubai Future Labs, with cameras in front and the visiting party beyond the glass",
-        caption: "Area 2071 briefing · May 2018",
-      },
-      {
-        src: "/images/outreach/dubai-future-labs-rak-briefing.jpg",
-        alt: "Nikolaos Giakoumidis briefing His Highness Sheikh Saud bin Saqr Al Qasimi at a monitor in the Dubai Future Labs workshop, with the visiting party standing alongside",
-        caption: "Ras Al Khaimah briefing · Dubai Future Labs",
-      },
-    ],
     links: [
       {
         href: "https://www.protocol.dubai.ae/en/media-listing/news-events/mohammed-bin-rashid-opens-area-2071/",
@@ -840,6 +828,22 @@ export const outreachEntries: OutreachEntry[] = [
         external: true,
       },
     ],
+  },
+  {
+    id: "ras-al-khaimah-ruler",
+    title: "Ruler of Ras Al Khaimah",
+    audience: "society",
+    band: "showcase",
+    cluster: "public",
+    year: "",
+    form: "demonstration",
+    standing: "Briefing",
+    summary:
+      "Briefed His Highness Sheikh Saud bin Saqr Al Qasimi, Supreme Council Member and Ruler of Ras Al Khaimah, on how robotics and AI can increase productivity and minimise downtime and risk in the heavy industry of Ras Al Khaimah.",
+    image: {
+      src: "/images/outreach/rak-ruler-briefing.jpg",
+      alt: "Nikolaos Giakoumidis briefing His Highness Sheikh Saud bin Saqr Al Qasimi, Supreme Council Member and Ruler of Ras Al Khaimah, with the visiting party alongside",
+    },
   },
   {
     id: "innovation-week-open-house",

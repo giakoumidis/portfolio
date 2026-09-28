@@ -142,7 +142,7 @@ function ShowcaseFeature({
   const placeLine = [entry.place, entry.year].filter(Boolean).join(" · ");
 
   return (
-    <HudCard accent="cyan" className="overflow-hidden">
+    <HudCard accent="cyan" className="h-full overflow-hidden">
       <div>
         <div
           className={`grid gap-px bg-grid-dim ${
@@ -154,7 +154,6 @@ function ShowcaseFeature({
               key={photo.src}
               src={photo.src}
               alt={photo.alt}
-              caption={photos.length > 1 ? photo.caption : undefined}
               gallery={gallery}
               galleryIndex={index}
               sizes={
@@ -289,11 +288,30 @@ export function SocietyRecord({ entries }: { entries: OutreachEntry[] }) {
 
   return (
     <div className="mt-12 space-y-16">
-      {lead.map((entry) => (
-        <div key={entry.id} id={entry.id} className="scroll-mt-24">
-          <ShowcaseFeature entry={entry} titleFirst />
-        </div>
-      ))}
+      {lead.length > 0 && (
+        <section aria-labelledby="society-rulers">
+          <h2
+            id="society-rulers"
+            className="scroll-mt-24 font-display text-base uppercase text-text"
+          >
+            UAE rulers
+          </h2>
+          <p className="mt-2 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
+            Briefings for the Ruler of Dubai and the Ruler of Ras Al Khaimah.
+          </p>
+          <ul
+            className={`mt-6 grid gap-5 ${
+              lead.length > 1 ? "lg:grid-cols-2" : ""
+            }`}
+          >
+            {lead.map((entry) => (
+              <li key={entry.id} id={entry.id} className="scroll-mt-24">
+                <ShowcaseFeature entry={entry} titleFirst />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       {societyClusters.map((cluster) => {
         const group = grouped.filter((entry) => entry.cluster === cluster.id);
         if (group.length === 0) return null;

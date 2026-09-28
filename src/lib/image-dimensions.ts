@@ -29,7 +29,7 @@ export const imageDimensions: Record<string, { width: number; height: number }> 
   '/images/outreach/dubai-future-labs-briefing-2.jpg': { width: 1024, height: 768 },
   '/images/outreach/dubai-future-labs-briefing-3.jpg': { width: 1024, height: 768 },
   '/images/outreach/dubai-future-labs-briefing-4.jpg': { width: 1024, height: 768 },
-  '/images/outreach/dubai-future-labs-rak-briefing.jpg': { width: 1024, height: 768 },
+  '/images/outreach/rak-ruler-briefing.jpg': { width: 1024, height: 768 },
   '/images/outreach/global-rail-2024-briefing.jpg': { width: 1024, height: 768 },
   '/images/outreach/hilti-leadership-dubai.jpg': { width: 1024, height: 485 },
   '/images/hero/drone-cage.jpg': { width: 1200, height: 801 },
