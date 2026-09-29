@@ -132,7 +132,7 @@ Legacy redirects: /infrastructure → /laboratories; /photos → /archive; /work
 
 ## Contact and professional profiles
 
-- Email: giakoumidisnikolaos@gmail.com
+- Email: giakoumidis.nikolaos@gmail.com
 - LinkedIn: https://www.linkedin.com/in/nikolaos-giakoumidis/
 - Google Scholar: https://scholar.google.com/citations?user=HmOOogwAAAAJ&hl=en
 - GitHub: https://github.com/giakoumidis

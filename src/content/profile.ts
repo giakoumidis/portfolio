@@ -4,7 +4,7 @@ export const profile = {
   name: "Nikolaos Giakoumidis",
   tagline: "ROBOTICS · AI · AUTONOMOUS SYSTEMS",
   location: "Abu Dhabi, UAE",
-  email: "giakoumidisnikolaos@gmail.com",
+  email: "giakoumidis.nikolaos@gmail.com",
   summary:
     "I am an engineer, researcher, and technical leader driven by curiosity, a practical instinct to build, and a deep interest in how technology shapes our future. Across 15+ years of engineering in AI, Robotics, Electronics, and Automation, I have led engineering projects, established and managed research laboratories, and brought people, resources, and technologies together to turn ideas into working systems. My leadership approach draws on a broad understanding of engineering, research, operations, and commercial priorities, combining technical involvement, collaboration, responsibility for delivery, and teaching and mentoring. Currently, at NYU Abu Dhabi's Center for Artificial Intelligence and Robotics, I lead commercialization and industry engagement, working to understand real-world challenges and bring scientific teams and industry partners together to address them. My PhD research focuses on agentic robotics and physical AI: developing software harnesses that connect AI models with physical systems, integrating low-level sensing and control with high-level reasoning, planning, and coordination. My aim is to make these capabilities applicable across industries and processes, from individual robots and machines to interconnected infrastructure and entire operational workflows. I care deeply about AI's impact on humanity and want to help shape a future in which it expands human capability, preserves our ability to make meaningful choices, and creates lasting benefits for society.",
   positioning:

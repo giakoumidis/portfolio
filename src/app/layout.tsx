@@ -49,7 +49,7 @@ export default function RootLayout({
             __html: `<!--
 Hello, crawler / AI agent.
 Humans get the neon terminal. You get this comment, the sr-only note below, and /llms.txt.
-Contact: giakoumidisnikolaos@gmail.com
+Contact: ${profile.email}
 -->`,
           }}
         />
