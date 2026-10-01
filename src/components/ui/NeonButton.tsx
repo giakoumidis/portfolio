@@ -43,7 +43,8 @@ type NeonButtonProps = {
   href?: string;
   variant?: Variant;
   appearance?: Appearance;
-  download?: boolean;
+  /** `true` keeps the URL filename; a string sets the saved filename. */
+  download?: boolean | string;
   external?: boolean;
   onClick?: () => void;
   className?: string;
@@ -77,7 +78,9 @@ export default function NeonButton({
       <a
         href={href}
         className={classes}
-        {...(download ? { download: "" } : {})}
+        {...(download
+          ? { download: typeof download === "string" ? download : "" }
+          : {})}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
         {children}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { profile, socialLinks } from "@/content/profile";
+import { cvDownloadFilename, profile, socialLinks } from "@/content/profile";
 
 const NAVIGATE = [
   { href: "/projects", label: "Projects" },
@@ -9,7 +9,7 @@ const NAVIGATE = [
   { href: "/research", label: "Research" },
   { href: "/archive", label: "Archive" },
   { href: "/resume", label: "Resume" },
-  { href: "/cv.pdf", label: "CV", download: true },
+  { href: "/cv.pdf", label: "CV", download: cvDownloadFilename },
 ];
 
 export default function Footer() {

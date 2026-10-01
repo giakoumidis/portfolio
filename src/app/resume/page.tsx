@@ -9,7 +9,7 @@ import HudCard from "@/components/ui/HudCard";
 import NeonButton from "@/components/ui/NeonButton";
 import { awards, certifications } from "@/content/awards";
 import { exhibitions } from "@/content/exhibitions";
-import { profile, professionalCapabilities } from "@/content/profile";
+import { cvDownloadFilename, profile, professionalCapabilities } from "@/content/profile";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -200,7 +200,7 @@ export default function ResumePage() {
       <section className="mt-16 border border-grid-dim bg-bg-raised/20 p-6">
         <h2 className="font-display text-lg uppercase text-text">Documents</h2>
         <div className="mt-6 flex flex-wrap gap-4">
-          <NeonButton href="/cv.pdf" download>
+          <NeonButton href="/cv.pdf" download={cvDownloadFilename}>
             Download CV →
           </NeonButton>
           <NeonButton href="/#contact" appearance="ghost">

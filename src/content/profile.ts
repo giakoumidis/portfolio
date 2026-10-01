@@ -34,6 +34,9 @@ export const profile = {
   ],
 } satisfies Profile;
 
+/** Filename suggested when a visitor downloads `/cv.pdf`. */
+export const cvDownloadFilename = `${profile.name} - CV.pdf`;
+
 /** Evidence-linked scope for the visible profile and structured person metadata. */
 export const professionalCapabilities = [
   {

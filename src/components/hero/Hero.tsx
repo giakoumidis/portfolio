@@ -7,7 +7,7 @@ import GridHorizon from "./GridHorizon";
 import RobotStage from "./RobotStage";
 import HeroIntroSequence from "./HeroIntroSequence";
 import NeonButton from "@/components/ui/NeonButton";
-import { profile } from "@/content/profile";
+import { cvDownloadFilename, profile } from "@/content/profile";
 
 const REVEAL_EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -139,7 +139,7 @@ export default function Hero() {
           }
           className="mt-10 flex w-full max-w-xl flex-col gap-3 sm:max-w-3xl sm:flex-row sm:flex-wrap sm:items-center"
         >
-          <NeonButton href="/cv.pdf" download className="w-full sm:w-auto">
+          <NeonButton href="/cv.pdf" download={cvDownloadFilename} className="w-full sm:w-auto">
             Download CV
           </NeonButton>
           <NeonButton href="#contact" className="w-full sm:w-auto">
