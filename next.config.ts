@@ -1,4 +1,10 @@
 import type { NextConfig } from "next";
+import { cvDownloadFilename } from "./src/content/profile";
+
+/** Browsers name a saved PDF from this header, not from the `/cv.pdf` URL. */
+function cvContentDisposition(filename: string) {
+  return `attachment; filename="${filename}"; filename*=UTF-8''${encodeURIComponent(filename)}`;
+}
 
 const nextConfig: NextConfig = {
   // Allow iPhone / other devices on the LAN to load dev JS chunks (Next.js 16 blocks by default).
@@ -11,6 +17,19 @@ const nextConfig: NextConfig = {
         pathname: "/vi/**",
       },
     ],
+  },
+  async headers() {
+    return [
+      {
+        source: "/cv.pdf",
+        headers: [
+          {
+            key: "Content-Disposition",
+            value: cvContentDisposition(cvDownloadFilename),
+          },
+        ],
+      },
+    ];
   },
   async redirects() {
     return [
