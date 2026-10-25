@@ -5,6 +5,7 @@ import LocalVideoPlayer from "@/components/ui/LocalVideoPlayer";
 import NeonButton from "@/components/ui/NeonButton";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
+import type { LightboxVideo } from "@/components/ui/VideoLightbox";
 import InstagramMedia from "@/components/ui/InstagramMedia";
 import { RelatedOutreach } from "@/components/outreach/OutreachEntries";
 import EvidenceList from "@/components/work/EvidenceList";
@@ -51,6 +52,40 @@ export default function CaseFileLayout({
     if (item.url === primaryLocalSrc) return [];
     return [{ src: item.url, title: item.title }];
   });
+  const videoGallery: LightboxVideo[] = [
+    ...(video?.provider === "youtube"
+      ? [
+          {
+            title: video.title,
+            source: {
+              kind: "youtube" as const,
+              videoId: video.id,
+              start: video.start,
+            },
+          },
+        ]
+      : []),
+    ...(video?.provider === "local"
+      ? [
+          {
+            title: video.title,
+            source: {
+              kind: "local" as const,
+              src: video.src,
+              type: video.type,
+              poster: video.poster,
+            },
+          },
+        ]
+      : []),
+    ...additionalLocalVideos.map((clip) => ({
+      title: clip.title,
+      source: { kind: "local" as const, src: clip.src },
+    })),
+  ];
+  const swipeGallery = videoGallery.length > 1 ? videoGallery : undefined;
+  const featuredInGallery =
+    video?.provider === "youtube" || video?.provider === "local";
   const archiveBySrc = getArchiveBySrc();
   const photoFigures = images?.map((image) =>
     figureForImage(image, archiveBySrc, {
@@ -119,7 +154,13 @@ export default function CaseFileLayout({
           }
         >
           {video.provider === "youtube" && (
-            <YouTubeEmbed videoId={video.id} title={video.title} />
+            <YouTubeEmbed
+              videoId={video.id}
+              title={video.title}
+              start={video.start}
+              gallery={swipeGallery}
+              galleryIndex={0}
+            />
           )}
           {video.provider === "instagram" && (
             <InstagramMedia
@@ -134,6 +175,8 @@ export default function CaseFileLayout({
               title={video.title}
               poster={video.poster}
               type={video.type}
+              gallery={swipeGallery}
+              galleryIndex={0}
             />
           )}
         </div>
@@ -141,11 +184,13 @@ export default function CaseFileLayout({
 
       {additionalLocalVideos.length > 0 && (
         <div className={`grid gap-4 ${video ? "mt-4" : "mt-10"}`}>
-          {additionalLocalVideos.map((clip) => (
+          {additionalLocalVideos.map((clip, index) => (
             <LocalVideoPlayer
               key={clip.src}
               src={clip.src}
               title={clip.title}
+              gallery={swipeGallery}
+              galleryIndex={(featuredInGallery ? 1 : 0) + index}
             />
           ))}
         </div>

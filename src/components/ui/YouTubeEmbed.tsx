@@ -7,7 +7,9 @@ import {
   useState,
   type MouseEvent,
 } from "react";
-import VideoLightbox from "@/components/ui/VideoLightbox";
+import VideoLightbox, {
+  type LightboxVideo,
+} from "@/components/ui/VideoLightbox";
 import {
   canHoverPlay,
   enterFullscreen,
@@ -22,6 +24,9 @@ type YouTubeEmbedProps = {
   /** Seconds from the start of the video. */
   start?: number;
   className?: string;
+  /** Other clips on the same page, so the expanded viewer can swipe between them. */
+  gallery?: LightboxVideo[];
+  galleryIndex?: number;
 };
 
 const LEAVE_DELAY_MS = 220;
@@ -37,6 +42,8 @@ export default function YouTubeEmbed({
   title,
   start,
   className = "",
+  gallery,
+  galleryIndex,
 }: YouTubeEmbedProps) {
   const [active, setActive] = useState(false);
   const [hoverMode, setHoverMode] = useState(true);
@@ -191,6 +198,8 @@ export default function YouTubeEmbed({
         <VideoLightbox
           title={title}
           source={{ kind: "youtube", videoId, start }}
+          gallery={gallery}
+          galleryIndex={galleryIndex}
           onClose={closeExpand}
         />
       )}

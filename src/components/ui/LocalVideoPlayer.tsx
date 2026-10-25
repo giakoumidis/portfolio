@@ -7,7 +7,9 @@ import {
   useState,
   type MouseEvent,
 } from "react";
-import VideoLightbox from "@/components/ui/VideoLightbox";
+import VideoLightbox, {
+  type LightboxVideo,
+} from "@/components/ui/VideoLightbox";
 import {
   canHoverPlay,
   enterFullscreen,
@@ -22,6 +24,9 @@ type LocalVideoPlayerProps = {
   /** MIME type; defaults from the file extension when omitted. */
   type?: string;
   className?: string;
+  /** Other clips on the same page, so the expanded viewer can swipe between them. */
+  gallery?: LightboxVideo[];
+  galleryIndex?: number;
 };
 
 function mimeFromSrc(src: string): string | undefined {
@@ -58,6 +63,8 @@ export default function LocalVideoPlayer({
   poster,
   type,
   className = "",
+  gallery,
+  galleryIndex,
 }: LocalVideoPlayerProps) {
   const [loaded, setLoaded] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -373,6 +380,8 @@ export default function LocalVideoPlayer({
         <VideoLightbox
           title={title}
           source={{ kind: "local", src, type: mime, poster }}
+          gallery={gallery}
+          galleryIndex={galleryIndex}
           onClose={closeExpand}
         />
       )}
