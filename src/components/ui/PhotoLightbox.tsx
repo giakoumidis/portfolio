@@ -4,13 +4,19 @@ import {
   useCallback,
   useEffect,
   useId,
+  useLayoutEffect,
   useRef,
   useState,
-  type TouchEvent,
 } from "react";
 import { createPortal } from "react-dom";
 
 import ActionLink from "@/components/ui/ActionLink";
+import {
+  canHoverPlay,
+  enterFullscreen,
+  exitFullscreen,
+  isFullscreenActive,
+} from "@/lib/video-playback";
 
 export type LightboxPhoto = {
   src: string;
@@ -61,7 +67,11 @@ export default function PhotoLightbox({
 }: PhotoLightboxProps) {
   const titleId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
-  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const askedFullscreen = useRef(false);
+  const ignoreClick = useRef(false);
+  const [immersive, setImmersive] = useState(false);
+  const [dragX, setDragX] = useState(0);
 
   const photos =
     gallery && gallery.length > 0
@@ -84,6 +94,125 @@ export default function PhotoLightbox({
     if (!canNavigate) return;
     setIndex((i) => (i + 1) % photos.length);
   }, [canNavigate, photos.length]);
+
+  // Phone landscape: the open photo fills the screen. Native fullscreen hides
+  // the browser chrome when the device allows it; the layout still fills the
+  // viewport when that call is rejected.
+  useLayoutEffect(() => {
+    const landscape = window.matchMedia("(orientation: landscape)");
+    const short = window.matchMedia("(max-height: 520px)");
+    let cancelled = false;
+
+    const wantsImmersive = () =>
+      landscape.matches && (!canHoverPlay() || short.matches);
+
+    const apply = async () => {
+      if (cancelled) return;
+      if (!wantsImmersive()) {
+        setImmersive(false);
+        if (askedFullscreen.current && isFullscreenActive()) {
+          askedFullscreen.current = false;
+          void exitFullscreen();
+        }
+        return;
+      }
+      setImmersive(true);
+      if (canHoverPlay() || isFullscreenActive() || !rootRef.current) return;
+      const ok = await enterFullscreen(rootRef.current);
+      if (!cancelled && ok) askedFullscreen.current = true;
+    };
+
+    void apply();
+    landscape.addEventListener("change", apply);
+    short.addEventListener("change", apply);
+    return () => {
+      cancelled = true;
+      landscape.removeEventListener("change", apply);
+      short.removeEventListener("change", apply);
+      if (askedFullscreen.current && isFullscreenActive()) {
+        askedFullscreen.current = false;
+        void exitFullscreen();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root || !canNavigate) return;
+
+    let startX = 0;
+    let startY = 0;
+    let lastX = 0;
+    let lastY = 0;
+    let active = false;
+    let horizontal = false;
+
+    const onDown = (event: PointerEvent) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      const target = event.target;
+      if (target instanceof Element && target.closest("button, a")) return;
+      startX = lastX = event.clientX;
+      startY = lastY = event.clientY;
+      active = true;
+      horizontal = false;
+      try {
+        root.setPointerCapture(event.pointerId);
+      } catch {
+        /* The pointer can already be gone on a cancelled gesture. */
+      }
+    };
+
+    const onMove = (event: PointerEvent) => {
+      if (!active) return;
+      lastX = event.clientX;
+      lastY = event.clientY;
+      const dx = lastX - startX;
+      const dy = lastY - startY;
+      if (!horizontal) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        horizontal = Math.abs(dx) > Math.abs(dy);
+      }
+      if (!horizontal) return;
+      setDragX(dx);
+    };
+
+    const finish = (event: PointerEvent) => {
+      if (!active) return;
+      active = false;
+      const dx = lastX - startX;
+      const dy = lastY - startY;
+      setDragX(0);
+      try {
+        if (root.hasPointerCapture(event.pointerId)) {
+          root.releasePointerCapture(event.pointerId);
+        }
+      } catch {
+        /* Capture was never taken. */
+      }
+      if (!horizontal || Math.abs(dx) < SWIPE_THRESHOLD_PX) return;
+      if (Math.abs(dx) < Math.abs(dy)) return;
+      ignoreClick.current = true;
+      if (dx > 0) goPrev();
+      else goNext();
+    };
+
+    const onCancel = () => {
+      if (!horizontal) return;
+      active = false;
+      setDragX(0);
+    };
+
+    root.addEventListener("pointerdown", onDown);
+    root.addEventListener("pointermove", onMove);
+    root.addEventListener("pointerup", finish);
+    root.addEventListener("pointercancel", onCancel);
+    return () => {
+      root.removeEventListener("pointerdown", onDown);
+      root.removeEventListener("pointermove", onMove);
+      root.removeEventListener("pointerup", finish);
+      root.removeEventListener("pointercancel", onCancel);
+    };
+  }, [canNavigate, goPrev, goNext]);
 
   useEffect(() => {
     const previous = document.body.style.overflow;
@@ -112,39 +241,26 @@ export default function PhotoLightbox({
     };
   }, [onClose, canNavigate, goPrev, goNext]);
 
-  const onTouchStart = (event: TouchEvent) => {
-    if (!canNavigate) return;
-    const touch = event.changedTouches[0];
-    if (!touch) return;
-    touchStart.current = { x: touch.clientX, y: touch.clientY };
-  };
-
-  const onTouchEnd = (event: TouchEvent) => {
-    if (!canNavigate || !touchStart.current) return;
-    const touch = event.changedTouches[0];
-    if (!touch) {
-      touchStart.current = null;
-      return;
-    }
-    const dx = touch.clientX - touchStart.current.x;
-    const dy = touch.clientY - touchStart.current.y;
-    touchStart.current = null;
-    if (Math.abs(dx) < SWIPE_THRESHOLD_PX) return;
-    if (Math.abs(dx) < Math.abs(dy)) return;
-    if (dx > 0) goPrev();
-    else goNext();
-  };
-
   return createPortal(
     <div
+      ref={rootRef}
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
-      className="photo-lightbox fixed inset-0 z-[100] flex items-center justify-center bg-bg/92 p-4 backdrop-blur-md sm:p-8"
-      onClick={onClose}
+      className={
+        immersive
+          ? "photo-lightbox fixed inset-0 z-[100] flex bg-bg"
+          : "photo-lightbox fixed inset-0 z-[100] flex items-center justify-center bg-bg/92 p-4 backdrop-blur-md sm:p-8"
+      }
+      onClick={(event) => {
+        if (ignoreClick.current) {
+          ignoreClick.current = false;
+          event.preventDefault();
+          return;
+        }
+        onClose();
+      }}
       onContextMenu={(event) => event.preventDefault()}
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
     >
       <button
         ref={closeRef}
@@ -193,11 +309,26 @@ export default function PhotoLightbox({
       )}
 
       <figure
-        className="photo-lightbox-frame relative flex max-h-full max-w-full flex-col border border-grid-dim bg-bg"
+        className={
+          immersive
+            ? "photo-lightbox-frame relative flex h-full w-full flex-col bg-bg"
+            : "photo-lightbox-frame relative flex max-h-full max-w-full flex-col border border-grid-dim bg-bg"
+        }
         onClick={(event) => event.stopPropagation()}
         onContextMenu={(event) => event.preventDefault()}
       >
-        <div className="photo-lightbox-stage relative h-[min(85vh,900px)] w-[min(92vw,1400px)]">
+        <div
+          className={
+            immersive
+              ? "photo-lightbox-stage relative h-dvh w-dvw"
+              : "photo-lightbox-stage relative h-[min(78dvh,900px)] w-[min(92vw,1400px)] sm:h-[min(85vh,900px)]"
+          }
+          style={
+            dragX !== 0
+              ? { transform: `translate3d(${dragX}px,0,0)` }
+              : undefined
+          }
+        >
           {/*
             Background paint + opaque shield: no <img> for the browser to
             offer "Save image as…", and drag / select are disabled in CSS.
@@ -241,7 +372,11 @@ export default function PhotoLightbox({
 
         <figcaption
           id={titleId}
-          className="border-t border-grid-dim bg-bg/80 px-4 py-3 text-text-dim"
+          className={
+            immersive
+              ? "sr-only"
+              : "border-t border-grid-dim bg-bg/80 px-4 py-3 text-text-dim"
+          }
         >
           <p className="label-mono">
             {current.tag && (

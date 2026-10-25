@@ -41,6 +41,8 @@ export default function LaboratoriesIndexPage() {
                 <RecordCardHero
                   video={item.video}
                   images={item.images}
+                  href={`/laboratories/${item.slug}`}
+                  hrefLabel={`Open laboratory: ${item.title}`}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="flex flex-1 flex-col p-5">

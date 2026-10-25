@@ -33,15 +33,24 @@ type RoboPhotoProps = {
   /**
    * Sibling photos opened from the same grid. Enables next/prev in the
    * lightbox via arrow keys, swipe, and on-screen controls.
+   * Ignored when `href` is set — that photo navigates instead of enlarging.
    */
   gallery?: LightboxPhoto[];
   /** Index of this photo within `gallery`. */
   galleryIndex?: number;
+  /**
+   * When set, a click opens this page instead of the lightbox.
+   * Use for lead photos on a project or laboratory card.
+   */
+  href?: string;
+  /** Accessible name for the photo link. Defaults to "Open: {alt}". */
+  hrefLabel?: string;
 };
 
 /**
  * A real project photograph with corner ticks and a telemetry-style caption.
- * Click opens a protected full-viewport viewer (no casual download / save-as).
+ * Evidence photos open a protected full-viewport viewer. A lead photo on a
+ * project or laboratory card navigates to that page when `href` is set.
  */
 export default function RoboPhoto({
   src,
@@ -56,6 +65,8 @@ export default function RoboPhoto({
   className = "",
   gallery,
   galleryIndex,
+  href,
+  hrefLabel,
 }: RoboPhotoProps) {
   const [open, setOpen] = useState(false);
   const [measured, setMeasured] = useState<{
@@ -78,56 +89,69 @@ export default function RoboPhoto({
     },
     [known],
   );
+  const frameClass = `robo-photo-trigger group relative block w-full text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+    dims ? "" : aspect
+  }`;
+  const frame = (
+    <>
+      <Image
+        src={src}
+        alt={alt}
+        width={dims?.width ?? 3}
+        height={dims?.height ?? 2}
+        sizes={sizes}
+        preload={preload}
+        draggable={false}
+        className="robo-photo-img block h-auto w-full object-contain"
+        style={{ width: "100%", height: "auto" }}
+        onLoad={onMeasure}
+        onDragStart={(event) => event.preventDefault()}
+      />
+      {/* Blocks direct interaction with the underlying <img>. */}
+      <div aria-hidden className="robo-photo-shield" />
+      <span aria-hidden className={`${tick} top-2 left-2 border-t border-l`} />
+      <span aria-hidden className={`${tick} top-2 right-2 border-t border-r`} />
+      <span
+        aria-hidden
+        className={`${tick} bottom-2 left-2 border-b border-l`}
+      />
+      <span
+        aria-hidden
+        className={`${tick} bottom-2 right-2 border-b border-r`}
+      />
+    </>
+  );
 
   return (
     <>
       <figure
         className={`robo-photo relative flex flex-col overflow-hidden bg-bg ${className}`}
       >
-        <button
-          type="button"
-          onClick={openViewer}
-          aria-label={`Enlarge photo: ${alt}`}
-          className={`robo-photo-trigger group relative block w-full cursor-zoom-in text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
-            dims ? "" : aspect
-          }`}
-          onContextMenu={(event) => event.preventDefault()}
-        >
-          <Image
-            src={src}
-            alt={alt}
-            width={dims?.width ?? 3}
-            height={dims?.height ?? 2}
-            sizes={sizes}
-            preload={preload}
-            draggable={false}
-            className="robo-photo-img block h-auto w-full object-contain"
-            style={{ width: "100%", height: "auto" }}
-            onLoad={onMeasure}
-            onDragStart={(event) => event.preventDefault()}
-          />
-          {/* Blocks direct interaction with the underlying <img>. */}
-          <div aria-hidden className="robo-photo-shield" />
-          <span
-            aria-hidden
-            className={`${tick} top-2 left-2 border-t border-l`}
-          />
-          <span
-            aria-hidden
-            className={`${tick} top-2 right-2 border-t border-r`}
-          />
-          <span
-            aria-hidden
-            className={`${tick} bottom-2 left-2 border-b border-l`}
-          />
-          <span
-            aria-hidden
-            className={`${tick} bottom-2 right-2 border-b border-r`}
-          />
-          <span className="label-mono pointer-events-none absolute right-3 bottom-3 z-10 bg-bg/70 px-2 py-1 text-cyan opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
-            EXPAND
-          </span>
-        </button>
+        {href ? (
+          <a
+            href={href}
+            aria-label={hrefLabel ?? `Open: ${alt}`}
+            className={`${frameClass} cursor-pointer`}
+          >
+            {frame}
+            <span className="label-mono pointer-events-none absolute right-3 bottom-3 z-10 bg-bg/70 px-2 py-1 text-cyan opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+              OPEN
+            </span>
+          </a>
+        ) : (
+          <button
+            type="button"
+            onClick={openViewer}
+            aria-label={`Enlarge photo: ${alt}`}
+            className={`${frameClass} cursor-zoom-in`}
+            onContextMenu={(event) => event.preventDefault()}
+          >
+            {frame}
+            <span className="label-mono pointer-events-none absolute right-3 bottom-3 z-10 bg-bg/70 px-2 py-1 text-cyan opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+              EXPAND
+            </span>
+          </button>
+        )}
 
         {hasCaption && (
           <figcaption className="border-t border-grid-dim bg-bg/60 px-3 py-2">

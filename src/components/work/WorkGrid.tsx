@@ -60,7 +60,12 @@ export default function WorkGrid({ items }: WorkGridProps) {
                   : "border border-grid-dim hover:border-cyan/40"
               }`}
             >
-              <RecordCardHero video={item.video} images={item.images} />
+              <RecordCardHero
+                video={item.video}
+                images={item.images}
+                href={`/projects/${item.slug}`}
+                hrefLabel={`Open project: ${item.title}`}
+              />
               <div className="flex flex-1 flex-col p-5">
                 <p className="label-mono text-text-dim">
                   {featured ? (

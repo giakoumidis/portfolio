@@ -122,12 +122,22 @@ export default function ProjectCards({
                             alt={image.alt}
                             tag={`FIG.0${n + 1}`}
                             caption={image.caption}
+                            href={recordHref}
+                            hrefLabel={
+                              recordHref
+                                ? `Open ${
+                                    recordBasePath === "/laboratories"
+                                      ? "laboratory"
+                                      : "project"
+                                  }: ${project.title}`
+                                : undefined
+                            }
                             sizes="(min-width: 1024px) 50vw, 100vw"
                             className={
                               n > 0 ? "border-t border-grid-dim" : ""
                             }
-                            gallery={photoGallery}
-                            galleryIndex={n}
+                            gallery={recordHref ? undefined : photoGallery}
+                            galleryIndex={recordHref ? undefined : n}
                           />
                         ))}
                       </div>

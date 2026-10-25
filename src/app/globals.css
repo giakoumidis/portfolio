@@ -348,6 +348,9 @@
 .photo-lightbox {
   user-select: none;
   -webkit-user-select: none;
+  overscroll-behavior: none;
+  /* Keep horizontal drags for photo swipes instead of browser back/scroll. */
+  touch-action: none;
 }
 
 .photo-lightbox-image {

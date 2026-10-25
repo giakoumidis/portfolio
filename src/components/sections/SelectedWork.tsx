@@ -57,6 +57,8 @@ export default function SelectedWork() {
                       src={image.src}
                       alt={image.alt}
                       caption={image.caption}
+                      href={`/projects/${project.slug}`}
+                      hrefLabel={`Open project: ${project.title}`}
                       aspect="aspect-[16/10]"
                       sizes="(max-width: 1024px) 100vw, 45vw"
                       className="border-0 border-b border-grid-dim"

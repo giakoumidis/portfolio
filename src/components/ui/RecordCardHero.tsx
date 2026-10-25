@@ -8,6 +8,9 @@ type RecordCardHeroProps = {
   images?: ProjectImage[];
   /** Responsive sizes hint for photo heroes. */
   sizes?: string;
+  /** Lead photo opens this project or laboratory page instead of enlarging. */
+  href?: string;
+  hrefLabel?: string;
 };
 
 /**
@@ -18,6 +21,8 @@ export default function RecordCardHero({
   video,
   images,
   sizes = "(max-width: 640px) 100vw, 50vw",
+  href,
+  hrefLabel,
 }: RecordCardHeroProps) {
   const image = images?.[0];
 
@@ -49,6 +54,8 @@ export default function RecordCardHero({
         src={image.src}
         alt={image.alt}
         caption={image.caption}
+        href={href}
+        hrefLabel={hrefLabel}
         aspect="aspect-[16/10]"
         sizes={sizes}
         className="border-0 border-b border-grid-dim"
@@ -63,6 +70,8 @@ export default function RecordCardHero({
         alt={video.title}
         caption="INSTAGRAM REEL"
         link={{ href: video.url, label: "Watch on Instagram ↗" }}
+        href={href}
+        hrefLabel={hrefLabel}
         aspect="aspect-[16/10]"
         sizes={sizes}
         className="border-0 border-b border-grid-dim"

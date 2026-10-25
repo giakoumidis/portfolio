@@ -17,6 +17,12 @@ export default function CredibilityLayer() {
   const labs = getAllInfrastructure();
   const lab = labs.find((item) => item.slug === FEATURED_LAB_SLUG);
   const teasers = getArchiveTeasers([...archiveTeaserSrcs]);
+  const teaserGallery = teasers.map((photo, photoIndex) => ({
+    src: photo.src,
+    alt: photo.alt,
+    caption: photo.caption,
+    tag: `LOG.${String(photoIndex + 1).padStart(2, "0")}`,
+  }));
   const archiveCount = getArchiveRecords().length;
   const image = lab?.images?.[0];
   const industryCount = getOutreachByAudience("industry").length;
@@ -44,6 +50,8 @@ export default function CredibilityLayer() {
                     src={image.src}
                     alt={image.alt}
                     caption={image.caption}
+                    href={`/laboratories/${lab.slug}`}
+                    hrefLabel={`Open laboratory: ${lab.title}`}
                     aspect="aspect-[16/10]"
                     sizes="(max-width: 1024px) 100vw, 72rem"
                     className="border-0 border-b border-grid-dim"
@@ -185,6 +193,8 @@ export default function CredibilityLayer() {
                   }
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 30vw, 15vw"
                   className="border border-grid-dim"
+                  gallery={teaserGallery}
+                  galleryIndex={index}
                 />
               </Reveal>
             ))}
