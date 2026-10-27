@@ -4,33 +4,41 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>KINESIS Main Lab · 3D model v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --font: Inter, "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-  --violet:#57068c; --violet2:#7c3aed; --accent:#6d28d9; --accent-soft:rgba(109,40,217,.12);
-  --ink:#151a24; --ink2:#4a5263; --ink3:#7b8394; --line:rgba(20,26,40,.09);
-  --glass:rgba(255,255,255,.74); --glass-strong:rgba(255,255,255,.9); --shadow:0 10px 30px rgba(17,22,35,.12),0 1px 2px rgba(17,22,35,.08);
-  --chip:rgba(20,26,40,.05);
+  /* Match the portfolio: Chakra Petch display, JetBrains Mono labels, Inter body, cyan HUD. */
+  --font-display:"Chakra Petch", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:"JetBrains Mono", ui-monospace, monospace;
+  --font-body:Inter, ui-sans-serif, system-ui, sans-serif;
+  --font:var(--font-body);
+  --accent:#00f0ff; --accent-soft:rgba(0,240,255,.12);
+  --ink:#e8ecf8; --ink2:#8a93b5; --ink3:#6e7694; --line:#2e2860; --line-dim:#1c1640;
+  --glass:rgba(12,8,32,.78); --glass-strong:rgba(5,4,15,.92);
+  --shadow:0 0 0 1px rgba(0,240,255,.08), 0 16px 40px rgba(0,0,0,.45);
+  --chip:rgba(0,240,255,.06);
+  --on-accent:#05040f;
 }
 body.night{
-  --accent:#b18cff; --accent-soft:rgba(177,140,255,.16);
-  --ink:#eef0f7; --ink2:#b9bfd0; --ink3:#868da1; --line:rgba(255,255,255,.08);
-  --glass:rgba(16,18,30,.62); --glass-strong:rgba(18,20,34,.86); --shadow:0 12px 34px rgba(0,0,0,.45),0 1px 2px rgba(0,0,0,.3);
-  --chip:rgba(255,255,255,.06);
+  --accent:#00f0ff; --accent-soft:rgba(0,240,255,.14);
+  --ink:#e8ecf8; --ink2:#8a93b5; --ink3:#6e7694; --line:#2e2860;
+  --glass:rgba(12,8,32,.78); --glass-strong:rgba(5,4,15,.92);
+  --shadow:0 0 0 1px rgba(0,240,255,.1), 0 16px 40px rgba(0,0,0,.5);
+  --chip:rgba(0,240,255,.07);
 }
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;overflow:hidden;font-family:var(--font);color:var(--ink);background:#e9ebef;-webkit-font-smoothing:antialiased}
-body.night{background:#070810}
+html,body{margin:0;height:100%;overflow:hidden;font-family:var(--font-body);color:var(--ink);background:#05040f;-webkit-font-smoothing:antialiased}
+body.night{background:#05040f}
 #view{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none;outline:none;cursor:grab}
 #view.drag{cursor:grabbing}
 #view.hot{cursor:pointer}
-.glass{background:var(--glass);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:14px}
+.glass{background:var(--glass);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border:1px solid var(--line-dim);box-shadow:var(--shadow);border-radius:0}
 button{font:inherit;color:inherit}
 /* brand */
-#brand{position:fixed;left:16px;top:14px;display:flex;align-items:center;gap:12px;padding:9px 14px 9px 10px;z-index:5}
-#brand svg{width:34px;height:34px;flex:0 0 auto}
+#brand{position:fixed;left:16px;top:14px;display:flex;align-items:center;padding:10px 14px;z-index:5}
 #brand .t1{font-weight:800;letter-spacing:.24em;font-size:14px;line-height:1}
-#brand .t2{font-size:11.5px;color:var(--ink2);margin-top:4px;letter-spacing:.01em}
 /* top-right tools */
 #tools{position:fixed;right:16px;top:14px;display:flex;gap:8px;z-index:6}
 .seg{display:flex;padding:4px;gap:2px}
@@ -57,8 +65,8 @@ button{font:inherit;color:inherit}
 #views::-webkit-scrollbar{display:none}
 #views button{border:0;background:transparent;padding:8px 12px;border-radius:10px;font-size:12.5px;font-weight:600;color:var(--ink2);cursor:pointer;white-space:nowrap}
 #views button:hover{color:var(--ink);background:var(--chip)}
-#views button[aria-pressed="true"]{background:var(--accent);color:#fff}
-body.night #views button[aria-pressed="true"]{color:#120a24}
+#views button[aria-pressed="true"]{background:transparent;color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
+body.night #views button[aria-pressed="true"]{color:var(--accent)}
 /* inspector */
 #inspector{position:fixed;right:16px;top:66px;width:330px;padding:16px 16px 14px;z-index:7;display:none;max-height:calc(100% - 160px);overflow:auto}
 #inspector.open{display:block;animation:pop .22s ease-out}
@@ -88,8 +96,8 @@ body.night #views button[aria-pressed="true"]{color:#120a24}
 #labels{position:fixed;inset:0;pointer-events:none;z-index:4;overflow:hidden}
 .lbl{position:absolute;left:0;top:0;transform:translate(-50%,-100%);pointer-events:auto;cursor:pointer;display:flex;align-items:center;gap:6px;padding:4px 8px 4px 6px;font-size:11.5px;font-weight:650;border-radius:999px;white-space:nowrap;transition:opacity .2s;opacity:0}
 .lbl.on{opacity:1}
-.lbl i{font-style:normal;font-size:10px;font-weight:800;letter-spacing:.04em;color:#fff;background:var(--accent);padding:2px 6px;border-radius:999px}
-body.night .lbl i{color:#120a24}
+.lbl i{font-style:normal;font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--on-accent);background:var(--accent);padding:2px 6px;border-radius:0}
+body.night .lbl i{color:var(--on-accent)}
 .lbl::after{content:"";position:absolute;left:50%;bottom:-7px;width:1px;height:7px;background:var(--ink3);opacity:.6}
 /* measure + plan export */
 #measure{position:fixed;left:16px;bottom:78px;width:300px;padding:12px 14px;z-index:7;display:none}
@@ -99,7 +107,7 @@ body.night .lbl i{color:#120a24}
 #measure .mv small{font-size:11.5px;color:var(--ink2);font-variant-numeric:tabular-nums}#measure .mv span{color:var(--ink3);font-size:13px}
 #measure .mh{font-size:11.5px;color:var(--ink3)}
 .mb,.pb{display:flex;gap:6px;margin-top:10px}.mb button,.pb button{flex:1;border:0;background:var(--chip);border-radius:8px;padding:7px 8px;font-size:12px;font-weight:650;cursor:pointer;color:var(--ink)}
-.mb button.pri,.pb button.pri{background:var(--accent);color:#fff}body.night .mb button.pri,body.night .pb button.pri{color:#120a24}
+.mb button.pri,.pb button.pri{background:var(--accent);color:var(--on-accent)}body.night .mb button.pri,body.night .pb button.pri{color:var(--on-accent)}
 .mn{font-size:10.5px;color:var(--ink3);margin-top:8px;line-height:1.4}
 #plan{position:fixed;right:16px;top:66px;width:360px;padding:14px;z-index:8;display:none}
 #plan.open{display:block;animation:pop .2s ease-out}
@@ -107,14 +115,14 @@ body.night .lbl i{color:#120a24}
 #plan .pv{margin:10px 0;background:#fff;border-radius:9px;border:1px solid var(--line);overflow:hidden}#plan .pv img{display:block;width:100%}
 #plan .po{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;font-size:12px;color:var(--ink2)}#plan .po label{display:flex;gap:6px;align-items:center;cursor:pointer}
 #plan input{accent-color:var(--accent)}
-.icon-btn[aria-pressed="true"]{color:#fff;background:var(--accent)}body.night .icon-btn[aria-pressed="true"]{color:#120a24}
+.icon-btn[aria-pressed="true"]{color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px rgba(0,240,255,.55)}body.night .icon-btn[aria-pressed="true"]{color:var(--accent)}
 #view.measuring{cursor:crosshair}
 .dlbl{position:absolute;left:0;top:0;pointer-events:none;padding:2px 6px;border-radius:6px;font-size:11px;font-weight:700;white-space:nowrap;background:rgba(255,255,255,.88);color:#1f2329;border:1px solid rgba(20,26,40,.12);font-variant-numeric:tabular-nums;opacity:0;transition:opacity .2s}
 .dlbl small{display:block;font-size:9.5px;font-weight:600;color:#6b7280}
 .dlbl.on{opacity:1}.dlbl.ov{font-size:12px;padding:3px 8px}
 body.night .dlbl{background:rgba(18,20,34,.82);color:#ede9fe;border-color:rgba(255,255,255,.12)}body.night .dlbl small{color:#a59fc0}
-.mlbl{position:absolute;left:0;top:0;pointer-events:none;padding:4px 9px;border-radius:8px;font-size:12.5px;font-weight:750;white-space:nowrap;background:var(--accent);color:#fff;font-variant-numeric:tabular-nums;box-shadow:0 4px 14px rgba(0,0,0,.18)}
-body.night .mlbl{color:#120a24}
+.mlbl{position:absolute;left:0;top:0;pointer-events:none;padding:4px 9px;border-radius:0;font-size:12px;font-weight:700;white-space:nowrap;background:var(--accent);color:var(--on-accent);font-variant-numeric:tabular-nums;box-shadow:0 0 14px rgba(0,240,255,.35)}
+body.night .mlbl{color:var(--on-accent)}
 /* legend + hint + footer */
 #legend{position:fixed;left:16px;bottom:78px;padding:12px 14px;z-index:5;display:none;font-size:12px;min-width:250px}
 #legend.open{display:block}
@@ -131,8 +139,8 @@ body.night .mlbl{color:#120a24}
 #scalebar{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:4;font-size:10.5px;color:var(--ink2);display:none;flex-direction:column;align-items:center;gap:3px;font-weight:650}
 #scalebar .bar{height:6px;border:1.5px solid var(--ink2);border-top:0}
 /* loading */
-#loading{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:radial-gradient(1200px 700px at 50% 40%,#f7f8fa,#e3e6eb);transition:opacity .6s}
-body.night #loading{background:radial-gradient(1200px 700px at 50% 40%,#151a2e,#05060b)}
+#loading{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:radial-gradient(900px 520px at 50% 42%,#120c28,#05040f 72%);transition:opacity .6s}
+body.night #loading{background:radial-gradient(900px 520px at 50% 42%,#120c28,#05040f 72%)}
 #loading.done{opacity:0;pointer-events:none}
 #loading .box{text-align:center}
 #loading .t{font-weight:800;letter-spacing:.32em;font-size:15px;margin-top:14px}
@@ -142,7 +150,7 @@ body.night #loading{background:radial-gradient(1200px 700px at 50% 40%,#151a2e,#
 @keyframes ld{0%{transform:translateX(-100%)}100%{transform:translateX(330%)}}
 #err{position:fixed;inset:auto 16px 16px 16px;z-index:30;display:none;padding:12px 14px;font-size:12.5px;color:#7f1d1d;background:#fee2e2;border-radius:10px}
 @media (max-width:760px){
-  #brand .t2{display:none}#brand{padding:7px 10px}#brand svg{width:28px;height:28px}
+  #brand{padding:8px 12px}
   #tools .seg button span{display:none}
   #hint,#foot{display:none}
   #inspector{left:10px;right:10px;width:auto;top:auto;bottom:74px;max-height:46%}
@@ -150,6 +158,64 @@ body.night #loading{background:radial-gradient(1200px 700px at 50% 40%,#151a2e,#
   #legend{bottom:74px}
 }
 body.capture #brand,body.capture #tools,body.capture #views,body.capture #hint,body.capture #foot,body.capture #labels{display:none!important}
+
+/* Portfolio HUD chrome — sharp panels, mono labels, display titles. */
+.glass{
+  background-color:var(--glass);
+  background-image:
+    linear-gradient(var(--accent),var(--accent)),linear-gradient(var(--accent),var(--accent)),
+    linear-gradient(var(--accent),var(--accent)),linear-gradient(var(--accent),var(--accent)),
+    linear-gradient(var(--accent),var(--accent)),linear-gradient(var(--accent),var(--accent)),
+    linear-gradient(var(--accent),var(--accent)),linear-gradient(var(--accent),var(--accent));
+  background-repeat:no-repeat;
+  background-size:9px 1.5px,1.5px 9px,9px 1.5px,1.5px 9px,9px 1.5px,1.5px 9px,9px 1.5px,1.5px 9px;
+  background-position:left 0 top 0,left 0 top 0,right 0 top 0,right 0 top 0,left 0 bottom 0,left 0 bottom 0,right 0 bottom 0,right 0 bottom 0;
+}
+button,.seg button,#views button,.lyr,.cat,#layers h4,#legend h4,.dims b,#hint,#hint kbd,#foot,#scalebar,.lbl,.dlbl,.mlbl,.links a,.links button,.links .muted,#tip,#loading .s,#err{
+  font-family:var(--font-mono);
+  font-weight:400;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.mlbl,.lbl i,.mb button.pri,.pb button.pri,.cat,.dims b{font-weight:700}
+#brand .t1,#inspector h2,#loading .t,#measure .mv b,#plan .pt{
+  font-family:var(--font-display);
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+#brand .t1{font-size:15px;color:var(--accent);text-shadow:0 0 10px rgba(0,240,255,.45)}
+#inspector h2{letter-spacing:.06em;font-size:18px}
+.note,.kv,.status,#inspector .sub,.mn,#measure .mh,#legend div{
+  font-family:var(--font-body);
+  letter-spacing:0;
+  text-transform:none;
+}
+.seg button,#views button,.icon-btn,.lyr,.mb button,.pb button,.links a,.links button,.cat,.dims div,.dlbl,.lbl,#tip,#err,#plan .pv{border-radius:0}
+.seg button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1px rgba(0,240,255,.5)}
+.seg button:hover,#views button:hover,.icon-btn:hover{color:var(--accent)}
+.lyr .sw{border-radius:0;background:var(--line-dim);border:1px solid var(--line)}
+.lyr .sw::after{border-radius:0;background:var(--ink3);box-shadow:none}
+.lyr[aria-checked="true"] .sw{background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.lyr[aria-checked="true"] .sw::after{background:var(--accent);box-shadow:0 0 8px rgba(0,240,255,.75)}
+.cat{border:1px solid rgba(0,240,255,.35);border-radius:0}
+.dims div{border:1px solid var(--line-dim)}
+.links a,.links button{border:1px solid rgba(0,240,255,.35)}
+.links a:hover,.links button:hover{background:rgba(0,240,255,.18);color:var(--accent)}
+#hint kbd{border:1px solid var(--line);border-radius:0;color:var(--accent)}
+.lbl::after{background:var(--accent)}
+.dlbl,body.night .dlbl{background:rgba(12,8,32,.9);color:var(--ink);border:1px solid var(--line);border-radius:0}
+.dlbl small,body.night .dlbl small{color:var(--ink3)}
+#scalebar .bar{border-color:var(--accent)}
+#loading .t{color:var(--accent);text-shadow:0 0 12px rgba(0,240,255,.4)}
+#loading .bar{border-radius:0}
+#err{color:#ffb4c0;background:rgba(255,23,68,.12);border:1px solid rgba(255,23,68,.5);border-radius:0}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#layers,#inspector,#plan{scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+#layers::-webkit-scrollbar,#inspector::-webkit-scrollbar,#plan::-webkit-scrollbar{width:8px;height:8px}
+#layers::-webkit-scrollbar-thumb,#inspector::-webkit-scrollbar-thumb,#plan::-webkit-scrollbar-thumb{background:var(--line)}
+.lbl{text-transform:none;letter-spacing:.02em}
+.lbl i{text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -157,12 +223,7 @@ body.capture #brand,body.capture #tools,body.capture #views,body.capture #hint,b
 <canvas id="view" tabindex="0" aria-label="Interactive 3D model of the KINESIS main lab"></canvas>
 <div id="labels"></div>
 <div id="brand" class="glass">
-  <svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#57068c"/></linearGradient></defs>
-    <rect x="1" y="1" width="38" height="38" rx="10" fill="url(#lg)"/>
-    <path d="M13 10v20" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M28 10 17.5 20 28 30" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M31 16.5h3.5M32 20h4M31 23.5h3.5" stroke="#c9b3ff" stroke-width="1.6" stroke-linecap="round"/></svg>
-  <div><div class="t1">KINESIS</div><div class="t2">Main lab · B2-C3-029.E · NYU Abu Dhabi</div></div>
+  <div class="t1">KINESIS</div>
 </div>
 <div id="tools">
   <div class="seg glass" role="group" aria-label="Lighting">
@@ -199,7 +260,7 @@ body.capture #brand,body.capture #tools,body.capture #views,body.capture #hint,b
 <div id="foot">Hovermap raw-metric frame · 231.4 m² floor · planning geometry, not a construction survey<br>Model v2 · built from the 2026-09-29 metric model</div>
 <div id="tip" class="glass"></div>
 <div id="loading"><div class="box">
-  <svg viewBox="0 0 40 40" width="54" height="54" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="10" fill="#57068c"/><path d="M13 10v20" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M28 10 17.5 20 28 30" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <svg viewBox="0 0 40 40" width="54" height="54" aria-hidden="true"><rect x="1.5" y="1.5" width="37" height="37" fill="#0c0820" stroke="#00f0ff" stroke-width="1.5"/><path d="M13 10v20" stroke="#00f0ff" stroke-width="3.2"/><path d="M28 10 17.5 20 28 30" fill="none" stroke="#00f0ff" stroke-width="3.2" stroke-linejoin="miter"/></svg>
   <div class="t">KINESIS</div><div class="s" id="ld-msg">Assembling the lab…</div><div class="bar"><span></span></div></div></div>
 <div id="err"></div>
 <script>console.warn('Scripts "build/three.js" and "build/three.min.js" are deprecated with r150+, and will be removed with r160. Please use ES Modules or alternatives: https://threejs.org/docs/index.html#manual/en/introduction/Installation'),
@@ -425,7 +486,7 @@ K.buildTextures = () => {
 /** floor-painted label texture */
 K.textTexture = (text, { size = 160, weight = 700, spacing = 0.28, color = '#000', sub = null } = {}) => {
   const c0 = K.canvas(8, 8).getContext('2d');
-  c0.font = `${weight} ${size}px "Segoe UI", "Helvetica Neue", Arial, sans-serif`;
+  c0.font = `${weight} ${size}px "JetBrains Mono", ui-monospace, monospace`;
   const chars = [...text], em = size * spacing;
   const wTxt = chars.reduce((s, ch) => s + c0.measureText(ch).width, 0) + em * (chars.length - 1);
   const W = Math.ceil(wTxt + size * 0.6), H = Math.ceil(size * (sub ? 1.75 : 1.3));
@@ -433,7 +494,7 @@ K.textTexture = (text, { size = 160, weight = 700, spacing = 0.28, color = '#000
   ctx.font = c0.font; ctx.fillStyle = color; ctx.textBaseline = 'middle';
   let x = size * 0.3;
   for (const ch of chars) { ctx.fillText(ch, x, size * 0.65); x += ctx.measureText(ch).width + em; }
-  if (sub) { ctx.font = `600 ${Math.round(size * 0.26)}px "Segoe UI", Arial, sans-serif`; ctx.textAlign = 'center'; ctx.fillText(sub, W / 2, size * 1.42); }
+  if (sub) { ctx.font = `700 ${Math.round(size * 0.26)}px "JetBrains Mono", ui-monospace, monospace`; ctx.textAlign = 'center'; ctx.fillText(sub, W / 2, size * 1.42); }
   const t = K.makeTex(c, null, { repeat: false }); t.userData.aspect = W / H; return t;
 };
 
@@ -1501,10 +1562,10 @@ K.Measure = class {
   constructor(scene, hud) {
     this.on = false; this.a = null; this.items = []; this.scene = scene; this.hud = hud;
     this.group = new T.Group(); this.group.renderOrder = 20; scene.add(this.group);
-    this.mat = new T.LineBasicMaterial({ color: 0x7c3aed, depthTest: false, transparent: true });
-    this.dot = new T.MeshBasicMaterial({ color: 0x7c3aed, depthTest: false, transparent: true });
+    this.mat = new T.LineBasicMaterial({ color: 0x00f0ff, depthTest: false, transparent: true });
+    this.dot = new T.MeshBasicMaterial({ color: 0x00f0ff, depthTest: false, transparent: true });
     this.dotG = new T.SphereGeometry(0.035, 16, 10);
-    this.live = new T.Line(new T.BufferGeometry().setFromPoints([new T.Vector3(), new T.Vector3()]), new T.LineDashedMaterial({ color: 0x7c3aed, depthTest: false, transparent: true, dashSize: 0.08, gapSize: 0.05 }));
+    this.live = new T.Line(new T.BufferGeometry().setFromPoints([new T.Vector3(), new T.Vector3()]), new T.LineDashedMaterial({ color: 0x00f0ff, depthTest: false, transparent: true, dashSize: 0.08, gapSize: 0.05 }));
     this.live.visible = false; this.live.renderOrder = 21; this.live.layers.set(1); this.group.add(this.live);
     this.cursor = new T.Mesh(this.dotG, this.dot); this.cursor.visible = false; this.cursor.layers.set(1); this.cursor.renderOrder = 22; this.group.add(this.cursor);
     this.liveLabel = null;
@@ -1634,7 +1695,7 @@ K.planSVG = (S, o = {}) => {
     .bench{fill:#fff;stroke:#30353d;stroke-width:.3}.storage{fill:#eceef1;stroke:#30353d;stroke-width:.3}.equip{fill:#f1ecff;stroke:#5b3bb5;stroke-width:.3}
     .service{fill:#fff7e0;stroke:#8a6a10;stroke-width:.3}.keepclear{fill:url(#hatch);stroke:#d4a017;stroke-width:.3}.open{stroke:#1f2329;stroke-width:.4;stroke-dasharray:3 1.4 .6 1.4}
     .fe{fill:#d61f26;stroke:#7f1015;stroke-width:.2}.fb{fill:#fff;stroke:#d61f26;stroke-width:.45}
-    text{font-family:Inter,'Segoe UI',Arial,sans-serif;fill:#1f2329}.zone{font-weight:800;letter-spacing:.35em;fill:#5d6573}.zsub{fill:#7b8394;font-weight:600}
+    text{font-family:"JetBrains Mono",ui-monospace,monospace;fill:#1f2329}.zone{font-weight:800;letter-spacing:.35em;fill:#5d6573}.zsub{fill:#7b8394;font-weight:600}
     .id{font-weight:700}.colid{font-weight:800;fill:#fff}.small{font-weight:700;letter-spacing:.12em;fill:#4b5563}.kcid{font-weight:700;fill:#8a6a10}.safetyid{font-weight:700;fill:#b91c1c}
     .dim{stroke:#1f2329;stroke-width:.22;fill:none}.dimt{font-weight:650;font-size:2.6px;fill:#1f2329}`;
   const out = [];
@@ -2027,9 +2088,9 @@ K.THEMES = {
   studio: { night: false, bg: ['#eceef2', '#c9ced6'], envI: 0.62, exposure: 0.92, hemi: [0xf3f6fb, 0x7d838d, 0.42], key: [0xfff0dc, 3.4], fill: [0xd6e2ff, 0.32], up: 0,
     led: 1.6, strobe: 1.2, screen: 0.8, post: { ao: 1.0, aoRadius: 0.6, bloom: 0.14, bloomTh: 1.7, vignette: 0.16, saturation: 1.04, lift: [0, 0, 0] },
     text: 0x1d2330, textK: 1.0, shadow: 0.13, blob: 0.32 },
-  night: { night: true, bg: ['#182040', '#05060c'], envI: 0.3, exposure: 1.05, hemi: [0x3a4272, 0x07080d, 0.3], key: [0xa9b8ff, 0.55], fill: [0x7c5cff, 0.2], up: 0.5,
+  night: { night: true, bg: ['#120c28', '#05040f'], envI: 0.3, exposure: 1.05, hemi: [0x3a4272, 0x07080d, 0.3], key: [0xa9b8ff, 0.55], fill: [0x7c5cff, 0.2], up: 0.5,
     led: 7.0, strobe: 7.0, screen: 1.5, post: { ao: 0.92, aoRadius: 0.5, bloom: 1.05, bloomTh: 0.85, vignette: 0.34, saturation: 1.1, lift: [0.003, 0.003, 0.011] },
-    text: 0xb08cff, textK: 1.35, shadow: 0.38, blob: 0.6 },
+    text: 0x00f0ff, textK: 1.35, shadow: 0.38, blob: 0.6 },
 };
 K.LAYERS = [
   { key: 'columns', name: 'Columns', groups: ['columns'], on: true },
@@ -2125,8 +2186,8 @@ K.start = () => {
     (K.floorTexts || []).forEach((t) => { t.material.color.set(th.text); t.material.opacity = (t.material.userData.baseOpacity ?? 0.4) * th.textK; });
     ground.material.opacity = th.shadow; K.mat.blob.opacity = th.blob;
     K.mat.net.color.set(th.night ? 0x050507 : 0x141518);
-    if (K.dimMat) K.dimMat.color.set(th.night ? 0xc4b5fd : 0x2f3542);
-    if (K.measureTool) K.measureTool.setColor(th.night ? 0xb18cff : 0x7c3aed);
+    if (K.dimMat) K.dimMat.color.set(th.night ? 0x00f0ff : 0x2f3542);
+    if (K.measureTool) K.measureTool.setColor(0x00f0ff);
     renderer.shadowMap.needsUpdate = true;
     document.getElementById('th-studio').setAttribute('aria-pressed', String(name === 'studio'));
     document.getElementById('th-night').setAttribute('aria-pressed', String(name === 'night'));
@@ -2208,7 +2269,7 @@ K.start = () => {
   K.pickAt = pickAt;
 
   /* ---------------- highlight overlays */
-  const hiMat = new T.MeshBasicMaterial({ color: 0x7c3aed, transparent: true, opacity: 0.22, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -2 });
+  const hiMat = new T.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.22, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -2 });
   const selMat = hiMat.clone(); selMat.opacity = 0.3;
   const overlays = { hover: [], sel: [] };
   const clearOverlay = (k) => { overlays[k].forEach((o) => o.parent && o.parent.remove(o)); overlays[k] = []; };
@@ -2235,9 +2296,9 @@ K.start = () => {
       o.matrixAutoUpdate = false; o.matrix.copy(m.matrix); o.layers.set(1); o.renderOrder = 5; o.raycast = () => {};
       m.parent.add(o); overlays[k].push(o);
     }
-    if (k === 'sel' && rec.box && !['FLOOR', 'NET', 'WALL'].includes(id)) { const b = brackets(rec.box, state.theme === 'night' ? 0xc4a5ff : 0x6d28d9); scene.add(b); overlays[k].push(b); }
+    if (k === 'sel' && rec.box && !['FLOOR', 'NET', 'WALL'].includes(id)) { const b = brackets(rec.box, 0x00f0ff); scene.add(b); overlays[k].push(b); }
   };
-  const accent = () => (state.theme === 'night' ? 0xb18cff : 0x7c3aed);
+  const accent = () => 0x00f0ff;
 
   /* ---------------- inspector */
   const insp = document.getElementById('inspector');
@@ -2586,7 +2647,15 @@ K.boot = () => {
   if (K._booted) return; K._booted = true;
   try {
     const ld = document.getElementById('ld-msg'); if (ld) ld.textContent = 'Assembling the lab…';
-    setTimeout(() => { try { K.start(); } catch (e) { K.fail(e); } }, 30);
+    const fonts = document.fonts
+      ? Promise.all([
+          document.fonts.load('700 16px "Chakra Petch"'),
+          document.fonts.load('400 13px "JetBrains Mono"'),
+          document.fonts.load('700 160px "JetBrains Mono"'),
+        ]).catch(() => {})
+      : Promise.resolve();
+    Promise.race([fonts, new Promise((resolve) => setTimeout(resolve, 1500))])
+      .then(() => setTimeout(() => { try { K.start(); } catch (e) { K.fail(e); } }, 30));
   } catch (e) { K.fail(e); }
 };
 window.addEventListener('error', (e) => { if (!K.ready) K.fail(e.error || e.message); });

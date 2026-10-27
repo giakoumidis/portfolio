@@ -3,6 +3,11 @@ import Reveal from "@/components/ui/Reveal";
 import RoboPhoto from "@/components/ui/RoboPhoto";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { homepageProfileBlurb } from "@/content/homepage";
+import { profile } from "@/content/profile";
+
+const yearsOnRecord = profile.stats.find((stat) =>
+  stat.label.startsWith("Years"),
+);
 
 export default function ProfileProof() {
   return (
@@ -19,28 +24,47 @@ export default function ProfileProof() {
           kicker="Engineering depth · technical leadership"
         />
 
-        <div className="max-w-3xl">
-          <Reveal>
-            <RoboPhoto
-              src="/images/about/kuka-teleop.jpg"
-              alt="Nikolaos Giakoumidis crouching beside a KUKA LBR robotic arm he is teleoperating in the NYUAD CTP labs"
-              tag="FIELD LOG"
-              caption="TELEOPERATING A KUKA LBR — NYUAD CTP LABS"
-              aspect="aspect-[3/2]"
-              sizes="(max-width: 1024px) 100vw, 36rem"
-              preload
-              className="max-w-xl border border-grid-dim"
-            />
-          </Reveal>
+        <Reveal>
+          <RoboPhoto
+            src="/images/about/kuka-teleop.jpg"
+            alt="Nikolaos Giakoumidis crouching beside a KUKA LBR robotic arm he is teleoperating in the NYUAD CTP labs"
+            tag="FIELD LOG"
+            caption="TELEOPERATING A KUKA LBR — NYUAD CTP LABS"
+            aspect="aspect-[16/10]"
+            sizes="(max-width: 1024px) 100vw, 72rem"
+            preload
+            className="border border-grid-dim"
+          />
+        </Reveal>
 
-          <Reveal delay={0.08} className="mt-10">
-            <p className="max-w-[60ch] text-text-dim">{homepageProfileBlurb}</p>
-          </Reveal>
+        <Reveal delay={0.08} className="mt-8">
+          <p className="text-text-dim">
+            {homepageProfileBlurb}
+          </p>
+        </Reveal>
 
-          <Reveal delay={0.12} className="mt-8">
-            <ActionLink href="/resume">Explore resume</ActionLink>
-          </Reveal>
-        </div>
+        <Reveal className="mt-12">
+          <div className="flex flex-col items-start gap-4 border-t border-grid-dim pt-8 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="label-mono text-text-dim">
+                {yearsOnRecord && (
+                  <span className="text-cyan">
+                    {yearsOnRecord.prefix}
+                    {yearsOnRecord.value}
+                    {yearsOnRecord.suffix}
+                  </span>
+                )}{" "}
+                years on record
+              </p>
+              <p className="mt-2 max-w-lg font-body text-sm leading-relaxed text-text-dim">
+                Experience, education, awards, and engineering expertise.
+              </p>
+            </div>
+            <ActionLink href="/resume" className="shrink-0">
+              Explore resume
+            </ActionLink>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
