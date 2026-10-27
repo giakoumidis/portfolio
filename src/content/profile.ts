@@ -6,7 +6,7 @@ export const profile = {
   location: "Abu Dhabi, UAE",
   email: "giakoumidis.nikolaos@gmail.com",
   summary:
-    "I am an engineer, researcher, and technical leader driven by curiosity, a practical instinct to build, and a deep interest in how technology shapes our future. Across 15+ years of engineering in AI, Robotics, Electronics, and Automation, I have led engineering projects, established and managed research laboratories, and brought people, resources, and technologies together to turn ideas into working systems. My leadership approach draws on a broad understanding of engineering, research, operations, and commercial priorities, combining technical involvement, collaboration, responsibility for delivery, and teaching and mentoring. Currently, at NYU Abu Dhabi's Center for Artificial Intelligence and Robotics, I lead commercialization and industry engagement, working to understand real-world challenges and bring scientific teams and industry partners together to address them. My PhD research focuses on agentic robotics and physical AI: developing software harnesses that connect AI models with physical systems, integrating low-level sensing and control with high-level reasoning, planning, and coordination. My aim is to make these capabilities applicable across industries and processes, from individual robots and machines to interconnected infrastructure and entire operational workflows. I care deeply about AI's impact on humanity and want to help shape a future in which it expands human capability, preserves our ability to make meaningful choices, and creates lasting benefits for society.",
+    "I am an engineer, researcher, and technical leader driven by curiosity, a practical instinct to build, and a deep interest in how technology shapes our future. Across 15+ years of engineering in AI, Robotics, Electronics, and Automation, I have led engineering projects, established and managed research laboratories, and brought people, resources, and technologies together to turn ideas into working systems. My leadership approach draws on a broad understanding of engineering, research, operations, and commercial priorities, combining technical involvement, collaboration, responsibility for delivery, and teaching and mentoring. Currently, at NYU Abu Dhabi's Center for Artificial Intelligence and Robotics, I lead commercialization and industry engagement, working to understand real-world challenges and bring scientific teams and industry partners together to address them. My PhD investigates modular architectures for physical AI: how agentic reasoning and orchestration can connect autonomous perception with platform-specific sensing, planning, and action across heterogeneous robotic systems. My aim is to make these capabilities applicable across industries and processes, from individual robots and machines to interconnected infrastructure and entire operational workflows. I care deeply about AI's impact on humanity and want to help shape a future in which it expands human capability, preserves our ability to make meaningful choices, and creates lasting benefits for society.",
   positioning:
     "Engineering physical AI. Connecting research and industry. Extending what people can do with intelligent machines.",
   currentRole: {
@@ -59,7 +59,7 @@ export const professionalCapabilities = [
   {
     title: "Embodied AI & cooperative robotics",
     description:
-      "Develop robot-agent frameworks that connect natural-language instructions with robot capabilities through the Robot Operating System (ROS 2) and Model Context Protocol (MCP). Current research combines model-agnostic orchestration with cooperative autonomy; longer-term work targets shared memory and capability-aware coordination between different robot platforms.",
+      "Develop modular architectures that connect agentic reasoning and orchestration with platform-specific sensing, planning, and action. Current inspection work links natural-language instructions to Boston Dynamics Spot through the Robot Operating System (ROS 2) and Model Context Protocol (MCP), building on cooperative aerial and ground robots with different sensors and mobility.",
     links: [
       { label: "Agentic Robotics Framework", href: "/projects/agentic-robotics-framework" },
       { label: "Current research direction", href: "/research#current-research" },
@@ -118,9 +118,11 @@ export const currentResearch = [
     linkLabel: "Agentic Robotics Framework",
   },
   {
-    title: "Heterogeneous embodied collective intelligence",
+    title: "Modular architectures for physical AI",
     description:
-      "My longer-term research direction asks how robots with different bodies, sensors, and capabilities can become more effective as a team. I aim to investigate shared world and task memory, capability-aware coordination, and selective communication under limited bandwidth and failures. This extends my work in cooperative robotics and my PhD focus on optimizing autonomous cooperative agents using deep reinforcement learning.",
+      "The dissertation investigates how modular architectures can connect autonomous perception, agentic reasoning, and coordinated robotic capabilities so physical tasks can be carried out on systems with different embodiments and operating constraints. It brings together autonomous surveying with complementary aerial and ground robots, collaborative data collection in which complementary robots and a human agent keep a mapping task moving, and a robot-agent harness that keeps reasoning and orchestration separate from guarded physical execution.",
+    href: "/resume#aegean-phd",
+    linkLabel: "PhD research",
   },
 ] as const;
 

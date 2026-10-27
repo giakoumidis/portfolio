@@ -115,7 +115,7 @@ export const education = [
     location: "Greece",
     period: "2023–\nExpected\ncompletion\nJanuary\n2027",
     detail:
-      "PhD research focused on autonomous cooperative robotic systems, embodied AI, and deep reinforcement learning.",
+      "Thesis: Modular Architectures for Physical AI: Agentic Reasoning and Orchestration in Heterogeneous Robotic Systems. The dissertation investigates how modular architectures can connect autonomous perception, agentic reasoning, and coordinated robotic capabilities across systems with different embodiments and operating constraints.",
   },
   {
     id: "uniwa-bsc",

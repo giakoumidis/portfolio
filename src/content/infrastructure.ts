@@ -11,14 +11,14 @@ export const infrastructureRecords: InfrastructureRecord[] = [
       src: "/models/kinesis/kinesis-lab-v2.html",
       title: "Kinesis CTP Laboratories 3D representation",
       caption: "Kinesis CTP Laboratories 3D representation",
-      credit: "Credits to Samuel Antonio Prieto",
+      credit: "Credits for 3D Model and representation: Samuel Antonio Prieto",
     },
     challenge:
       "NYU Abu Dhabi lacked a shared, reconfigurable robotics arena where drones, arms, motion capture, and immersive systems could be tested under one roof.",
     summary:
       "Kinesis is NYU Abu Dhabi’s shared platform for robotics and motion research. I led its creation from faculty requirements and facility design through procurement, construction supervision, systems integration, commissioning, and operation. Its reconfigurable arena and researcher workspace bring drones, industrial arms, motion capture, and immersive systems into one experimental facility.",
     contributionSummary:
-      "Led Kinesis from concept to operation, taking responsibility for facility design, procurement, construction supervision, systems integration, and commissioning.",
+      "Led Kinesis from concept to operation, taking responsibility for facility design, procurement, construction supervision, systems integration, commissioning, and operation of the laboratory from 2018 to 2025.",
     outcomeSummary:
       "Delivered a 17 × 6.4 × 8 m netted arena and researcher workspace, reported fully operational by May 2019, and operated it for research and institutional demonstrations.",
     highlights: [

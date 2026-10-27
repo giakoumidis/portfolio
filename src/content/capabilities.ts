@@ -5,11 +5,11 @@ export const capabilities = [
     id: "embodied-physical-ai",
     title: "Embodied & Physical AI",
     blurb:
-      "Developing model-agnostic robot-agent frameworks for natural-language inspection, alongside PhD research in cooperative autonomy and deep reinforcement learning.",
+      "Developing modular architectures for physical AI that connect agentic reasoning and orchestration with robot-specific sensing and action, including model-agnostic frameworks for natural-language inspection.",
     tags: [
       "Embodied AI",
       "Physical AI",
-      "Deep reinforcement learning",
+      "Agentic reasoning",
       "LLM/VLM workflows",
       "PyTorch",
       "Dockerized microservices",

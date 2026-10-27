@@ -24,7 +24,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Research — Nikolaos Giakoumidis",
   description:
-    "Research in cooperative robotics, perception, human–robot interaction, and autonomous inspection, with publications and acknowledged contributions.",
+    "Doctoral research on modular architectures for physical AI, with work in cooperative robotics, perception, human–robot interaction, and autonomous inspection.",
   path: "/research",
 });
 
@@ -173,9 +173,10 @@ export default async function ResearchPage({ searchParams }: PageProps) {
       <div className="mt-4 h-px w-40 bg-gradient-to-r from-cyan via-magenta to-orange" />
       <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-dim">
         My research connects cooperative robotics, perception, and human–robot
-        interaction with the engineering of experimental systems. I develop
-        robot-agent frameworks for industrial inspection and study how robots
-        with different capabilities can coordinate. My publication record spans
+        interaction with the engineering of experimental systems. My PhD
+        investigates modular architectures for physical AI: how agentic reasoning
+        and orchestration can connect autonomous perception with platform-specific
+        action across heterogeneous robotic systems. The publication record spans
         autonomous navigation, UAV perception, teleoperation, assistive robotics,
         and cooperative exploration.
       </p>

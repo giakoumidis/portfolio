@@ -2420,14 +2420,30 @@ K.start = () => {
     if (h && h.object.userData.id) openInspector(h.object.userData.id); else closeInspector();
   });
   canvas.addEventListener('dblclick', (e) => { if (K.measureTool && K.measureTool.on) return; const h = pickAt(e.offsetX, e.offsetY); if (h && h.object.userData.id) focusOn(h.object.userData.id); });
-  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !(K.measureTool && K.measureTool.on)) { closeInspector(); layerPanel.classList.remove('open'); planPanel.classList.remove('open'); } });
+  window.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || (K.measureTool && K.measureTool.on)) return;
+    const inspectorOpen = document.getElementById('inspector').classList.contains('open');
+    const layersOpen = layerPanel.classList.contains('open');
+    const planOpen = planPanel.classList.contains('open');
+    closeInspector(); layerPanel.classList.remove('open'); planPanel.classList.remove('open');
+    if (!inspectorOpen && !layersOpen && !planOpen && window.parent !== window) {
+      window.parent.postMessage({ type: 'kinesis-lab', action: 'close' }, window.location.origin);
+    }
+  });
 
   /* ---------------- tools */
   document.getElementById('th-studio').onclick = () => applyTheme('studio');
   document.getElementById('th-night').onclick = () => applyTheme('night');
   document.getElementById('md-real').onclick = () => applyMode('model');
   document.getElementById('md-ev').onclick = () => applyMode('evidence');
-  document.getElementById('btn-full').onclick = () => { if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); };
+  document.getElementById('btn-full').onclick = () => {
+    if (window.parent !== window) {
+      window.parent.postMessage({ type: 'kinesis-lab', action: 'fullscreen' }, window.location.origin);
+      return;
+    }
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+    else document.exitFullscreen?.();
+  };
   document.getElementById('btn-shot').onclick = () => { render(true); const a = document.createElement('a'); a.download = `kinesis-lab-${state.theme}-${state.view || 'view'}.png`; a.href = canvas.toDataURL('image/png'); a.click(); };
 
   /* ---------------- sizing & render */

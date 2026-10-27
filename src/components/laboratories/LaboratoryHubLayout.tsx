@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import LabSceneFrame from "@/components/laboratories/LabSceneFrame";
 import Breadcrumbs from "@/components/nav/Breadcrumbs";
 import { RelatedOutreach } from "@/components/outreach/OutreachEntries";
 import TaxonomyChip from "@/components/work/TaxonomyChip";
@@ -103,20 +104,12 @@ export default function LaboratoryHubLayout({
       </header>
 
       {record.scene && (
-        <figure className="mt-10">
-          <iframe
-            src={`${record.scene.src}?theme=night`}
-            title={record.scene.title}
-            className="h-[min(72vh,40rem)] w-full border border-grid-dim bg-[#070810]"
-            loading="eager"
-          />
-          <figcaption className="border border-t-0 border-grid-dim bg-bg/60 px-3 py-2">
-            <p className="label-mono text-text-dim">{record.scene.caption}</p>
-            <p className="mt-1.5 font-body text-sm text-text-dim">
-              {record.scene.credit}
-            </p>
-          </figcaption>
-        </figure>
+        <LabSceneFrame
+          src={record.scene.src}
+          title={record.scene.title}
+          caption={record.scene.caption}
+          credit={record.scene.credit}
+        />
       )}
 
       <SpokeScanBlock
