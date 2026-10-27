@@ -14,7 +14,7 @@ This file introduces Nikolaos Giakoumidis and guides readers and AI assistants t
 - Location: Abu Dhabi, United Arab Emirates
 - Website: https://giakoumidis.com
 - Professional experience and education: https://giakoumidis.com/resume
-- Downloadable CV: https://giakoumidis.com/cv.pdf
+- Downloadable CV: https://giakoumidis.com/Nikolaos%20Giakoumidis%20-%20CV.pdf
 
 Nikolaos has 15+ years of experience spanning engineering, research and technical leadership. He has led engineering projects, established and managed research laboratories, and brought people, resources and technologies together to turn ideas into working systems. His experience combines hands-on development with responsibility for system architecture, integration, procurement planning, operations and multidisciplinary collaboration.
 
@@ -111,7 +111,7 @@ His longer-term research direction is heterogeneous embodied collective intellig
 - [Research](https://giakoumidis.com/research): research interests, publications and publication acknowledgements. Authored or co-authored publications and acknowledgements of technical support are separate categories.
 - [Archive](https://giakoumidis.com/archive): documentary evidence, including field records, exhibitions, photographs, awards and media. Photographs that illustrate an engagement also link to that outreach record.
 - [Resume](https://giakoumidis.com/resume): professional experience, education, expertise and recognition. The RTA award and matching exhibition cards link to their outreach records.
-- [CV](https://giakoumidis.com/cv.pdf): downloadable curriculum vitae.
+- [CV](https://giakoumidis.com/Nikolaos%20Giakoumidis%20-%20CV.pdf): downloadable curriculum vitae.
 - [Google Scholar](https://scholar.google.com/citations?user=HmOOogwAAAAJ&hl=en): publication records and citation metrics.
 
 ### Outreach connected to technical records

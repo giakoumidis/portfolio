@@ -34,8 +34,15 @@ export const profile = {
   ],
 } satisfies Profile;
 
-/** Filename suggested when a visitor downloads `/cv.pdf`. */
+/** Saved filename. Desktop browsers pick this up from the download attribute and Content-Disposition. */
 export const cvDownloadFilename = `${profile.name} - CV.pdf`;
+
+/**
+ * Public path for the CV. Phones name a saved file from the last URL segment
+ * and ignore the download filename, so the path itself is the full filename.
+ * `/cv.pdf` redirects here.
+ */
+export const cvHref = `/${encodeURIComponent(cvDownloadFilename)}`;
 
 /** Evidence-linked scope for the visible profile and structured person metadata. */
 export const professionalCapabilities = [

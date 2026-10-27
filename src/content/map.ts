@@ -3,6 +3,8 @@
  * through existing pages — there is no separate map view.
  */
 
+import { cvHref } from "@/content/profile";
+
 export type MapPathId = "industry" | "research" | "recruiter";
 
 export type MapPath = {
@@ -70,7 +72,7 @@ export const mapPaths: MapPath[] = [
         label: "RTA delivery drone",
         href: "/projects/rta-dubai-delivery-drone",
       },
-      { label: "Download CV", href: "/cv.pdf" },
+      { label: "Download CV", href: cvHref },
     ],
   },
 ];

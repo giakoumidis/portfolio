@@ -7,6 +7,12 @@ export const infrastructureRecords: InfrastructureRecord[] = [
     title: "Kinesis Core Technology Platform Laboratory",
     org: "NYU Abu Dhabi · Core Technology Platforms",
     period: { startYear: 2018, endYear: 2025, label: "2018–2025" },
+    scene: {
+      src: "/models/kinesis/kinesis-lab-v2.html",
+      title: "Kinesis CTP Laboratories 3D representation",
+      caption: "Kinesis CTP Laboratories 3D representation",
+      credit: "Credits to Samuel Antonio Prieto",
+    },
     challenge:
       "NYU Abu Dhabi lacked a shared, reconfigurable robotics arena where drones, arms, motion capture, and immersive systems could be tested under one roof.",
     summary:

@@ -5,7 +5,7 @@ import { useState } from "react";
 import HudCard from "@/components/ui/HudCard";
 import NeonButton from "@/components/ui/NeonButton";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { cvDownloadFilename, profile, socialLinks } from "@/content/profile";
+import { cvDownloadFilename, cvHref, profile, socialLinks } from "@/content/profile";
 
 const SHELL_USER = "nikolaos";
 const SHELL_HOST = "portfolio";
@@ -146,7 +146,7 @@ export default function Contact() {
         </HudCard>
 
         <div className="mt-10 flex justify-center">
-          <NeonButton href="/cv.pdf" download={cvDownloadFilename} variant="magenta">
+          <NeonButton href={cvHref} download={cvDownloadFilename} variant="magenta">
             Download CV
           </NeonButton>
         </div>

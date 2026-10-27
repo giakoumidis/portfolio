@@ -490,6 +490,16 @@ export type InfrastructureRecord = {
   video?: ProjectVideo;
   images?: ProjectImage[];
   /**
+   * Interactive 3D scene shown on the laboratory hub, directly under the title.
+   * `src` is a self-contained HTML viewer under `/public`.
+   */
+  scene?: {
+    src: string;
+    title: string;
+    caption: string;
+    credit: string;
+  };
+  /**
    * When false, photos are omitted from homepage ProjectCards (keeps the
    * media facade light) and still render on the laboratory hub page.
    * Defaults to true.

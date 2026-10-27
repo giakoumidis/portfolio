@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 
-import { cvDownloadFilename } from "@/content/profile";
+import { cvDownloadFilename, cvHref } from "@/content/profile";
 import { openSearch } from "@/lib/search-events";
 
 type NavItem = {
@@ -116,7 +116,7 @@ export default function SiteHeader() {
             Search
           </button>
           <Link
-            href="/cv.pdf"
+            href={cvHref}
             className={`${utilityClass} hidden sm:inline`}
             download={cvDownloadFilename}
           >
@@ -157,7 +157,7 @@ export default function SiteHeader() {
               })}
               <li>
                 <Link
-                  href="/cv.pdf"
+                  href={cvHref}
                   download={cvDownloadFilename}
                   onClick={closeMenu}
                   className="label-mono block px-2 py-2.5 text-text-dim transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"

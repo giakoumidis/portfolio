@@ -62,7 +62,7 @@ photos live in `content-inbox/projects/`; web-ready exports go to `public/images
 wide (use `sharp`, already a dependency). Photos render through the `RoboPhoto` duotone frame
 and stack as rows in the project card's media column.
 
-The downloadable CV is `public/cv.pdf`.
+The downloadable CV is `public/Nikolaos Giakoumidis - CV.pdf`. Links use that filename in the URL so phones save it with the full name. `/cv.pdf` redirects there.
 
 > The phone number on the CV is deliberately **not** in `src/content/`. It stays only inside the
 > PDF, so it is not scrapable from the page source.

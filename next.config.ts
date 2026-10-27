@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
-import { cvDownloadFilename } from "./src/content/profile";
+import { cvDownloadFilename, cvHref } from "./src/content/profile";
 
-/** Browsers name a saved PDF from this header, not from the `/cv.pdf` URL. */
+/** Desktop browsers name a saved PDF from this header. Phones use `cvHref` instead. */
 function cvContentDisposition(filename: string) {
   return `attachment; filename="${filename}"; filename*=UTF-8''${encodeURIComponent(filename)}`;
 }
@@ -21,7 +21,7 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/cv.pdf",
+        source: cvHref,
         headers: [
           {
             key: "Content-Disposition",
@@ -67,6 +67,11 @@ const nextConfig: NextConfig = {
         source: "/profile",
         destination: "/resume",
         permanent: true,
+      },
+      {
+        source: "/cv.pdf",
+        destination: cvHref,
+        permanent: false,
       },
     ];
   },
