@@ -4,9 +4,9 @@ export const profile = {
   name: "Nikolaos Giakoumidis",
   tagline: "ROBOTICS · AI · AUTONOMOUS SYSTEMS",
   location: "Abu Dhabi, UAE",
-  email: "giakoumidis.nikolaos@gmail.com",
+  email: "giakoumidisnikolaos@gmail.com",
   summary:
-    "I am an engineer, researcher, and technical leader driven by curiosity, a practical instinct to build, and a deep interest in how technology shapes our future. Across 15+ years of engineering in AI, Robotics, Electronics, and Automation, I have led engineering projects, established and managed research laboratories, and brought people, resources, and technologies together to turn ideas into working systems. My leadership approach draws on a broad understanding of engineering, research, operations, and commercial priorities, combining technical involvement, collaboration, responsibility for delivery, and teaching and mentoring. Currently, at NYU Abu Dhabi's Center for Artificial Intelligence and Robotics, I lead commercialization and industry engagement, working to understand real-world challenges and bring scientific teams and industry partners together to address them. My PhD investigates modular architectures for physical AI: how agentic reasoning and orchestration can connect autonomous perception with platform-specific sensing, planning, and action across heterogeneous robotic systems. My aim is to make these capabilities applicable across industries and processes, from individual robots and machines to interconnected infrastructure and entire operational workflows. I care deeply about AI's impact on humanity and want to help shape a future in which it expands human capability, preserves our ability to make meaningful choices, and creates lasting benefits for society.",
+    "I am an engineer, researcher, and technical leader driven by curiosity, a practical instinct to build, and a deep interest in how technology shapes our future. Across 15+ years in AI, robotics, electronics, and automation, I have led engineering projects, established and managed research laboratories, and brought people, resources, and technologies together to turn ideas into working systems. Working across scientific, technical, institutional, and industry environments has given me a broad perspective: I navigate complex requirements, align diverse stakeholders, and translate unfamiliar problems into practical engineering solutions. At NYU Abu Dhabi's Center for Artificial Intelligence and Robotics I lead commercialization and industry engagement, and my research advances physical AI through modular architectures that connect agentic reasoning with perception, planning, and coordinated action across heterogeneous robotic systems. I care deeply about AI's impact on humanity and want to help shape a future in which it expands human capability, preserves our ability to make meaningful choices, and creates lasting benefits for society.",
   positioning:
     "Engineering physical AI. Connecting research and industry. Extending what people can do with intelligent machines.",
   currentRole: {
@@ -29,7 +29,7 @@ export const profile = {
       label: "Research assets stewarded across shared platforms",
     },
     { value: 3, label: "Major shared research platforms" },
-    { value: 30, suffix: "+", label: "Publications" },
+    { value: 31, label: "Publications" },
     { value: 4, label: "First-prize awards" },
   ],
 } satisfies Profile;

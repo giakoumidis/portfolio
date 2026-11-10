@@ -301,13 +301,14 @@ export const publications = [
 ] satisfies Publication[];
 
 /** Titles match `publications` exactly so lookups by title resolve. */
+/** Selected publications, in November 2026 CV order. Titles match `publications`. */
 export const featuredPublicationTitles: string[] = [
+  "Indoor Statistical and Deterministic RCS Characterization for ISAC Channel Modeling",
   "Arm4ch: A methodology for autonomous reality modelling for cultural heritage",
   "Multiagent robotic systems and exploration algorithms: Applications for data collection in construction sites",
-  "A novel eye-gaze-controlled wheelchair system for navigating unknown environments: case study with a person with ALS",
-  "Deep learning assisted visual tracking of evader-UAV",
   "Siamese adaptive transformer network for real-time aerial tracking",
-  "Pilot-scale development of a UAV-UGV hybrid with air-based UGV path planning",
+  "Computationally efficient RGB-t UAV detection and tracking system",
+  "A novel eye-gaze-controlled wheelchair system for navigating unknown environments: case study with a person with ALS",
 ];
 
 export const patent = {
@@ -321,5 +322,5 @@ export const totalCitations: number = publications.reduce(
   0,
 );
 
-/** Durable public-facing citation floor — avoid brittle exact totals on the homepage. */
-export const durableCitationLabel = "450+";
+/** Public citation floor from the November 2026 CV. Per-paper counts remain the last Scholar snapshot. */
+export const durableCitationLabel = "500+";

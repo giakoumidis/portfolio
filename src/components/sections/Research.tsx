@@ -16,9 +16,10 @@ import type { Publication } from "@/lib/types";
 
 const SUBJECT_SURNAME = "Giakoumidis";
 
-const featured = publications.filter((publication) =>
-  featuredPublicationTitles.includes(publication.title),
-);
+const featured = featuredPublicationTitles.flatMap((title) => {
+  const publication = publications.find((item) => item.title === title);
+  return publication ? [publication] : [];
+});
 
 const rest = publications.filter(
   (publication) => !featuredPublicationTitles.includes(publication.title),
