@@ -28,6 +28,9 @@ type SceneMessage = {
   action?: string;
 };
 
+/** Message types the embedded viewers post: the Kinesis lab model and the generic scene viewer. */
+const SCENE_MESSAGE_TYPES = new Set(["kinesis-lab", "scene-viewer"]);
+
 /**
  * Embedded lab viewer. The model's own fullscreen control, and a phone
  * rotation to landscape, open the same full-viewport viewer as photos.
@@ -69,7 +72,7 @@ export default function LabSceneFrame({
     const onMessage = (event: MessageEvent<SceneMessage>) => {
       if (event.origin !== window.location.origin) return;
       const data = event.data;
-      if (!data || data.type !== "kinesis-lab") return;
+      if (!data || !SCENE_MESSAGE_TYPES.has(data.type ?? "")) return;
       const frame = rootRef.current?.querySelector("iframe");
       if (!frame || event.source !== frame.contentWindow) return;
 

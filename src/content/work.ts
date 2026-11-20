@@ -319,6 +319,163 @@ export const workRecords: ProjectRecord[] = [
   },
   {
     type: "project",
+    slug: "hagios-spyridon-reality-model",
+    title: "Hagios Spyridon Reality Model",
+    org: "Independent research · Medieval City of Rhodes, Greece",
+    period: { startYear: 2026, label: "2026–" },
+    scene: {
+      src: "/models/hagios-spyridon/index.html",
+      title: "Hagios Spyridon real-time model",
+      caption:
+        "Hagios Spyridon · present-day state · daylight baked for the capture morning",
+      credit:
+        "Modeled, lit, and exported by the project pipeline. Orbit, fly, or walk; cut the roof away; jump to any of the original panorama stations, including the crypt.",
+    },
+    cardHook:
+      "A walkable 3D model of a 16th-century church in Rhodes, built from an exterior point cloud and 23 panoramas. Every modeled surface traces to a measurement and states its deviation from the survey.",
+    challenge:
+      "Build an accurate, real-time model of a historic church whose survey covered only the exterior, with the interior known from 360° panoramas alone.",
+    summary:
+      "Hagios Spyridon (Kavaklı Mescidi) is a domed, three-aisled Byzantine church with an Ottoman minaret in the Medieval City of Rhodes, a UNESCO World Heritage Site. The survey data, provided by my co-author Christos Anagnostopoulos, was thin: a 1.69-million-point exterior point cloud and 23 stitched 360° panoramas, with no interior scan, no camera poses, and no target coordinates. I set up a reality-modeling workflow that recovers the interior from the panoramas alone, builds a clean parametric model by carving measured spaces out of solid masonry, and scores every element against the survey it came from. An AI coding agent (Claude Code) operated the pipeline under my direction: it wrote and ran about 40 stage scripts, drove Blender live, ran the deviation checks, and kept the work log. The result is a lit, walkable model of the present-day church that runs in the browser, with stated deviations from 0.5 cm on the minaret to under 10 cm in the weakest interior regions.",
+    contributionSummary:
+      "Conceived the project, set the method and its accuracy rules, directed the AI coding agent that built and ran the pipeline, and made the modeling decisions.",
+    outcomeSummary:
+      "A walkable present-day model in the browser and per-region deviation reports: minaret shaft 0.5 cm, roofs 1.7–4.4 cm, and interior elements 1.4–8.7 cm against a panorama reference good to about 3 cm.",
+    highlights: [
+      "Interior from panoramas alone: each panorama was resampled into 16 virtual pinhole views and solved as one rigid rig. All 16 interior panoramas joined one model with 59,649 points at 1.00 px reprojection error.",
+      "Monocular panoramic depth (MoGe) became measurable through a smooth local correction anchored on each panorama’s sparse points. Held-out disagreement fell from 2–12% to 0.5–1.0%, and fusion into a 2 cm voxel grid sits a median 2.9 cm from the sparse points.",
+      "Survey targets with no coordinates still earned their place. About 100 automatic detections linked into 17 physical targets; rays to the same target miss by a median 6 mm, an independent check of the camera solve. Their white backing also served as the color reference.",
+      "The exterior was fitted, not meshed. The minaret is 39 measured rings that keep an 8 cm drift of its axis; the tiled dome fits a 2.374 m sphere at 2.6 cm RMS.",
+      "Modeled by subtraction: solid masonry with the measured spaces carved out, so wall and vault thickness follows from measurements on both sides. Every element is tagged A–D: measured, reconstructed, documented, or inferred.",
+      "A cross-check caught a 6% interior scale error. Four published room dimensions agreed within 1% but left the walls with zero thickness against the exterior scan. A weighted fit over openings seen from both sides gave a scale factor of 0.939 (leave-one-out 0.930–0.956).",
+      "Materials were calibrated on site: white balance from 92 target sightings and a measured 0.25 m course height. A render-versus-photograph loop from the same panorama station reached a color ratio of 0.97 / 0.94 / 0.97 after nine iterations.",
+      "Real-time delivery: baked lightmaps, a collision mesh, and glTF export, viewed in three.js with orbit, fly, and walk modes, a section cut, and spawn points at every original panorama station.",
+    ],
+    credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Project lead · method and direction",
+      },
+      {
+        name: "Christos Anagnostopoulos",
+        role: "Co-author · survey data (point cloud and panoramas)",
+        href: "https://scholar.google.com/citations?user=H5ikkF8AAAAJ&hl=en",
+      },
+      {
+        name: "Claude Code",
+        role: "AI coding agent · pipeline operator",
+        org: "Anthropic",
+      },
+    ],
+    facets: {
+      domains: ["sim2real-digital-twins", "perception-sensing"],
+      contributions: [
+        "conceived",
+        "designed",
+        "led",
+        "experimental-development",
+      ],
+      applications: ["cultural-heritage"],
+      methods: ["photogrammetry", "reality-modeling", "deep-learning"],
+      outcomes: ["research-capability"],
+    },
+    evidence: [
+      {
+        type: "document",
+        title: "Holistic 3D digital documentation of a Byzantine church",
+        url: "https://doi.org/10.5194/isprs-archives-XLIII-B2-2020-1363-2020",
+        note: "Anastasiou, Syrokou, Tapinaki, Georgopoulos · ISPRS Archives 2020. Prior NTUA survey of the same church, used as a published reference for room dimensions and sections.",
+        date: "2020",
+      },
+      {
+        type: "photograph",
+        title: "Real-time model, aerial view from the north-east",
+      },
+      {
+        type: "photograph",
+        title: "Real-time model, sanctuary and apse with the two-light window",
+      },
+      {
+        type: "photograph",
+        title: "Crypt panorama with the Crucifixion mural",
+      },
+      {
+        type: "photograph",
+        title: "Supplied exterior point cloud seen from the south",
+      },
+      {
+        type: "photograph",
+        title: "Interior panorama and its monocular depth",
+      },
+      {
+        type: "photograph",
+        title: "Interior plan recovered from panoramas, with camera stations",
+      },
+      {
+        type: "photograph",
+        title: "Survey targets detected automatically in the panoramas",
+      },
+      {
+        type: "photograph",
+        title: "Real versus model from the same station",
+      },
+      {
+        type: "photograph",
+        title: "Photograph, measured mesh, and model of the crossing",
+      },
+    ],
+    images: [
+      {
+        src: "/images/projects/hagios-spyridon-model-aerial.jpg",
+        alt: "Real-time model of Hagios Spyridon from the north-east: tiled roofs, the drum and dome, and the minaret rising at the south-west corner, on the excavated ground of the precinct",
+        caption: "MODEL — AERIAL, NORTH-EAST",
+      },
+      {
+        src: "/images/projects/hagios-spyridon-model-apse.jpg",
+        alt: "Real-time model interior looking east from a panorama station: barrel vaults, the semicircular apse with its two-light window, and the excavated floor, lit only through the real openings",
+        caption: "MODEL — SANCTUARY & APSE",
+      },
+      {
+        src: "/images/projects/hagios-spyridon-crypt-panorama.jpg",
+        alt: "360° panorama of the burial crypt under the north aisle, with the early 16th-century Crucifixion mural, the Virgin and St John, two kneeling donors, and coats of arms",
+        caption: "CRYPT — CRUCIFIXION MURAL",
+      },
+      {
+        src: "/images/projects/hagios-spyridon-point-cloud.jpg",
+        alt: "The supplied photogrammetric point cloud of the church seen from the south: minaret, tiled dome, roofs, neighbouring walls, and vegetation, with the regular thinning pattern visible",
+        caption: "INPUT — EXTERIOR POINT CLOUD",
+      },
+      {
+        src: "/images/projects/hagios-spyridon-panorama-depth.jpg",
+        alt: "An interior panorama above its predicted monocular depth map, blue far and red near, showing the vaults, the crossing, and the excavated floor",
+        caption: "PANORAMA — MONOCULAR DEPTH",
+      },
+      {
+        src: "/images/projects/hagios-spyridon-interior-plan.jpg",
+        alt: "Plan cut through the interior recovered from panoramas alone, with the 16 solved camera stations in green, two free piers, three aisles, and the apse",
+        caption: "INTERIOR — PLAN FROM PANORAMAS",
+        orientation: "portrait",
+      },
+      {
+        src: "/images/projects/hagios-spyridon-survey-targets.jpg",
+        alt: "Grid of survey targets detected automatically in the panoramas: large checker sheets, small checkers on white paper, and round scanner targets",
+        caption: "TARGETS — 17 LINKED, 6 MM MISS",
+      },
+      {
+        src: "/images/projects/hagios-spyridon-real-vs-model.jpg",
+        alt: "Side-by-side of the real west-bay wall from a panorama and the model rendered from the same station, with the niches and blocked doorway in matching positions and the comparison region boxed",
+        caption: "REAL VS MODEL — SAME STATION",
+      },
+      {
+        src: "/images/projects/hagios-spyridon-crossing-check.jpg",
+        alt: "Three views of the crossing and sanctuary from one station: the photograph, the measured reference mesh, and the parametric model",
+        caption: "CROSSING — PHOTO, MESH, MODEL",
+      },
+    ],
+    status: "published",
+  },
+  {
+    type: "project",
     slug: "etihad-rail-nyuad-collaboration",
     title: "Etihad Rail × NYUAD AI & Robotics Collaboration",
     org: "NYU Abu Dhabi · CAIR with Etihad Rail",

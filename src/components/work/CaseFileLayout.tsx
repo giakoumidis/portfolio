@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import Breadcrumbs from "@/components/nav/Breadcrumbs";
+import LabSceneFrame from "@/components/laboratories/LabSceneFrame";
 import LocalVideoPlayer from "@/components/ui/LocalVideoPlayer";
 import NeonButton from "@/components/ui/NeonButton";
 import RoboPhoto from "@/components/ui/RoboPhoto";
@@ -135,6 +136,15 @@ export default function CaseFileLayout({
         )}
       </header>
 
+      {record.scene && (
+        <LabSceneFrame
+          src={record.scene.src}
+          title={record.scene.title}
+          caption={record.scene.caption}
+          credit={record.scene.credit}
+        />
+      )}
+
       <SpokeScanBlock
         challenge={resolveSpokeChallenge(record.challenge, record.summary)}
         contribution={record.contributionSummary}
@@ -237,7 +247,20 @@ export default function CaseFileLayout({
               className="grid gap-1 px-4 py-3 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-6"
             >
               <div>
-                <p className="font-body text-sm text-text">{credit.name}</p>
+                <p className="font-body text-sm text-text">
+                  {credit.href ? (
+                    <a
+                      href={credit.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-cyan/40 underline-offset-4 transition-colors hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                    >
+                      {credit.name}
+                    </a>
+                  ) : (
+                    credit.name
+                  )}
+                </p>
                 {credit.org && (
                   <p className="mt-0.5 font-body text-sm text-text-dim">
                     {credit.org}

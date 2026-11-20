@@ -172,6 +172,14 @@ export const taxonomyTerms: TaxonomyTerm[] = [
     facet: "application",
     aliases: ["Facility design", "Lab establishment"],
   },
+  {
+    slug: "cultural-heritage",
+    label: "Cultural Heritage",
+    facet: "application",
+    description:
+      "Measured digital documentation and real-time models of historic buildings.",
+    aliases: ["Built heritage", "Heritage documentation"],
+  },
 
   /* ---- Platforms ---- */
   {
@@ -348,6 +356,22 @@ export const taxonomyTerms: TaxonomyTerm[] = [
     label: "Deep Learning",
     facet: "method",
     aliases: ["Deep learning", "Supervised deep learning"],
+  },
+  {
+    slug: "photogrammetry",
+    label: "Photogrammetry & SfM",
+    facet: "method",
+    description:
+      "Structure-from-motion, point clouds, and 360° panoramas turned into measured geometry.",
+    aliases: ["Structure from motion", "SfM", "Point clouds"],
+  },
+  {
+    slug: "reality-modeling",
+    label: "Reality Modeling",
+    facet: "method",
+    description:
+      "Clean parametric models fitted to survey data, with deviation reported per element.",
+    aliases: ["Scan-to-model", "Parametric modeling"],
   },
 
   /* ---- Contributions ---- */

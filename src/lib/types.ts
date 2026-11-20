@@ -413,6 +413,19 @@ export type ProjectFacets = {
 export type RecordStatus = "published" | "draft" | "needs-review";
 
 /**
+ * Interactive 3D scene shown directly under a record's title.
+ * `src` is a self-contained HTML viewer under `/public`; it posts
+ * `{ type: "kinesis-lab" | "scene-viewer", action: "fullscreen" | "close" }`
+ * to the page to open or close the full-viewport viewer.
+ */
+export type SceneEmbed = {
+  src: string;
+  title: string;
+  caption: string;
+  credit: string;
+};
+
+/**
  * Person or organization credited on a project case file.
  * Keep names full and roles precise.
  */
@@ -421,6 +434,8 @@ export type ProjectCredit = {
   /** e.g. Principal Investigator, Co-author, Industry partner */
   role?: string;
   org?: string;
+  /** Public profile (e.g. Google Scholar); the name links to it. */
+  href?: string;
 };
 
 /**
@@ -455,6 +470,8 @@ export type ProjectRecord = {
   explicitRelated?: EntityRef[];
   video?: ProjectVideo;
   images?: ProjectImage[];
+  /** Interactive 3D scene shown on the case file, directly under the title. */
+  scene?: SceneEmbed;
   /**
    * When false, photos are omitted from homepage ProjectCards (keeps the
    * media facade light) and still render on the case-file page.
@@ -489,16 +506,8 @@ export type InfrastructureRecord = {
   evidence?: EvidenceRef[];
   video?: ProjectVideo;
   images?: ProjectImage[];
-  /**
-   * Interactive 3D scene shown on the laboratory hub, directly under the title.
-   * `src` is a self-contained HTML viewer under `/public`.
-   */
-  scene?: {
-    src: string;
-    title: string;
-    caption: string;
-    credit: string;
-  };
+  /** Interactive 3D scene shown on the laboratory hub, directly under the title. */
+  scene?: SceneEmbed;
   /**
    * When false, photos are omitted from homepage ProjectCards (keeps the
    * media facade light) and still render on the laboratory hub page.

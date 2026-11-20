@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hagios Spyridon — real-time model</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* Matches the portfolio: Chakra Petch display, JetBrains Mono labels, Inter body, cyan HUD. */
+  :root {
+    --font-display: "Chakra Petch", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --font-body: Inter, ui-sans-serif, system-ui, sans-serif;
+    --accent: #00f0ff; --accent-soft: rgba(0, 240, 255, .12);
+    --ink: #e8ecf8; --ink2: #8a93b5; --ink3: #6e7694; --line: #2e2860; --line-dim: #1c1640;
+    --glass: rgba(12, 8, 32, .8); --shadow: 0 0 0 1px rgba(0, 240, 255, .08), 0 16px 40px rgba(0, 0, 0, .45);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #05040f; color: var(--ink); font: 13px/1.45 var(--font-body); -webkit-font-smoothing: antialiased; }
+  canvas { display: block; touch-action: none; outline: none; }
+  button, select, input { font: inherit; color: inherit; }
+  .glass { background: var(--glass); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); border: 1px solid var(--line-dim); box-shadow: var(--shadow); }
+  .mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+
+  #ui { position: absolute; top: 12px; left: 12px; width: min(300px, calc(100vw - 80px)); max-height: calc(100% - 24px); overflow: auto; padding: 12px 14px; z-index: 5; }
+  #ui h1 { font-family: var(--font-display); font-size: 14px; letter-spacing: .14em; text-transform: uppercase; margin: 0 28px 2px 0; }
+  #ui p { margin: 4px 0; color: var(--ink2); }
+  #ui h2 { margin: 12px 0 6px; color: var(--accent); font-weight: 700; }
+  #ui.min > *:not(h1):not(#hide) { display: none; }
+  #hide { position: absolute; top: 8px; right: 8px; }
+  select, .btn { background: rgba(5, 4, 15, .6); border: 1px solid var(--line); padding: 5px 8px; cursor: pointer; border-radius: 0; }
+  select { width: 100%; }
+  .btn:hover, select:hover { border-color: var(--accent); color: var(--accent); }
+  .btn:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .btn.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+  .row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin: 5px 0; }
+  .seg { display: flex; } .seg .btn { flex: 1; } .seg .btn + .btn { border-left: 0; }
+  input[type=range] { flex: 1; min-width: 90px; accent-color: var(--accent); }
+  .hint { font-size: 12px; color: var(--ink3); }
+  #status { color: var(--accent); }
+  #cross { position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); display: none; }
+
+  #tools { position: absolute; top: 12px; right: 12px; z-index: 6; display: flex; }
+  .icon-btn { width: 38px; height: 38px; display: grid; place-items: center; border: 0; background: transparent; color: var(--ink2); cursor: pointer; }
+  .icon-btn:hover { color: var(--accent); background: var(--accent-soft); }
+  .icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .icon-btn svg { width: 18px; height: 18px; }
+
+  /* Card sits above centre so the page's bottom scroll cue never covers the button. */
+  #gate { position: absolute; inset: 0; z-index: 10; display: grid; place-items: center; padding-bottom: 96px; background: #05040f center / cover no-repeat; }
+  #gate::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5, 4, 15, .35), rgba(5, 4, 15, .85)); }
+  #gate .card { position: relative; text-align: center; padding: 20px 22px; max-width: min(440px, calc(100vw - 32px)); }
+  #gate h2 { font-family: var(--font-display); font-size: 18px; letter-spacing: .1em; text-transform: uppercase; margin: 0 0 6px; }
+  #gate p { color: var(--ink2); margin: 0 0 14px; }
+  #load { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; padding: 10px 18px; border: 1px solid var(--accent); color: var(--accent); background: rgba(0, 240, 255, .06); cursor: pointer; box-shadow: 0 0 18px rgba(0, 240, 255, .25); }
+  #load:hover { background: rgba(0, 240, 255, .14); }
+  #load:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  #gate.busy #load { display: none; }
+  #bar { height: 2px; width: 220px; margin: 14px auto 0; background: var(--line); display: none; }
+  #bar i { display: block; height: 100%; width: 0; background: var(--accent); box-shadow: 0 0 8px var(--accent); transition: width .2s; }
+  #gate.busy #bar { display: block; }
+  #gate.done { display: none; }
+  #err { position: absolute; left: 12px; bottom: 12px; right: 12px; z-index: 11; color: #ff1744; display: none; }
+</style>
+</head>
+<body>
+<div id="gate">
+  <div class="card glass">
+    <p class="mono" style="color:var(--accent);margin-bottom:8px">Real-time model · present state</p>
+    <h2>Hagios Spyridon, Rhodes</h2>
+    <p>Modeled from the survey, lighting baked for the capture morning. Orbit, fly or walk through the church and down into the crypt.</p>
+    <button id="load" type="button">Load 3D model · 6 MB</button>
+    <div id="bar"><i></i></div>
+  </div>
+</div>
+
+<div id="ui" class="glass">
+  <button id="hide" class="icon-btn" type="button" title="Collapse panel (H)" aria-label="Collapse panel" style="width:26px;height:26px">–</button>
+  <h1>Hagios Spyridon</h1>
+  <p>Present state · baked daylight, 8 May 10:30</p>
+
+  <h2 class="mono">Views</h2>
+  <div class="row"><select id="view" aria-label="Viewpoint"></select></div>
+  <div class="row"><button id="tour" class="btn" type="button">▶ Start tour</button><span class="hint">T · any key stops it</span></div>
+
+  <h2 class="mono">Navigate</h2>
+  <div class="seg" id="modes" role="group" aria-label="Navigation mode"><button class="btn" type="button" data-m="orbit">Orbit</button><button class="btn" type="button" data-m="fly">Fly</button><button class="btn" type="button" data-m="walk">Walk</button></div>
+  <p id="help" class="hint"></p>
+  <div class="row" id="flyspeed">Fly speed <input id="spd" type="range" min="0.5" max="20" step="0.5" value="4" aria-label="Fly speed"><span id="spdv">4 m/s</span></div>
+
+  <h2 class="mono">Section</h2>
+  <div class="row"><button id="roof" class="btn" type="button">Remove roof</button><span class="hint">R</span></div>
+  <div class="row">Cut <input id="cut" type="range" step="0.05" aria-label="Section height"><span id="cutv"></span></div>
+
+  <h2 class="mono">Display</h2>
+  <div class="row">Brightness <input id="ev" type="range" min="-3" max="3" step="0.25" value="0" aria-label="Brightness"><span id="evv">0 EV</span></div>
+  <p id="status" class="mono">Waiting</p>
+</div>
+
+<div id="tools" class="glass">
+  <button class="icon-btn" id="btn-full" type="button" title="Full screen" aria-label="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button>
+</div>
+<div id="cross"></div>
+<div id="err" class="mono"></div>
+
+<script>
+  addEventListener('error', e => { const el = document.getElementById('err'); el.style.display = 'block'; el.textContent = 'Viewer error: ' + (e.message || e); });
+  addEventListener('unhandledrejection', e => { const el = document.getElementById('err'); el.style.display = 'block'; el.textContent = 'Viewer error: ' + (e.reason && e.reason.message || e.reason); });
+  // Full screen and Esc: hand off to the portfolio page when embedded (same protocol as the Kinesis model).
+  const post = action => window.parent.postMessage({ type: 'scene-viewer', action }, window.location.origin);
+  document.getElementById('btn-full').onclick = () => {
+    if (window.parent !== window) { post('fullscreen'); return; }
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.();
+  };
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !document.pointerLockElement && window.parent !== window) post('close'); });
+  document.getElementById('gate').style.backgroundImage = 'url(poster.jpg)';
+</script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+  "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.7.0/build/index.module.js"
+} }
+</script>
+<script type="module">
+  // The model is about 6 MB over the wire, so it loads only when asked (or with ?autoload / ?shot).
+  const Q = new URLSearchParams(location.search), start = () => import('./viewer.js');
+  if (Q.has('autoload') || Q.has('shot')) start(); else document.getElementById('load').onclick = start;
+</script>
+</body>
+</html>
