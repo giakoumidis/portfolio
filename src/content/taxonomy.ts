@@ -358,6 +358,14 @@ export const taxonomyTerms: TaxonomyTerm[] = [
     aliases: ["Deep learning", "Supervised deep learning"],
   },
   {
+    slug: "reinforcement-learning",
+    label: "Reinforcement Learning",
+    facet: "method",
+    description:
+      "Policies trained in simulation through reward, curriculum, and large parallel rollouts.",
+    aliases: ["RL", "PPO", "Locomotion learning"],
+  },
+  {
     slug: "photogrammetry",
     label: "Photogrammetry & SfM",
     facet: "method",

@@ -476,6 +476,116 @@ export const workRecords: ProjectRecord[] = [
   },
   {
     type: "project",
+    slug: "spot-rough-terrain-locomotion",
+    title: "Spot Rough-Terrain Locomotion",
+    org: "Simulation study",
+    period: { startYear: 2026, label: "2026" },
+    cardHook:
+      "A terrain-aware walking policy for Boston Dynamics Spot, trained with reinforcement learning in Isaac Lab as a step toward legged robots that survey heritage sites over rough ground.",
+    challenge:
+      "A legged robot surveying a heritage site must cross the loose, uneven, sloped, and stepped ground the survey leads it onto, at the speed it is asked for, including standing still.",
+    summary:
+      "Archaeological and heritage sites are surveyed again and again: patrolled, inspected, and documented in three dimensions, usually over uneven and overgrown ground with steps, slopes, rubble, and excavation edges. A wheeled platform covers paved paths and a drone sees roofs and upper walls, but a quadruped can carry its sensors right up to a monument across ground that neither can work on. That only pays off if the robot can move reliably where the survey needs it and at the speed the task asks. This study looks at that movement layer: learning a walking skill for Boston Dynamics Spot in simulation that uses what the robot senses about the ground ahead. I extended Isaac Lab's Spot task so the policy reads a height map of the terrain in front of it and four foot-contact signals alongside its body state, and trained it with PPO in the Newton physics engine. A curriculum took it through rough ground, blocks, slopes, and stairs, with commands covering standing, reverse, sideways, turning, and forward motion up to 1.6 m/s on easier ground. Choosing a policy was treated as a measurement problem: nine checkpoints were compared on a fixed suite of 50 conditions, and two finalists were re-tested on held-out seeds. The training terrain is generic rather than modelled on a particular site, and the work has not yet been run on the physical robot.",
+    contributionSummary:
+      "Designed the sensing, reward, termination, and evaluation setup, trained the policies, and selected the final checkpoint from a controlled comparison.",
+    outcomeSummary:
+      "The selected policy holds about 1.5 m/s when commanded 1.6 m/s, follows slow commands closely, completes 57.6% of harder-terrain runs on held-out tests, and drifts 0.049 m/s when told to stand still.",
+    highlights: [
+      "Why heritage sites: survey ground is rarely flat or paved, and the places worth documenting are often reached over steps, slopes, and rubble. A quadruped that can walk there carries cameras and scanners closer to the monument than wheels can.",
+      "Seeing the ground ahead: a 1.6 × 1.0 m grid of 187 height samples turns with the robot and updates at 50 Hz, with sensor noise added during training.",
+      "Feeling the feet: four filtered foot-contact signals tell the policy which legs are on the ground.",
+      "Swing height measured from the terrain: each airborne foot is rewarded for clearing the ground directly beneath it by about 10 cm, not a fixed world height, which matters on slopes and stairs.",
+      "Ending a run only on a real fall: a run ends on sustained body contact or tilt beyond 60°. A leg brushing a step does not, so the policy learns to recover.",
+      "Training at scale: 512 simulated robots in parallel, with the policy sending 12 joint commands at 50 Hz on a 2 ms physics step.",
+      "Choosing by evidence: nine checkpoints were compared across standing, seven forward speeds, reverse, sideways, turning, speed changes, and three rough-terrain difficulties. A second checkpoint moves more smoothly and finishes slightly more hard terrain but tracks commands less well, so it is kept as an alternative.",
+      "Limits and next steps: at the hardest tested difficulty both finalists complete about a third of runs, and the height map is idealised. Terrain modelled on real sites and transfer to the physical robot come next.",
+    ],
+    credits: [
+      {
+        name: "Nikolaos Giakoumidis",
+        role: "Design, training, and evaluation",
+      },
+    ],
+    facets: {
+      domains: ["embodied-physical-ai", "sim2real-digital-twins"],
+      contributions: ["conceived", "designed", "built", "experimental-development"],
+      applications: ["cultural-heritage"],
+      platforms: ["boston-dynamics-spot"],
+      methods: ["reinforcement-learning", "deep-learning"],
+      outcomes: ["research-capability"],
+    },
+    evidence: [
+      {
+        type: "video",
+        title: "Selected policy walking slow, fast, turning, reversing, and on stairs",
+      },
+      {
+        type: "photograph",
+        title: "Selected policy climbing steps in simulation",
+      },
+      {
+        type: "photograph",
+        title: "Held-out comparison of the two finalist policies",
+      },
+      {
+        type: "photograph",
+        title: "Trade-offs across nine checkpoints",
+      },
+    ],
+    video: {
+      provider: "local",
+      src: "/videos/projects/spot-rough-terrain/spot-rough-terrain-montage.mp4",
+      title:
+        "Spot in simulation: slow walk, 1.6 m/s, turn in place, reverse, and stairs",
+      poster: "/images/projects/spot-rough-terrain-poster.jpg",
+    },
+    images: [
+      {
+        src: "/images/projects/spot-rough-terrain-stairs.jpg",
+        alt: "Simulated Boston Dynamics Spot stepping between flights of ascending and descending stairs on the generated training terrain",
+        caption: "SIM — STAIRS AT 0.5 M/S",
+      },
+      {
+        src: "/images/projects/spot-rough-terrain-fast.jpg",
+        alt: "Simulated Spot in a diagonal trot, side view, commanded at 1.6 m/s and holding about 1.5 m/s",
+        caption: "SIM — TROT AT 1.6 M/S COMMAND",
+      },
+      {
+        src: "/images/projects/spot-rough-terrain-turn.jpg",
+        alt: "Simulated Spot turning in place, front view, under a pure yaw-rate command",
+        caption: "SIM — TURN IN PLACE",
+      },
+      {
+        src: "/images/projects/spot-rough-terrain-architecture.jpg",
+        alt: "Diagram of the control loop: velocity command and terrain limit feed 239 observations (48 state, 187 heights, 4 contacts) into a 512/256/128 PPO actor, which sends 12 joint-position actions at 50 Hz to the Newton MuJoCo Warp simulation",
+        caption: "CONTROL LOOP — 239 INPUTS",
+      },
+      {
+        src: "/images/projects/spot-rough-terrain-checkpoint-tradeoffs.jpg",
+        alt: "Two scatter plots of nine checkpoints: hard-terrain completion against body bounce, and tracking error against standing drift, with checkpoint 10300 the only policy that keeps the reference skills",
+        caption: "NINE CHECKPOINTS — TRADE-OFFS",
+      },
+      {
+        src: "/images/projects/spot-rough-terrain-holdout-summary.jpg",
+        alt: "Bar charts comparing finalists 10300 and 7750 on held-out seeds: hard-terrain completion 57.6 versus 60.4 percent, body bounce 0.140 versus 0.110 m/s, standing drift 0.049 versus 0.069 m/s",
+        caption: "FINALISTS — HELD-OUT TESTS",
+      },
+      {
+        src: "/images/projects/spot-rough-terrain-speed-tracking.jpg",
+        alt: "Commanded versus achieved forward speed for both finalists on flat and mild terrain, from reverse up to 1.6 m/s",
+        caption: "SPEED TRACKING",
+      },
+      {
+        src: "/images/projects/spot-rough-terrain-terrain-completion.jpg",
+        alt: "Bar chart of run completion on harder rough terrain: about 87 percent at difficulty 0.4 and 0.5 m/s, falling to about a third at difficulty 0.7",
+        caption: "HARD TERRAIN — COMPLETION",
+      },
+    ],
+    imagesOnIndex: false,
+    status: "published",
+  },
+  {
+    type: "project",
     slug: "etihad-rail-nyuad-collaboration",
     title: "Etihad Rail × NYUAD AI & Robotics Collaboration",
     org: "NYU Abu Dhabi · CAIR with Etihad Rail",
